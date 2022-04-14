@@ -44,7 +44,7 @@
   > 소중한 날을 기념하여 자신 또는 가족, 친구, 지인, 연인분께 직접 꾸민 어드벤트 스페셜데이를 선물해보세요
 
 
-  - 노션 : [어스](https://www.notion.so/233191af396f4354a629fe7b39bae698)
+  - 노션 : [어스](https://butter-innocent-113.notion.site/Make-our-special-233191af396f4354a629fe7b39bae698)
 
 - 서비스 특징
 
