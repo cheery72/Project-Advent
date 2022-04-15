@@ -13,3 +13,16 @@
   - ex) feat/FE/main/navbar
 - Merge rule
   - FE, BE 각 파트별로 코드리뷰 후 Merge
+- naming rule - 커밋 메시지
+  - ex) feat: (FE/BE) (pagename) (기능 추가/조회/수정/삭제)
+  - ex) feat: FE main navbar 추가
+  - pagename
+    - main (메인 페이지)
+    - sendbox (보낸 보관함)
+    - write_period (기간 작성 페이지)
+    - write (작성 페이지)
+    - write_detail (작성상세 페이지)
+    - write_wrap (포장지 선택)
+    - anniversary (기념일선택&패스워드)
+    - present (받는사람 페이지)
+    - present_detail (받는 사람 상세 페이지)
