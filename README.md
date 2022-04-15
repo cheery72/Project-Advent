@@ -17,15 +17,15 @@
 
 ## 카테고리
 
-| Application                       | Domain                                | Language                      | Framework                            |
-| --------------------------------- | ------------------------------------- | ----------------------------- | ------------------------------------ |
-| :white_check_mark: Desktop Web    | :black_square_button: AI              | :white_check_mark: JavaScript | :black_square_button: Vue.js         |
-| :white_check_mark:  Mobile Web    | :white_check_mark: Big Data           | :white_check_mark: TypeScript | :white_check_mark: React             |
-| :white_check_mark: Responsive Web | :black_square_button: Blockchain      | :black_square_button: C/C++   | :black_square_button: Angular        |
-| :black_square_button: Android App | :black_square_button: IoT             | :black_square_button: C#      | :black_square_button: Node.js        |
-| :black_square_button: iOS App     | :black_square_button: AR/VR/Metaverse | :black_square_button: Python  | :black_square_button: Flask/Django   |
-| :black_square_button: Desktop App | :black_square_button: Game            | :white_check_mark: Java       | :white_check_mark: Spring/Springboot |
-|                                   |                                       | :black_square_button: Kotlin  | :white_check_mark: Next.js           |
+| Application                       | Language                      | Framework                            |
+| --------------------------------- | ----------------------------- | ------------------------------------ |
+| :white_check_mark: Desktop Web    | :white_check_mark: JavaScript | :black_square_button: Vue.js         |
+| :white_check_mark: Mobile Web     | :white_check_mark: TypeScript | :white_check_mark: React             |
+| :white_check_mark: Responsive Web | :black_square_button: C/C++   | :black_square_button: Angular        |
+| :black_square_button: Android App | :black_square_button: C#      | :black_square_button: Node.js        |
+| :black_square_button: iOS App     | :black_square_button: Python  | :black_square_button: Flask/Django   |
+| :black_square_button: Desktop App | :white_check_mark: Java       | :white_check_mark: Spring/Springboot |
+|                                   | :black_square_button: Kotlin  | :white_check_mark: Next.js           |
 
 [프론트엔드 학습내용](/문서/FRONTEND.md)  
 [백엔드 학습내용](/문서/BACKEND.md)
@@ -178,6 +178,8 @@
   - [기술스택](/문서/기술스택/README.md)
   
   - [ERD-설계](/문서/ERD-설계/README.md)
+  
+  - [팀규칙](/문서/팀규칙/README.md)
   
     
   
