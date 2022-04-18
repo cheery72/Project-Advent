@@ -1,12 +1,16 @@
 package com.ssafy.adventsvr.entity;
 
 import com.ssafy.adventsvr.payload.request.AdventDayRequest;
+import com.ssafy.adventsvr.payload.request.AdventPrivateRequest;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +31,7 @@ public class Advent extends BaseTimeEntity{
 
     private Integer day;
 
-//    @Column(nullable = false, columnDefinition = "tinyint default 0")
+    @Column(nullable = false, columnDefinition = "tinyint default 0")
     private boolean isReceived;
 
     @Column(updatable = false)
@@ -37,7 +41,7 @@ public class Advent extends BaseTimeEntity{
 
     private String passwordHint;
 
-    private LocalDateTime endAt;
+    private LocalDate endAt;
 
     private Integer userId;
 
@@ -52,7 +56,7 @@ public class Advent extends BaseTimeEntity{
     }
 
     @Builder
-    private Advent(Integer id, String randomUrl, Integer day, String recipientName, boolean isReceived, LocalDateTime receivedAt, String password, String passwordHint, LocalDateTime endAt, Integer userId, List<AdventBox> adventBoxes) {
+    private Advent(Integer id, String randomUrl, Integer day, String recipientName, boolean isReceived, LocalDateTime receivedAt, String password, String passwordHint, LocalDate endAt, Integer userId, List<AdventBox> adventBoxes) {
         this.id = id;
         this.randomUrl = randomUrl;
         this.day = day;
@@ -64,5 +68,12 @@ public class Advent extends BaseTimeEntity{
         this.endAt = endAt;
         this.userId = userId;
         this.adventBoxes = adventBoxes;
+    }
+
+    public void setAdventPrivateInfoModify(AdventPrivateRequest adventPrivateRequest){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        this.password = adventPrivateRequest.getPassword();
+        this.passwordHint = adventPrivateRequest.getPasswordHint();
+        this.endAt = LocalDate.parse(adventPrivateRequest.getEndAt(),formatter);
     }
 }

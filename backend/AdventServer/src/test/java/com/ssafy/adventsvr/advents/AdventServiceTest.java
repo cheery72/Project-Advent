@@ -2,6 +2,7 @@ package com.ssafy.adventsvr.advents;
 
 import com.ssafy.adventsvr.entity.Advent;
 import com.ssafy.adventsvr.payload.request.AdventDayRequest;
+import com.ssafy.adventsvr.payload.request.AdventPrivateRequest;
 import com.ssafy.adventsvr.payload.response.AdventDayResponse;
 import com.ssafy.adventsvr.repository.AdventRepository;
 import com.ssafy.adventsvr.service.AdventService;
@@ -15,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
-@ActiveProfiles("test")
+//@ActiveProfiles("test")
 public class AdventServiceTest {
 
     @Autowired
@@ -38,4 +39,19 @@ public class AdventServiceTest {
         assertEquals(adventDayRequest.getDay(),advent.getDay());
     }
 
+    @Test
+    public void modifyPrivateInfoAdvent(){
+        // Given
+        AdventPrivateRequest adventPrivateRequest = new AdventPrivateRequest(
+                1,1,"2022.04.19",
+                "2022.04.19","기념일","2022-04-19");
+
+        // When
+        adventService.modifyPrivateInfoAdvent(adventPrivateRequest);
+        Advent advent = adventRepository.findById(adventPrivateRequest.getAdventId()).get();
+
+        assertEquals(adventPrivateRequest.getPassword(),advent.getPassword());
+
+        // Then
+    }
 }
