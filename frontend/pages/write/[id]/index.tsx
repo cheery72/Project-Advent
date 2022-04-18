@@ -5,6 +5,7 @@ import { Grid, Button, Image } from "semantic-ui-react";
 export default function WritePresent(){
 
     const router = useRouter()
+    console.log(router)
 
     function edit(number: Number) {
         router.push(`/write/testid/${number}`)
