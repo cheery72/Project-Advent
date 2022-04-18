@@ -24,8 +24,11 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
     show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
   jackson:
     property-naming-strategy: SNAKE_CASE
 
