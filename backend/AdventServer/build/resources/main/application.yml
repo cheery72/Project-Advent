@@ -26,6 +26,9 @@ spring:
     hibernate:
       ddl-auto: create
     show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
   jackson:
     property-naming-strategy: SNAKE_CASE
 
