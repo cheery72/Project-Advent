@@ -26,9 +26,6 @@ public class AdventServiceImpl implements AdventService{
     @Transactional
     @Override
     public AdventDayResponse inputDayAdvent(AdventDayRequest adventDayRequest) {
-//        Optional<Advent> optionalAdvent = adventRepository.findByUserId(adventDayRequest.getUserId());
-//        Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
-
         Advent advent = Advent.adventBuilder(adventDayRequest);
 
         return AdventDayResponse.builder()
@@ -39,8 +36,10 @@ public class AdventServiceImpl implements AdventService{
     @Transactional
     // Todo: POST 비밀번호, 힌트, 기념일 설정 페이지 작성
     @Override
-    public Integer inputPrivateInfoAdvent(AdventPrivateRequest adventPrivateRequest) {
-        return null;
+    public void modifyPrivateInfoAdvent(AdventPrivateRequest adventPrivateRequest) {
+        Optional<Advent> optionalAdvent = adventRepository.findById(adventPrivateRequest.getAdventId());
+        Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
+        advent.setAdventPrivateInfoModify(adventPrivateRequest);
 
     }
 

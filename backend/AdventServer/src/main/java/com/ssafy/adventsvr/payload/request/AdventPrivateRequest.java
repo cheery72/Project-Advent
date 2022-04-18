@@ -3,6 +3,8 @@ package com.ssafy.adventsvr.payload.request;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
@@ -18,13 +20,14 @@ public class AdventPrivateRequest {
     private Integer userId;
 
     @NotNull
-    private Integer password;
+    private String password;
 
     @NotNull
-    private Integer passwordVal;
+    private String passwordVal;
 
     private String passwordHint;
 
-    private LocalDateTime dDay;
+    @NotBlank
+    private String endAt;
 
 }

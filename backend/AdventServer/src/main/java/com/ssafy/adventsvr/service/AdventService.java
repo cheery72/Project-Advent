@@ -11,7 +11,7 @@ public interface AdventService {
 
     AdventDayResponse inputDayAdvent(AdventDayRequest adventDayRequest);
 
-    Integer inputPrivateInfoAdvent(AdventPrivateRequest adventPrivateRequest);
+    void modifyPrivateInfoAdvent(AdventPrivateRequest adventPrivateRequest);
 
     AdventReceiveResponse findReceiveUrlAdvent(String url, Integer password);
 
