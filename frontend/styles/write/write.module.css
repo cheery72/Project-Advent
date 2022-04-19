@@ -1,0 +1,34 @@
+.box {
+    background-color: blanchedalmond;
+}
+
+.oneopen {
+    width: 70%;
+    height: 50px;
+}
+
+.onewrap {
+    width: 100%;
+    height: 50px;
+}
+
+.threeopen {
+    width: 70%;
+    height: 50px;
+}
+
+.threewrap {
+    width: 100%;
+    height: 50px;
+}
+
+.sevenopen {
+    padding: 100px;
+    width: 70%;
+    height: 50px;
+}
+
+.sevenwrap {
+    width: 100%;
+    height: 50px;
+}
