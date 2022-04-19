@@ -19,8 +19,6 @@ spring:
   profiles:
     include:
       - oauth
-      - aws
-      - credentials
   jackson:
     property-naming-strategy: SNAKE_CASE
 
