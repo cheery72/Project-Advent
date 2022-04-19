@@ -13,19 +13,22 @@ export default function Navbar(){
     const router = useRouter()
 
     useEffect(() => {
-        localStorage.token ? 
-        setIsLogin(true)
-        :
-        setIsLogin(false)    
+        if (localStorage.token) { 
+            setIsLogin(true) 
+        } else {
+            setIsLogin(false)
+        }    
     }, []);
 
     function logout() {
         localStorage.removeItem("token")
         setIsLogin(false)
-        return (router.pathname !== "/") ? (
-            router.push('/') &&
+        if (router.pathname !== "/") {
+            router.push('/')
             alert('정상적으로 로그아웃되었습니다. 메인으로 이동합니다.')
-        ) :  alert('정상적으로 로그아웃되었습니다.')
+        } else {
+            alert('정상적으로 로그아웃되었습니다.')
+        }
     }
 
     return(
