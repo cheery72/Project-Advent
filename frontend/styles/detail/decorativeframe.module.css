@@ -1,0 +1,31 @@
+.tabs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.tablist {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.tabhead {
+    padding: 10px 10px 7px 10px;
+    cursor: pointer;
+    border-bottom: 2px solid rgb(219, 219, 219);
+}
+
+.selecttab {
+    padding:  10px 10px 7px 10px;
+    border-bottom: 2px solid black;
+    font-weight: bolder;
+}
+
+.tabcontent {
+    margin: 30px;
+}

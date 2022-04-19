@@ -1,7 +1,18 @@
 .buttonbetween {
-margin-bottom: 10px;
+    margin-bottom: 10px;
+    text-align: center;
 }
 
 .listbetween {
     margin-top: 30px;
     }
+
+.cancelbutton {
+    text-align: center;
+}
+
+.presentdetailhead {
+    margin: 30px;
+    text-align: center;
+    font-size: 20px;
+}
