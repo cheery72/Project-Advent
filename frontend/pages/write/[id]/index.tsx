@@ -1,6 +1,4 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
-import { Grid, Button, Image } from "semantic-ui-react";
 import Dayone from "../../../src/component/write/dayone";
 import Dayseven from "../../../src/component/write/dayseven";
 import Daythree from "../../../src/component/write/daythree";
