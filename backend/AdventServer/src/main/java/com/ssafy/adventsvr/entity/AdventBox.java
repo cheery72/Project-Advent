@@ -1,6 +1,8 @@
 package com.ssafy.adventsvr.entity;
 
+import com.ssafy.adventsvr.payload.request.AdventBoxRequest;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
@@ -32,4 +34,22 @@ public class AdventBox extends BaseTimeEntity{
     @JoinColumn(name = "advent_id")
     private Advent advent;
 
+    public static AdventBox adventBoxBuilder(AdventBoxRequest adventBoxRequest, Advent advent, String imageUrl){
+        return AdventBox.builder()
+                .adventDay(adventBoxRequest.getAdventDay())
+                .advent(advent)
+                .content(imageUrl)
+                .build();
+    }
+
+    @Builder
+    public AdventBox(Integer id, String content, boolean isTemp, LocalDateTime activeAt, Integer adventDay, String wrapper, Advent advent) {
+        this.id = id;
+        this.content = content;
+        this.isTemp = isTemp;
+        this.activeAt = activeAt;
+        this.adventDay = adventDay;
+        this.wrapper = wrapper;
+        this.advent = advent;
+    }
 }

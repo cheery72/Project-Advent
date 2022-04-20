@@ -31,7 +31,11 @@ spring:
         format_sql: true
   jackson:
     property-naming-strategy: SNAKE_CASE
-
+  profiles:
+    include:
+      - aws
+      - credentials
 logging:
   level.org.springframework: info
   level.org.springframework.web: info
+  level.com.amazonaws.util.EC2MetadataUtils: error
