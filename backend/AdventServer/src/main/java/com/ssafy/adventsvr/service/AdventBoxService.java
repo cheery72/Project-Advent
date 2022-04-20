@@ -7,11 +7,13 @@ import com.ssafy.adventsvr.payload.response.AdventBoxDayResponse;
 import com.ssafy.adventsvr.payload.response.AdventBoxDetailResponse;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 public interface AdventBoxService {
 
     AdventBoxDayResponse inputBoxAdventBox(AdventBoxRequest adventBoxRequest, MultipartFile file);
 
-    Integer modifyBoxAdventBox(AdventBoxModifyRequest adventBoxModifyRequest);
+    void modifyBoxAdventBox(Integer boxId, MultipartFile file);
 
     Integer modifyWrapperAdventBox(AdventBoxWrapperRequest adventBoxWrapperRequest);
 

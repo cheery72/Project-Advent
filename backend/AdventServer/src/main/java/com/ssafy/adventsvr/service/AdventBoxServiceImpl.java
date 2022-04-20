@@ -14,6 +14,7 @@ import com.ssafy.adventsvr.payload.response.AdventBoxDetailResponse;
 import com.ssafy.adventsvr.repository.AdventBoxRepository;
 import com.ssafy.adventsvr.repository.AdventRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -21,8 +22,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
@@ -50,6 +57,7 @@ public class AdventBoxServiceImpl implements AdventBoxService {
         Optional<Advent> optionalAdvent = adventRepository.findById(adventBoxRequest.getAdventId());
 
         String imageUrl = null;
+
         if(!file.isEmpty()){
             imageUrl = awsFile(file);
         }
@@ -65,8 +73,17 @@ public class AdventBoxServiceImpl implements AdventBoxService {
     // Todo: PUT box 수정
     @Transactional
     @Override
-    public Integer modifyBoxAdventBox(AdventBoxModifyRequest adventBoxModifyRequest) {
-        return null;
+    public void modifyBoxAdventBox(Integer boxId, MultipartFile file) {
+        Optional<AdventBox> optionalAdventBox= adventBoxRepository.findById(boxId);
+        AdventBox adventBox = optionalAdventBox.orElseThrow(NoSuchElementException::new);
+
+        // Todo: 기존 이미지 검증
+        String imageUrl;
+        if(!file.isEmpty()) {
+            imageUrl = awsFile(file);
+            adventBox.setAdventBoxContentModify(imageUrl);
+        }
+
     }
 
     // Todo: PUT box 포장지 수정
