@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -43,7 +42,7 @@ public class AdventServiceImpl implements AdventService{
 
     }
 
-    // Todo: GET 비밀번호 작성시 해당 url 받는 게시글 조회
+    // Todo: POST 비밀번호 작성시 해당 url 받는 게시글 조회
     @Override
     public AdventReceiveResponse findReceiveUrlAdvent(String url, Integer password) {
         return null;
@@ -56,9 +55,14 @@ public class AdventServiceImpl implements AdventService{
     }
 
     // Todo: DELETE 게시글 삭제
+    @Transactional
     @Override
-    public Integer deleteAdvent(Integer userId, Integer id) {
-        return null;
+    public void deleteAdvent(Integer userId, Integer adventId) {
+        Optional<Advent> optionalAdvent = adventRepository.findById(adventId);
+        Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
 
+        if(advent.getUserId().equals(userId)){
+            adventRepository.deleteById(advent.getId());
+        }
     }
 }

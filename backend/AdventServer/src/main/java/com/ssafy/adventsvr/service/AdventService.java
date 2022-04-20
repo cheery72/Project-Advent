@@ -17,5 +17,5 @@ public interface AdventService {
 
     Page<AdventStorageResponse> findMyStorageAdvent(Integer userId);
 
-    Integer deleteAdvent(Integer userId, Integer id);
+    void deleteAdvent(Integer userId, Integer adventId);
 }
