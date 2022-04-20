@@ -4,10 +4,13 @@ import com.ssafy.adventsvr.payload.request.AdventDayRequest;
 import com.ssafy.adventsvr.payload.request.AdventPrivateRequest;
 import com.ssafy.adventsvr.payload.response.AdventDayResponse;
 import com.ssafy.adventsvr.service.AdventService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
@@ -38,7 +41,7 @@ public class AdventController {
     }
 
     @ApiOperation(value = "password 및 기간 설정", notes = "패스워드, 힌트, 기간 설정")
-    @PostMapping("/days")
+    @PutMapping("/days")
     public ResponseEntity<Object> adventPrivateInfoModfiy(@RequestBody @Valid AdventPrivateRequest adventPrivateRequest) {
         log.info("adventPrivateInfoModfiy");
 
@@ -52,6 +55,18 @@ public class AdventController {
 
         adventService.modifyPrivateInfoAdvent(adventPrivateRequest);
         return ResponseEntity.noContent().build();
+    }
+
+    @ApiOperation(value = "보관함 페이지", notes = "해당 유저 보관함 페이지")
+    @GetMapping("/{userId}")
+    public ResponseEntity<Page> adventMyStorageFind(@PageableDefault(size=5, sort ="createAt",
+                                                                    direction = Sort.Direction.DESC) Pageable pageable,
+                                                                @PathVariable("userId") Integer userId){
+        log.info("advent");
+
+        return ResponseEntity
+                .ok()
+                .body(adventService.findMyStorageAdvent(pageable,userId));
     }
 
     @ApiOperation(value = "선물 삭제", notes = "해당 유저 선물 삭제")

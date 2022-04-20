@@ -1,6 +1,7 @@
 package com.ssafy.adventsvr.service;
 
 import com.ssafy.adventsvr.entity.Advent;
+import com.ssafy.adventsvr.payload.request.AdventCertifyRequest;
 import com.ssafy.adventsvr.payload.request.AdventDayRequest;
 import com.ssafy.adventsvr.payload.request.AdventPrivateRequest;
 import com.ssafy.adventsvr.payload.response.AdventDayResponse;
@@ -9,6 +10,7 @@ import com.ssafy.adventsvr.payload.response.AdventStorageResponse;
 import com.ssafy.adventsvr.repository.AdventRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.NoSuchElementException;
@@ -44,13 +46,21 @@ public class AdventServiceImpl implements AdventService{
 
     // Todo: POST 비밀번호 작성시 해당 url 받는 게시글 조회
     @Override
-    public AdventReceiveResponse findReceiveUrlAdvent(String url, Integer password) {
+    public AdventReceiveResponse findReceiveUrlAdvent(AdventCertifyRequest adventCertifyRequest) {
+        Optional<Advent> optionalAdvent = adventRepository.findByUrl(adventCertifyRequest.getUrl());
+        Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
+//        if(advent.getPassword().equals(adventCertifyRequest.getPassword())){
+//        }
+
         return null;
     }
 
     // Todo: GET 보관함 페이지
     @Override
-    public Page<AdventStorageResponse> findMyStorageAdvent(Integer userId) {
+    public Page<AdventStorageResponse> findMyStorageAdvent(Pageable pageable, Integer userId) {
+        Optional<Page<Advent>> optionalAdvent = adventRepository.findPageByUserId(pageable,userId);
+        Page<Advent> advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
+        System.out.println("1");
         return null;
     }
 

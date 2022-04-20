@@ -25,11 +25,14 @@ public class Advent extends BaseTimeEntity{
     @Column(name = "advent_id")
     private Integer id;
 
-    private String randomUrl;
+    private String url;
 
     private String recipientName;
 
     private Integer day;
+
+    @Column(nullable = false, columnDefinition = "tinyint default 0")
+    private boolean isPassword;
 
     @Column(nullable = false, columnDefinition = "tinyint default 0")
     private boolean isReceived;
@@ -56,9 +59,9 @@ public class Advent extends BaseTimeEntity{
     }
 
     @Builder
-    private Advent(Integer id, String randomUrl, Integer day, String recipientName, boolean isReceived, LocalDateTime receivedAt, String password, String passwordHint, LocalDate endAt, Integer userId, List<AdventBox> adventBoxes) {
+    private Advent(Integer id, String url, Integer day, String recipientName, boolean isReceived, LocalDateTime receivedAt, String password, String passwordHint, LocalDate endAt, Integer userId, List<AdventBox> adventBoxes) {
         this.id = id;
-        this.randomUrl = randomUrl;
+        this.url = url;
         this.day = day;
         this.recipientName = recipientName;
         this.isReceived = isReceived;
