@@ -35,7 +35,7 @@ export default function Navbar() {
     
     return(
         <nav className={ styles.menuContainer }>
-            <ToastContainer autoClose={100000}/> {/* react tostify 알람 모달 -> 하나만 있어도 됨 */} 
+            <ToastContainer /> {/* react tostify 알람 모달 -> 하나만 있어도 됨 */} 
 
             {/* burger menu */}
             <input type="checkbox" aria-label="Toggle menu" />
