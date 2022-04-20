@@ -2,7 +2,6 @@ package com.ssafy.adventsvr.service;
 
 import com.ssafy.adventsvr.payload.request.AdventCertifyRequest;
 import com.ssafy.adventsvr.payload.request.AdventDayRequest;
-import com.ssafy.adventsvr.payload.request.AdventNotPasswordRequest;
 import com.ssafy.adventsvr.payload.request.AdventPrivateRequest;
 import com.ssafy.adventsvr.payload.response.AdventDayResponse;
 import com.ssafy.adventsvr.payload.response.AdventReceiveResponse;

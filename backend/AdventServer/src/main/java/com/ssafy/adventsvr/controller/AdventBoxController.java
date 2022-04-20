@@ -1,7 +1,6 @@
 package com.ssafy.adventsvr.controller;
 
 import com.ssafy.adventsvr.payload.request.AdventBoxRequest;
-import com.ssafy.adventsvr.payload.request.AdventBoxWrapperRequest;
 import com.ssafy.adventsvr.payload.response.AdventBoxDayResponse;
 import com.ssafy.adventsvr.payload.response.AdventBoxDetailResponse;
 import com.ssafy.adventsvr.service.AdventBoxService;
@@ -68,5 +67,15 @@ public class AdventBoxController {
         return ResponseEntity
                 .ok()
                 .body(adventBoxService.findDetailAdventBox(boxId));
+    }
+
+    @ApiOperation(value = "박스 열리는 날짜 수정 크론탭", notes = "박스 열리는 날짜 수정")
+    @PatchMapping("/days")
+    public ResponseEntity<Object> adventBoxDaysModify(){
+        log.info("adventBoxDaysModify");
+
+        adventBoxService.modifyDaysAdventBox();
+
+        return ResponseEntity.noContent().build();
     }
 }

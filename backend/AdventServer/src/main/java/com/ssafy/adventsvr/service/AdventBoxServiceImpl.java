@@ -30,6 +30,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -107,6 +108,24 @@ public class AdventBoxServiceImpl implements AdventBoxService {
                 .boxId(adventBox.getId())
                 .content(adventBox.getContent())
                 .build();
+    }
+
+    // Todo: 크론탭
+    @Override
+    public void modifyDaysAdventBox() {
+        Optional<List<Advent>> optionalAdvent = adventRepository.findListAll();
+        List<Advent> advents = optionalAdvent.orElseThrow(NoSuchElementException::new);
+
+        for (Advent advent :advents) {
+            Optional<List<AdventBox>> optionalAdventBoxes = adventBoxRepository.findAllByAdventId(advent.getId());
+            List<AdventBox> adventBoxList = optionalAdventBoxes.orElseThrow(NoSuchElementException::new);
+            for (AdventBox adventbox:adventBoxList) {
+                LocalDate localDate = LocalDate.now();
+                if(adventbox.getActiveAt() != null && adventbox.getActiveAt() == localDate){
+                    adventbox.setAdventIsActiveModify();
+                }
+            }
+        }
     }
 
     private String awsFile(MultipartFile file) {

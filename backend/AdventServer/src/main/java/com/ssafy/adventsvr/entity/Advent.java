@@ -7,10 +7,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,8 +71,7 @@ public class Advent extends BaseTimeEntity{
         this.adventBoxes = adventBoxes;
     }
 
-    public void setAdventPrivateInfoModify(AdventPrivateRequest adventPrivateRequest, String url){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    public void setAdventPrivateInfoModify(AdventPrivateRequest adventPrivateRequest, String url, LocalDate localDate){
         if(adventPrivateRequest.getPassword() != null){
             this.password = adventPrivateRequest.getPassword();
             this.passwordHint = adventPrivateRequest.getPasswordHint();
@@ -83,7 +80,7 @@ public class Advent extends BaseTimeEntity{
             this.isPassword = false;
         }
 
-        this.endAt = LocalDate.parse(adventPrivateRequest.getEndAt(),formatter);
+        this.endAt = localDate;
         this.url = url;
     }
 
