@@ -12,13 +12,8 @@ import javax.validation.constraints.NotNull;
 public class AdventBoxModifyRequest {
 
     @NotNull
-    private Integer userId;
-
-    @NotNull
     private Integer adventId;
 
     @NotNull
     private Integer boxId;
-
-    private MultipartFile content;
 }
