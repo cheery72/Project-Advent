@@ -12,7 +12,7 @@ export default function Daythree(){
     }
 
     function writeWrap(number: Number) {
-        router.push(`/write/${id}/wrap/${number}`)
+        router.push({ pathname: `/write/${id}/wrap/${number}`, query: { day: `${3}`} })
     }
 
     function writeAniversary(){
@@ -33,14 +33,15 @@ export default function Daythree(){
                 <Grid.Row>
                     <Grid.Column width={3}/>
                     <Grid.Column width={3} className={ styles.box }>
-                        <div >
+                        <div>
                             <Header as="h3" textAlign="left" style={{ padding: "10%" }}>D-2</Header>
-                            <Button className={styles.threeopen} color="pink" onClick={()=>{writeDetail(1)}}>열기</Button>
+                            <Button className={styles.threeopen} color="pink" onClick={()=>{ writeDetail(1) }}>열기</Button>
                             <br /><br />
-                            <Button className={styles.threewrap} color="pink" onClick={()=>{writeWrap(1)}}>포장지 선택</Button>
+                            <Button className={styles.threewrap} color="pink" onClick={()=>{ writeWrap(1) }}>포장지 선택</Button>
                             <br /><br />
                         </div>
                     </Grid.Column>
+                    
                     <Grid.Column width={3} />
                 </Grid.Row>
                 <Grid.Row>
@@ -48,9 +49,9 @@ export default function Daythree(){
                     <Grid.Column width={3} className={ styles.box }>
                         <div>
                             <Header as="h3" textAlign="left" style={{ padding: "10%" }}>D-1</Header>
-                            <Button className={styles.threeopen} color="pink" onClick={()=>{writeDetail(2)}}>열기</Button>
+                            <Button className={styles.threeopen} color="pink" onClick={()=>{ writeDetail(2) }}>열기</Button>
                             <br /><br />
-                            <Button className={styles.threewrap} color="pink" onClick={()=>{writeWrap(2)}}>포장지 선택</Button>
+                            <Button className={styles.threewrap} color="pink" onClick={()=>{ writeWrap(2) }}>포장지 선택</Button>
                             <br /><br />
                         </div>
                     </Grid.Column>
@@ -58,14 +59,15 @@ export default function Daythree(){
                     <Grid.Column width={3} className={ styles.box }>
                         <div>
                             <Header as="h3" textAlign="left" style={{ padding: "10%" }}>D-day</Header>
-                            <Button className={styles.threeopen} color="pink" onClick={()=>{writeDetail(3)}}>열기</Button>
+                            <Button className={styles.threeopen} color="pink" onClick={()=>{ writeDetail(3) }}>열기</Button>
                             <br /><br />
-                            <Button className={styles.threewrap} color="pink" onClick={()=>{writeWrap(3)}}>포장지 선택</Button>
+                            <Button className={styles.threewrap} color="pink" onClick={()=>{ writeWrap(3) }}>포장지 선택</Button>
                             <br /><br />
                         </div>
                     </Grid.Column>
                     <Grid.Column width={2}/>
                 </Grid.Row>
+                <Grid.Row></Grid.Row>
             </Grid>
         </>
     );

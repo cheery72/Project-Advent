@@ -12,7 +12,7 @@ export default function Dayone(){
     }
 
     function writeWrap(number: Number) {
-        router.push(`/write/${id}/wrap/${number}`)
+        router.push({ pathname: `/write/${id}/wrap/${number}`, query: { day: `${1}`} })
     }
 
     function writeAniversary(){
@@ -32,11 +32,11 @@ export default function Dayone(){
 
                 <Grid.Row>
                     <Grid.Column width={5}/>
-                    <GridColumn textAlign="center" width={6}>
-                        <div className={ styles.box }>
+                    <GridColumn textAlign="center" width={6} className={ styles.box }>
+                        <div>
                             <Header as="h3" textAlign="left" style={{ padding: "5%" }}>D-day</Header>
                             <br />
-                            <Button className={ styles.oneopen } color="pink" onClick={()=>{writeDetail(1)}}>열기</Button>
+                            <Button className={ styles.oneopen } color="pink" onClick={()=>{ writeDetail(1) }}>열기</Button>
                             <br /><br /><br />
                             <Button className={ styles.onewrap } color="pink" onClick={()=>{writeWrap(1)}}>포장지 선택</Button>
                             <br /><br />

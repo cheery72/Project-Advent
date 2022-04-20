@@ -12,7 +12,7 @@ export default function Dayseven(){
     }
 
     function writeWrap(number: Number) {
-        router.push(`/write/${id}/wrap/${number}`)
+        router.push({ pathname: `/write/${id}/wrap/${number}`, query: { day: `${7}`} })
     }
 
     function writeAniversary(){
