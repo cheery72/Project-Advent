@@ -17,5 +17,4 @@ public class AdventBoxWrapperRequest {
 
     private String recipientName;
 
-    private Map<Integer, MultipartFile> wrapper;
 }

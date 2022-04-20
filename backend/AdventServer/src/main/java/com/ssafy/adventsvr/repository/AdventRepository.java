@@ -1,13 +1,15 @@
 package com.ssafy.adventsvr.repository;
 
 import com.ssafy.adventsvr.entity.Advent;
+import com.ssafy.adventsvr.repository.querydsl.AdventRepositoryCustom;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
-public interface AdventRepository extends JpaRepository<Advent,Integer> {
+public interface AdventRepository extends JpaRepository<Advent,Integer>, AdventRepositoryCustom {
     Optional<Advent> findByUrl(String url);
-    Optional<Page<Advent>> findAllByUserId(Pageable pageable, Integer userId);
+    Optional<List<Advent>> findAllByUserId(Pageable pageable, Integer userId);
 }
