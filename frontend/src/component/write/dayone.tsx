@@ -1,38 +1,39 @@
 import { useRouter } from "next/router";
-import { Button, Grid, GridColumn, Header } from "semantic-ui-react";
+import { Button, Grid, Header } from "semantic-ui-react";
 import styles from "../../../styles/write/write.module.css"
 
 export default function Dayone(){
 
     const router = useRouter()
     const id = router.query.id
+    const { Row, Column } = Grid
 
-    function writeDetail(number: Number) {
-        router.push(`/write/${id}/${number}`)
+    const writeDetail = (number: Number) => {
+        router.push({ pathname: `/write/${id}/${number}`, query: { day: `${1}`}})
     }
-
-    function writeWrap(number: Number) {
+    
+    const writeWrap = (number: Number) => {
         router.push({ pathname: `/write/${id}/wrap/${number}`, query: { day: `${1}`} })
     }
 
-    function writeAniversary(){
+    const writeAniversary = () => {
         router.push(`/write/${id}/anniversary`)
     }
 
     return(
         <>
             <Grid stackable centered>
-                <Grid.Row />
-                <Grid.Row>
-                    <Grid.Column width={13} />
-                    <Grid.Column width={3} textAlign="center">
+                <Row />
+                <Row>
+                    <Column width={13} />
+                    <Column width={3} textAlign="center">
                         <Button color="blue" onClick={writeAniversary}>개봉일 설정</Button>
-                    </Grid.Column>
-                </Grid.Row>
+                    </Column>
+                </Row>
 
-                <Grid.Row>
-                    <Grid.Column width={5}/>
-                    <GridColumn textAlign="center" width={6} className={ styles.box }>
+                <Row>
+                    <Column width={5}/>
+                    <Column textAlign="center" width={6} className={ styles.box }>
                         <div>
                             <Header as="h3" textAlign="left" style={{ padding: "5%" }}>D-day</Header>
                             <br />
@@ -42,9 +43,9 @@ export default function Dayone(){
                             <br /><br />
                             <br /><br />
                         </div>
-                    </GridColumn>
-                    <Grid.Column width={5}/>
-                </Grid.Row>
+                    </Column>
+                    <Column width={5}/>
+                </Row>
             </Grid>
         </>
     );
