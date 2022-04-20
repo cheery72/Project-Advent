@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { Button, Grid, Header } from "semantic-ui-react";
 import styles from "../../../styles/write/write.module.css"
+import Title from "./title";
 
 export default function Dayseven(){
 
@@ -22,10 +23,8 @@ export default function Dayseven(){
 
     return(
         <>
+            <Title id={id} day={7}/>
             <Grid textAlign="center" stackable>
-                <Row />
-                <Row />
-
                 <Row>
                     <Column width={13} />
                     <Column width={3} textAlign="center">

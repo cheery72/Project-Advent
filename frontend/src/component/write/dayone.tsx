@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { Button, Grid, Header } from "semantic-ui-react";
 import styles from "../../../styles/write/write.module.css"
+import Title from "./title";
 
 export default function Dayone(){
 
@@ -22,8 +23,8 @@ export default function Dayone(){
 
     return(
         <>
+            <Title id={id} day={1}/>
             <Grid stackable centered>
-                <Row />
                 <Row>
                     <Column width={13} />
                     <Column width={3} textAlign="center">

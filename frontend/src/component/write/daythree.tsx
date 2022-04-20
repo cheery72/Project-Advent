@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { Button, Grid, Header } from "semantic-ui-react";
 import styles from "../../../styles/write/write.module.css"
+import Title from "./title";
 
 export default function Daythree(){
 
@@ -22,9 +23,8 @@ export default function Daythree(){
 
     return(
         <>
+            <Title id={id} day={3}/>
             <Grid textAlign="center" stackable>
-                <Row />
-                <Row />
                 <Row>
                     <Column width={13} />
                     <Column width={3}>
@@ -68,7 +68,6 @@ export default function Daythree(){
                     </Column>
                     <Column width={2}/>
                 </Row>
-                <Row></Row>
             </Grid>
         </>
     );
