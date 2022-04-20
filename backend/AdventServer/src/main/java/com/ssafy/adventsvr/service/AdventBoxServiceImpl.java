@@ -90,8 +90,11 @@ public class AdventBoxServiceImpl implements AdventBoxService {
     // Todo: PUT box 포장지 수정
     @Transactional
     @Override
-    public void modifyWrapperAdventBox(AdventBoxWrapperRequest adventBoxWrapperRequest) {
-//        Optional<List<AdventBox> optionalAdventBoxes = adventBoxRepository.findAllById(a)
+    public void modifyWrapperAdventBox(Integer adventId, AdventBoxWrapperRequest adventBoxWrapperRequest) {
+        Optional<List<AdventBox>> optionalAdventBoxes = adventBoxRepository.findAllByAdventId(adventId);
+        List<AdventBox> adventBoxList = optionalAdventBoxes.orElseThrow(NoSuchElementException::new);
+
+        System.out.println();
     }
 
     // Todo: GET box detail 조회

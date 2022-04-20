@@ -73,10 +73,22 @@ public class Advent extends BaseTimeEntity{
         this.adventBoxes = adventBoxes;
     }
 
-    public void setAdventPrivateInfoModify(AdventPrivateRequest adventPrivateRequest){
+    public void setAdventPrivateInfoModify(AdventPrivateRequest adventPrivateRequest, String url){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        this.password = adventPrivateRequest.getPassword();
-        this.passwordHint = adventPrivateRequest.getPasswordHint();
+        if(adventPrivateRequest.getPassword() != null){
+            this.password = adventPrivateRequest.getPassword();
+            this.passwordHint = adventPrivateRequest.getPasswordHint();
+            this.isPassword = true;
+        }else{
+            this.isPassword = false;
+        }
+
         this.endAt = LocalDate.parse(adventPrivateRequest.getEndAt(),formatter);
+        this.url = url;
+    }
+
+    public void setAdventIsReceivedModify(){
+        this.receivedAt = LocalDateTime.now();
+        this.isReceived = true;
     }
 }

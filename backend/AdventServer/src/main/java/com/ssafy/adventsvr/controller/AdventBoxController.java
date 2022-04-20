@@ -1,6 +1,7 @@
 package com.ssafy.adventsvr.controller;
 
 import com.ssafy.adventsvr.payload.request.AdventBoxRequest;
+import com.ssafy.adventsvr.payload.request.AdventBoxWrapperRequest;
 import com.ssafy.adventsvr.payload.response.AdventBoxDayResponse;
 import com.ssafy.adventsvr.payload.response.AdventBoxDetailResponse;
 import com.ssafy.adventsvr.service.AdventBoxService;
@@ -13,6 +14,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -44,6 +46,16 @@ public class AdventBoxController {
         log.info("adventBoxContentModify");
 
         adventBoxService.modifyBoxAdventBox(boxId,file);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @ApiOperation(value = "선물 포장지 수정", notes = "포장지 수정")
+    @PatchMapping("/{adventId}/{recipientName}")
+    public ResponseEntity<Object> adventBoxWrapperModify(@PathVariable("adventId") Integer adventId,
+                                                         @PathVariable("recipientName") String recipientName,
+                                                         @RequestPart Map<Integer,MultipartFile> files){
+        log.info("adventBoxWrapperModify");
 
         return ResponseEntity.noContent().build();
     }
