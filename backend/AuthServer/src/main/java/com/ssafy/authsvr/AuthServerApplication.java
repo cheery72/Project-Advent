@@ -11,7 +11,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 		CorsProperties.class,
 		AppProperties.class
 })
-//@EnableDiscoveryClient
+@EnableDiscoveryClient
 @SpringBootApplication
 public class AuthServerApplication {
 
