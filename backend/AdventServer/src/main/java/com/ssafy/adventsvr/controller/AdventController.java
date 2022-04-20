@@ -4,6 +4,7 @@ import com.ssafy.adventsvr.payload.request.AdventDayRequest;
 import com.ssafy.adventsvr.payload.request.AdventPrivateRequest;
 import com.ssafy.adventsvr.payload.response.AdventDayResponse;
 import com.ssafy.adventsvr.service.AdventService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,9 +38,9 @@ public class AdventController {
     }
 
     @ApiOperation(value = "password 및 기간 설정", notes = "패스워드, 힌트, 기간 설정")
-    @PutMapping
-    public ResponseEntity<Object> adventPrivateInfoModify(@RequestBody @Valid AdventPrivateRequest adventPrivateRequest) {
-        log.info("adventPrivateInfoModify");
+    @PostMapping("/days")
+    public ResponseEntity<Object> adventPrivateInfoModfiy(@RequestBody @Valid AdventPrivateRequest adventPrivateRequest) {
+        log.info("adventPrivateInfoModfiy");
 
         if(!adventPrivateRequest.getPasswordVal().equals(adventPrivateRequest.getPassword())){
             return ResponseEntity.badRequest().build();
@@ -50,6 +51,17 @@ public class AdventController {
         }
 
         adventService.modifyPrivateInfoAdvent(adventPrivateRequest);
+        return ResponseEntity.noContent().build();
+    }
+
+    @ApiOperation(value = "선물 삭제", notes = "해당 유저 선물 삭제")
+    @DeleteMapping("/{userId}/{adventId}")
+    public ResponseEntity<Object> adventDelete(@PathVariable(value = "userId") Integer userId,
+                                               @PathVariable(value = "adventId") Integer adventId){
+        log.info("adventDelete");
+
+        adventService.deleteAdvent(userId, adventId);
+
         return ResponseEntity.noContent().build();
     }
 }
