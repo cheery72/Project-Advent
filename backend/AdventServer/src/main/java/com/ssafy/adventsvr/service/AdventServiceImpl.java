@@ -4,12 +4,8 @@ import com.ssafy.adventsvr.entity.Advent;
 import com.ssafy.adventsvr.entity.AdventBox;
 import com.ssafy.adventsvr.payload.request.AdventCertifyRequest;
 import com.ssafy.adventsvr.payload.request.AdventDayRequest;
-import com.ssafy.adventsvr.payload.request.AdventNotPasswordRequest;
 import com.ssafy.adventsvr.payload.request.AdventPrivateRequest;
-import com.ssafy.adventsvr.payload.response.AdventDayResponse;
-import com.ssafy.adventsvr.payload.response.AdventReceiveResponse;
-import com.ssafy.adventsvr.payload.response.AdventStorageResponse;
-import com.ssafy.adventsvr.payload.response.AdventUrlResponse;
+import com.ssafy.adventsvr.payload.response.*;
 import com.ssafy.adventsvr.repository.AdventBoxRepository;
 import com.ssafy.adventsvr.repository.AdventRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +15,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -32,7 +29,7 @@ public class AdventServiceImpl implements AdventService{
     private final AdventRepository adventRepository;
     private final AdventBoxRepository adventBoxRepository;
 
-    // Todo: POST 1,3,7 클릭시 게시글 생성
+    // Todo: POST 1,3,7 클릭시 게시글 생성 - ok
     @Transactional
     @Override
     public AdventDayResponse inputDayAdvent(AdventDayRequest adventDayRequest) {
@@ -51,14 +48,22 @@ public class AdventServiceImpl implements AdventService{
         Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
         // 기존에 디비에 있는지 확인해야함
         String url = RandomStringUtils.randomAlphanumeric(15);
-        advent.setAdventPrivateInfoModify(adventPrivateRequest,url);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.parse(adventPrivateRequest.getEndAt(),formatter);
+        advent.setAdventPrivateInfoModify(adventPrivateRequest,url,localDate);
 
+        Optional<List<AdventBox>> optionalAdventBoxes  = adventBoxRepository.findAllByAdventId(advent.getId());
+        List<AdventBox> adventBoxList = optionalAdventBoxes.orElseThrow(NoSuchElementException::new);
+        for (AdventBox adventbox :adventBoxList) {
+            adventbox.setAdventBoxActiveAtModify(localDate,advent.getDay(),adventbox);
+        }
         return AdventUrlResponse.builder()
                 .url(url)
                 .build();
     }
 
-    // Todo: POST 비밀번호 작성시 해당 url 받는 게시글 조회
+    @Transactional
+    // Todo: POST 비밀번호 인증시 게시글 조회 - no
     @Override
     public AdventReceiveResponse findReceiveUrlAdvent(AdventCertifyRequest adventCertifyRequest) {
         Optional<Advent> optionalAdvent = adventRepository.findByUrl(adventCertifyRequest.getUrl());
@@ -67,17 +72,28 @@ public class AdventServiceImpl implements AdventService{
         if(advent.getPassword().equals(adventCertifyRequest.getPassword())){
            Optional<List<AdventBox>> optionalAdventBoxes  =adventBoxRepository.findAllByAdventId(advent.getId());
            List<AdventBox> adventBoxList = optionalAdventBoxes.orElseThrow(NoSuchElementException::new);
+           List<AdventBoxListResponse> adventBoxListResponse = AdventBoxListResponse.adventBoxListBuilder(adventBoxList);
            advent.setAdventIsReceivedModify();
+
+           // 날짜됐을시 활성화
+            for (AdventBox adventbox:adventBoxList) {
+                LocalDate localDate = LocalDate.now();
+                if(adventbox.getActiveAt() != null && adventbox.getActiveAt() == localDate){
+                    adventbox.setAdventIsActiveModify();
+                }
+            }
+
             return AdventReceiveResponse.builder()
                     .adventId(advent.getId())
                     .recipientName(advent.getRecipientName())
-                    .adventBoxList(adventBoxList)
+                    .adventBoxList(adventBoxListResponse)
                     .build();
         }
-
+        // 널 말고 예외 처리
         return null;
     }
 
+    // Todo: 패스워드 설정 안돼있을시에 - ok
     @Override
     public AdventReceiveResponse findReceiveNotPasswordUrlAdvent(String url) {
         Optional<Advent> optionalAdvent = adventRepository.findByUrl(url);
@@ -85,16 +101,26 @@ public class AdventServiceImpl implements AdventService{
 
         Optional<List<AdventBox>> optionalAdventBoxes  =adventBoxRepository.findAllByAdventId(advent.getId());
         List<AdventBox> adventBoxList = optionalAdventBoxes.orElseThrow(NoSuchElementException::new);
+        List<AdventBoxListResponse> adventBoxListResponse = AdventBoxListResponse.adventBoxListBuilder(adventBoxList);
         advent.setAdventIsReceivedModify();
+
+        // 날짜됐을시 활성화
+        for (AdventBox adventbox:adventBoxList) {
+            LocalDate localDate = LocalDate.now();
+            if(adventbox.getActiveAt() != null && adventbox.getActiveAt() == localDate){
+                adventbox.setAdventIsActiveModify();
+            }
+        }
 
         return AdventReceiveResponse.builder()
                 .adventId(advent.getId())
                 .recipientName(advent.getRecipientName())
-                .adventBoxList(adventBoxList)
+                .adventBoxList(adventBoxListResponse)
                 .build();
 
     }
 
+    // Todo: 보관함 페이지에서 수정 눌렀을때 조회 - ok
     @Override
     public AdventReceiveResponse findAdvent(Integer adventId) {
         Optional<Advent> optionalAdvent = adventRepository.findById(adventId);
@@ -102,16 +128,17 @@ public class AdventServiceImpl implements AdventService{
 
         Optional<List<AdventBox>> optionalAdventBoxes  =adventBoxRepository.findAllByAdventId(adventId);
         List<AdventBox> adventBoxList = optionalAdventBoxes.orElseThrow(NoSuchElementException::new);
+        List<AdventBoxListResponse> adventBoxListResponse = AdventBoxListResponse.adventBoxListBuilder(adventBoxList);
 
         return AdventReceiveResponse.builder()
                 .adventId(adventId)
                 .recipientName(advent.getRecipientName())
-                .adventBoxList(adventBoxList)
+                .adventBoxList(adventBoxListResponse)
                 .build();
     }
 
 
-    // Todo: GET 보관함 페이지
+    // Todo: GET 보관함 페이지 - ok
     @Override
     public Page<AdventStorageResponse> findMyStorageAdvent(Pageable pageable, Integer userId) {
         Optional<List<Advent>> optionalAdvent = adventRepository.findAllByUserId(pageable,userId);
@@ -121,7 +148,7 @@ public class AdventServiceImpl implements AdventService{
         return new PageImpl<>(advents,pageable,advent.size());
     }
 
-    // Todo: DELETE 게시글 삭제
+    // Todo: DELETE 게시글 삭제 - no
     @Transactional
     @Override
     public void deleteAdvent(Integer userId, Integer adventId) {

@@ -1,11 +1,8 @@
 package com.ssafy.adventsvr.payload.response;
 
-import com.ssafy.adventsvr.entity.AdventBox;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Getter
 @NoArgsConstructor

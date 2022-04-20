@@ -1,13 +1,12 @@
 package com.ssafy.adventsvr.entity;
 
-import com.ssafy.adventsvr.payload.request.AdventBoxModifyRequest;
 import com.ssafy.adventsvr.payload.request.AdventBoxRequest;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Table(name = "advent_box")
 @Getter
@@ -23,9 +22,10 @@ public class AdventBox extends BaseTimeEntity{
     private String content;
 
     @Column(nullable = false, columnDefinition = "tinyint default 0")
-    private boolean isTemp;
+    private boolean isActive;
 
-    private LocalDateTime activeAt;
+    private LocalDate activeAt;
+
 
     private Integer adventDay;
 
@@ -44,10 +44,10 @@ public class AdventBox extends BaseTimeEntity{
     }
 
     @Builder
-    private AdventBox(Integer id, String content, boolean isTemp, LocalDateTime activeAt, Integer adventDay, String wrapper, Advent advent) {
+    private AdventBox(Integer id, String content, boolean isActive, LocalDate activeAt, Integer adventDay, String wrapper, Advent advent) {
         this.id = id;
         this.content = content;
-        this.isTemp = isTemp;
+        this.isActive = isActive;
         this.activeAt = activeAt;
         this.adventDay = adventDay;
         this.wrapper = wrapper;
@@ -56,5 +56,13 @@ public class AdventBox extends BaseTimeEntity{
 
     public void setAdventBoxContentModify(String imageUrl){
         this.content = imageUrl;
+    }
+
+    public void setAdventBoxActiveAtModify(LocalDate endAt,Integer day, AdventBox adventBox){
+        this.activeAt = endAt.minusDays(day-adventBox.getAdventDay());
+    }
+
+    public void setAdventIsActiveModify(){
+        this.isActive = true;
     }
 }

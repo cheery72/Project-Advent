@@ -1,11 +1,8 @@
 package com.ssafy.adventsvr.payload.response;
 
-import com.ssafy.adventsvr.entity.AdventBox;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import java.util.List;
 
 @Getter
@@ -14,10 +11,10 @@ public class AdventReceiveResponse {
 
     private Integer adventId;
     private String recipientName;
-    private List<AdventBox> adventBoxList;
+    private List<AdventBoxListResponse> adventBoxList;
 
     @Builder
-    public AdventReceiveResponse(Integer adventId, String recipientName, List<AdventBox> adventBoxList) {
+    public AdventReceiveResponse(Integer adventId, String recipientName, List<AdventBoxListResponse> adventBoxList) {
         this.adventId = adventId;
         this.recipientName = recipientName;
         this.adventBoxList = adventBoxList;
