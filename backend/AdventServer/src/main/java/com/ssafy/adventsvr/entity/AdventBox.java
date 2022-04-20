@@ -24,9 +24,9 @@ public class AdventBox extends BaseTimeEntity{
 
     private LocalDateTime activeAt;
 
-    private String wrapper;
-
     private Integer adventDay;
+
+    private String wrapper;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "advent_id")
