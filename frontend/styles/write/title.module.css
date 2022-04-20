@@ -1,0 +1,8 @@
+.title {
+    cursor: pointer;
+    border-bottom: 1px solid black;
+}
+
+.inline {
+    display: inline;
+}
