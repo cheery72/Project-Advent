@@ -58,7 +58,7 @@ public class AdventServiceImpl implements AdventService{
     // Todo: GET 보관함 페이지
     @Override
     public Page<AdventStorageResponse> findMyStorageAdvent(Pageable pageable, Integer userId) {
-        Optional<Page<Advent>> optionalAdvent = adventRepository.findPageByUserId(pageable,userId);
+        Optional<Page<Advent>> optionalAdvent = adventRepository.findAllByUserId(pageable,userId);
         Page<Advent> advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
         System.out.println("1");
         return null;

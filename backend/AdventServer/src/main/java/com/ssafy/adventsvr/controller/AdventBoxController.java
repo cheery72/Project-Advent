@@ -2,19 +2,17 @@ package com.ssafy.adventsvr.controller;
 
 import com.ssafy.adventsvr.payload.request.AdventBoxRequest;
 import com.ssafy.adventsvr.payload.response.AdventBoxDayResponse;
+import com.ssafy.adventsvr.payload.response.AdventBoxDetailResponse;
 import com.ssafy.adventsvr.service.AdventBoxService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.validation.Valid;
-import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
@@ -50,5 +48,13 @@ public class AdventBoxController {
         return ResponseEntity.noContent().build();
     }
 
+    @ApiOperation(value = "선물 박스 디테일 정보", notes = "선물 박스 상세 정보 조회")
+    @GetMapping("/{boxId}")
+    public ResponseEntity<AdventBoxDetailResponse> adventBoxDetailFind(@PathVariable(value = "boxId") Integer boxId){
+        log.info("adventBoxDetailFind");
 
+        return ResponseEntity
+                .ok()
+                .body(adventBoxService.findDetailAdventBox(boxId));
+    }
 }
