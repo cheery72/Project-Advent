@@ -15,7 +15,7 @@ public interface AdventBoxService {
 
     void modifyBoxAdventBox(Integer boxId, MultipartFile file);
 
-    Integer modifyWrapperAdventBox(AdventBoxWrapperRequest adventBoxWrapperRequest);
+    void modifyWrapperAdventBox(AdventBoxWrapperRequest adventBoxWrapperRequest);
 
-    AdventBoxDetailResponse findDetailAdventBox(Integer userId, Integer adventId, Integer day);
+    AdventBoxDetailResponse findDetailAdventBox(Integer adventId);
 }

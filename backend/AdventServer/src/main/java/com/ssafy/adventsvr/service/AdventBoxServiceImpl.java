@@ -30,6 +30,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
@@ -89,14 +90,20 @@ public class AdventBoxServiceImpl implements AdventBoxService {
     // Todo: PUT box 포장지 수정
     @Transactional
     @Override
-    public Integer modifyWrapperAdventBox(AdventBoxWrapperRequest adventBoxWrapperRequest) {
-        return null;
+    public void modifyWrapperAdventBox(AdventBoxWrapperRequest adventBoxWrapperRequest) {
+//        Optional<List<AdventBox> optionalAdventBoxes = adventBoxRepository.findAllById(a)
     }
 
     // Todo: GET box detail 조회
     @Override
-    public AdventBoxDetailResponse findDetailAdventBox(Integer userId, Integer adventId, Integer day) {
-        return null;
+    public AdventBoxDetailResponse findDetailAdventBox(Integer adventId) {
+        Optional<AdventBox> optionalAdventBox = adventBoxRepository.findById(adventId);
+        AdventBox adventBox = optionalAdventBox.orElseThrow(NoSuchElementException::new);
+
+        return AdventBoxDetailResponse.builder()
+                .boxId(adventBox.getId())
+                .content(adventBox.getContent())
+                .build();
     }
 
     private String awsFile(MultipartFile file) {

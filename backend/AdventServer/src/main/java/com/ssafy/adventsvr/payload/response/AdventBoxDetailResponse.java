@@ -1,6 +1,7 @@
 package com.ssafy.adventsvr.payload.response;
 
 import com.ssafy.adventsvr.entity.AdventBox;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,12 @@ import java.util.List;
 @NoArgsConstructor
 public class AdventBoxDetailResponse {
 
-    private Integer adventId;
-    private List<AdventBox> adventBoxList;
+    private Integer boxId;
+    private String content;
+
+    @Builder
+    public AdventBoxDetailResponse(Integer boxId, String content) {
+        this.boxId = boxId;
+        this.content = content;
+    }
 }
