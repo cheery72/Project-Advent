@@ -43,15 +43,15 @@ public class AdventServiceImpl implements AdventService{
 
     }
 
-    // Todo: GET 비밀번호 작성시 해당 url 받는 게시글 조회
-    @Override
-    public AdventReceiveResponse findReceiveUrlAdvent(String url, Integer password) {
-        return null;
-    }
-
     // Todo: GET 보관함 페이지
     @Override
     public Page<AdventStorageResponse> findMyStorageAdvent(Integer userId) {
+        return null;
+    }
+
+    // Todo: GET 비밀번호 작성시 해당 url 받는 게시글 조회
+    @Override
+    public AdventReceiveResponse findReceiveUrlAdvent(String url, Integer password) {
         return null;
     }
 

@@ -13,9 +13,9 @@ public interface AdventService {
 
     void modifyPrivateInfoAdvent(AdventPrivateRequest adventPrivateRequest);
 
-    AdventReceiveResponse findReceiveUrlAdvent(String url, Integer password);
-
     Page<AdventStorageResponse> findMyStorageAdvent(Integer userId);
+
+    AdventReceiveResponse findReceiveUrlAdvent(String url, Integer password);
 
     Integer deleteAdvent(Integer userId, Integer id);
 }
