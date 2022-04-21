@@ -30,7 +30,7 @@ const Home: NextPage = () => {
   }
 
   return (
-    <>
+    <div style={{background:'linear-gradient(90deg, rgba(180,72,235,0.2091211484593838) 0%, rgba(253,29,69,0.15870098039215685) 50%, rgba(252,176,69,0.18671218487394958) 100%)'}}>
       <div className={ styles.titleWrapper }>
         <h1 className={ styles.titleStyle }>Make Our Special</h1>
         <h1 className={ styles.titleStyle }>어드벤트 스페셜 데이</h1>
@@ -74,7 +74,7 @@ const Home: NextPage = () => {
           <Column width={3}/>
         </Row>
       </Grid>
-    </>
+    </div>
   )
 }
 
