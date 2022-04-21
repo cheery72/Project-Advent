@@ -10,33 +10,24 @@ import IsLogin from '../../src/lib/IsLogin'
 export default function Navbar() {
     const KAKAO_LOGIN_URL = 'http://kwky.shop:8081'
     const BASE_URL = 'http://localhost:3000'
-
-    const [isLogined, setIsLogin] = useState<boolean>(false)
-
     const router = useRouter()
-
-    useEffect(() => {
-        if (localStorage.token) { 
-            setIsLogin(true)     
-        } else {
-            setIsLogin(false)
-        }    
-    }, []);
 
     const logout = () => {
         localStorage.removeItem("token")
-        setIsLogin(false)
+        let msg = '👋정상적으로 로그아웃되었습니다.'
         if (router.pathname !== "/") {
             router.push('/')
-            notify('success', '👋정상적으로 로그아웃되었습니다. 메인으로 이동합니다.')
+            msg += ' 메인으로 이동합니다.'
         } else {
-            notify('success', '👋정상적으로 로그아웃되었습니다.')
+            location.reload()
+            setTimeout(() => location.reload(), 1000) // 1초 후 새로고침(새로고침:로그아웃 후 버튼 상태 toggle + 1초 delay:tostify 표시)
         }
+        notify('success', msg)
     }
     
     return(
         <nav className={ styles.menuContainer }>
-            <ToastContainer /> {/* react tostify 알람 모달 -> 하나만 있어도 됨 */} 
+            <ToastContainer autoClose={1000} /> {/* react tostify 알람 모달 -> 하나만 있어도 됨 */} 
 
             {/* burger menu */}
             <input type="checkbox" aria-label="Toggle menu" />
