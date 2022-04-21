@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { Button, Grid, Header } from "semantic-ui-react";
+import notify from "../../src/component/notify/notify";
 import styles from "../../styles/write/period.module.css"
 
 export default function Write(){
@@ -8,7 +9,7 @@ export default function Write(){
     const { Row, Column } = Grid
 
     const goWrite = (day: Number) => {
-        alert(`어드벤트 켈린더(${day}일)이 생성되었습니다.`)
+        notify('success', `👋어드벤트 켈린더(${day}일)이 생성되었습니다.`)
         router.push({ pathname: '/write/testid', query: { day: `${day}` }})
 
     }

@@ -1,6 +1,7 @@
 import { SetStateAction, useState } from "react";
 import { Button, Grid, Header, Icon, Input, Popup } from "semantic-ui-react";
 import styles from "../../../styles/write/title.module.css"
+import notify from "../notify/notify";
 
 export default function Title({ id, day }: any){
 
@@ -23,10 +24,10 @@ export default function Title({ id, day }: any){
 
     const writeTitle = () => {
         if (tempTitle.length < 1  ||  tempTitle.length> 10){
-            alert('제목은 1~10 글자수로 작성해야합니다.')
+            notify('error', `제목은 1~10 글자수로 작성해야합니다.`)
             return
         }
-        alert('제목이 저장되었습니다.')
+        notify('success', `👋제목이 저장되었습니다.`)
         setOpenTitle(!openTitle)
         setTitle(tempTitle)
         setTempTitle('')
