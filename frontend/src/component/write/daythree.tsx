@@ -1,71 +1,73 @@
 import { useRouter } from "next/router";
 import { Button, Grid, Header } from "semantic-ui-react";
 import styles from "../../../styles/write/write.module.css"
+import Title from "./title";
 
 export default function Daythree(){
 
     const router = useRouter()
     const id = router.query.id
+    const { Row, Column } = Grid
 
-    function writeDetail(number: Number) {
-        router.push(`/write/${id}/${number}`)
+    const writeDetail = (number: Number) => {
+        router.push({ pathname: `/write/${id}/${number}`, query: { day: `${3}`}})
     }
 
-    function writeWrap(number: Number) {
-        router.push(`/write/${id}/wrap/${number}`)
+    const writeWrap = (number: Number) => {
+        router.push({ pathname: `/write/${id}/wrap/${number}`, query: { day: `${3}`} })
     }
 
-    function writeAniversary(){
+    const writeAniversary = () => {
         router.push(`/write/${id}/anniversary`)
     }
 
     return(
         <>
+            <Title id={id} day={3}/>
             <Grid textAlign="center" stackable>
-                <Grid.Row />
-                <Grid.Row />
-                <Grid.Row>
-                    <Grid.Column width={13} />
-                    <Grid.Column width={3}>
+                <Row>
+                    <Column width={13} />
+                    <Column width={3}>
                         <Button color="blue" onClick={writeAniversary}>개봉일 설정</Button>
-                    </Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                    <Grid.Column width={3}/>
-                    <Grid.Column width={3} className={ styles.box }>
-                        <div >
+                    </Column>
+                </Row>
+                <Row>
+                    <Column width={3}/>
+                    <Column width={3} className={ styles.box }>
+                        <div>
                             <Header as="h3" textAlign="left" style={{ padding: "10%" }}>D-2</Header>
-                            <Button className={styles.threeopen} color="pink" onClick={()=>{writeDetail(1)}}>열기</Button>
+                            <Button className={styles.threeopen} color="pink" onClick={()=>{ writeDetail(1) }}>열기</Button>
                             <br /><br />
-                            <Button className={styles.threewrap} color="pink" onClick={()=>{writeWrap(1)}}>포장지 선택</Button>
+                            <Button className={styles.threewrap} color="pink" onClick={()=>{ writeWrap(1) }}>포장지 선택</Button>
                             <br /><br />
                         </div>
-                    </Grid.Column>
-                    <Grid.Column width={3} />
-                </Grid.Row>
-                <Grid.Row>
-                    <Grid.Column width={2}/>
-                    <Grid.Column width={3} className={ styles.box }>
+                    </Column>
+                    
+                    <Column width={3} />
+                </Row>
+                <Row>
+                    <Column width={2}/>
+                    <Column width={3} className={ styles.box }>
                         <div>
                             <Header as="h3" textAlign="left" style={{ padding: "10%" }}>D-1</Header>
-                            <Button className={styles.threeopen} color="pink" onClick={()=>{writeDetail(2)}}>열기</Button>
+                            <Button className={styles.threeopen} color="pink" onClick={()=>{ writeDetail(2) }}>열기</Button>
                             <br /><br />
-                            <Button className={styles.threewrap} color="pink" onClick={()=>{writeWrap(2)}}>포장지 선택</Button>
+                            <Button className={styles.threewrap} color="pink" onClick={()=>{ writeWrap(2) }}>포장지 선택</Button>
                             <br /><br />
                         </div>
-                    </Grid.Column>
-                    <Grid.Column width={1}/>
-                    <Grid.Column width={3} className={ styles.box }>
+                    </Column>
+                    <Column width={1}/>
+                    <Column width={3} className={ styles.box }>
                         <div>
                             <Header as="h3" textAlign="left" style={{ padding: "10%" }}>D-day</Header>
-                            <Button className={styles.threeopen} color="pink" onClick={()=>{writeDetail(3)}}>열기</Button>
+                            <Button className={styles.threeopen} color="pink" onClick={()=>{ writeDetail(3) }}>열기</Button>
                             <br /><br />
-                            <Button className={styles.threewrap} color="pink" onClick={()=>{writeWrap(3)}}>포장지 선택</Button>
+                            <Button className={styles.threewrap} color="pink" onClick={()=>{ writeWrap(3) }}>포장지 선택</Button>
                             <br /><br />
                         </div>
-                    </Grid.Column>
-                    <Grid.Column width={2}/>
-                </Grid.Row>
+                    </Column>
+                    <Column width={2}/>
+                </Row>
             </Grid>
         </>
     );

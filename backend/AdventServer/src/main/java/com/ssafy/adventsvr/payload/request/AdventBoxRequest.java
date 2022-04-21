@@ -3,16 +3,14 @@ package com.ssafy.adventsvr.payload.request;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
+import lombok.Setter;
 import javax.validation.constraints.NotNull;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class AdventBoxRequest {
-
-    @NotNull
-    private Integer userId;
 
     @NotNull
     private Integer adventId;
@@ -20,5 +18,4 @@ public class AdventBoxRequest {
     @NotNull
     private Integer adventDay;
 
-    private MultipartFile content;
 }

@@ -6,7 +6,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://j6c203.p.ssafy.io:8761/eureka
+      defaultZone: http://localhost:8761/eureka
 
 spring:
   application:
@@ -16,7 +16,7 @@ spring:
       globalcors:
         corsConfigurations:
           '[/**]':
-            allowedOrigins: "https://j6c203.p.ssafy.io"
+            allowedOrigins: "http://localhost:3000"
             allow-credentials: true   #추가
             allowedHeaders:
               - x-requested-with
@@ -33,33 +33,22 @@ spring:
               - DELETE
       routes:
         - id: auth-server
-          uri: http://j6c203.p.ssafy.io:8081/
+          uri: http://localhost:8081/
           predicates:
-            - Path=/api/auth-server/**
+            - Path=/auth-server/**
           filters:
-            - RewritePath=/api/auth-server/(?<path>.*),/$\{path}
+            - RewritePath=/auth-server/(?<path>.*),/$\{path}
             - name: LoggingFilter
               args:
                 baseMessage: Spring Cloud Gateway Logging filter
                 preLogger: true
                 postLogger: true
-        - id: escape-server
-          uri: http://j6c203.p.ssafy.io:8082/
+        - id: advent-server
+          uri: http://localhost:8082/
           predicates:
-            - Path=/api/escape-server/**
+            - Path=/advent-server/**
           filters:
-            - RewritePath=/api/escape-server/(?<path>.*),/$\{path}
-            - name: LoggingFilter
-              args:
-                baseMessage: Spring Cloud Gateway Logging filter
-                preLogger: true
-                postLogger: true
-        - id: analysis-server
-          uri: http://j6c203.p.ssafy.io:8083/
-          predicates:
-            - Path=/api/analysis-server/**
-          filters:
-            - RewritePath=/api/analysis-server/(?<path>.*),/$\{path}
+            - RewritePath=/advent-server/(?<path>.*),/$\{path}
             - name: LoggingFilter
               args:
                 baseMessage: Spring Cloud Gateway Logging filter
