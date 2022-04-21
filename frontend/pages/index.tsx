@@ -5,10 +5,17 @@ import { Button, Grid, Header, Icon } from 'semantic-ui-react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
+
 
 const { Row, Column } = Grid
 
 const Home: NextPage = () => {
+  useEffect(() => {
+    AOS.init();
+  })
+  
   
   const router = useRouter()
 
@@ -31,19 +38,21 @@ const Home: NextPage = () => {
 
   return (
     <div style={{background:'linear-gradient(90deg, rgba(180,72,235,0.2091211484593838) 0%, rgba(253,29,69,0.15870098039215685) 50%, rgba(252,176,69,0.18671218487394958) 100%)'}}>
-      <div className={ styles.titleWrapper }>
+      <div className={ styles.titleWrapper } data-aos="fade-up">
         <h1 className={ styles.titleStyle }>Make Our Special</h1>
         <h1 className={ styles.titleStyle }>어드벤트 스페셜 데이</h1>
       </div>  
       <Grid centerd>
         <Row textAlign='center'>
           <Column width={3} />
-          <Column width={5}>
+          <Column width={5} data-aos="zoom-in-right">
             <img src='/main/temp_main.png' />
           </Column>
-          <Column width={5} className={ styles.mainBox }>
+          <Column width={5} className={ styles.mainBox } data-aos="flip-left">
             
-            <h2 className={ styles.mainText }>소중한 사람에게 <br /> 특별한 선물을 해보세요.</h2>
+            <h2 className={ styles.mainText }>
+              소중한 사람에게 <br /> 특별한 선물을 해보세요.
+            </h2>
             {/* 로그인 유무 판별 */}
             {
               isLogined ?
