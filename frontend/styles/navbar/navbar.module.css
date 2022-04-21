@@ -1,41 +1,47 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@900&display=swap');
 
 .menuContainer {
-    position: relative;
+    position: sticky;
+    top: 0;
+
     display: flex;
     align-items: center;
-    /* margin-bottom: 20px; */
-    background: linear-gradient(90deg, rgba(180,72,235,0.2091211484593838) 0%, rgba(253,29,69,0.15870098039215685) 50%, rgba(252,176,69,0.18671218487394958) 100%);
+    /* background: linear-gradient(90deg, rgba(180,72,235,0.2091211484593838) 0%, rgba(253,29,69,0.15870098039215685) 50%, rgba(252,176,69,0.18671218487394958) 100%); */
+    /* background: linear-gradient(90deg, rgb(233, 210, 253) 0%, rgba(255,223,226,1) 47%, rgb(254, 239, 204) 91%); */
+    background: linear-gradient(90deg, rgb(233, 210, 253) 0%, rgb(227, 223, 255) 25%, rgb(252, 227, 229) 47%, rgb(255, 253, 240) 70%, rgb(255, 248, 240) 80%, rgb(254, 239, 204) 91%);
     color: #595959;
-    padding: 10px 10%;
+    padding: 30px 10% 10px;
     z-index: 1;
     -webkit-user-select: none;
     user-select: none;
     box-sizing: border-box;
 }
-  
+
 .menuLogo {
     line-height: 0;
     margin: 0 20px;
 }
-  
+
 .menuLogo img {
     max-height: 45px;
     max-width: 120px;
     flex-shrink: 0;
 }
-  
+
 .menuContainer a {
     text-decoration: none;
-    color: #595959;
+    font-family: 'Noto Sans KR';
+    color: #282828;
     transition: color 0.3s ease;
+    text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
+        0px -5px 35px rgba(255,255,255,0.3);
 }
-  
+
 .menuContainer a:hover {
-    color: #000008;
-    text-shadow: #FC0 3px 0 20px;
+    color: #000000;
+    text-shadow: 0 0 20px #fefcc9, 10px -10px 30px #feec85, -20px -20px 40px #ffae34, 20px -40px 50px #ec760c, -20px -60px 60px #cd4606, 0 -80px 70px #973716, 10px -90px 80px #451b0e;
 }
-  
+
 .menuContainer input {
     display: block;
     width: 35px;
@@ -47,7 +53,7 @@
     z-index: 2; /* and place it over the hamburger */
     -webkit-touch-callout: none;
 }
-  
+
 /* Burger menu */
 .menuContainer span {
     display: block;
@@ -63,40 +69,39 @@
                 background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
                 opacity 0.55s ease;
 }
-  
+
 .menuContainer span:first-child {
     transform-origin: 0% 0%;
 }
-  
+
 .menuContainer span:nth-child(3) {
     transform-origin: 0% 100%;
 }
-  
+
 .menuContainer input:checked ~ span {
     opacity: 1;
     transform: rotate(45deg) translate(3px,-1px);
     background: #595959;
-}
-  
-
-.menuContainer input:checked ~ span:nth-child(3) {
-    transform: rotate(-45deg) translate(-5px, 11px);
 }
 
 .menuContainer input:checked ~ span:nth-child(4) {
     opacity: 0;
     transform: rotate(0deg) scale(0.2, 0.2);
 }
+
+.menuContainer input:checked ~ span:nth-child(3) {
+    transform: rotate(-45deg) translate(-5px, 11px);
+}
+
 .menu ul {
     list-style: none;
 }
-  
+
 .menu li {
     padding: 15px 0;
     font-size: 18px;
-    font-family: 'Noto Sans KR', sans-serif;
 }
-  
+
 /* mobile styles */
 @media only screen and (max-width: 767px) { 
     .menuContainer {
@@ -123,52 +128,52 @@
         right: -300px;
         top: 0;
         margin: -20px;
-        padding: 40px 40px 20px;
-        background: linear-gradient(110deg, rgba(255,223,226,1) 0%, rgba(231,201,255,1) 47%, rgba(255,230,173,1) 91%);
+        padding: 50px 40px 20px;
+        background: linear-gradient(110deg, rgb(252, 227, 229) 0%, rgb(254, 237, 219) 20%, rgb(233, 210, 253) 45%, rgb(227, 223, 255) 60%, rgb(255, 248, 240) 80%, rgb(254, 239, 204) 91%);
         -webkit-font-smoothing: antialiased;
         /* to stop flickering of text in safari */
         transform-origin: 0% 0%;
         transform: translateX(0%);
         transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
     }
-  
+
     .menuContainer input:checked ~ .menu {
         transform: translateX(-100%);
     }
 }
-  
+
 /* desktop styles */
 @media only screen and (min-width: 768px) { 
     .menuContainer {
         width: 100%;
     }
-  
+
     .menuContainer a {
-        color: #595959;
+        color: #2f2f2f;
         font-family: 'Noto Sans KR', sans-serif;
     }
-  
+
     .menuContainer input {
         display: none;
     }
-  
+
     /* Burger menu */
     .menuContainer span {
         display: none;
     }
-  
+
     .menu {
         position: relative;
         width: 100%;
         display: flex;
         justify-content: space-between;
     }
-  
+
     .menu ul {
         display: flex;
         padding: 0;
     }
-  
+
     .menu li {
         padding: 0 20px;
         margin: auto;
