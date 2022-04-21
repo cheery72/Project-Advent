@@ -1,43 +1,34 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
 import styles from '../styles/index/index.module.css'
 import { Button, Grid, Header, Icon } from 'semantic-ui-react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import AOS from 'aos';
 import 'aos/dist/aos.css'; 
+import IsLogin from '../src/component/lib/IsLogin'
 
 
 const { Row, Column } = Grid
 
 const Home: NextPage = () => {
+
   useEffect(() => {
-    AOS.init();
+    AOS.init({
+      duration: 3000
+    });
   })
-  
-  
   const router = useRouter()
 
   const KAKAO_LOGIN_URL = 'http://kwky.shop:8081'
   const BASE_URL = 'http://localhost:3000'
-
-  const [isLogined, setIsLogin] = useState<boolean>(false)
-
-  useEffect(() => {
-      if (localStorage.token) { 
-          setIsLogin(true)     
-      } else {
-          setIsLogin(false)
-      }    
-  }, []);
 
   const goWrite = () => {
     router.push('/write')
   }
 
   return (
-    <div style={{background:'linear-gradient(90deg, rgba(180,72,235,0.2091211484593838) 0%, rgba(253,29,69,0.15870098039215685) 50%, rgba(252,176,69,0.18671218487394958) 100%)'}}>
+    <div className={ styles.background }>
       <div className={ styles.titleWrapper } data-aos="fade-up">
         <h1 className={ styles.titleStyle }>Make Our Special</h1>
         <h1 className={ styles.titleStyle }>어드벤트 스페셜 데이</h1>
@@ -55,7 +46,7 @@ const Home: NextPage = () => {
             </h2>
             {/* 로그인 유무 판별 */}
             {
-              isLogined ?
+              IsLogin() ?
               <Button 
                 color='twitter' 
                 animated 

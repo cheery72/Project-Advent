@@ -55,6 +55,10 @@
     text-transform: uppercase;
 } */
 
+.background {
+    background: linear-gradient(90deg, rgba(180,72,235,0.2091211484593838) 0%, rgba(253,29,69,0.15870098039215685) 50%, rgba(252,176,69,0.18671218487394958) 100%);
+}
+
 .titleStyle {
     font-size: 3vw;
     text-align: center;
