@@ -13,7 +13,7 @@ export default function Authentication() {
   useEffect(() => {
       if (localStorage.token !== "undefined") {
           router.push('/')
-          notify('success', '카카오계정으로 로그인되었습니다! 🖐')
+          notify('success', '카카오계정으로 로그인되었습니다!🖐')
       }
   }, );
 

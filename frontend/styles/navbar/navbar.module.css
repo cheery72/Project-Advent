@@ -4,7 +4,7 @@
     position: relative;
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     background: linear-gradient(90deg, rgba(180,72,235,0.2091211484593838) 0%, rgba(253,29,69,0.15870098039215685) 50%, rgba(252,176,69,0.18671218487394958) 100%);
     color: #595959;
     padding: 10px 10%;
