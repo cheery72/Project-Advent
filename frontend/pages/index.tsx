@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { useEffect } from 'react'
 import AOS from 'aos';
 import 'aos/dist/aos.css'; 
-import IsLogin from '../src/component/lib/IsLogin'
+import IsLogin from '../src/lib/IsLogin'
 
 const { Row, Column } = Grid
 

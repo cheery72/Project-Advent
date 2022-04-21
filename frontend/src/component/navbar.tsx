@@ -5,6 +5,7 @@ import styles from '../../styles/navbar/navbar.module.css';
 import { Button, Icon } from 'semantic-ui-react';
 import notify from './notify/notify';
 import { ToastContainer } from 'react-toastify';
+import IsLogin from '../../src/lib/IsLogin'
 
 export default function Navbar() {
     const KAKAO_LOGIN_URL = 'http://kwky.shop:8081'
@@ -54,7 +55,7 @@ export default function Navbar() {
             <div className={ styles.menu }>     
                 <ul>
                     {
-                        isLogined && 
+                        IsLogin() && 
                         <>
                             <li>
                                 <Link href="/write">
@@ -72,7 +73,7 @@ export default function Navbar() {
                 <ul>
                     <li>
                         {
-                            isLogined ? 
+                            IsLogin() ? 
                             <Button 
                                 animated
                                 color="yellow"
