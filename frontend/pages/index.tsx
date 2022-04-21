@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import styles from '../styles/index/index.module.css'
+import styles from '../styles/index/Index.module.css'
 import { Button, Grid, Header, Icon } from 'semantic-ui-react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
@@ -7,7 +7,6 @@ import { useEffect } from 'react'
 import AOS from 'aos';
 import 'aos/dist/aos.css'; 
 import IsLogin from '../src/component/lib/IsLogin'
-
 
 const { Row, Column } = Grid
 
@@ -30,7 +29,12 @@ const Home: NextPage = () => {
   return (
     <div className={ styles.background }>
       <div className={ styles.titleWrapper } data-aos="fade-up">
-        <h1 className={ styles.titleStyle }>Make Our Special</h1>
+        <h2 className={ `${styles.titleStyle}` }>
+          <span className={ `${styles.titleWord} ${styles.titleWord1}` }>Make&nbsp;</span>
+          <span className={ `${styles.titleWord} ${styles.titleWord2}` }>Our&nbsp;</span>
+          <span className={ `${styles.titleWord} ${styles.titleWord3}` }>Spe</span>
+          <span className={ `${styles.titleWord} ${styles.titleWord4}` }>cial</span>
+        </h2>
         <h1 className={ styles.titleStyle }>어드벤트 스페셜 데이</h1>
       </div>  
       <Grid centerd>
@@ -41,9 +45,10 @@ const Home: NextPage = () => {
           </Column>
           <Column width={5} className={ styles.mainBox } data-aos="flip-left">
             
-            <h2 className={ styles.mainText }>
-              소중한 사람에게 <br /> 특별한 선물을 해보세요.
-            </h2>
+            <div >
+              <h2 className={ styles.mainText }>소중한 사람에게 <br />특별한 선물을 해보세요.</h2> 
+              
+            </div>
             {/* 로그인 유무 판별 */}
             {
               IsLogin() ?
