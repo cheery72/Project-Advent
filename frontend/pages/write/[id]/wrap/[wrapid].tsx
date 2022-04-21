@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { SetStateAction, useEffect, useState } from "react";
 import { Button, Grid, Header, Image } from "semantic-ui-react";
+import notify from "../../../../src/component/notify/notify";
 import styles from "../../../../styles/write/wrap.module.css"
 
 export default function Wrap(){
@@ -27,7 +28,7 @@ export default function Wrap(){
     }
 
     const writeWrap = () => {
-        alert(`${wrapid}번 포장지가 변경되었습니다.`)
+        notify('success', `👋${wrapid}번 포장지가 변경되었습니다.`)
         router.push({ pathname: '/write/testid', query: { day: `${day}` }})
     }
 
