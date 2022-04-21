@@ -6,6 +6,7 @@ import styles from "../../../styles/detail/detail.module.css"
 
 export default function Presentdetail(){
     const router = useRouter();
+    const {Row, Column} = Grid
 
 return(
     <>
@@ -13,17 +14,20 @@ return(
             D-7
         </div>
         <Grid stackable>
-        <Grid.Row>
-            <Grid.Column width={4}></Grid.Column>
-            <Grid.Column width={8}>
-            <Advertisement unit='large rectangle' centered test='Large Rectangle' />
-            </Grid.Column>
-            <Grid.Column width={4}>
+        <Row>
+            <Column width={4}></Column>
+            <Column width={8}>
+            <div className={styles.boxlocation}>
+            <div className={styles.box}>
+            </div>
+            </div>
+            </Column>
+            <Column width={4}>
                 <div className={styles.buttonbetween}>
                     <Button inverted color='blue' onClick={() => {router.push(`/present/presentid`);}}>뒤로 가기</Button>
                 </div>        
-            </Grid.Column>
-        </Grid.Row>
+            </Column>
+        </Row>
         </Grid>
     </>
 );
