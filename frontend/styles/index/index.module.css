@@ -1,0 +1,98 @@
+/* .titleWrapper {
+    margin: 50px;
+}
+
+.titleWord {
+    animation: color-animation 4s linear infinite;
+}
+  
+.titleWord1 {
+    --color-1: #DF8453;
+    --color-2: #3D8DAE;
+    --color-3: #E4A9A8;
+}
+  
+.titleWord2 {
+    --color-1: #DBAD4A;
+    --color-2: #ACCFCB;
+    --color-3: #17494D;
+}
+  
+.titleWord3 {
+    --color-1: #ACCFCB;
+    --color-2: #E4A9A8;
+    --color-3: #ACCFCB;
+}
+  
+.titleWord4 {
+    --color-1: #3D8DAE;
+    --color-2: #DF8453;
+    --color-3: #E4A9A8;
+}
+  
+@keyframes color-animation {
+    0%    {color: var(--color-1)}
+    32%   {color: var(--color-1)}
+    33%   {color: var(--color-2)}
+    65%   {color: var(--color-2)}
+    66%   {color: var(--color-3)}
+    99%   {color: var(--color-3)}
+    100%  {color: var(--color-1)}
+}
+  
+  
+.container {
+    display: grid;
+    place-items: center;  
+    text-align: center;
+    height: 100vh
+}
+  
+.title {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 800;
+    font-size: 8.5vw;
+    text-transform: uppercase;
+} */
+
+.titleStyle {
+    font-size: 3vw;
+    text-align: center;
+    margin: 1% auto;
+}
+
+.titleWrapper {
+    margin: 3%;
+}
+
+.mainBox {
+    border-radius: 10px;
+    border: black;
+    background-color: #FFD1D1;
+}
+
+.mainText {
+    padding: 25% 10% 5%;
+    font-size: 2vw;
+}
+
+/* 카카오버튼 */
+.kakaoButton {
+    cursor: pointer;
+    border-radius: 5px;
+    max-height: 4vw;
+}
+
+.kakaoButton:hover {
+    transform: scale(1.1);
+    box-shadow: #FC0 1px 0 20px;
+}
+
+/* 작성하러 가기 버튼 */
+/* 
+.writeButton {
+    height: 18%;
+    width: 63%;
+    padding: 5.5%;
+    font-size: 1.5vw;
+} */
