@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Header, Icon } from "semantic-ui-react";
 import styles from "../../../styles/present/present.module.css"
 
-export default function BoxThree(){
+export default function BoxThree({ num }: any){
 
     const router = useRouter()
     const [isDday, setIsDday] = useState(false)

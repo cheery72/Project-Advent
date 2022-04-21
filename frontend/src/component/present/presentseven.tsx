@@ -16,34 +16,35 @@ export default function PresentSeven(){
                 <Row>
                     <Column width={2}/>
                     <Column width={2}>
-                        <BoxSeven />
+                        <BoxSeven num={1} />
                     </Column>
                     <Column width={1}/>
                     <Column width={2}>
-                        <BoxSeven />
+                        <BoxSeven num={2} />
                     </Column>
                     <Column width={1}/>
                     <Column width={2}>
-                        <BoxSeven />
+                        <BoxSeven num={3} />
                     </Column>
                     <Column width={2} />
                 </Row>
+
                 <Row>
                     <Column width={2}/>
                     <Column width={2}>
-                        <BoxSeven />
+                        <BoxSeven num={4} />
                     </Column>
                     <Column width={1}/>
                     <Column width={2}>
-                        <BoxSeven />
+                        <BoxSeven num={5} />
                     </Column>
                     <Column width={1}/>
                     <Column width={2}>
-                        <BoxSeven />
+                        <BoxSeven num={6} />
                     </Column>
                     <Column width={1}/>
                     <Column width={2}>
-                        <BoxSeven />
+                        <BoxSeven num={7} />
                     </Column>
                     <Column width={2}/>
                 </Row>

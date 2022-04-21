@@ -6,7 +6,7 @@ import styles from "../../../styles/present/present.module.css"
 export default function BoxOne(){
 
     const router = useRouter()
-    const [isDday, setIsDday] = useState(true)
+    const [isDday, setIsDday] = useState(false)
 
     const openPresent = () => {
         router.push('/')

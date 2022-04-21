@@ -10,7 +10,7 @@ export default function Present(){
     const [password, setPassword] = useState('')
     const [isHint, setIsHint] = useState(true)
     const [openPresent, setOpenPresent] =useState(true)
-    const [day, setDay] = useState(1)
+    const [day, setDay] = useState(7)
 
     const {Row, Column} = Grid
 

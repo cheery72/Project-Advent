@@ -68,7 +68,7 @@ export default function Wrap(){
                             images.map((id: number) => {
                                 return(
                                     <>
-                                        <Image src={`/wrap/sample/samplepackage${(id%3)+1}.PNG`} size="mini" inline onClick={selectImage} />&nbsp;&nbsp;&nbsp;
+                                        <Image src={`/wrap/sample/samplepackage${(id%3)+1}.PNG`} alt="이미지 없음" size="mini" inline onClick={selectImage} />&nbsp;&nbsp;&nbsp;
                                     </>
                                 );
                             })

@@ -7,6 +7,7 @@
 }
 
 .one_images {
+    margin: auto;
     cursor: pointer;
     height: 350px;
     width: 350px;
@@ -14,12 +15,14 @@
 }
 
 .one_lock_images {
+    margin: auto;
     height: 350px;
     width: 350px;
     background-color: #C8FFFF;
 }
 
 .three_images {
+    margin: auto;
     cursor: pointer;
     height: 150px;
     width: 150px;
@@ -27,12 +30,14 @@
 }
 
 .three_lock_images {
+    margin: auto;
     height: 150px;
     width: 150px;
     background-color: #C8FFFF;
 }
 
 .seven_images {
+    margin: auto;
     cursor: pointer;
     height: 150px;
     width: 150px;
@@ -40,6 +45,7 @@
 }
 
 .seven_lock_images {
+    margin: auto;
     height: 150px;
     width: 150px;
     background-color: #C8FFFF;
