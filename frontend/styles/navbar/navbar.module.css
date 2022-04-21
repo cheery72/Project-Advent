@@ -8,7 +8,7 @@
     align-items: center;
     /* background: linear-gradient(90deg, rgba(180,72,235,0.2091211484593838) 0%, rgba(253,29,69,0.15870098039215685) 50%, rgba(252,176,69,0.18671218487394958) 100%); */
     /* background: linear-gradient(90deg, rgb(233, 210, 253) 0%, rgba(255,223,226,1) 47%, rgb(254, 239, 204) 91%); */
-    background: linear-gradient(90deg, rgb(233, 210, 253) 0%, rgb(227, 223, 255) 25%, rgb(252, 227, 229) 47%, rgb(255, 253, 240) 70%, rgb(255, 240, 240) 80%, rgb(254, 239, 204) 91%);
+    background: linear-gradient(90deg, rgb(233, 210, 253) 0%, rgb(227, 223, 255) 25%, rgb(252, 227, 229) 47%, rgb(255, 253, 240) 70%, rgb(255, 248, 240) 80%, rgb(254, 239, 204) 91%);
     color: #595959;
     padding: 30px 10% 10px;
     z-index: 1;
@@ -129,7 +129,7 @@
         top: 0;
         margin: -20px;
         padding: 50px 40px 20px;
-        background: linear-gradient(90deg, rgb(233, 210, 253) 0%, rgb(227, 223, 255) 25%, rgb(252, 227, 229) 47%, rgb(255, 249, 223) 70%, rgb(254, 239, 204) 91%);
+        background: linear-gradient(110deg, rgb(252, 227, 229) 0%, rgb(254, 237, 219) 20%, rgb(233, 210, 253) 45%, rgb(227, 223, 255) 60%, rgb(255, 248, 240) 80%, rgb(254, 239, 204) 91%);
         -webkit-font-smoothing: antialiased;
         /* to stop flickering of text in safari */
         transform-origin: 0% 0%;
