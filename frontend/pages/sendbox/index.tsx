@@ -13,20 +13,23 @@ export default function Sendbox(){
         });
     }, [])
 
-    const [username, setUsername] = useState<string>('TEST')
+    const [username, setUsername] = useState<string>('TEST') // 추후 axios(get)로 회원정보를 가져와 반영할 예정임
 
     return(
         <>
             <Head>
-                <title>보낸선물함 | Make Our Special</title>
+                <title>보낸 선물함 | Make Our Special</title>
             </Head>
             <div className={styles.background}>
-                <div data-aos="fade-down">
-                    <div className={styles.titleWrapper}>
-                        <h1 className={styles.title}><span>❝ {username} ❞님</span>의 <span>보낸 선물함</span></h1>
-                    </div>
-                    <SendboxList />
+                <div 
+                    className={styles.titleWrapper} 
+                    data-aos="zoom-in-right"
+                >
+                    <h1 className={styles.title}>
+                        <span>❝ {username} ❞님</span>의 <span>보낸 선물함</span>
+                    </h1>
                 </div>
+                <SendboxList />
             </div>
         </>
     );

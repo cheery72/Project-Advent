@@ -1,13 +1,11 @@
 import Link from "next/link";
-import { useState } from "react";
 import { Button, Grid, Icon, Image } from "semantic-ui-react";
 import styles from '../../../styles/sendbox/sendboxListItem.module.css'
 
 const { Row, Column } = Grid
 
+                            // item 타입 모르겠음(TS)
 export default function SendboxListItem({item}:any){
-
-    const { isSubmitted, dDay, presentTitle } = item
 
     // 오늘 날짜 : d-day 계산
     let today = new Date();   
@@ -23,36 +21,67 @@ export default function SendboxListItem({item}:any){
 
 
     return (
-        <Grid columns={3} style={{boxSizing: 'border-box', width:'100%', height:'100%', backgroundColor:'AliceBlue', borderRadius:'10px', boxShadow:'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px', padding:'20px 10px', margin:'0 auto'}}>
+        <Grid 
+            columns={3} 
+            data-aos="flip-up" 
+            className={ `${styles.sendboxListCard} ${item.isSubmitted? styles.cardAfterColor : styles.cardBeforeColor}` } 
+            style={{ padding: '20px 10px', margin: '0 auto' }}
+        >
             <Row>
                 <Column width={5}>
-                    <Image src="/sendbox/temp_sendbox_img.png" size='medium' wrapped />
+                    <Image 
+                        src="/sendbox/temp_sendbox_img.png" 
+                        size='medium' wrapped 
+                    />
                 </Column>
-                <Column width={8}>
+                <Column 
+                    width={8} 
+                    style={{ paddingRight:'0', maginRight:'0' }}
+                >
+                    <Icon 
+                        circular 
+                        name='gift' 
+                        size='large' 
+                        inverted 
+                        color={ item.isSubmitted ? 'pink' : 'yellow' } 
+                        style={{ marginBottom: '10px', display: 'block'}}
+                    />
+                    
                     { 
-                        isSubmitted ? 
-                        <Icon circular name='gift' size='large' inverted color='purple' style={{marginBottom:'10px'}}/>
-                        :
-                        <Icon circular name='gift' size='large' inverted color='yellow' style={{marginBottom:'10px'}}/>
+                        
+                        <Link href=''>
+                            <a 
+                                className={ `${styles.title} ${!item.isSubmitted ? styles.hrefDisabled : ''}` }
+                            > {/*  */}
+                                ❝{ item.presentTitle }❞ 
+                            </a>
+                        </Link>
+
                     }
-                    <br />
-                    <Link href=''><a className={styles.title}>❝{presentTitle}❞</a></Link>
                 </Column>
-                { !isSubmitted && // 전달 전에만 수정, 삭제가 가능
-                ( <Column width={3}>
-                    <Button animated='fade' color='blue' style={{margin:'10px 0'}}>
-                        <Button.Content hidden>수정</Button.Content>
-                        <Button.Content visible>
-                            <Icon name='pencil' />
-                        </Button.Content>
-                    </Button>
-                    <Button animated='fade' color='orange'>
-                        <Button.Content hidden>삭제</Button.Content>
-                        <Button.Content visible>
-                            <Icon name='trash alternate' />
-                        </Button.Content>
-                    </Button>
-                </Column> )}
+                { !item.isSubmitted && // 전달 전에만 수정, 삭제가 가능
+                    ( <Column width={3}>
+                        <Button 
+                            animated='fade' 
+                            color='blue' 
+                            style={{ margin:'10px 0' }}
+                        >
+                            <Button.Content hidden>수정</Button.Content>
+                            <Button.Content visible>
+                                <Icon name='pencil' />
+                            </Button.Content>
+                        </Button>
+                        <Button 
+                            animated='fade' 
+                            color='orange'
+                        >
+                            <Button.Content hidden>삭제</Button.Content>
+                            <Button.Content visible>
+                                <Icon name='trash alternate' />
+                            </Button.Content>
+                        </Button>
+                    </Column> )
+                }
 
             </Row>
             <Row>
@@ -61,15 +90,18 @@ export default function SendboxListItem({item}:any){
                     item.isSubmitted ? 
                         <></>
                         :
-                        <Button style={{ color:'black', background:'#F9E84F' }}> {/* hover설정 별도로 주기 */}
+                        <Button style={{ color:'black', background:'#F9E84F' }}>
                             <Icon name='comment' />전달하기
                         </Button>
                 }
                 </Column>
                 <Column width={7} />
-                <Column width={3} textAlign='center'>
-                    <p style={{ boxSizing: 'border-box', height:'30px', padding:'4px', borderRadius: '100%', backgroundColor: 'white', fontWeight: 'bold', boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px'}}>
-                        {item.isSubmitted ? '보냄' : `D - ${dDayCount()}`}
+                <Column
+                    width={3} 
+                    textAlign='center'
+                >
+                    <p className={ styles.statusCircle }>
+                        {item.isSubmitted ? '전송완료' : `D - ${dDayCount()}`}
                     </p>
                 </Column>
             </Row>

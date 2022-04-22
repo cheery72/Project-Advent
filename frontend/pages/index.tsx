@@ -37,7 +37,7 @@ const Home: NextPage = () => {
                 </h2>
                 <h1 className={ styles.titleStyle }>어드벤트 스페셜 데이</h1>
             </div>  
-            <Grid>
+            <Grid >
                 <Row textAlign='center'>
                     <Column width={3} />
                     <Column width={5} data-aos="zoom-in-right">
