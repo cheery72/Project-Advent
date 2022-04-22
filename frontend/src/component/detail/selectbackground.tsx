@@ -1,13 +1,17 @@
-import { Input, Icon, Button, StepGroup } from "semantic-ui-react";
+import { Image } from "semantic-ui-react";
 import React from 'react';
 import { useRouter } from "next/router";
 import { SetStateAction, useEffect, useState } from "react";
 import styles from "../../../styles/detail/selectbackground.module.css"
 
 
+
 export default function Selectbackground () {
     const router = useRouter();
     const [image, setImage] = useState('')
+    const [imageType, setImageType] = useState(1)
+    const [myImage, setMyImage] = useState()
+    const wrapid = router.query.wrapid
 
     const selectImage = (e:any) => {
         setImage(e.target.currentSrc)
@@ -16,16 +20,42 @@ export default function Selectbackground () {
     const deleteImage = (e:any) => {
         setImage('')
     }
+    const findImage = (e: any) => {
+        setMyImage(e.target.value)
+    }
+
+    useEffect(()=>{
+        console.log('입력받은 이미지', myImage)
+    }, [myImage])
+
 
 
     // 배경선택 
+    const selectImageType = (num: SetStateAction<number>) => {
+        setImageType(num)
+    }
+
 
     return (
         <>
+            <div>
             <div className={styles.selectimage}>
                 <div className={styles.selecttitle}>내가 선택한 배경</div>
                 <img src={image} onClick={deleteImage}></img>
+                {/* <div className={styles.selecttitle}>{wrapid}번 포장지를 선택하세요.</div> */}
             </div>
+            <div className={styles.imagetitle}>
+                <div onClick={()=>{selectImageType(1)}} className={imageType===1?styles.selected:styles.pointer }>이미지 찾기</div>
+                <div onClick={()=>{selectImageType(2)}} className={imageType===2?styles.selected:styles.pointer }>기존 이미지 선택</div>
+            </div>
+            {imageType===1?
+                            <input id="myimage" type="file" onChange={findImage}/>
+                        :
+                        ''}
+
+            {imageType===2?
+                    
+                    <div>
             <div className={styles.backgroundtitle}>
             # 전통무늬
             </div>
@@ -72,7 +102,11 @@ export default function Selectbackground () {
 
                 </div>
             </div> */}
-
+            </div>
+            
+        :
+        ''}
+            </div>
         </>
     );
 }

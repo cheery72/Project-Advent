@@ -9,7 +9,7 @@ export default function Decorativeframe () {
     const router = useRouter();
     const[index, setIndex] = useState(0);
     const [image, setImage] = useState('')
-
+    
     // 배경선택 
 
     // 스티커
