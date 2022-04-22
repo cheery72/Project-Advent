@@ -14,6 +14,7 @@ export default function sendboxList(){
         {id:5, isSubmitted:true, presentTitle:'테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트', dDay:'2022-04-25'},
         {id:6, isSubmitted:true, presentTitle:'test test test test test test test test test test test test test test', dDay:'2022-04-25'},
     ]
+    // 텍스트가 4줄이 넘어가면 카드 높이가 달라짐 : 글자수 제한하거나 카드 css를 조정하거나(아직 미해결)
     
     return (
         <div className={ styles.sendboxListWrapper }>

@@ -23,7 +23,7 @@ export default function SendboxListItem({item}:any){
     return (
         <Grid 
             columns={3} 
-            data-aos="flip-up" 
+            data-aos="flip-up"
             className={ `${styles.sendboxListCard} ${item.isSubmitted? styles.cardAfterColor : styles.cardBeforeColor}` } 
             style={{ padding: '20px 10px', margin: '0 auto' }}
         >

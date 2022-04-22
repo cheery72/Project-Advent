@@ -1,22 +1,13 @@
 import type { NextPage } from 'next'
 import styles from '../styles/index/index.module.css'
-import { Button, Grid, Header, Icon } from 'semantic-ui-react'
+import { Button, Grid, Icon } from 'semantic-ui-react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { useEffect } from 'react'
-import AOS from 'aos';
-import 'aos/dist/aos.css'; 
 import IsLogin from '../src/lib/IsLogin'
 
 const { Row, Column } = Grid
 
 const Home: NextPage = () => {
-
-    useEffect(() => {
-        AOS.init({
-            duration: 3000
-        });
-    })
     const router = useRouter()
 
     const KAKAO_LOGIN_URL = 'http://kwky.shop:8081'
@@ -28,7 +19,10 @@ const Home: NextPage = () => {
 
     return (
         <div className={ styles.background }>
-            <div className={ styles.titleWrapper } data-aos="fade-up">
+            <div className={ styles.titleWrapper } 
+                data-aos="fade-up" 
+                data-aos-duration="3000"
+            >
                 <h2 className={ `${styles.titleStyle}` }>
                 <span className={ `${styles.titleWord} ${styles.titleWord1}` }>Make&nbsp;</span>
                     <span className={ `${styles.titleWord} ${styles.titleWord2}` }>Our&nbsp;</span>
@@ -40,10 +34,17 @@ const Home: NextPage = () => {
             <Grid >
                 <Row textAlign='center'>
                     <Column width={3} />
-                    <Column width={5} data-aos="zoom-in-right">
+                    <Column width={5} 
+                        data-aos="zoom-in-right" 
+                        data-aos-duration="3000"
+                    >
                         <img src='/main/temp_main.png' />
                     </Column>
-                    <Column width={5} className={ styles.mainCard } data-aos="flip-left">
+                    <Column width={5} 
+                        className={ styles.mainCard } 
+                        data-aos="flip-left"
+                        data-aos-duration="3000"
+                    >
                         <h2 className={ styles.mainText }>소중한 사람에게 <br />특별한 선물을 해보세요</h2> 
                         {/* 로그인 유무 판별 */}
                         {
