@@ -1,0 +1,78 @@
+.titleWord {
+    animation: color-animation 4s linear infinite;
+}
+  
+.titleWord1 {
+    --color-1: #DF8453;
+    --color-2: #3D8DAE;
+    --color-3: #E4A9A8;
+}
+  
+.titleWord2 {
+    --color-1: #DBAD4A;
+    --color-2: #ACCFCB;
+    --color-3: #17494D;
+}
+  
+.titleWord3 {
+    --color-1: #ACCFCB;
+    --color-2: #E4A9A8;
+    --color-3: #ACCFCB;
+}
+  
+.titleWord4 {
+    --color-1: #3D8DAE;
+    --color-2: #DF8453;
+    --color-3: #E4A9A8;
+}
+  
+@keyframes color-animation {
+    0%    {color: var(--color-1)}
+    32%   {color: var(--color-1)}
+    33%   {color: var(--color-2)}
+    65%   {color: var(--color-2)}
+    66%   {color: var(--color-3)}
+    99%   {color: var(--color-3)}
+    100%  {color: var(--color-1)}
+}
+  
+.background {
+    background: linear-gradient(90deg, rgb(233, 210, 253) 0%, rgb(227, 223, 255) 25%, rgb(252, 227, 229) 47%, rgb(255, 253, 240) 70%, rgb(255, 248, 240) 80%, rgb(254, 239, 204) 91%);
+}
+
+.titleStyle {
+    font-size: 3vw;
+    text-align: center;
+    margin: 1% auto;
+    text-shadow: 0 13.36px 8.896px #c4b59d,0 -2px 1px #fff;
+}
+
+.titleWrapper {
+    padding: 3%;
+}
+
+.mainCard {
+    border-radius: 10px;
+    border: black;
+    background-color: #FFD1D1;
+}
+
+.mainText {
+    padding: 23% 0 3%;
+    font-size: 2vw;
+    font-weight: 3px;
+    line-height: 180%;
+    text-shadow: 0 13.36px 8.896px #c4b59d,0 -2px 1px #fff;
+}
+
+/* 카카오버튼 */
+.kakaoButton {
+    cursor: pointer;
+    border-radius: 5px;
+    max-height: 4vw;
+}
+
+.kakaoButton:hover {
+    transform: scale(1.1);
+    box-shadow: #FC0 1px 0 20px;
+}

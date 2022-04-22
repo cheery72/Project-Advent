@@ -1,9 +1,7 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
-import { Grid, Button, Image } from "semantic-ui-react";
-import Dayone from "../../../src/component/write/dayone";
-import Dayseven from "../../../src/component/write/dayseven";
-import Daythree from "../../../src/component/write/daythree";
+import DayOne from "../../../src/component/write/dayone";
+import DaySeven from "../../../src/component/write/dayseven";
+import DayThree from "../../../src/component/write/daythree";
 
 export default function WritePresent(){
 
@@ -13,13 +11,13 @@ export default function WritePresent(){
     return(
         <>
             {day==='1'?
-            <Dayone />
+            <DayOne />
             :''}
             {day==='3'?
-            <Daythree />
+            <DayThree />
             :''}
             {day==='7'?
-            <Dayseven />
+            <DaySeven />
             :''}
         </>
     );

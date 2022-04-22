@@ -1,53 +1,56 @@
 import { useRouter } from "next/router";
 import { Button, Grid, Header } from "semantic-ui-react";
+import notify from "../../src/component/notify/notify";
 import styles from "../../styles/write/period.module.css"
 
 export default function Write(){
 
     const router = useRouter()
+    const { Row, Column } = Grid
 
-    function goWrite(day: Number){
-        alert(`어드벤트 켈린더(${day}일)이 생성되었습니다.`)
+    const goWrite = (day: Number) => {
+        notify('success', `👋어드벤트 켈린더(${day}일)이 생성되었습니다.`)
         router.push({ pathname: '/write/testid', query: { day: `${day}` }})
+
     }
     
     return(
         <>
             <div className={ styles.back }>
             <Grid stackable>
-                <Grid.Row />
-                <Grid.Row>
-                    <Grid.Column width={5} />
-                    <Grid.Column width={6} >
+                <Row />
+                <Row>
+                    <Column width={5} />
+                    <Column width={6} >
                         <Header as='h1' textAlign='center'>선물할 기간을 선택하세요</Header>
-                    </Grid.Column>
-                    <Grid.Column width={5} />
-                </Grid.Row>
+                    </Column>
+                    <Column width={5} />
+                </Row>
 
-                <Grid.Row />
+                <Row />
 
-                <Grid.Row textAlign="center">
-                    <Grid.Column width={3}/>
-                    <Grid.Column width={10}>
+                <Row textAlign="center">
+                    <Column width={3}/>
+                    <Column width={10}>
                         <Button style={{ backgroundColor: "#82F0F0" }} className={ styles.button } onClick={() => {goWrite(1)}}>1일</Button>
-                    </Grid.Column>
-                    <Grid.Column width={3}/>
-                </Grid.Row>
+                    </Column>
+                    <Column width={3}/>
+                </Row>
 
-                <Grid.Row />
-                <Grid.Row />
+                <Row />
+                <Row />
 
-                <Grid.Row textAlign="center">
-                    <Grid.Column width={4}/>
-                    <Grid.Column width={3}>
+                <Row textAlign="center">
+                    <Column width={4}/>
+                    <Column width={3}>
                         <Button style={{ backgroundColor: "#82F0F0" }} className={ styles.button } onClick={() => {goWrite(3)}}>3일</Button>
-                    </Grid.Column>
-                    <Grid.Column width={2}/>
-                    <Grid.Column width={3}>
+                    </Column>
+                    <Column width={2}/>
+                    <Column width={3}>
                         <Button style={{ backgroundColor: "#82F0F0" }} className={ styles.button } onClick={() => {goWrite(7)}}>7일</Button>
-                    </Grid.Column>
-                    <Grid.Column width={4}/>
-                </Grid.Row>
+                    </Column>
+                    <Column width={4}/>
+                </Row>
             </Grid>
 
             <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
