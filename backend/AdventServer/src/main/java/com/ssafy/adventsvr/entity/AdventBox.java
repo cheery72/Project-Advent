@@ -44,8 +44,7 @@ public class AdventBox extends BaseTimeEntity{
     }
 
     @Builder
-    private AdventBox(Integer id, String content, boolean isActive, LocalDate activeAt, Integer adventDay, String wrapper, Advent advent) {
-        this.id = id;
+    private AdventBox(String content, boolean isActive, LocalDate activeAt, Integer adventDay, String wrapper, Advent advent) {
         this.content = content;
         this.isActive = isActive;
         this.activeAt = activeAt;
@@ -64,5 +63,9 @@ public class AdventBox extends BaseTimeEntity{
 
     public void setAdventIsActiveModify(){
         this.isActive = true;
+    }
+
+    public void setAdventBoxWrapperModify(String wrapper) {
+        this.wrapper = wrapper;
     }
 }

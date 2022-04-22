@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface AdventRepository extends JpaRepository<Advent,Integer>, AdventRepositoryCustom {
     Optional<Advent> findByUrl(String url);
     Optional<List<Advent>> findAllByUserId(Pageable pageable, Integer userId);
-    Optional<List<Advent>> findListAll();
+    Optional<List<Advent>> findAllBy();
 }

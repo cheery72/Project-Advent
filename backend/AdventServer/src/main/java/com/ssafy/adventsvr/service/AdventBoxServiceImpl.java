@@ -66,7 +66,6 @@ public class AdventBoxServiceImpl implements AdventBoxService {
 
         Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
         AdventBox adventBox = AdventBox.adventBoxBuilder(adventBoxRequest, advent, imageUrl);
-
         return AdventBoxDayResponse.builder()
                 .boxId(adventBoxRepository.save(adventBox).getId())
                 .build();
@@ -91,11 +90,15 @@ public class AdventBoxServiceImpl implements AdventBoxService {
     // Todo: PUT box 포장지 수정
     @Transactional
     @Override
-    public void modifyWrapperAdventBox(Integer adventId, AdventBoxWrapperRequest adventBoxWrapperRequest) {
-        Optional<List<AdventBox>> optionalAdventBoxes = adventBoxRepository.findAllByAdventId(adventId);
-        List<AdventBox> adventBoxList = optionalAdventBoxes.orElseThrow(NoSuchElementException::new);
+    public void modifyWrapperAdventBox(Integer boxId, MultipartFile file) {
+        Optional<AdventBox> optionalAdventBox = adventBoxRepository.findById(boxId);
+        AdventBox adventBox = optionalAdventBox.orElseThrow(NoSuchElementException::new);
+        String imageUrl;
 
-        System.out.println();
+        if(!file.isEmpty()){
+            imageUrl = awsFile(file);
+            adventBox.setAdventBoxWrapperModify(imageUrl);
+        }
     }
 
     // Todo: GET box detail 조회
@@ -113,7 +116,7 @@ public class AdventBoxServiceImpl implements AdventBoxService {
     // Todo: 크론탭
     @Override
     public void modifyDaysAdventBox() {
-        Optional<List<Advent>> optionalAdvent = adventRepository.findListAll();
+        Optional<List<Advent>> optionalAdvent = adventRepository.findAllBy();
         List<Advent> advents = optionalAdvent.orElseThrow(NoSuchElementException::new);
 
         for (Advent advent :advents) {

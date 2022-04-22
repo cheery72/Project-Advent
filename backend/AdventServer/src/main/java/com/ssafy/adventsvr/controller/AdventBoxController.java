@@ -13,7 +13,6 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -50,12 +49,11 @@ public class AdventBoxController {
     }
 
     @ApiOperation(value = "선물 포장지 수정", notes = "포장지 수정")
-    @PatchMapping("/{adventId}/{recipientName}")
-    public ResponseEntity<Object> adventBoxWrapperModify(@PathVariable("adventId") Integer adventId,
-                                                         @PathVariable("recipientName") String recipientName,
-                                                         @RequestPart Map<Integer,MultipartFile> files){
+    @PatchMapping("/{boxId}/wrapper")
+    public ResponseEntity<Object> adventBoxWrapperModify(@PathVariable(value = "boxId") Integer boxId, @RequestPart MultipartFile file){
         log.info("adventBoxWrapperModify");
 
+        adventBoxService.modifyWrapperAdventBox(boxId,file);
         return ResponseEntity.noContent().build();
     }
 

@@ -88,4 +88,8 @@ public class Advent extends BaseTimeEntity{
         this.receivedAt = LocalDateTime.now();
         this.isReceived = true;
     }
+
+    public void setAdventRecipientNameModify(String recipientName) {
+        this.recipientName = recipientName;
+    }
 }
