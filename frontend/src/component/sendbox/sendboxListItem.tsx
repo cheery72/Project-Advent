@@ -4,21 +4,18 @@ import styles from '../../../styles/sendbox/sendboxListItem.module.css'
 
 const { Row, Column } = Grid
 
-                            // item 타입 모르겠음(TS)
-export default function SendboxListItem({item}:any){
+                            // item 타입 어떻게 설정해야할지 잘 모르겠음(TS)
+export default function SendboxListItem({ item }:any){
 
-    // 오늘 날짜 : d-day 계산
-    let today = new Date();   
-
-    let year = today.getFullYear(); // 년도
-    let month = today.getMonth() + 1;  // 월
-    let date = today.getDate();  // 날짜
-    
-    // 같은 달 현재 이후 날짜 기준으로만 임시 구현 : d-day가 다른 달인 경우에는 이후에 추가 구현
+    // 오늘 날짜 기준 d-day 계산 함수
     const dDayCount = () => {
-        return Number(item.dDay.substr(8)) - date
+        const { dDay } = item 
+        const dDayDate = new Date(dDay.substring(0, 4), Number(dDay.substring(5, 7))-1, dDay.substring(8)) // month는 -1을 해줘야한다
+        const now = new Date()
+        const gap = now.getTime() - dDayDate.getTime()
+        const result = Math.floor(gap / (1000 * 60 * 60 * 24)) * -1;
+        return result
     }
-
 
     return (
         <Grid 
@@ -48,19 +45,20 @@ export default function SendboxListItem({item}:any){
                     />
                     
                     { 
-                        
-                        <Link href=''>
+                        // 임시경로임 / 전송완료인 선물만 제목 클릭시(난수정보 기준으로) 보낸 선물 상세보기 링크와 연결 예정
+                        <Link href='/'>
                             <a 
                                 className={ `${styles.title} ${!item.isSubmitted ? styles.hrefDisabled : ''}` }
-                            > {/*  */}
+                            >
                                 ❝{ item.presentTitle }❞ 
                             </a>
                         </Link>
 
                     }
                 </Column>
+                <Column width={3}>
                 { !item.isSubmitted && // 전달 전에만 수정, 삭제가 가능
-                    ( <Column width={3}>
+                    (<>
                         <Button 
                             animated='fade' 
                             color='blue' 
@@ -80,8 +78,9 @@ export default function SendboxListItem({item}:any){
                                 <Icon name='trash alternate' />
                             </Button.Content>
                         </Button>
-                    </Column> )
+                    </>)
                 }
+                </Column>
 
             </Row>
             <Row>
