@@ -5,6 +5,7 @@ import com.ssafy.adventsvr.entity.AdventBox;
 import com.ssafy.adventsvr.payload.request.AdventCertifyRequest;
 import com.ssafy.adventsvr.payload.request.AdventDayRequest;
 import com.ssafy.adventsvr.payload.request.AdventPrivateRequest;
+import com.ssafy.adventsvr.payload.request.AdventRecipientModify;
 import com.ssafy.adventsvr.payload.response.*;
 import com.ssafy.adventsvr.repository.AdventBoxRepository;
 import com.ssafy.adventsvr.repository.AdventRepository;
@@ -48,8 +49,9 @@ public class AdventServiceImpl implements AdventService{
         Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
         // 기존에 디비에 있는지 확인해야함
         String url = RandomStringUtils.randomAlphanumeric(15);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
         LocalDate localDate = LocalDate.parse(adventPrivateRequest.getEndAt(),formatter);
+        System.out.println();
         advent.setAdventPrivateInfoModify(adventPrivateRequest,url,localDate);
 
         Optional<List<AdventBox>> optionalAdventBoxes  = adventBoxRepository.findAllByAdventId(advent.getId());
@@ -137,7 +139,6 @@ public class AdventServiceImpl implements AdventService{
                 .build();
     }
 
-
     // Todo: GET 보관함 페이지 - ok
     @Override
     public Page<AdventStorageResponse> findMyStorageAdvent(Pageable pageable, Integer userId) {
@@ -146,6 +147,14 @@ public class AdventServiceImpl implements AdventService{
         List<AdventStorageResponse> advents = AdventStorageResponse.storageBuilder(advent);
 
         return new PageImpl<>(advents,pageable,advent.size());
+    }
+
+    @Override
+    public void modifyRecipientAdvent(AdventRecipientModify adventRecipientModify) {
+        Optional<Advent> optionalAdvent = adventRepository.findById(adventRecipientModify.getAdventId());
+        Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
+        advent.setAdventRecipientNameModify(adventRecipientModify.getRecipientName());
+        System.out.println();
     }
 
     // Todo: DELETE 게시글 삭제 - no

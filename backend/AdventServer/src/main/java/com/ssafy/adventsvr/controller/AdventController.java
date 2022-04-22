@@ -3,6 +3,7 @@ package com.ssafy.adventsvr.controller;
 import com.ssafy.adventsvr.payload.request.AdventCertifyRequest;
 import com.ssafy.adventsvr.payload.request.AdventDayRequest;
 import com.ssafy.adventsvr.payload.request.AdventPrivateRequest;
+import com.ssafy.adventsvr.payload.request.AdventRecipientModify;
 import com.ssafy.adventsvr.payload.response.AdventDayResponse;
 import com.ssafy.adventsvr.payload.response.AdventReceiveResponse;
 import com.ssafy.adventsvr.payload.response.AdventStorageResponse;
@@ -59,6 +60,21 @@ public class AdventController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(adventService.modifyPrivateInfoAdvent(adventPrivateRequest));
+    }
+
+    // Todo: no
+    @ApiOperation(value = "받는 사람 이름 설정", notes = "받는 사람 이름 설정")
+    @PatchMapping("/recipient")
+    public ResponseEntity<Object> adventRecipientModify(@RequestBody AdventRecipientModify adventRecipientModify){
+        log.info("adventRecipientModify");
+
+        if (ObjectUtils.isEmpty(adventRecipientModify)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        adventService.modifyRecipientAdvent(adventRecipientModify);
+        return ResponseEntity.noContent().build();
+
     }
 
     @ApiOperation(value = "password 없이 조회", notes = "패스워드 없이 조회")
