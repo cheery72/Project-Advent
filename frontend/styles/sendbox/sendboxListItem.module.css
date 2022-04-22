@@ -1,0 +1,11 @@
+.title {
+    background-image: 
+      linear-gradient(to right, rgb(198, 255, 255), rgb(246, 202, 254));
+    background-size: 100% 60%;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    font-weight: bold;
+    color: black;
+    font-size: 20px;
+    text-decoration: underline;
+  }
