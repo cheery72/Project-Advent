@@ -13,8 +13,19 @@ export default function SendboxListItem({ item }:any){
         const dDayDate = new Date(dDay.substring(0, 4), Number(dDay.substring(5, 7))-1, dDay.substring(8)) // month는 -1을 해줘야한다
         const now = new Date()
         const gap = now.getTime() - dDayDate.getTime()
-        const result = Math.floor(gap / (1000 * 60 * 60 * 24)) * -1;
-        return result
+        const result = Math.floor(gap / (1000 * 60 * 60 * 24)) * - 1
+        
+        if (dDay) {
+            if (result > 0) {
+            return `D - ${result}`
+            } else if (result === 0) {
+                return 'D-Day'
+            } else if (result <= 0) {
+                return <span className={ styles.dDayPast }>D-Day<br />경과</span>
+            } 
+        } else {
+            return <span className={ styles.dDayNotSet }>D-Day<br />미설정</span>
+        }
     }
 
     return (
@@ -37,16 +48,23 @@ export default function SendboxListItem({ item }:any){
                 >
                     <Icon 
                         circular 
-                        name='gift' 
+                        name='calendar check outline' 
                         size='large' 
                         inverted 
-                        color={ item.isSubmitted ? 'pink' : 'yellow' } 
-                        style={{ marginBottom: '10px', display: 'block'}}
+                        color={ item.isSubmitted ? 'pink' : 'teal' } 
+                        style={{ marginBottom: '10px' }}
                     />
-                    
+                    { 
+                        item.dDay 
+                        &&
+                        <span className={styles.dDay}>
+                            &nbsp;&nbsp; { item.dDay.substring(0, 4) }년 { Number(item.dDay.substring(5, 7)) }월 { item.dDay.substring(8) }일
+                        </span>
+                    }
+                    <br />
                     { 
                         // 임시경로임 / 전송완료인 선물만 제목 클릭시(난수정보 기준으로) 보낸 선물 상세보기 링크와 연결 예정
-                        <Link href='/'>
+                        <Link href='#'>
                             <a 
                                 className={ `${styles.title} ${!item.isSubmitted ? styles.hrefDisabled : ''}` }
                             >
@@ -99,8 +117,8 @@ export default function SendboxListItem({ item }:any){
                     width={3} 
                     textAlign='center'
                 >
-                    <p className={ styles.statusCircle }>
-                        {item.isSubmitted ? '전송완료' : `D - ${dDayCount()}`}
+                    <p className={ item.isSubmitted ? styles.statusCircleSubmitted : styles.statusCircle }>
+                        {item.isSubmitted ? <>전달<br />완료</> : dDayCount() }
                     </p>
                 </Column>
             </Row>
