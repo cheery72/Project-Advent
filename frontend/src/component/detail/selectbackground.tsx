@@ -8,27 +8,16 @@ import styles from "../../../styles/detail/selectbackground.module.css"
 
 export default function Selectbackground () {
     const router = useRouter();
-    const [image, setImage] = useState('')
+    const [backgroundImage, setBackgroundImage] = useState('')
     const [imageType, setImageType] = useState(1)
-    const [myImage, setMyImage] = useState()
-    const wrapid = router.query.wrapid
 
     const selectImage = (e:any) => {
-        setImage(e.target.currentSrc)
+        setBackgroundImage(e.target.currentSrc)
     }
 
     const deleteImage = (e:any) => {
-        setImage('')
+        setBackgroundImage('')
     }
-    const findImage = (e: any) => {
-        setMyImage(e.target.value)
-    }
-
-    useEffect(()=>{
-        console.log('입력받은 이미지', myImage)
-    }, [myImage])
-
-
 
     // 배경선택 
     const selectImageType = (num: SetStateAction<number>) => {
@@ -36,22 +25,48 @@ export default function Selectbackground () {
     }
 
 
+    // 배경 이미지 업로드
+    const saveImage = (e:any) => {
+        if(e.target.files.length !== 0){
+        setBackgroundImage(URL.createObjectURL(e.target.files[0]))};
+    };
+
+    const deleteBackgroundImageupload = () => {
+        URL.revokeObjectURL(backgroundImage);
+        setBackgroundImage('');
+    }
+
+
+
     return (
         <>
             <div>
             <div className={styles.selectimage}>
                 <div className={styles.selecttitle}>내가 선택한 배경</div>
-                <img src={image} onClick={deleteImage}></img>
-                {/* <div className={styles.selecttitle}>{wrapid}번 포장지를 선택하세요.</div> */}
+                <img src={backgroundImage} onClick={deleteImage}></img>
             </div>
             <div className={styles.imagetitle}>
-                <div onClick={()=>{selectImageType(1)}} className={imageType===1?styles.selected:styles.pointer }>이미지 찾기</div>
-                <div onClick={()=>{selectImageType(2)}} className={imageType===2?styles.selected:styles.pointer }>기존 이미지 선택</div>
+                <div onClick={()=>{selectImageType(1)}} className={imageType===1?styles.selecttab:styles.tabhead }>이미지 찾기</div>
+                <div onClick={()=>{selectImageType(2)}} className={imageType===2?styles.selecttab:styles.tabhead }>기존 이미지 선택</div>
+                <div onClick={()=>{selectImageType(3)}} className={imageType===3?styles.selecttab:styles.tabhead }>이미지 검색</div>
             </div>
             {imageType===1?
-                            <input id="myimage" type="file" onChange={findImage}/>
-                        :
-                        ''}
+                <div>
+                    <div className={styles.imageupload}>
+                    <label className={styles.filebutton} htmlFor="background">이미지 업로드</label>
+                    <input
+                        id="background"
+                        type="file"
+                        style={{ display: "none" }}
+                        onChange={saveImage}
+                    />
+                    <button className={styles.deletebutton} onClick={() => deleteBackgroundImageupload()}>
+                        삭제
+                    </button>
+                    </div>
+                </div>
+            :
+            ''}
 
             {imageType===2?
                     
@@ -104,6 +119,14 @@ export default function Selectbackground () {
             </div> */}
             </div>
             
+        :
+        ''}
+        {imageType===3?
+                <>
+                <div>
+                    upsplash 이미지 들어올 곳 !!!
+                </div>
+                </>
         :
         ''}
             </div>

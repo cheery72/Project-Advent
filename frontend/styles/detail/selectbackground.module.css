@@ -16,7 +16,6 @@
 }
 
 .selecttitle {
-    font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
 }
@@ -32,15 +31,58 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
     cursor: pointer;
 
 }
 
-.selected {
-    margin: 15px;
+.imageupload {
+    align-items: center;
+    justify-content: center;
 }
 
-.pointer {
-    margin: 15px;
+.deletebutton {
+    padding: 10px 25px;
+    background-color:#ff6161;
+    border-radius: 4px;
+    border: 0px;
+    color: white;
+    cursor: pointer;
+}
+
+
+.filebutton {
+    margin-right: 10px;
+    padding: 10px 25px;
+    background:#ADD7E4;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+}
+
+.deletebutton:hover {
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.2); 
+    outline-color: rgba(255, 255, 255, 0); 
+    outline-offset: 15px; 
+    text-shadow: 1px 1px 2px #427388;  
+}
+
+.filebutton:hover {
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.2); 
+    outline-color: rgba(255, 255, 255, 0); 
+    outline-offset: 15px; 
+    text-shadow: 1px 1px 2px #427388;  
+}
+
+.tabhead {
+    padding: 10px 10px 7px 10px;
+    cursor: pointer;
+    border-bottom: 2px solid rgb(219, 219, 219);
+    margin-bottom: 15px;
+}
+
+.selecttab {
+    padding:  10px 10px 7px 10px;
+    border-bottom: 2px solid black;
+    font-weight: bolder;
+    margin-bottom: 15px;
 }

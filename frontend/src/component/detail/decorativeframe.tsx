@@ -16,6 +16,7 @@ export default function Decorativeframe () {
 
     // 이미지 업로드
     const saveImage = (e:any) => {
+        setImage('');
         if(e.target.files.length !== 0){
         setImage(URL.createObjectURL(e.target.files[0]))};
     };
