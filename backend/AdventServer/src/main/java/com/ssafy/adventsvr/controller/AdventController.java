@@ -1,5 +1,6 @@
 package com.ssafy.adventsvr.controller;
 
+import com.ssafy.adventsvr.entity.Advent;
 import com.ssafy.adventsvr.payload.request.AdventCertifyRequest;
 import com.ssafy.adventsvr.payload.request.AdventDayRequest;
 import com.ssafy.adventsvr.payload.request.AdventPrivateRequest;
@@ -39,9 +40,15 @@ public class AdventController {
             return ResponseEntity.notFound().build();
         }
 
+        AdventDayResponse advent = adventService.inputDayAdvent(adventDayRequest);
+
+        if(advent == null){
+            return ResponseEntity.badRequest().build();
+        }
+
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(adventService.inputDayAdvent(adventDayRequest));
+                .body(advent);
     }
 
     @ApiOperation(value = "password 및 기간 설정", notes = "패스워드, 힌트, 기간 설정")
