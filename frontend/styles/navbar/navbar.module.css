@@ -126,7 +126,7 @@
         top: 0;
         margin: -20px;
         padding: 50px 40px 20px;
-        background: linear-gradient(110deg, rgb(252, 227, 229) 0%, rgb(254, 237, 219) 20%, rgb(233, 210, 253) 45%, rgb(227, 223, 255) 60%, rgb(255, 248, 240) 80%, rgb(254, 239, 204) 91%);
+        background: linear-gradient(135deg, rgb(255, 249, 233) 10%, rgb(251, 246, 255) 20%, rgb(245, 244, 255) 25%, rgb(252, 227, 229) 47%, rgba(255, 253, 240) 70%, rgb(255, 248, 240) 80%, rgb(254, 239, 204) 91%);
         -webkit-font-smoothing: antialiased;
         /* to stop flickering of text in safari */
         transform-origin: 0% 0%;
