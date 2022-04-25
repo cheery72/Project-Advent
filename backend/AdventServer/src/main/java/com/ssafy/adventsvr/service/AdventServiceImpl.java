@@ -1,5 +1,6 @@
 package com.ssafy.adventsvr.service;
 
+import com.ssafy.adventsvr.client.UserServiceClient;
 import com.ssafy.adventsvr.entity.Advent;
 import com.ssafy.adventsvr.entity.AdventBox;
 import com.ssafy.adventsvr.payload.request.AdventCertifyRequest;
@@ -30,12 +31,18 @@ public class AdventServiceImpl implements AdventService{
 
     private final AdventRepository adventRepository;
     private final AdventBoxRepository adventBoxRepository;
+    private final UserServiceClient userServiceClient;
 
     // Todo: POST 1,3,7 클릭시 게시글 생성 - ok
     @Transactional
     @Override
     public AdventDayResponse inputDayAdvent(AdventDayRequest adventDayRequest) {
         Advent advent = Advent.adventBuilder(adventDayRequest);
+        Integer userAdventCount = userServiceClient.userAdventCountFind(adventDayRequest.getUserId(), LocalDate.now());
+
+        if(10 < userAdventCount){
+            return null;
+        }
 
         return AdventDayResponse.builder()
                 .adventId(adventRepository.save(advent).getId())
