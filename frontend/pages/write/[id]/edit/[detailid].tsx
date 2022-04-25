@@ -8,6 +8,12 @@ import styles from "../../../../styles/detail/detail.module.css"
 export default function Edit(){
     const router = useRouter();
     const {Row, Column} = Grid
+    const day = router.query.day
+    const id = router.query.id
+
+    const writeDetail = (number: Number) => {
+        router.push({ pathname: `/write/${id}/${number}`, query: { day: `${1}`}})
+    }
 
 return(
     <>
@@ -26,18 +32,14 @@ return(
             <Column width={4}>
  
                 <div className={styles.buttonbetween}>
-                    <Button inverted color='blue' onClick={() => {router.push(`/write/testid`);}}>새로 만들기</Button>
+                    <Button inverted color='blue' onClick={()=>{ writeDetail(1)}}>새로 만들기</Button>
                 </div>
                 <div className={styles.cancelbutton}>    
-                    <Button inverted color='blue' onClick={() => {router.push(`/write/testid`);}}>&nbsp;&nbsp;&nbsp;&nbsp;취&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소&nbsp;&nbsp;&nbsp;&nbsp;</Button>  
+                    <Button inverted color='blue' onClick={() => {router.push({ pathname: `/write/testid`, query: { day: `${day}`} });}}>&nbsp;&nbsp;&nbsp;&nbsp;취&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소&nbsp;&nbsp;&nbsp;&nbsp;</Button>  
                 </div>             
             </Column>
         </Row>
         </Grid>
-        <div className={styles.listbetween}>
-            <Decorativeframe></Decorativeframe>
-        </div>
-
     </>
 );
 }
