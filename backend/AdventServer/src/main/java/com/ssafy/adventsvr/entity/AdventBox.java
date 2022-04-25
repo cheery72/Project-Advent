@@ -26,6 +26,7 @@ public class AdventBox extends BaseTimeEntity{
 
     private LocalDate activeAt;
 
+    private Integer activeDay;
 
     private Integer adventDay;
 
@@ -63,6 +64,14 @@ public class AdventBox extends BaseTimeEntity{
 
     public void setAdventIsActiveModify(){
         this.isActive = true;
+    }
+
+    public void setAdventActiveDayModify(LocalDate localDate, LocalDate activeAt){
+        int day = activeAt.minusDays(localDate.getDayOfMonth()).getDayOfMonth();
+        if(day == 31){
+            day = 0;
+        }
+        this.activeDay = day;
     }
 
     public void setAdventBoxWrapperModify(String wrapper) {

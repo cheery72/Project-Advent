@@ -67,7 +67,7 @@ public class AdventBoxController {
                 .body(adventBoxService.findDetailAdventBox(boxId));
     }
 
-    @ApiOperation(value = "박스 열리는 날짜 수정 크론탭", notes = "박스 열리는 날짜 수정")
+    @ApiOperation(value = "박스 열리는 날짜 수정 배치", notes = "박스 열리는 날짜 수정")
     @PatchMapping("/days")
     public ResponseEntity<Object> adventBoxDaysModify(){
         log.info("adventBoxDaysModify");

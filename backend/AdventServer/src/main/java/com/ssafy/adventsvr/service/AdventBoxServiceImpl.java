@@ -124,8 +124,11 @@ public class AdventBoxServiceImpl implements AdventBoxService {
             List<AdventBox> adventBoxList = optionalAdventBoxes.orElseThrow(NoSuchElementException::new);
             for (AdventBox adventbox:adventBoxList) {
                 LocalDate localDate = LocalDate.now();
-                if(adventbox.getActiveAt() != null && adventbox.getActiveAt() == localDate){
-                    adventbox.setAdventIsActiveModify();
+                if(adventbox.getActiveAt() != null){
+                    if(adventbox.getActiveAt().equals(localDate)){
+                        adventbox.setAdventIsActiveModify();
+                    }
+                    adventbox.setAdventActiveDayModify(localDate,adventbox.getActiveAt());
                 }
             }
         }

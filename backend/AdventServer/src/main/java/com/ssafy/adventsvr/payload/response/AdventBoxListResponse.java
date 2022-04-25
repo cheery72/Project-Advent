@@ -15,6 +15,7 @@ public class AdventBoxListResponse {
     private Integer boxId;
     private LocalDate isActiveAt;
     private boolean isActive;
+    private Integer activeDay;
     private String wrapper;
 
     public static List<AdventBoxListResponse> adventBoxListBuilder(List<AdventBox> adventBoxs){
@@ -22,16 +23,19 @@ public class AdventBoxListResponse {
                 .map(adventBox -> AdventBoxListResponse.builder()
                         .boxId(adventBox.getId())
                         .isActive(adventBox.isActive())
+                        .activeDay(adventBox.getActiveDay())
+                        .isActiveAt(adventBox.getActiveAt())
                         .wrapper(adventBox.getWrapper())
                         .build())
                 .collect(Collectors.toList());
     }
 
     @Builder
-    private AdventBoxListResponse(Integer boxId, LocalDate isActiveAt, boolean isActive, String wrapper) {
+    public AdventBoxListResponse(Integer boxId, LocalDate isActiveAt, boolean isActive, Integer activeDay, String wrapper) {
         this.boxId = boxId;
         this.isActiveAt = isActiveAt;
         this.isActive = isActive;
+        this.activeDay = activeDay;
         this.wrapper = wrapper;
     }
 }
