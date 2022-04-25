@@ -3,6 +3,11 @@
     height: 50px;
 }
 
-.back{
-    background-color: #FFEAD0;
+.pointer {
+    cursor: pointer;
+}
+
+.inline {
+    display: inline;
+    margin: auto;
 }
