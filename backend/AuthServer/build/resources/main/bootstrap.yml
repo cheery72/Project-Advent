@@ -3,4 +3,4 @@ spring:
     name: auth-server-dev
   cloud:
     config:
-      uri: http://j6c203.p.ssafy.io:8888
+      uri: http://localhost:8888
