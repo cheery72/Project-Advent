@@ -1,17 +1,7 @@
-.customShapeDividerBottom1650726416 {
+.customShapeDividerBottom1650727664 {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 100%;
-    overflow: hidden;
-    line-height: 0;
-    transform: rotate(180deg);
-}
-
-.customShapeDividerBottom1650727664 {
-    /* position: absolute;
-    bottom: 0;
-    left: 0; */
     width: 100%;
     overflow: hidden;
     line-height: 0;
@@ -26,5 +16,5 @@
 }
 
 .customShapeDividerBottom1650727664 .shapeFill {
-    fill: rgb(255, 245, 238); /* 하단 배경색은 footer 색상과 일치하게 */
+    fill: rgb(255, 242, 233); /* 하단 배경색은 footer 상단 색상과 일치하게 */
 }
