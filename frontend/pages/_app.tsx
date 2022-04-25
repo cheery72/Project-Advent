@@ -5,6 +5,7 @@ import 'semantic-ui-css/semantic.min.css'
 import Navbar from '../src/component/navbar';
 import ShapeDivider from '../src/component/footer/shapeDivider';
 import ScrollToTop from '../src/component/footer/scrollToTop';
+import Footer from '../src/component/footer/footer';
 import Aos from 'aos';
 import 'aos/dist/aos.css'; 
 
@@ -22,6 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <ShapeDivider />
             </div>
             <ScrollToTop />
+            <Footer />
         </>
     ); 
 }
