@@ -26,6 +26,8 @@ public class QAdventBox extends EntityPathBase<AdventBox> {
 
     public final DatePath<java.time.LocalDate> activeAt = createDate("activeAt", java.time.LocalDate.class);
 
+    public final NumberPath<Integer> activeDay = createNumber("activeDay", Integer.class);
+
     public final QAdvent advent;
 
     public final NumberPath<Integer> adventDay = createNumber("adventDay", Integer.class);

@@ -45,7 +45,7 @@ public class AdventController {
     }
 
     @ApiOperation(value = "password 및 기간 설정", notes = "패스워드, 힌트, 기간 설정")
-    @PutMapping("/days")
+    @PatchMapping("/days")
     public ResponseEntity<AdventUrlResponse> adventPrivateInfoModify(@RequestBody @Valid AdventPrivateRequest adventPrivateRequest) {
         log.info("adventPrivateInfoModify");
 
@@ -62,7 +62,6 @@ public class AdventController {
                 .body(adventService.modifyPrivateInfoAdvent(adventPrivateRequest));
     }
 
-    // Todo: no
     @ApiOperation(value = "받는 사람 이름 설정", notes = "받는 사람 이름 설정")
     @PatchMapping("/recipient")
     public ResponseEntity<Object> adventRecipientModify(@RequestBody AdventRecipientModify adventRecipientModify){
@@ -105,10 +104,15 @@ public class AdventController {
         if (ObjectUtils.isEmpty(adventCertifyRequest)) {
             return ResponseEntity.notFound().build();
         }
+        AdventReceiveResponse advent = adventService.findReceiveUrlAdvent(adventCertifyRequest);
+
+        if(advent == null){
+            return ResponseEntity.notFound().build();
+        }
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(adventService.findReceiveUrlAdvent(adventCertifyRequest));
+                .body(advent);
     }
 
     @ApiOperation(value = "보관함 페이지", notes = "해당 유저 보관함 페이지")

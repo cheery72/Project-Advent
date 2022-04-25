@@ -9,6 +9,7 @@ import com.ssafy.adventsvr.payload.request.AdventRecipientModify;
 import com.ssafy.adventsvr.payload.response.*;
 import com.ssafy.adventsvr.repository.AdventBoxRepository;
 import com.ssafy.adventsvr.repository.AdventRepository;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.data.domain.Page;
@@ -51,7 +52,6 @@ public class AdventServiceImpl implements AdventService{
         String url = RandomStringUtils.randomAlphanumeric(15);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
         LocalDate localDate = LocalDate.parse(adventPrivateRequest.getEndAt(),formatter);
-        System.out.println();
         advent.setAdventPrivateInfoModify(adventPrivateRequest,url,localDate);
 
         Optional<List<AdventBox>> optionalAdventBoxes  = adventBoxRepository.findAllByAdventId(advent.getId());
@@ -72,7 +72,7 @@ public class AdventServiceImpl implements AdventService{
         Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
 
         if(advent.getPassword().equals(adventCertifyRequest.getPassword())){
-           Optional<List<AdventBox>> optionalAdventBoxes  =adventBoxRepository.findAllByAdventId(advent.getId());
+           Optional<List<AdventBox>> optionalAdventBoxes  = adventBoxRepository.findAllByAdventId(advent.getId());
            List<AdventBox> adventBoxList = optionalAdventBoxes.orElseThrow(NoSuchElementException::new);
            List<AdventBoxListResponse> adventBoxListResponse = AdventBoxListResponse.adventBoxListBuilder(adventBoxList);
            advent.setAdventIsReceivedModify();
@@ -80,8 +80,11 @@ public class AdventServiceImpl implements AdventService{
            // 날짜됐을시 활성화
             for (AdventBox adventbox:adventBoxList) {
                 LocalDate localDate = LocalDate.now();
-                if(adventbox.getActiveAt() != null && adventbox.getActiveAt() == localDate){
-                    adventbox.setAdventIsActiveModify();
+                if(adventbox.getActiveAt() != null){
+                    if(adventbox.getActiveAt().equals(localDate)){
+                        adventbox.setAdventIsActiveModify();
+                    }
+                    adventbox.setAdventActiveDayModify(localDate,adventbox.getActiveAt());
                 }
             }
 
@@ -91,10 +94,11 @@ public class AdventServiceImpl implements AdventService{
                     .adventBoxList(adventBoxListResponse)
                     .build();
         }
-        // 널 말고 예외 처리
+
         return null;
     }
 
+    @Transactional
     // Todo: 패스워드 설정 안돼있을시에 - ok
     @Override
     public AdventReceiveResponse findReceiveNotPasswordUrlAdvent(String url) {
@@ -109,8 +113,11 @@ public class AdventServiceImpl implements AdventService{
         // 날짜됐을시 활성화
         for (AdventBox adventbox:adventBoxList) {
             LocalDate localDate = LocalDate.now();
-            if(adventbox.getActiveAt() != null && adventbox.getActiveAt() == localDate){
-                adventbox.setAdventIsActiveModify();
+            if(adventbox.getActiveAt() != null){
+                if(adventbox.getActiveAt().equals(localDate)){
+                    adventbox.setAdventIsActiveModify();
+                }
+                adventbox.setAdventActiveDayModify(localDate,adventbox.getActiveAt());
             }
         }
 
@@ -149,12 +156,12 @@ public class AdventServiceImpl implements AdventService{
         return new PageImpl<>(advents,pageable,advent.size());
     }
 
+    @Transactional
     @Override
     public void modifyRecipientAdvent(AdventRecipientModify adventRecipientModify) {
         Optional<Advent> optionalAdvent = adventRepository.findById(adventRecipientModify.getAdventId());
         Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
         advent.setAdventRecipientNameModify(adventRecipientModify.getRecipientName());
-        System.out.println();
     }
 
     // Todo: DELETE 게시글 삭제 - no
