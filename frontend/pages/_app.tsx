@@ -22,8 +22,8 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <Component {...pageProps} />
                 <ShapeDivider />
             </div>
-            <ScrollToTop />
             <Footer />
+            <ScrollToTop />
         </>
     ); 
 }

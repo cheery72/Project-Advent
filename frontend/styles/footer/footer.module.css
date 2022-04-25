@@ -1,18 +1,14 @@
 .footerDistributed{
-	/* background: rgb(255, 243, 243); */
-	/* position: sticky; */
-	bottom: 0;
-	background:linear-gradient(0deg, rgb(241, 238, 255) 10%, rgb(253, 233, 235) 30%,  rgb(255, 238, 218) 60%, rgb(255, 246, 225) 85%, rgb(255, 245, 238) 99%);
+	background:linear-gradient(0deg, rgb(241, 238, 255) 10%, rgb(255, 232, 234) 30%, rgb(255, 227, 198) 60%, rgb(255, 232, 207) 75%, rgb(255, 242, 233) 99%); /* 하단 배경색은 footer 상단 색상과 일치하게 */
 	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
 	box-sizing: border-box;
 	width: 100%;
 	font: bold 16px sans-serif;
 	text-align: left;
-	/* padding: 50px 60px 40px; */
-	padding: 20px 10% 20px;
+	padding: 20px 10% 10px;
 	overflow: hidden;
+	min-height: 15vh;
 }
-
 
 /* Footer left */
 
@@ -136,7 +132,7 @@
 
 .footerDistributed form textarea{
 	height: 100px;
-	margin-bottom: 20px;
+	margin-bottom: 15px;
 }
 
 .footerDistributed form button{
@@ -144,7 +140,7 @@
 	background-color:  #ffacac;
 	color: #ffffff;
 	border: 0;
-	padding: 15px 50px;
+	padding: 10px 50px;
 	font-weight: bold;
 	float: right;
 }
