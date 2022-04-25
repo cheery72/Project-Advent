@@ -14,3 +14,8 @@ a {
 * {
   box-sizing: border-box;
 }
+
+/* 배경색 */
+.background {
+  background: linear-gradient(60deg, rgb(233, 210, 253) 0%, rgb(227, 223, 255) 10%, rgb(252, 227, 229) 47%, rgb(255, 253, 240) 70%, rgb(255, 246, 240) 80%, rgb(254, 239, 204) 91%);
+}

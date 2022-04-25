@@ -1,23 +1,15 @@
-import { useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styles from '../../styles/navbar/navbar.module.css';
 import { Button, Icon } from 'semantic-ui-react';
 import notify from './notify/notify';
-import { ToastContainer } from 'react-toastify';
 import IsLogin from '../../src/lib/IsLogin'
-import 'aos/dist/aos.css'; 
-import Aos from 'aos';
+import { ToastContainer } from 'react-toastify';
 
 export default function Navbar() {
     const KAKAO_LOGIN_URL = 'http://kwky.shop:8081'
     const BASE_URL = 'http://localhost:3000'
     const router = useRouter()
-    useEffect(() => {
-        Aos.init({
-            duration: 1000
-        });
-      })
 
     const logout = () => {
         localStorage.removeItem("token")

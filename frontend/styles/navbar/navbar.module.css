@@ -1,14 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@900&display=swap');
 
 .menuContainer {
-    position: sticky;
-    top: 0;
-
+    /* position: sticky;
+    top: 0; */
+    position: relative;
     display: flex;
     align-items: center;
-    /* background: linear-gradient(90deg, rgba(180,72,235,0.2091211484593838) 0%, rgba(253,29,69,0.15870098039215685) 50%, rgba(252,176,69,0.18671218487394958) 100%); */
-    /* background: linear-gradient(90deg, rgb(233, 210, 253) 0%, rgba(255,223,226,1) 47%, rgb(254, 239, 204) 91%); */
-    background: linear-gradient(90deg, rgb(233, 210, 253) 0%, rgb(227, 223, 255) 25%, rgb(252, 227, 229) 47%, rgb(255, 253, 240) 70%, rgb(255, 248, 240) 80%, rgb(254, 239, 204) 91%);
     color: #595959;
     padding: 30px 10% 10px;
     z-index: 1;
