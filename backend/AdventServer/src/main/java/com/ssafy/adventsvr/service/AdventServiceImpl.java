@@ -10,17 +10,14 @@ import com.ssafy.adventsvr.payload.request.AdventRecipientModify;
 import com.ssafy.adventsvr.payload.response.*;
 import com.ssafy.adventsvr.repository.AdventBoxRepository;
 import com.ssafy.adventsvr.repository.AdventRepository;
-import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -62,12 +59,6 @@ public class AdventServiceImpl implements AdventService{
         String url = RandomStringUtils.randomAlphanumeric(15);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
         LocalDate localDate = LocalDate.parse(adventPrivateRequest.getEndAt(),formatter);
-//        MessageDigest sha = null;
-//        try {
-//            sha = MessageDigest.getInstance("SHA-256");
-//        } catch (NoSuchAlgorithmException e) {
-//            e.printStackTrace();
-//        }
 
         advent.setAdventPrivateInfoModify(adventPrivateRequest,url,localDate);
 
@@ -88,7 +79,9 @@ public class AdventServiceImpl implements AdventService{
         Optional<Advent> optionalAdvent = adventRepository.findByUrl(adventCertifyRequest.getUrl());
         Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
 
-        if(advent.getPassword().equals(adventCertifyRequest.getPassword())){
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        if(encoder.matches(adventCertifyRequest.getPassword(),advent.getPassword())){
            Optional<List<AdventBox>> optionalAdventBoxes  = adventBoxRepository.findAllByAdventId(advent.getId());
            List<AdventBox> adventBoxList = optionalAdventBoxes.orElseThrow(NoSuchElementException::new);
            advent.setAdventIsReceivedModify();
