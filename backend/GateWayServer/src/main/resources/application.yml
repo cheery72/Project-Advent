@@ -6,7 +6,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://k6c206.p.ssafy.io:8761/eureka
 
 spring:
   application:
@@ -33,7 +33,7 @@ spring:
               - DELETE
       routes:
         - id: auth-server
-          uri: http://localhost:8081/
+          uri: http://k6c206.p.ssafy.io:8081/
           predicates:
             - Path=/auth-server/**
           filters:
@@ -44,7 +44,7 @@ spring:
                 preLogger: true
                 postLogger: true
         - id: advent-server
-          uri: http://localhost:8082/
+          uri: http://k6c206.p.ssafy.io:8082/
           predicates:
             - Path=/advent-server/**
           filters:

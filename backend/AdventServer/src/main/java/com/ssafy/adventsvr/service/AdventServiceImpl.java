@@ -18,6 +18,9 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -59,6 +62,13 @@ public class AdventServiceImpl implements AdventService{
         String url = RandomStringUtils.randomAlphanumeric(15);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
         LocalDate localDate = LocalDate.parse(adventPrivateRequest.getEndAt(),formatter);
+//        MessageDigest sha = null;
+//        try {
+//            sha = MessageDigest.getInstance("SHA-256");
+//        } catch (NoSuchAlgorithmException e) {
+//            e.printStackTrace();
+//        }
+
         advent.setAdventPrivateInfoModify(adventPrivateRequest,url,localDate);
 
         Optional<List<AdventBox>> optionalAdventBoxes  = adventBoxRepository.findAllByAdventId(advent.getId());
@@ -72,7 +82,7 @@ public class AdventServiceImpl implements AdventService{
     }
 
     @Transactional
-    // Todo: POST 비밀번호 인증시 게시글 조회 - no
+    // Todo: POST 비밀번호 인증시 게시글 조회 - ok
     @Override
     public AdventReceiveResponse findReceiveUrlAdvent(AdventCertifyRequest adventCertifyRequest) {
         Optional<Advent> optionalAdvent = adventRepository.findByUrl(adventCertifyRequest.getUrl());
@@ -81,7 +91,6 @@ public class AdventServiceImpl implements AdventService{
         if(advent.getPassword().equals(adventCertifyRequest.getPassword())){
            Optional<List<AdventBox>> optionalAdventBoxes  = adventBoxRepository.findAllByAdventId(advent.getId());
            List<AdventBox> adventBoxList = optionalAdventBoxes.orElseThrow(NoSuchElementException::new);
-           List<AdventBoxListResponse> adventBoxListResponse = AdventBoxListResponse.adventBoxListBuilder(adventBoxList);
            advent.setAdventIsReceivedModify();
 
            // 날짜됐을시 활성화
@@ -98,7 +107,7 @@ public class AdventServiceImpl implements AdventService{
             return AdventReceiveResponse.builder()
                     .adventId(advent.getId())
                     .recipientName(advent.getRecipientName())
-                    .adventBoxList(adventBoxListResponse)
+                    .adventBoxList(AdventBoxListResponse.adventBoxListBuilder(adventBoxList))
                     .build();
         }
 
@@ -114,7 +123,6 @@ public class AdventServiceImpl implements AdventService{
 
         Optional<List<AdventBox>> optionalAdventBoxes  =adventBoxRepository.findAllByAdventId(advent.getId());
         List<AdventBox> adventBoxList = optionalAdventBoxes.orElseThrow(NoSuchElementException::new);
-        List<AdventBoxListResponse> adventBoxListResponse = AdventBoxListResponse.adventBoxListBuilder(adventBoxList);
         advent.setAdventIsReceivedModify();
 
         // 날짜됐을시 활성화
@@ -131,7 +139,7 @@ public class AdventServiceImpl implements AdventService{
         return AdventReceiveResponse.builder()
                 .adventId(advent.getId())
                 .recipientName(advent.getRecipientName())
-                .adventBoxList(adventBoxListResponse)
+                .adventBoxList(AdventBoxListResponse.adventBoxListBuilder(adventBoxList))
                 .build();
 
     }
