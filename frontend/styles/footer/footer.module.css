@@ -20,7 +20,7 @@
 
 .footerDistributed h3{
 	color:  #ffadad;
-	font: normal 25px, cursive;
+	font-size: 20px;
 	font-family: 'Roboto';
 	letter-spacing: 1.5px;
 	margin: 0 0 10px;
@@ -69,7 +69,7 @@
 	display: inline-block;
 	vertical-align: top;
 	margin: 15px 42px 0 0;
-	color: #5383d3;
+	color: #618ad2;
 }
 
 .footerDistributed .footerRight p:nth-child(2){
@@ -78,6 +78,10 @@
 	margin: 15px 42px 0 0;
 	color: #8ab3b1;
 	cursor: pointer;
+}
+
+.footerDistributed .footerRight p:nth-child(2):hover{
+	transform: scale(1.1);
 }
 
 .footerDistributed .footerRight p:nth-child(3) {
@@ -97,7 +101,7 @@
 .footerDistributed form input,
 .footerDistributed form textarea{
 	display: block;
-	border-radius: 3px;
+	border-radius: 5px;
 	box-sizing: border-box;
 	background-color:  #feffff;
 	box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.1);
@@ -109,7 +113,7 @@
 	font-weight: normal;
 	color:  #5c666b;
 
-	width: 400px;
+	width: 300px;
 	padding: 18px;
 }
 
@@ -145,6 +149,7 @@
 	padding: 10px 50px;
 	font-weight: bold;
 	float: right;
+	cursor: pointer;
 }
 
 /* If you don't want the footer to be responsive, remove these media queries */

@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emailjs/browser": "^3.6.2",
     "@types/aos": "^3.0.4",
     "aos": "^2.3.4",
     "axios": "^0.26.1",

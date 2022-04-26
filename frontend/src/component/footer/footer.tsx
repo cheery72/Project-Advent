@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { Icon } from 'semantic-ui-react'
+import { Icon, Popup } from 'semantic-ui-react'
 import styles from '../../../styles/footer/footer.module.css'
+import ContactUs from './contactUs'
 
 export default function Footer () {
 	const [visible, setVisible] = useState<boolean>(false)
@@ -39,17 +40,21 @@ export default function Footer () {
 				{ 
 					!visible 
 					&& 
-					(<p onClick={() => setVisible(true)}><Icon name="mail" size="large" color="teal"/> 이메일주소@gmail.com</p>)
+					(<Popup  
+						content={<p style={{ fontSize: '9px' }}>클릭시 메일 입력 양식이 나타납니다.</p>}
+						style={{ color:'#027e78' }}
+						trigger={
+							<p onClick={() => setVisible(true)}>
+								<Icon name="mail" size="large" color="teal"/> 이메일주소@gmail.com
+							</p>
+							} 
+						/>
+					)
 				}
 				{ 
 					visible 
 					&& 
-					(<form action="#" method="post">
-						<input type="email" name="email" placeholder="your E-mail" />
-						<textarea name="message" placeholder="문의 및 개선사항 등 의견을 보내주세요."></textarea>
-						<p onClick={() => setVisible(false)}>취소</p>
-						<button>Send</button>
-					</form>)
+					(<ContactUs setVisible={setVisible} />)
 				}
 
 			</div>
