@@ -19,13 +19,15 @@
 /* The company logo */
 
 .footerDistributed h3{
-	color:  #ffb7b7;
-	font: normal 25px 'Roboto', cursive;
+	color:  #ffadad;
+	font-size: 20px;
+	font-family: 'Roboto';
+	letter-spacing: 1.5px;
 	margin: 0 0 10px;
 }
 
 .footerDistributed h3 span{
-	color:  #7a8dff;
+	color:  #8194ff;
 }
 
 /* Footer links */
@@ -67,7 +69,7 @@
 	display: inline-block;
 	vertical-align: top;
 	margin: 15px 42px 0 0;
-	color: #5383d3;
+	color: #618ad2;
 }
 
 .footerDistributed .footerRight p:nth-child(2){
@@ -78,10 +80,14 @@
 	cursor: pointer;
 }
 
-.footerDistributed .footerRight p:nth-child(3) {
+.footerDistributed .footerRight p:nth-child(2):hover{
+	transform: scale(1.1);
+}
+
+.footerDistributed .footerRight p:nth-child(4) {
 	display: inline-block;
-	vertical-align: top;
-	margin: 15px 42px auto;
+	margin: 0 20%;
+	/* float: right; */
 	color: #919191;
 	cursor: pointer;
 }
@@ -95,7 +101,7 @@
 .footerDistributed form input,
 .footerDistributed form textarea{
 	display: block;
-	border-radius: 3px;
+	border-radius: 5px;
 	box-sizing: border-box;
 	background-color:  #feffff;
 	box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.1);
@@ -107,7 +113,7 @@
 	font-weight: normal;
 	color:  #5c666b;
 
-	width: 400px;
+	width: 300px;
 	padding: 18px;
 }
 
@@ -142,7 +148,9 @@
 	border: 0;
 	padding: 10px 50px;
 	font-weight: bold;
-	float: right;
+	/* float: right; */
+	cursor: pointer;
+	/* display: inline-block; */
 }
 
 /* If you don't want the footer to be responsive, remove these media queries */
