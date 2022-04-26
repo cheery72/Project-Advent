@@ -6,6 +6,8 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import javax.persistence.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -75,7 +77,9 @@ public class Advent extends BaseTimeEntity{
 
     public void setAdventPrivateInfoModify(AdventPrivateRequest adventPrivateRequest, String url, LocalDate localDate){
         if(adventPrivateRequest.getPassword() != null){
-            this.password = adventPrivateRequest.getPassword();
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+            this.password = encoder.encode(adventPrivateRequest.getPassword());
             this.passwordHint = adventPrivateRequest.getPasswordHint();
             this.isPassword = true;
         }else{
