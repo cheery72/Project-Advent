@@ -9,7 +9,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://k6c206.p.ssafy.io:8761/eureka
 
 spring:
   application:
@@ -35,6 +35,7 @@ spring:
     include:
       - aws
       - credentials
+
 logging:
   level.org.springframework: info
   level.org.springframework.web: info

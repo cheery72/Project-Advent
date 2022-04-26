@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDate;
 
-@FeignClient(name="auth-server",url="http://localhost:8081/users")
+@FeignClient(name="auth-server",url="http://k6c206.p.ssafy.io:8081/users")
 public interface UserServiceClient {
 
     @GetMapping("/{userId}/{localDate}")
