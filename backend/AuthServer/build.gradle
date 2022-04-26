@@ -39,6 +39,8 @@ dependencies {
 	implementation 'org.webjars:sockjs-client:1.5.1'
 	implementation 'org.webjars:stomp-websocket:2.3.4'
 
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
 	implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.6.2'
 	implementation 'org.springframework.cloud:spring-cloud-starter'
