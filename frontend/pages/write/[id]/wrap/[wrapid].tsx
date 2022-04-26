@@ -1,8 +1,8 @@
-import axios from "axios";
 import { useRouter } from "next/router";
 import { SetStateAction, useState } from "react";
 import { Button, Grid, Header, Image, Input } from "semantic-ui-react";
 import notify from "../../../../src/component/notify/notify";
+import unsplashAxios from "../../../../src/lib/unsplashAxios";
 import styles from "../../../../styles/write/wrap.module.css"
 
 export default function Wrap(){
@@ -17,6 +17,7 @@ export default function Wrap(){
     const [imageType, setImageType] = useState(1)
     const [pattern, setPattern] = useState(1)
     const [searchWord, setSearchWord] = useState('')
+    const [unsplashImages, setUnsplashImages]: any = useState([])
 
     const selectImage = (e: { target: { currentSrc: SetStateAction<string>; }; }) => {
         setBackgroundImage(e.target.currentSrc)
@@ -55,6 +56,23 @@ export default function Wrap(){
         setSearchWord(e.target.value)
     }
 
+    const searchImage = () => {
+        loadImages()
+    }
+
+    const loadImages = async () => {
+        await unsplashAxios
+            .get(`/search/photos`, {
+                params: { query: searchWord, per_page: 12 }
+            })
+            .then(({ data }) => {
+                setUnsplashImages(data.results)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    }
+
     return(
         <>
             <Grid centered stackable>
@@ -80,15 +98,15 @@ export default function Wrap(){
                 <Row>
                     <Column>
                         <div className={styles.imagetitle}>
-                            <div onClick={()=>{selectImageType(1)}} className={imageType===1?styles.selecttab:styles.tabhead }>이미지 찾기</div>
-                            <div onClick={()=>{selectImageType(2)}} className={imageType===2?styles.selecttab:styles.tabhead }>기존 이미지 선택</div>
+                            <div onClick={()=>{selectImageType(1)}} className={imageType===1?styles.selecttab:styles.tabhead }>내 이미지 찾기</div>
+                            <div onClick={()=>{selectImageType(2)}} className={imageType===2?styles.selecttab:styles.tabhead }>기본 이미지 선택</div>
                             <div onClick={()=>{selectImageType(3)}} className={imageType===3?styles.selecttab:styles.tabhead }>이미지 검색</div>
                         </div>
                     </Column>
                 </Row>
            
                 <Row>
-                    <Column textAlign="center">
+                    <Column textAlign="center" width={8}>
                         {imageType===1?
                             <div>
                                 <div className={styles.imageupload}>
@@ -145,11 +163,21 @@ export default function Wrap(){
                             <>
                                 <div>
                                     <Header as="h5">검색할 단어를 입력하세요!</Header>
-                                    <Input type="text" placeholder="단어로 입력해주세요" maxLength={10} onChange={writeSearchWord}/>
-                                    <Button color="blue" inverted>검색</Button>
+                                    <Input type="text" placeholder="영어로 입력해주세요" maxLength={15} onChange={writeSearchWord}/>
+                                    <Button color="blue" inverted onClick={ searchImage }>검색</Button>
                                 </div>
                                 <div className={styles.backgroundcontent}>   
-                                    
+                                    {unsplashImages?
+                                        unsplashImages.map((image: any) => {
+                                            return (
+                                                <>
+                                                    <span key={image.id}>
+                                                    <Image src={image.urls.small} alt="" wrapped width={100} onClick={selectImage}/>
+                                                    </span> 
+                                                </>
+                                            );           
+                                        })
+                                    :''}
                                 </div>       
                             </>
                         :
