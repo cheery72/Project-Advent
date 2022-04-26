@@ -7,7 +7,7 @@ spring:
 
 eureka:
   instance:
-    hostname: localhost
+    hostname: k6c206.p.ssafy.io
   client:
     register-with-eureka: false
     fetch-registry: false
