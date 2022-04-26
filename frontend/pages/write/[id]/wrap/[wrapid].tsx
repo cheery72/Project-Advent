@@ -1,7 +1,8 @@
 import { useRouter } from "next/router";
-import { SetStateAction, useEffect, useState } from "react";
-import { Button, Grid, Header, Image } from "semantic-ui-react";
+import { SetStateAction, useState } from "react";
+import { Button, Grid, Header, Image, Input } from "semantic-ui-react";
 import notify from "../../../../src/component/notify/notify";
+import unsplashAxios from "../../../../src/lib/unsplashAxios";
 import styles from "../../../../styles/write/wrap.module.css"
 
 export default function Wrap(){
@@ -9,22 +10,37 @@ export default function Wrap(){
     const router = useRouter()
     const day = router.query.day
     const wrapid = router.query.wrapid
+
     const { Row, Column } = Grid
 
+    const [backgroundImage, setBackgroundImage] = useState('')
     const [imageType, setImageType] = useState(1)
-    const [images, setImages]: any = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29])
-    const [myImage, setMyImage] = useState()
+    const [pattern, setPattern] = useState(1)
+    const [searchWord, setSearchWord] = useState('')
+    const [unsplashImages, setUnsplashImages]: any = useState([])
 
+    const selectImage = (e: { target: { currentSrc: SetStateAction<string>; }; }) => {
+        setBackgroundImage(e.target.currentSrc)
+    }
+
+    const deleteImage = () => {
+        setBackgroundImage('')
+    }
+
+    // 배경선택 
     const selectImageType = (num: SetStateAction<number>) => {
         setImageType(num)
     }
-    
-    const findImage = (e: any) => {
-        setMyImage(e.target.value)
-    }
 
-    const selectImage = (e: { target: { currentSrc: SetStateAction<undefined> } }) => {
-        setMyImage(e.target.currentSrc)
+    // 배경 이미지 업로드
+    const saveImage = (e:any) => {
+        if(e.target.files.length !== 0){
+        setBackgroundImage(URL.createObjectURL(e.target.files[0]))};
+    };
+
+    const deleteBackgroundImageupload = () => {
+        URL.revokeObjectURL(backgroundImage);
+        setBackgroundImage('');
     }
 
     const writeWrap = () => {
@@ -36,53 +52,140 @@ export default function Wrap(){
         router.push({ pathname: '/write/testid', query: { day: `${day}` }})
     }
 
-    useEffect(()=>{
-        console.log('입력받은 이미지', myImage)
-    }, [myImage])
+    const writeSearchWord = (e: { target: { value: SetStateAction<string>; }; }) => {
+        setSearchWord(e.target.value)
+    }
+
+    const searchImage = () => {
+        loadImages()
+    }
+
+    const loadImages = async () => {
+        await unsplashAxios
+            .get(`/search/photos`, {
+                params: { query: searchWord, per_page: 12 }
+            })
+            .then(({ data }) => {
+                setUnsplashImages(data.results)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    }
 
     return(
         <>
-            <Grid centered>
-                    <Row>
-                        <Image src={myImage} alt="사용자파일" size="small"/>
-                    </Row>
-                    
-                    <Row>
-                        <Header as="h3">{wrapid}번 포장지를 선택하세요.</Header>
-                    </Row>
-                    <Row>
-                        <Column width={3}>
-                            <Header textAlign="center" as="h4" onClick={()=>{selectImageType(1)}} className={imageType===1?styles.selected:styles.pointer }>이미지 찾기</Header>
-                        </Column>
-                        <Column width={3}>
-                            <Header textAlign="center" as="h4" onClick={()=>{selectImageType(2)}} className={imageType===2?styles.selected:styles.pointer }>기존이미지 선택</Header>
-                        </Column>
-                    </Row>
-                    <Row>
-                        <Column width={3}/>
-                        <Column width={10} textAlign="center">
+            <Grid centered stackable>
+                <Row>
+                    <Column textAlign="center" className={styles.selectimage}>
+                        <div className={styles.selecttitle}>내가 선택한 배경</div>
+                    </Column>
+                </Row>
+
+                <Row>
+                    <Column width={3}/>
+                    <Column textAlign="center" width={10}>
+                        <Image src={backgroundImage} alt="" wrapped onClick={deleteImage} size="small" />
+                    </Column>
+                    <Column width={2} textAlign="center">
+                        <Button color="blue" inverted className={ styles.button } onClick={()=>{ writeWrap()}}>저장</Button>
+                        <br /><br />
+                        <Button inverted className={ styles.button } onClick={()=>{ closeWrap()}}>취소</Button>
+                    </Column>
+                    <Column width={1}/>
+                </Row>
+            
+                <Row>
+                    <Column>
+                        <div className={styles.imagetitle}>
+                            <div onClick={()=>{selectImageType(1)}} className={imageType===1?styles.selecttab:styles.tabhead }>내 이미지 찾기</div>
+                            <div onClick={()=>{selectImageType(2)}} className={imageType===2?styles.selecttab:styles.tabhead }>기본 이미지 선택</div>
+                            <div onClick={()=>{selectImageType(3)}} className={imageType===3?styles.selecttab:styles.tabhead }>이미지 검색</div>
+                        </div>
+                    </Column>
+                </Row>
+           
+                <Row>
+                    <Column textAlign="center" width={8}>
                         {imageType===1?
-                            <input id="myimage" type="file" onChange={findImage}/>
+                            <div>
+                                <div className={styles.imageupload}>
+                                    <label className={styles.filebutton} htmlFor="background">이미지 업로드</label>
+                                    <input
+                                        id="background"
+                                        type="file"
+                                        accept="image/gif, image/jpeg, image/png"
+                                        style={{ display: "none" }}
+                                        onChange={saveImage}
+                                    />
+                                    <button className={styles.deletebutton} onClick={() => deleteBackgroundImageupload()}>
+                                        삭제
+                                    </button>
+                                </div>
+                            </div>
                         :
                         ''}
+
                         {imageType===2?
-                            images.map((id: number) => {
-                                return(
-                                    <>
-                                        <Image src={`/wrap/sample/samplepackage${(id%3)+1}.PNG`} alt="이미지 없음" size="mini" inline onClick={selectImage} />&nbsp;&nbsp;&nbsp;
-                                    </>
-                                );
-                            })
+                            <div>
+                                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==1?"yellow":"" }} onClick={() => {setPattern(1)}}>
+                                    # 전통무늬
+                                </div>
+                                <div className={styles.backgroundcontent} hidden={pattern != 1}>
+                                
+                                </div>
+                                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==2?"yellow":"" }}  onClick={() => {setPattern(2)}}>
+                                    # 선물상자
+                                </div>
+                                <div className={styles.backgroundcontent} hidden={pattern != 2}>
+
+                                </div>
+                                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==3?"yellow":"" }}  onClick={() => {setPattern(3)}}>
+                                    # 반복패턴 
+                                </div>
+                                <div className={styles.backgroundcontent} hidden={pattern != 3}>
+                                    <Image src='/backgroundsample/background.jpg' alt="" wrapped onClick={selectImage}/>
+                                    <Image src='/backgroundsample/background1.jpg' alt="" wrapped onClick={selectImage}/>
+                                    <Image src='/backgroundsample/background2.jpg' alt="" wrapped onClick={selectImage}/>
+                                    <Image src='/backgroundsample/background3.jpg' alt="" wrapped onClick={selectImage}/>
+                                </div>
+                                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==4?"yellow":"" }}  onClick={() => {setPattern(4)}}>
+                                    # 색상선택
+                                </div>
+                                <div className={styles.backgroundcontent} hidden={pattern != 4}>
+
+                                </div>
+                            </div>
                         :
                         ''}
-                        </Column>
-                        <Column width={3}/>
-                    </Row>
-                    <Row>
-                        <Button onClick={()=>{ writeWrap()}} color="blue">저장</Button>
-                        <Button onClick={()=>{ closeWrap()}}>취소</Button>
-                    </Row>
-                </Grid>
+
+                        {imageType===3?
+                            <>
+                                <div>
+                                    <Header as="h5">검색할 단어를 입력하세요!</Header>
+                                    <Input type="text" placeholder="영어로 입력해주세요" maxLength={15} onChange={writeSearchWord}/>
+                                    <Button color="blue" inverted onClick={ searchImage }>검색</Button>
+                                </div>
+                                <div className={styles.backgroundcontent}>   
+                                    {unsplashImages?
+                                        unsplashImages.map((image: any) => {
+                                            return (
+                                                <>
+                                                    <span key={image.id}>
+                                                    <Image src={image.urls.small} alt="" wrapped width={100} onClick={selectImage}/>
+                                                    </span> 
+                                                </>
+                                            );           
+                                        })
+                                    :''}
+                                </div>       
+                            </>
+                        :
+                        ''}
+
+                    </Column>
+                </Row>
+            </Grid>
         </>
     );
 }
