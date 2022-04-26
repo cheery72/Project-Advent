@@ -38,7 +38,7 @@ export default function Navbar() {
                 {/* logo */}
                 <Link href="/">
                     <a className={ styles.menuLogo }> {/* style 적용때문에 a태그 사용, Link태그 대신 a태그만 사용하면 페이지 이동시 rerendering 함*/}
-                        <img src="/temp_logo.png" alt="Advent Special Day"  />
+                        <img src="/logo/temp_logo3.png" alt="Advent Special Day"  />
                     </a>
                 </Link>
 
