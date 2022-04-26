@@ -46,7 +46,7 @@ export default function Selectbackground () {
                 <img src={backgroundImage} onClick={deleteImage}></img>
             </div>
             <div className={styles.imagetitle}>
-                <div onClick={()=>{selectImageType(1)}} className={imageType===1?styles.selecttab:styles.tabhead }>이미지 찾기</div>
+                <div onClick={()=>{selectImageType(1)}} className={imageType===1?styles.selecttab:styles.tabhead }>내 이미지 찾기</div>
                 <div onClick={()=>{selectImageType(2)}} className={imageType===2?styles.selecttab:styles.tabhead }>기존 이미지 선택</div>
                 <div onClick={()=>{selectImageType(3)}} className={imageType===3?styles.selecttab:styles.tabhead }>이미지 검색</div>
             </div>
@@ -70,7 +70,7 @@ export default function Selectbackground () {
 
             {imageType===2?
                     
-                    <div>
+            <div>
             <div className={styles.backgroundtitle}>
             # 전통무늬
             </div>
@@ -95,14 +95,14 @@ export default function Selectbackground () {
             <div className={styles.backgroundtitle}>
             # 색상선택
             </div>
-            {/* <div className={styles.color_picker_panel}>
+            <div className={styles.color_picker_panel}>
                 <div className={styles.panel_row}>
                     <div className={styles.defailt_swatches}></div>
                     <button className={styles.button_eyedropper}>Get Color</button>
                 </div>
                 <div className={styles.panel_row}>
                     <div className={styles.spectrum_map}>
-                        <button id="spectrum_cursor" className={styles.color_cursor}>
+                        <button id="spectrum_cursor" style={{width:"30px", height:"30px"}} className={styles.color_cursor}>
                         </button>
                     
                     <canvas id="spectrum_canvas"></canvas>
@@ -113,10 +113,39 @@ export default function Selectbackground () {
                     </div>
                 </div>
                 <div className={styles.panel_row}>
-                    <div id="rgb_fields" className={styles.field_group}></div>
-
+                    <div id="rgb_fields" className={`${styles.field_group} ${styles.value_fields} ${styles.rgb_fields} ${styles.active}`}>
+                        <div className={styles.field_group}>
+                            <label htmlFor="" className={styles.field_label}>R:</label>
+                            <input type="number" max="255" min="0" id="red" className={`${styles.field_input} ${styles.rgb_input}`}></input>
+                        </div>
+                        <div className={styles.field_group}>
+                            <label htmlFor="" className={styles.field_label}>G:</label>
+                            <input type="number" max="255" min="0" id="green" className={`${styles.field_input} ${styles.rgb_input}`}></input>
+                        </div>
+                        <div className={styles.field_group}>
+                            <label htmlFor="" className={styles.field_label}>B:</label>
+                            <input type="number" max="255" min="0" id="blue" className={`${styles.field_input} ${styles.rgb_input}`}></input>
+                        </div>
+                    </div>
+                    <div id="hex_field" className={`${styles.field_group} ${styles.value_fields} ${styles.hex_field}`}>
+                        <label htmlFor="" className={styles.field_label}>Hex:</label>
+                        <input type="text" id="hex" className={styles.field_input}></input>
+                    </div>
+                    <button id="mode_toggle" className={`${styles.button} ${styles.mode_toggle}`}>Mode</button>
                 </div>
-            </div> */}
+                <div className={styles.panel_row}>
+                    <h2 className={styles.panel_header}>User Colors</h2>
+                    <div id="user_swatches" className={`${styles.swatches} ${styles.custom_swatches}`}></div>
+                </div>
+                <button id="add_swatch" className={`${styles.button} ${styles.add_swatch}`}>
+                <span id="color_indicator" className={styles.color_indicator}>
+                </span>
+                <span>Add to Swatches</span>
+                </button>
+            </div>
+
+
+
             </div>
             
         :
