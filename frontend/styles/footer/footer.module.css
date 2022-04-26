@@ -19,13 +19,15 @@
 /* The company logo */
 
 .footerDistributed h3{
-	color:  #ffb7b7;
-	font: normal 25px 'Roboto', cursive;
+	color:  #ffadad;
+	font: normal 25px, cursive;
+	font-family: 'Roboto';
+	letter-spacing: 1.5px;
 	margin: 0 0 10px;
 }
 
 .footerDistributed h3 span{
-	color:  #7a8dff;
+	color:  #8194ff;
 }
 
 /* Footer links */
