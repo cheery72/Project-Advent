@@ -44,8 +44,8 @@ export default function ContactUs ({ setVisible }:any) {
         <form ref={form} onSubmit={sendEmail}>
             <input type="email" name="user_email" placeholder="발송자 E-mail 주소" />
             <textarea name="message" placeholder="문의 및 개선사항 등 의견을 보내주세요." />
-            <p onClick={() => cancel()}>취소</p>
             <button>보내기</button>
+            <p onClick={() => cancel()}>취소</p>
         </form>
     )
 }

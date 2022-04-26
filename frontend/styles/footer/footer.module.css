@@ -84,10 +84,10 @@
 	transform: scale(1.1);
 }
 
-.footerDistributed .footerRight p:nth-child(3) {
+.footerDistributed .footerRight p:nth-child(4) {
 	display: inline-block;
-	vertical-align: top;
-	margin: 15px 42px auto;
+	margin: 0 20%;
+	/* float: right; */
 	color: #919191;
 	cursor: pointer;
 }
@@ -148,8 +148,9 @@
 	border: 0;
 	padding: 10px 50px;
 	font-weight: bold;
-	float: right;
+	/* float: right; */
 	cursor: pointer;
+	/* display: inline-block; */
 }
 
 /* If you don't want the footer to be responsive, remove these media queries */
