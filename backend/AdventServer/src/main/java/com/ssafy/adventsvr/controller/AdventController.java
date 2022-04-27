@@ -135,9 +135,9 @@ public class AdventController {
     }
 
     @ApiOperation(value = "선물 삭제", notes = "해당 유저 선물 삭제")
-    @DeleteMapping("/{userId}/{adventId}")
-    public ResponseEntity<Object> adventDelete(@PathVariable(value = "userId") Integer userId,
-                                               @PathVariable(value = "adventId") Integer adventId){
+    @DeleteMapping("/{adventId}/{userId}")
+    public ResponseEntity<Object> adventDelete(@PathVariable(value = "adventId") Integer adventId,
+                                               @PathVariable(value = "userId") Integer userId){
         log.info("adventDelete");
 
         adventService.deleteAdvent(userId, adventId);
