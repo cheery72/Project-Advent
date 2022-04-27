@@ -38,11 +38,11 @@ public class AdventServiceImpl implements AdventService{
     @Override
     public AdventDayResponse inputDayAdvent(AdventDayRequest adventDayRequest) {
         Advent advent = Advent.adventBuilder(adventDayRequest);
-        Integer userAdventCount = userServiceClient.userAdventCountFind(adventDayRequest.getUserId(), LocalDate.now());
-
-        if(10 < userAdventCount){
-            return null;
-        }
+//        Integer userAdventCount = userServiceClient.userAdventCountFind(adventDayRequest.getUserId(), LocalDate.now());
+//
+//        if(10 < userAdventCount){
+//            return null;
+//        }
 
         return AdventDayResponse.builder()
                 .adventId(adventRepository.save(advent).getId())
