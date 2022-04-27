@@ -3,7 +3,7 @@ import React from 'react';
 import { useRouter } from "next/router";
 import { SetStateAction, useEffect, useState } from "react";
 import styles from "../../../styles/detail/selectbackground.module.css"
-
+import Colorpicker from "./colorpicker"
 
 
 export default function Selectbackground () {
@@ -37,7 +37,6 @@ export default function Selectbackground () {
     }
 
 
-
     return (
         <>
             <div>
@@ -48,7 +47,8 @@ export default function Selectbackground () {
             <div className={styles.imagetitle}>
                 <div onClick={()=>{selectImageType(1)}} className={imageType===1?styles.selecttab:styles.tabhead }>내 이미지 찾기</div>
                 <div onClick={()=>{selectImageType(2)}} className={imageType===2?styles.selecttab:styles.tabhead }>기존 이미지 선택</div>
-                <div onClick={()=>{selectImageType(3)}} className={imageType===3?styles.selecttab:styles.tabhead }>이미지 검색</div>
+                <div onClick={()=>{selectImageType(3)}} className={imageType===3?styles.selecttab:styles.tabhead }>색상 선택</div>
+                <div onClick={()=>{selectImageType(4)}} className={imageType===4?styles.selecttab:styles.tabhead }>이미지 검색</div>
             </div>
             {imageType===1?
                 <div>
@@ -71,91 +71,42 @@ export default function Selectbackground () {
             {imageType===2?
                     
             <div>
-            <div className={styles.backgroundtitle}>
-            # 전통무늬
-            </div>
-            <div className={styles.backgroundcontent}>
-            
-            </div>
-            <div className={styles.backgroundtitle}>
-            # 선물상자
-            </div>
-            <div className={styles.backgroundcontent}>
-
-            </div>
-            <div className={styles.backgroundtitle}>
-            # 반복패턴 
-            </div>
-            <div className={styles.backgroundcontent}>
-            <img src='/backgroundsample/background.jpg' onClick={selectImage}></img>
-            <img src='/backgroundsample/background1.jpg' onClick={selectImage}></img>
-            <img src='/backgroundsample/background2.jpg' onClick={selectImage}></img>
-            <img src='/backgroundsample/background3.jpg' onClick={selectImage}></img>
-            </div>
-            <div className={styles.backgroundtitle}>
-            # 색상선택
-            </div>
-            <div className={styles.color_picker_panel}>
-                <div className={styles.panel_row}>
-                    <div className={styles.defailt_swatches}></div>
-                    <button className={styles.button_eyedropper}>Get Color</button>
+                <div className={styles.backgroundtitle}>
+                # 전통무늬
                 </div>
-                <div className={styles.panel_row}>
-                    <div className={styles.spectrum_map}>
-                        <button id="spectrum_cursor" style={{width:"30px", height:"30px"}} className={styles.color_cursor}>
-                        </button>
-                    
-                    <canvas id="spectrum_canvas"></canvas>
-                    </div>
-                    <div className={styles.hue_map}>
-                        <button id="hue_cursor" className={styles.color_cursor}></button>
-                        <canvas id="hue_canvas"></canvas>
-                    </div>
+                <div className={styles.backgroundcontent}>
+                
                 </div>
-                <div className={styles.panel_row}>
-                    <div id="rgb_fields" className={`${styles.field_group} ${styles.value_fields} ${styles.rgb_fields} ${styles.active}`}>
-                        <div className={styles.field_group}>
-                            <label htmlFor="" className={styles.field_label}>R:</label>
-                            <input type="number" max="255" min="0" id="red" className={`${styles.field_input} ${styles.rgb_input}`}></input>
-                        </div>
-                        <div className={styles.field_group}>
-                            <label htmlFor="" className={styles.field_label}>G:</label>
-                            <input type="number" max="255" min="0" id="green" className={`${styles.field_input} ${styles.rgb_input}`}></input>
-                        </div>
-                        <div className={styles.field_group}>
-                            <label htmlFor="" className={styles.field_label}>B:</label>
-                            <input type="number" max="255" min="0" id="blue" className={`${styles.field_input} ${styles.rgb_input}`}></input>
-                        </div>
-                    </div>
-                    <div id="hex_field" className={`${styles.field_group} ${styles.value_fields} ${styles.hex_field}`}>
-                        <label htmlFor="" className={styles.field_label}>Hex:</label>
-                        <input type="text" id="hex" className={styles.field_input}></input>
-                    </div>
-                    <button id="mode_toggle" className={`${styles.button} ${styles.mode_toggle}`}>Mode</button>
+                <div className={styles.backgroundtitle}>
+                # 선물상자
                 </div>
-                <div className={styles.panel_row}>
-                    <h2 className={styles.panel_header}>User Colors</h2>
-                    <div id="user_swatches" className={`${styles.swatches} ${styles.custom_swatches}`}></div>
+                <div className={styles.backgroundcontent}>
+
                 </div>
-                <button id="add_swatch" className={`${styles.button} ${styles.add_swatch}`}>
-                <span id="color_indicator" className={styles.color_indicator}>
-                </span>
-                <span>Add to Swatches</span>
-                </button>
+                <div className={styles.backgroundtitle}>
+                # 반복패턴 
+                </div>
+                <div className={styles.backgroundcontent}>
+                <img src='/backgroundsample/background.jpg' onClick={selectImage}></img>
+                <img src='/backgroundsample/background1.jpg' onClick={selectImage}></img>
+                <img src='/backgroundsample/background2.jpg' onClick={selectImage}></img>
+                <img src='/backgroundsample/background3.jpg' onClick={selectImage}></img>
+                </div>
             </div>
-
-
-
-            </div>
-            
         :
         ''}
         {imageType===3?
-                <>
-                <div>
-                    upsplash 이미지 들어올 곳 !!!
-                </div>
-                </>
+            <>
+            <Colorpicker></Colorpicker>
+            </>
+        :
+        ''}
+        {imageType===4?
+        <>
+        <div>
+            upsplash 이미지 들어올 곳 !!!
+        </div>
+        </>
         :
         ''}
             </div>

@@ -1,0 +1,183 @@
+/* rgb selector */
+.rgbcolorpicker {
+    display: flex;
+    justify-content: center;
+}
+
+.color_picker_panel {
+    background: #454c5a;
+    width: 310px;
+    border-radius: 8px;
+    border: 2px solid #364347;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .4);
+    color: #8b949a;
+    letter-spacing: 0.05em;
+    margin-top: 20px;
+}
+
+.panel_row {
+    margin: 0 10px 10px;
+    position: relative;
+}
+
+.panel_row:first-child {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.panel_row::after{
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.panel_header {
+    background: #15191c;
+    padding: 8px;
+    margin: 0 -10px 10px;
+    text-align: center;
+}
+
+.swatch {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background: #ccc;
+    border-radius: 4px;
+    margin-left: 4px;
+    margin-bottom: 4px;
+    box-sizing: border-box;
+    border: 2px solid #364347;
+    cursor: pointer;
+}
+
+.default_swatches {
+    width: 212px;
+}
+
+.default_swatches .swatch:nth-child(6n+1) {
+    margin-left: 0;
+}
+
+.color_cursor {
+    border-radius: 100%;
+    background: #ccc;
+    box-sizing: border-box;
+    pointer-events: none;
+    position: absolute;
+    pointer-events: none;
+    z-index: 2;
+    border: 2px solid #fff;
+    transition: all 0.2s ease;
+}
+
+.color_cursor .dragging {
+    transition: none;
+}
+
+.spectrum_map {
+    position: relative;
+    width: 212px;
+    height: 200px;
+    overflow: hidden;
+}
+
+.hue_map {
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    right: 29px;
+    width: 10px;
+}
+
+.button {
+    background: #2a3137;
+    border: 0;
+    border-radius: 4px;
+    color: #8b949a;
+    font-size: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+    outline: none;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.button:active {
+    background: #262c31;
+}
+
+.button.eyedropper {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 68px;
+    height: 68px;
+    display: block;
+}
+
+.button.add_swatch {
+    display: block;
+    padding: 6px;
+    width: 200px;
+    margin: 10px auto 0;
+    margin-bottom: 10px;
+}
+
+.button.mode_toggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 68px;
+    height: 40px;
+}
+
+.value_fields {
+    display: none;
+    align-items: center;
+}
+
+.value_fields.active {
+    display: flex;
+}
+
+.value_fields .field_input {
+    background: #15191c;
+    border: 1px solid #364347;
+    box-sizing: border-box;
+    border-radius: 2px;
+    line-height: 38px;
+    padding: 0 4px;
+    text-align: center;
+    color: #8b949a;
+    font-size: 1rem;
+    display: block;
+}
+
+.rgb_fields .field_group {
+    display: flex;
+    align-items: center;
+}
+
+.rgb_fields .field_input {
+    width: 42px;
+    margin-right: 10px;
+}
+
+.hex_field .field_input {
+    width: 170px;
+}
+
+.color_indicator {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    background: #ccc;
+}
+
+/* input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+} */
