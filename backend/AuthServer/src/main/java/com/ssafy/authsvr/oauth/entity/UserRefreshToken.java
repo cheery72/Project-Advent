@@ -16,21 +16,22 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "user_refresh_token")
 public class UserRefreshToken {
+
     @JsonIgnore
     @Id
     @Column(name = "refresh_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "token_Id", length = 64, unique = true)
-    @NotNull
-    @Size(max = 64)
-    private String tokenId;
-
     @Column(name = "refresh_token", length = 256)
     @NotNull
     @Size(max = 256)
     private String refreshToken;
+
+    @Column(name = "token_Id", length = 64, unique = true)
+    @NotNull
+    @Size(max = 64)
+    private String tokenId;
 
     public UserRefreshToken(
             @NotNull @Size(max = 64) String tokenId,
@@ -39,4 +40,5 @@ public class UserRefreshToken {
         this.tokenId = tokenId;
         this.refreshToken = refreshToken;
     }
+
 }

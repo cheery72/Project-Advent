@@ -1,0 +1,41 @@
+server:
+  port: 8082
+#  port: 0
+
+eureka:
+  #  instance:
+  #    instance-id: ${spring.application.name}:flushed:{spring.application.instance_id:${random.value}}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://k6c206.p.ssafy.io:8761/eureka
+
+spring:
+  application:
+    name: advent-server
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    url: jdbc:mysql://localhost:3306/advent?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+    username: ssafy
+    password: ssafy
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+  profiles:
+    include:
+      - aws
+      - credentials
+logging:
+  level.org.springframework: info
+  level.org.springframework.web: info
+  level.com.amazonaws.util.EC2MetadataUtils: error

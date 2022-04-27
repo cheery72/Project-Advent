@@ -1,0 +1,28 @@
+.hint {
+    color: yellow
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.inline {
+    display: inline;
+}
+
+.valid {
+    color: green;
+}
+
+.semivalid {
+    color: yellow;
+}
+
+.invalid {
+    color: red;
+}
+
+.textarea {
+    min-height: 50px;
+    max-height: 100px;
+}
