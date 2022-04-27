@@ -10,7 +10,7 @@ const { Row, Column } = Grid
                             // item 타입 어떻게 설정해야할지 모르겠음(TS)
 export default function sendboxList({userId}:any){
     const [sendbox, setSendbox] = useState<any>('loading')
-    console.log(sendbox)
+    // console.log(sendbox)
 
     const getAdventsStorage = async () => {
         const response = await allAxios.get(`/advents/${userId}/storages`)

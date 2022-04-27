@@ -19,7 +19,7 @@ export default function SendboxListItem({ item, userId, getAdventsStorage }:any)
                 console.log(error)
             })
         } else {
-            notify('info', '삭제가 취소되었습니다.', 2000)
+            notify('info', '삭제가 취소되었습니다.')
         }
     }
 
