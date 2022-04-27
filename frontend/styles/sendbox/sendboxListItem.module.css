@@ -65,9 +65,16 @@
 }
 
 .dDayPast {
-    color: rgb(209, 42, 42);
+    color: rgb(189, 98, 245);
 }
 
 .dDayNotSet {
-    color: rgb(45, 45, 201);
+    color: rgb(223, 0, 0);
+}
+
+.dDayDate {
+    color: rgb(27, 92, 255);
+    text-shadow: 3px 5px 6px rgb(140, 213, 255);
+    display: inline-block;
+    vertical-align: middle;
 }

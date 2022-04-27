@@ -5,11 +5,10 @@ import SendboxList from "../../src/component/sendbox/sendboxList";
 import userAxios from "../../src/lib/userAxios";
 import notify from "../../src/component/notify/notify";
 import { useRouter } from 'next/router';
-import allAxios from "../../src/lib/allAxios";
 
 export default function Sendbox(){
     const router = useRouter()
-    const [username, setUsername] = useState<string>('..로딩중..') // loading status 추가 고려
+    const [username, setUsername] = useState<string>('')
     const [userId, setUserId] = useState<number>(56586189) // 테스트용 임시 userId
 
 
@@ -17,14 +16,13 @@ export default function Sendbox(){
         const response = await userAxios.get(`/auth/users`)
             .then((data) => {
                 setUsername(data.data.body.user.name)
-                // setUserId(data.data.body.user.id)
+                setUserId(data.data.body.user.id) // 유저의 userId를 받아옴
             })
             .catch((e) => {
                 console.log(e)
-                localStorage.removeItem("token")
-                router.push('/')
-                setTimeout(() => location.reload(), 1000)
-                notify('info', '로그인 시간이 만료되어 로그아웃합니다😥')
+                // localStorage.removeItem("token")
+                // router.push('/')
+                // notify('info', '로그인 시간이 만료되어 로그아웃합니다😥')
             });
     };
 
