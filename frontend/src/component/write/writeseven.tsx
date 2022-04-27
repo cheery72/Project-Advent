@@ -19,9 +19,9 @@ export default function WriteSeven({ num }: any){
         <>
             <div>
                 <Header as="h3" textAlign="left" style={{ padding: "10%" }}>D-{7-num?7-num:"day"}</Header>
-                <Button color="pink" className={ styles.sevenopen } onClick={()=>{writeDetail(num)}}>열기</Button>
+                <Button className={ styles.sevenopen } style={{ backgroundColor: "aliceblue", color: "DarkSlateGray" }} onClick={()=>{writeDetail(num)}}>열기</Button>
                 <br /><br />
-                <Button color="pink" className={ styles.sevenwrap } onClick={()=>{writeWrap(num)}}>포장지 선택</Button>
+                <Button className={ styles.sevenwrap } style={{ backgroundColor: "aliceblue", color: "DarkSlateGray" }} onClick={()=>{writeWrap(num)}}>포장지 선택</Button>
                 <br /><br />
             </div>
         </>
