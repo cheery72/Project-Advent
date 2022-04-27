@@ -5,9 +5,11 @@ import { Button, Icon } from 'semantic-ui-react';
 import notify from './notify/notify';
 import IsLogin from '../../src/lib/IsLogin'
 import { ToastContainer } from 'react-toastify';
+import userAxios from '../lib/userAxios';
+import { useEffect } from 'react';
 
 export default function Navbar() {
-    const KAKAO_LOGIN_URL = 'http://kwky.shop:8081'
+    const KAKAO_LOGIN_URL = 'http://k6c206.p.ssafy.io:8000/auth-server'
     const BASE_URL = 'http://localhost:3000'
     const router = useRouter()
 
@@ -23,7 +25,7 @@ export default function Navbar() {
         }
         notify('success', msg)
     }
-    
+
     return(
         <>
             <ToastContainer autoClose={1000} />

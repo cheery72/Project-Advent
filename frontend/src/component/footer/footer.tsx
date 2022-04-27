@@ -13,11 +13,11 @@ export default function Footer () {
 
 				<h3>Make Our <span>Special</span></h3>
 
-				<p className={styles.footerCompanyName}>SSAFY C206 team US | © 2022</p>
+				<p className={styles.footerCompanyName}>SSAFY C206 team 어스 | © 2022</p>
 
 				<div 
 					className={styles.footerIcons}
-					onClick = {() => window.open('https://butter-innocent-113.notion.site/Make-our-special-233191af396f4354a629fe7b39bae698', '_blank')}
+					// onClick = {() => window.open('https://butter-innocent-113.notion.site/Make-our-special-233191af396f4354a629fe7b39bae698', '_blank')}
 				>
 					<svg 
 						height="20" 
@@ -45,7 +45,7 @@ export default function Footer () {
 						style={{ color:'#027e78' }}
 						trigger={
 							<p onClick={() => setVisible(true)}>
-								<Icon name="mail" size="large" color="teal"/> 이메일주소@gmail.com
+								<Icon name="mail" size="large" color="teal"/> makeourspecial@gmail.com
 							</p>
 							} 
 						/>
