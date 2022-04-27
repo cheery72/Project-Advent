@@ -1,12 +1,37 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from '../../styles/sendbox/sendbox.module.css'
 import SendboxList from "../../src/component/sendbox/sendboxList";
-
+import userAxios from "../../src/lib/userAxios";
+import notify from "../../src/component/notify/notify";
+import { useRouter } from 'next/router';
+import allAxios from "../../src/lib/allAxios";
 
 export default function Sendbox(){
+    const router = useRouter()
+    const [username, setUsername] = useState<string>('..로딩중..') // loading status 추가 고려
+    const [userId, setUserId] = useState<number>(56586189) // 테스트용 임시 userId
 
-    const [username, setUsername] = useState<string>('테스트') // 추후 axios(get)로 회원정보를 가져와 반영할 예정임
+
+    const getUserInfo = async () => {
+        const response = await userAxios.get(`/auth/users`)
+            .then((data) => {
+                setUsername(data.data.body.user.name)
+                // setUserId(data.data.body.user.id)
+            })
+            .catch((e) => {
+                console.log(e)
+                localStorage.removeItem("token")
+                router.push('/')
+                setTimeout(() => location.reload(), 1000)
+                notify('info', '로그인 시간이 만료되어 로그아웃합니다😥')
+            });
+    };
+
+    useEffect(() => {
+        getUserInfo()
+    }, [])
+
 
     return(
         <>
@@ -22,7 +47,7 @@ export default function Sendbox(){
                         <span>❝ { username } ❞님</span>의 <span>보낸 선물함</span>
                     </h1>
                 </div>
-                <SendboxList />
+                <SendboxList userId={ userId } />
             </div>
         </>
     );

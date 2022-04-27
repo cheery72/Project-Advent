@@ -9,15 +9,15 @@ export default function SendboxListItem({ item }:any){
 
     // 오늘 날짜 기준 d-day 계산 함수
     const dDayCount = () => {
-        const { dDay } = item 
-        const dDayDate = new Date(dDay.substring(0, 4), Number(dDay.substring(5, 7))-1, dDay.substring(8)) // month는 -1을 해줘야한다
-        const now = new Date()
-        const gap = now.getTime() - dDayDate.getTime()
-        const result = Math.floor(gap / (1000 * 60 * 60 * 24)) * - 1
-        
-        if (dDay) {
+        const { end_at } = item 
+        if (end_at) {
+            const dDayDate = new Date(end_at.substring(0, 4), Number(end_at.substring(5, 7))-1, end_at.substring(8, 10)) // month는 -1을 해줘야한다
+            const now = new Date()
+            const gap = now.getTime() - dDayDate.getTime()
+            const result = Math.floor(gap / (1000 * 60 * 60 * 24)) * - 1
+
             if (result > 0) {
-            return `D - ${result}`
+                return `D - ${result}`
             } else if (result === 0) {
                 return 'D-Day'
             } else if (result <= 0) {
@@ -32,13 +32,13 @@ export default function SendboxListItem({ item }:any){
         <Grid 
             columns={3} 
             data-aos="flip-up"
-            className={ `${styles.sendboxListCard} ${item.isSubmitted? styles.cardAfterColor : styles.cardBeforeColor}` } 
+            className={ `${styles.sendboxListCard} ${item.received? styles.cardAfterColor : styles.cardBeforeColor}` } 
             style={{ padding: '20px 10px', margin: '0 auto' }}
         >
             <Row>
                 <Column width={5}>
                     <Image 
-                        src="/sendbox/temp_sendbox_img.png" 
+                        src={`/sendbox/temp_sendbox_img-${item.received? 'after' : 'before'}.png`}
                         size='medium' wrapped 
                     />
                 </Column>
@@ -51,14 +51,14 @@ export default function SendboxListItem({ item }:any){
                         name='calendar check outline' 
                         size='large' 
                         inverted 
-                        color={ item.isSubmitted ? 'pink' : 'teal' } 
+                        color={ item.received ? 'pink' : 'teal' } 
                         style={{ marginBottom: '10px' }}
                     />
                     { 
-                        item.dDay 
+                        item.end_at
                         &&
                         <span className={styles.dDay}>
-                            &nbsp;&nbsp; { item.dDay.substring(0, 4) }년 { Number(item.dDay.substring(5, 7)) }월 { item.dDay.substring(8) }일
+                            &nbsp;&nbsp; { item.end_at.substring(0, 4) }년 { Number(item.end_at.substring(5, 7)) }월 { item.end_at.substring(8, 10) }일
                         </span>
                     }
                     <br />
@@ -66,16 +66,16 @@ export default function SendboxListItem({ item }:any){
                         // 임시경로임 / 전송완료인 선물만 제목 클릭시(난수정보 기준으로) 보낸 선물 상세보기 링크와 연결 예정
                         <Link href='#'>
                             <a 
-                                className={ `${styles.title} ${!item.isSubmitted ? styles.hrefDisabled : ''}` }
+                                className={ `${styles.title} ${!item.received ? styles.hrefDisabled : ''}` }
                             >
-                                ❝{ item.presentTitle }❞ 
+                                ❝{ item.recipient_name }❞ 
                             </a>
                         </Link>
 
                     }
                 </Column>
                 <Column width={3}>
-                { !item.isSubmitted && // 전달 전에만 수정, 삭제가 가능
+                { !item.received && // 전달 전에만 수정, 삭제가 가능
                     (<>
                         <Button 
                             animated='fade' 
@@ -104,7 +104,7 @@ export default function SendboxListItem({ item }:any){
             <Row>
                 <Column width={6}>    
                 {
-                    item.isSubmitted ? 
+                    item.received ? 
                         <></>
                         :
                         <Button style={{ color:'black', background:'#F9E84F' }}>
@@ -117,8 +117,8 @@ export default function SendboxListItem({ item }:any){
                     width={3} 
                     textAlign='center'
                 >
-                    <p className={ item.isSubmitted ? styles.statusCircleSubmitted : styles.statusCircle }>
-                        {item.isSubmitted ? <>전달<br />완료</> : dDayCount() }
+                    <p className={ item.received ? styles.statusCircleSubmitted : styles.statusCircle }>
+                        {item.received ? <>전달<br />완료</> : dDayCount() }
                     </p>
                 </Column>
             </Row>
