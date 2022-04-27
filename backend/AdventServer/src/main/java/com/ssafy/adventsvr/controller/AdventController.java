@@ -70,7 +70,7 @@ public class AdventController {
     }
 
     @ApiOperation(value = "받는 사람 이름 설정", notes = "받는 사람 이름 설정")
-    @PatchMapping("/recipient")
+    @PatchMapping("/recipients")
     public ResponseEntity<Object> adventRecipientModify(@RequestBody AdventRecipientModify adventRecipientModify){
         log.info("adventRecipientModify");
 
@@ -104,7 +104,7 @@ public class AdventController {
     }
 
     @ApiOperation(value = "패스워드 인증", notes = "패스워드 있을시 인증 성공시 선물 페이지 조회")
-    @PostMapping("/auth")
+    @PostMapping("/auths")
     public ResponseEntity<AdventReceiveResponse> adventReceiveUrlFind(@RequestBody @Valid AdventCertifyRequest adventCertifyRequest){
         log.info("adventUrlFind");
 
@@ -123,7 +123,7 @@ public class AdventController {
     }
 
     @ApiOperation(value = "보관함 페이지", notes = "해당 유저 보관함 페이지")
-    @GetMapping("/{userId}/storage")
+    @GetMapping("/{userId}/storages")
     public ResponseEntity<Page<AdventStorageResponse>> adventMyStorageFind(@PageableDefault(size=5, sort ="createAt",
                                                                     direction = Sort.Direction.DESC) Pageable pageable,
                                                                            @PathVariable("userId") Integer userId){
