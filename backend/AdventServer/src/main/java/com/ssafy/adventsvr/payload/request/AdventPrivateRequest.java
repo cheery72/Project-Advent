@@ -11,16 +11,14 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class AdventPrivateRequest {
 
-    @NotNull
-    private Integer adventId;
+    @NotBlank
+    private String adventId;
 
     @NotNull
     private Integer userId;
 
-    @NotNull
     private String password;
 
-    @NotNull
     private String passwordVal;
 
     private String passwordHint;

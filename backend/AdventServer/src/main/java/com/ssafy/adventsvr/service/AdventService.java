@@ -21,11 +21,11 @@ public interface AdventService {
 
     AdventReceiveResponse findReceiveNotPasswordUrlAdvent(String url);
 
-    AdventReceiveResponse findAdvent(Integer adventId);
+    AdventReceiveResponse findAdvent(String adventId);
 
     Page<AdventStorageResponse> findMyStorageAdvent(Pageable pageable, Integer userId);
 
-    void modifyRecipientAdvent(AdventRecipientModify adventRecipientModify);
+    void modifyTitleAdvent(AdventRecipientModify adventRecipientModify);
 
-    void deleteAdvent(Integer userId, Integer adventId);
+    void deleteAdvent(Integer userId, String adventId);
 }

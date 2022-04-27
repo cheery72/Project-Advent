@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Table(name = "advent")
 @Getter
@@ -23,13 +24,12 @@ import java.util.List;
 public class Advent extends BaseTimeEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "advent_id")
-    private Integer id;
+    private String id;
 
     private String url;
 
-    private String recipientName;
+    private String title;
 
     private Integer day;
 
@@ -55,17 +55,21 @@ public class Advent extends BaseTimeEntity{
 
     public static Advent adventBuilder(AdventDayRequest adventDayRequest){
         return Advent.builder()
+                .id((UUID.randomUUID().toString()).replace("-",""))
                 .userId(adventDayRequest.getUserId())
+                .title("Advent Special Day")
                 .day(adventDayRequest.getDay())
                 .build();
     }
 
+
+
     @Builder
-    private Advent(Integer id, String url, Integer day, String recipientName, boolean isReceived, LocalDateTime receivedAt, String password, String passwordHint, LocalDate endAt, Integer userId, List<AdventBox> adventBoxes) {
+    private Advent(String id, String url, Integer day, String title, boolean isReceived, LocalDateTime receivedAt, String password, String passwordHint, LocalDate endAt, Integer userId, List<AdventBox> adventBoxes) {
         this.id = id;
         this.url = url;
         this.day = day;
-        this.recipientName = recipientName;
+        this.title = title;
         this.isReceived = isReceived;
         this.receivedAt = receivedAt;
         this.password = password;
@@ -95,7 +99,7 @@ public class Advent extends BaseTimeEntity{
         this.isReceived = true;
     }
 
-    public void setAdventRecipientNameModify(String recipientName) {
-        this.recipientName = recipientName;
+    public void setAdventTitleModify(String title) {
+        this.title = title;
     }
 }

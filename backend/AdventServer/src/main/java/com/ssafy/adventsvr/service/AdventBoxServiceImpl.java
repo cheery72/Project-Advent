@@ -6,30 +6,22 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.ssafy.adventsvr.entity.Advent;
 import com.ssafy.adventsvr.entity.AdventBox;
-import com.ssafy.adventsvr.payload.request.AdventBoxModifyRequest;
+import com.ssafy.adventsvr.entity.BaseTimeEntity;
 import com.ssafy.adventsvr.payload.request.AdventBoxRequest;
 import com.ssafy.adventsvr.payload.request.AdventBoxWrapperRequest;
 import com.ssafy.adventsvr.payload.response.AdventBoxDayResponse;
-import com.ssafy.adventsvr.payload.response.AdventBoxDetailResponse;
+import com.ssafy.adventsvr.payload.response.AdventBoxWrapperResponse;
 import com.ssafy.adventsvr.repository.AdventBoxRepository;
 import com.ssafy.adventsvr.repository.AdventRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -57,59 +49,126 @@ public class AdventBoxServiceImpl implements AdventBoxService {
     @Override
     public AdventBoxDayResponse inputBoxAdventBox(AdventBoxRequest adventBoxRequest, MultipartFile file) {
         Optional<Advent> optionalAdvent = adventRepository.findById(adventBoxRequest.getAdventId());
+        Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
+        Optional<AdventBox> optionalAdventBox = adventBoxRepository
+                            .findByAdventIdAndAdventDay(adventBoxRequest.getAdventId(), adventBoxRequest.getAdventDay());
+
+        if(adventBoxRequest.getAdventDay() < 1 || advent.getDay() < adventBoxRequest.getAdventDay()){
+            return null;
+        }
 
         String imageUrl = null;
 
-        if(!file.isEmpty()){
+        if (!file.isEmpty()) {
             imageUrl = awsFile(file);
         }
 
-        Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
-        AdventBox adventBox = AdventBox.adventBoxBuilder(adventBoxRequest, advent, imageUrl);
+        AdventBox adventBox;
+        Integer boxId;
+        // 비어 있을 경우에 같은 박스가 생성되면 안됨
+        if (optionalAdventBox.isEmpty()) {
+            adventBox = AdventBox.adventBoxBuilder(adventBoxRequest, advent, imageUrl);
+            boxId = adventBoxRepository.save(adventBox).getId();
+            // 이미 생성된 박스가 있을 경우에
+        } else {
+            adventBox = optionalAdventBox.orElseThrow(NoSuchElementException::new);
+
+            adventBox.setAdventBoxContentModify(imageUrl);
+            boxId = adventBox.getId();
+        }
+
         return AdventBoxDayResponse.builder()
-                .boxId(adventBoxRepository.save(adventBox).getId())
+                .boxId(boxId)
+                .content(adventBox.getContent())
                 .build();
     }
 
-    // Todo: PUT box 수정
+//    // Todo: PUT box 수정
+//    @Transactional
+//    @Override
+//    public void modifyBoxAdventBox(Integer boxId, MultipartFile file) {
+//        Optional<AdventBox> optionalAdventBox= adventBoxRepository.findById(boxId);
+//        AdventBox adventBox = optionalAdventBox.orElseThrow(NoSuchElementException::new);
+//
+//        // Todo: 기존 이미지 검증
+//        String imageUrl;
+//        if(!file.isEmpty()) {
+//            imageUrl = awsFile(file);
+//            adventBox.setAdventBoxContentModify(imageUrl);
+//        }
+//
+//    }
+
+    // Todo: POST box 포장지 생성 수정
     @Transactional
     @Override
-    public void modifyBoxAdventBox(Integer boxId, MultipartFile file) {
-        Optional<AdventBox> optionalAdventBox= adventBoxRepository.findById(boxId);
-        AdventBox adventBox = optionalAdventBox.orElseThrow(NoSuchElementException::new);
+    public AdventBoxWrapperResponse modifyWrapperAdventBox(AdventBoxWrapperRequest adventBoxWrapperRequest, MultipartFile file) {
+        Optional<Advent> optionalAdvent = adventRepository.findById(adventBoxWrapperRequest.getAdventId());
+        Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
+        Optional<AdventBox> optionalAdventBox = adventBoxRepository
+                .findByAdventIdAndAdventDay(adventBoxWrapperRequest.getAdventId(), adventBoxWrapperRequest.getAdventDay());
 
-        // Todo: 기존 이미지 검증
-        String imageUrl;
-        if(!file.isEmpty()) {
-            imageUrl = awsFile(file);
-            adventBox.setAdventBoxContentModify(imageUrl);
+        if(adventBoxWrapperRequest.getAdventDay() < 1 || advent.getDay() < adventBoxWrapperRequest.getAdventDay()){
+            return null;
         }
 
-    }
+        String imageUrl = null;
 
-    // Todo: PUT box 포장지 수정
-    @Transactional
-    @Override
-    public void modifyWrapperAdventBox(Integer boxId, MultipartFile file) {
-        Optional<AdventBox> optionalAdventBox = adventBoxRepository.findById(boxId);
-        AdventBox adventBox = optionalAdventBox.orElseThrow(NoSuchElementException::new);
-        String imageUrl;
-
-        if(!file.isEmpty()){
+        if (!file.isEmpty()) {
             imageUrl = awsFile(file);
+        }
+
+        AdventBox adventBox;
+        Integer boxId;
+        // 비어 있을 경우에 같은 박스가 생성되면 안됨
+        if (optionalAdventBox.isEmpty()) {
+            adventBox = AdventBox.adventBoxWrapperBuilder(adventBoxWrapperRequest, advent, imageUrl);
+            boxId = adventBoxRepository.save(adventBox).getId();
+            // 이미 생성된 박스가 있을 경우에
+        } else {
+            adventBox = optionalAdventBox.orElseThrow(NoSuchElementException::new);
+
             adventBox.setAdventBoxWrapperModify(imageUrl);
+
+            boxId = adventBox.getId();
         }
+
+        return AdventBoxWrapperResponse.builder()
+                .boxId(boxId)
+                .wrapper(adventBox.getWrapper())
+                .build();
     }
 
     // Todo: GET box detail 조회
     @Override
-    public AdventBoxDetailResponse findDetailAdventBox(Integer adventId) {
-        Optional<AdventBox> optionalAdventBox = adventBoxRepository.findById(adventId);
+    public AdventBoxDayResponse findDetailAdventBox(Integer boxId) {
+//        Optional<Advent> optionalAdvent = adventRepository.findById(adventId);
+//        Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
+//
+//        if(adventDay < 1 || advent.getDay() < adventDay){
+//            return null;
+//        }
+//
+//        Optional<AdventBox> optionalAdventBox = adventBoxRepository
+//                .findByAdventIdAndAdventDay(adventId, adventDay);
+        Optional<AdventBox> optionalAdventBox = adventBoxRepository.findById(boxId);
         AdventBox adventBox = optionalAdventBox.orElseThrow(NoSuchElementException::new);
 
-        return AdventBoxDetailResponse.builder()
+        return AdventBoxDayResponse.builder()
                 .boxId(adventBox.getId())
                 .content(adventBox.getContent())
+                .build();
+    }
+
+    // Todo: 포장지 조회
+    @Override
+    public AdventBoxWrapperResponse findWrapperDetailAdventBox(Integer boxId) {
+        Optional<AdventBox> optionalAdventBox = adventBoxRepository.findById(boxId);
+        AdventBox adventBox = optionalAdventBox.orElseThrow(NoSuchElementException::new);
+
+        return AdventBoxWrapperResponse.builder()
+                .boxId(boxId)
+                .wrapper(adventBox.getWrapper())
                 .build();
     }
 
@@ -126,7 +185,9 @@ public class AdventBoxServiceImpl implements AdventBoxService {
                 LocalDate localDate = LocalDate.now();
                 if(adventbox.getActiveAt() != null){
                     if(adventbox.getActiveAt().equals(localDate)){
-                        adventbox.setAdventIsActiveModify();
+                        adventbox.setAdventIsActiveModify(true);
+                    }else{
+                        adventbox.setAdventIsActiveModify(false);
                     }
                     adventbox.setAdventActiveDayModify(localDate,adventbox.getActiveAt());
                 }

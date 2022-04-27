@@ -6,14 +6,14 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class AdventBoxDetailResponse {
+public class AdventBoxWrapperResponse {
 
     private Integer boxId;
-    private String content;
+    private String wrapper;
 
     @Builder
-    public AdventBoxDetailResponse(Integer boxId, String content) {
+    public AdventBoxWrapperResponse(Integer boxId, String wrapper) {
         this.boxId = boxId;
-        this.content = content;
+        this.wrapper = wrapper;
     }
 }

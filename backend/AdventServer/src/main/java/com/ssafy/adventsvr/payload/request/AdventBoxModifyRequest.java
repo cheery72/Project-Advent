@@ -3,6 +3,8 @@ package com.ssafy.adventsvr.payload.request;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Getter
@@ -10,8 +12,8 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class AdventBoxModifyRequest {
 
-    @NotNull
-    private Integer adventId;
+    @NotBlank
+    private String adventId;
 
     @NotNull
     private Integer boxId;
