@@ -1,27 +1,61 @@
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button, Grid, Header, Icon, Popup } from "semantic-ui-react";
 import notify from "../../src/component/notify/notify";
+import allAxios from "../../src/lib/allAxios";
 import IsLogin from "../../src/lib/IsLogin";
+import userAxios from "../../src/lib/userAxios";
 import styles from "../../styles/write/period.module.css"
 
 export default function Write(){
 
     const router = useRouter()
     const { Row, Column } = Grid
+    const [userInfo, setUserInfo]: any = useState([])
 
     const goWrite = (day: Number) => {
-        notify('success', `👋어드벤트 켈린더(${day}일)이 생성되었습니다.`)
-        router.push({ pathname: '/write/testid', query: { day: `${day}` }})
-
+        if (userInfo) {
+            makeAdventCalender(day)
+        }
     }
 
-    // useEffect(() => {
-    //     if(!IsLogin()){
-    //         notify('error', `로그인을 해야 작성할 수 있습니다.`)
-    //         router.push('/')
-    //     }
-    // }, [])
+    const getUserInfo = async () => {
+        userAxios
+            .get(`/auth/users`)
+            .then(({ data }) => {
+                setUserInfo(data.body.user)
+            })
+            .catch((e) => {
+                console.log(e)
+            });
+        };
+
+    const makeAdventCalender = (day: Number) => {
+        const body = {
+            day: day,
+            user_id: userInfo.id,
+        }
+        allAxios
+            .post(`/advents`, body)
+            .then(({ data }) => {
+                notify('success', `👋어드벤트 켈린더(${day}일)이 생성되었습니다. 작성한 어드벤트 켈린더는 보낸 선물함에서 확인할 수 있습니다`)
+                router.push({ pathname: `/write/${ data.advent_id }`, query: { day: `${day}` }})
+                
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    }
+
+    useEffect(() => {
+        if(!IsLogin()){
+            notify('error', `로그인을 해야 작성할 수 있습니다.`)
+            router.push('/')
+        }
+        if (IsLogin()){
+            getUserInfo()
+        }
+    }, [])
     
     return(
         <>
