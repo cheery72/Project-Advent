@@ -5,8 +5,6 @@ import { Button, Icon } from 'semantic-ui-react';
 import notify from './notify/notify';
 import IsLogin from '../../src/lib/IsLogin'
 import { ToastContainer } from 'react-toastify';
-import userAxios from '../lib/userAxios';
-import { useEffect } from 'react';
 
 export default function Navbar() {
     const KAKAO_LOGIN_URL = 'http://k6c206.p.ssafy.io:8000/auth-server'
