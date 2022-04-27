@@ -29,6 +29,7 @@ spring:
               - POST
               - GET
               - PUT
+              - PATCH
               - OPTIONS
               - DELETE
       routes:
