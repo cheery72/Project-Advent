@@ -26,7 +26,7 @@ export default function Navbar() {
 
     return(
         <>
-            <ToastContainer autoClose={1000} />
+            <ToastContainer />
             <nav className={ styles.menuContainer }>
 
                 {/* burger menu */}
