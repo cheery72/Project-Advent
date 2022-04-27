@@ -1,10 +1,7 @@
-import { Image } from "semantic-ui-react";
-import React from 'react';
 import { useRouter } from "next/router";
-import { SetStateAction, useEffect, useState } from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 import styles from "../../../styles/detail/selectbackground.module.css"
-
-
+import { HexColorPicker } from "react-colorful";
 
 export default function Selectbackground () {
     const router = useRouter();
@@ -36,7 +33,8 @@ export default function Selectbackground () {
         setBackgroundImage('');
     }
 
-
+    // Cololrpicker
+    const [color, setColor] = useState("#ffffff");
 
     return (
         <>
@@ -46,9 +44,10 @@ export default function Selectbackground () {
                 <img src={backgroundImage} onClick={deleteImage}></img>
             </div>
             <div className={styles.imagetitle}>
-                <div onClick={()=>{selectImageType(1)}} className={imageType===1?styles.selecttab:styles.tabhead }>이미지 찾기</div>
+                <div onClick={()=>{selectImageType(1)}} className={imageType===1?styles.selecttab:styles.tabhead }>내 이미지 찾기</div>
                 <div onClick={()=>{selectImageType(2)}} className={imageType===2?styles.selecttab:styles.tabhead }>기존 이미지 선택</div>
-                <div onClick={()=>{selectImageType(3)}} className={imageType===3?styles.selecttab:styles.tabhead }>이미지 검색</div>
+                <div onClick={()=>{selectImageType(3)}} className={imageType===3?styles.selecttab:styles.tabhead }>색상 선택</div>
+                <div onClick={()=>{selectImageType(4)}} className={imageType===4?styles.selecttab:styles.tabhead }>이미지 검색</div>
             </div>
             {imageType===1?
                 <div>
@@ -57,6 +56,7 @@ export default function Selectbackground () {
                     <input
                         id="background"
                         type="file"
+                        accept="image/gif, image/jpeg, image/png"
                         style={{ display: "none" }}
                         onChange={saveImage}
                     />
@@ -70,63 +70,50 @@ export default function Selectbackground () {
 
             {imageType===2?
                     
-                    <div>
-            <div className={styles.backgroundtitle}>
-            # 전통무늬
-            </div>
-            <div className={styles.backgroundcontent}>
-            
-            </div>
-            <div className={styles.backgroundtitle}>
-            # 선물상자
-            </div>
-            <div className={styles.backgroundcontent}>
-
-            </div>
-            <div className={styles.backgroundtitle}>
-            # 반복패턴 
-            </div>
-            <div className={styles.backgroundcontent}>
-            <img src='/backgroundsample/background.jpg' onClick={selectImage}></img>
-            <img src='/backgroundsample/background1.jpg' onClick={selectImage}></img>
-            <img src='/backgroundsample/background2.jpg' onClick={selectImage}></img>
-            <img src='/backgroundsample/background3.jpg' onClick={selectImage}></img>
-            </div>
-            <div className={styles.backgroundtitle}>
-            # 색상선택
-            </div>
-            {/* <div className={styles.color_picker_panel}>
-                <div className={styles.panel_row}>
-                    <div className={styles.defailt_swatches}></div>
-                    <button className={styles.button_eyedropper}>Get Color</button>
+            <div>
+                <div className={styles.backgroundtitle}>
+                # 전통무늬
                 </div>
-                <div className={styles.panel_row}>
-                    <div className={styles.spectrum_map}>
-                        <button id="spectrum_cursor" className={styles.color_cursor}>
-                        </button>
-                    
-                    <canvas id="spectrum_canvas"></canvas>
-                    </div>
-                    <div className={styles.hue_map}>
-                        <button id="hue_cursor" className={styles.color_cursor}></button>
-                        <canvas id="hue_canvas"></canvas>
-                    </div>
+                <div className={styles.backgroundcontent}>
+                
                 </div>
-                <div className={styles.panel_row}>
-                    <div id="rgb_fields" className={styles.field_group}></div>
+                <div className={styles.backgroundtitle}>
+                # 선물상자
+                </div>
+                <div className={styles.backgroundcontent}>
 
                 </div>
-            </div> */}
+                <div className={styles.backgroundtitle}>
+                # 반복패턴 
+                </div>
+                <div className={styles.backgroundcontent}>
+                <img src='/backgroundsample/background.jpg' onClick={selectImage}></img>
+                <img src='/backgroundsample/background1.jpg' onClick={selectImage}></img>
+                <img src='/backgroundsample/background2.jpg' onClick={selectImage}></img>
+                <img src='/backgroundsample/background3.jpg' onClick={selectImage}></img>
+                </div>
             </div>
-            
         :
         ''}
         {imageType===3?
-                <>
-                <div>
-                    upsplash 이미지 들어올 곳 !!!
-                </div>
-                </>
+            <>
+            <div>
+            <span className={styles.colorvalue} style={{ borderLeftColor: color }}>
+                내가 선택한 색상 : {color}
+            </span>
+            </div>
+            <div className={styles.colorpicker}>
+            <HexColorPicker color={color} onChange={setColor} />
+            </div>
+            </>
+        :
+        ''}
+        {imageType===4?
+        <>
+        <div>
+            upsplash 이미지 들어올 곳 !!!
+        </div>
+        </>
         :
         ''}
             </div>

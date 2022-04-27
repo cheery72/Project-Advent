@@ -62,6 +62,7 @@ export default function Decorativeframe () {
                     <input
                         id="file"
                         type="file"
+                        accept="image/gif, image/jpeg, image/png"
                         style={{ display: "none" }}
                         onChange={saveImage}
                     />
