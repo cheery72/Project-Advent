@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AdventDayResponse {
 
-    private Integer adventId;
+    private String adventId;
 
     @Builder
-    public AdventDayResponse(Integer adventId) {
+    public AdventDayResponse(String adventId) {
         this.adventId = adventId;
     }
 }

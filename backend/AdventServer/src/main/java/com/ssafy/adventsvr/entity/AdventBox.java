@@ -1,6 +1,7 @@
 package com.ssafy.adventsvr.entity;
 
 import com.ssafy.adventsvr.payload.request.AdventBoxRequest;
+import com.ssafy.adventsvr.payload.request.AdventBoxWrapperRequest;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -44,6 +45,14 @@ public class AdventBox extends BaseTimeEntity{
                 .build();
     }
 
+    public static AdventBox adventBoxWrapperBuilder(AdventBoxWrapperRequest adventBoxWrapperRequest, Advent advent, String imageUrl){
+        return AdventBox.builder()
+                .adventDay(adventBoxWrapperRequest.getAdventDay())
+                .advent(advent)
+                .wrapper(imageUrl)
+                .build();
+    }
+
     @Builder
     private AdventBox(String content, boolean isActive, LocalDate activeAt, Integer adventDay, String wrapper, Advent advent) {
         this.content = content;
@@ -62,8 +71,8 @@ public class AdventBox extends BaseTimeEntity{
         this.activeAt = endAt.minusDays(day-adventBox.getAdventDay());
     }
 
-    public void setAdventIsActiveModify(){
-        this.isActive = true;
+    public void setAdventIsActiveModify(boolean isCheck){
+        this.isActive = isCheck;
     }
 
     public void setAdventActiveDayModify(LocalDate localDate, LocalDate activeAt){
@@ -77,4 +86,5 @@ public class AdventBox extends BaseTimeEntity{
     public void setAdventBoxWrapperModify(String wrapper) {
         this.wrapper = wrapper;
     }
+
 }

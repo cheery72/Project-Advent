@@ -17,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
@@ -56,29 +57,35 @@ public class AdventController {
     public ResponseEntity<AdventUrlResponse> adventPrivateInfoModify(@RequestBody @Valid AdventPrivateRequest adventPrivateRequest) {
         log.info("adventPrivateInfoModify");
 
-        if(!adventPrivateRequest.getPasswordVal().equals(adventPrivateRequest.getPassword())){
+        if((adventPrivateRequest.getPasswordVal() != null && adventPrivateRequest.getPassword() != null) &&
+                (adventPrivateRequest.getPasswordVal().equals(adventPrivateRequest.getPassword()))){
             return ResponseEntity.badRequest().build();
         }
 
         if (ObjectUtils.isEmpty(adventPrivateRequest)) {
             return ResponseEntity.notFound().build();
         }
+        AdventUrlResponse advent = adventService.modifyPrivateInfoAdvent(adventPrivateRequest);
+
+        if(advent == null){
+            return ResponseEntity.badRequest().build();
+        }
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(adventService.modifyPrivateInfoAdvent(adventPrivateRequest));
+                .body(advent);
     }
 
-    @ApiOperation(value = "받는 사람 이름 설정", notes = "받는 사람 이름 설정")
+    @ApiOperation(value = "타이틀 제목 설정", notes = "타이틀 제목 설정")
     @PatchMapping("/recipients")
-    public ResponseEntity<Object> adventRecipientModify(@RequestBody AdventRecipientModify adventRecipientModify){
+    public ResponseEntity<Object> adventTitleModify(@RequestBody AdventRecipientModify adventRecipientModify){
         log.info("adventRecipientModify");
 
         if (ObjectUtils.isEmpty(adventRecipientModify)) {
             return ResponseEntity.notFound().build();
         }
 
-        adventService.modifyRecipientAdvent(adventRecipientModify);
+        adventService.modifyTitleAdvent(adventRecipientModify);
         return ResponseEntity.noContent().build();
 
     }
@@ -95,7 +102,7 @@ public class AdventController {
 
     @ApiOperation(value = "어드벤트 조회", notes = "보관함 페이지에서 수정 눌렀을시에 조회")
     @GetMapping("/{adventId}/advent")
-    public ResponseEntity<AdventReceiveResponse> adventFind(@PathVariable(value = "adventId") Integer adventId){
+    public ResponseEntity<AdventReceiveResponse> adventFind(@PathVariable(value = "adventId") String adventId){
         log.info("adventFind");
 
         return ResponseEntity
@@ -124,10 +131,13 @@ public class AdventController {
 
     @ApiOperation(value = "보관함 페이지", notes = "해당 유저 보관함 페이지")
     @GetMapping("/{userId}/storages")
-    public ResponseEntity<Page<AdventStorageResponse>> adventMyStorageFind(@PageableDefault(size=5, sort ="createAt",
-                                                                    direction = Sort.Direction.DESC) Pageable pageable,
-                                                                           @PathVariable("userId") Integer userId){
-        log.info("advent");
+    public ResponseEntity<Page<AdventStorageResponse>> adventMyStorageFind(@PageableDefault(size = 5)
+                                                            @SortDefault.SortDefaults({
+                                                            @SortDefault(sort = "isReceived"),
+                                                            @SortDefault(sort ="endAt",direction = Sort.Direction.ASC)
+                                                            }) Pageable pageable,
+                                                           @PathVariable("userId") Integer userId){
+        log.info("adventMyStorageFind");
 
         return ResponseEntity
                 .ok()
@@ -136,7 +146,7 @@ public class AdventController {
 
     @ApiOperation(value = "선물 삭제", notes = "해당 유저 선물 삭제")
     @DeleteMapping("/{adventId}/{userId}")
-    public ResponseEntity<Object> adventDelete(@PathVariable(value = "adventId") Integer adventId,
+    public ResponseEntity<Object> adventDelete(@PathVariable(value = "adventId") String adventId,
                                                @PathVariable(value = "userId") Integer userId){
         log.info("adventDelete");
 

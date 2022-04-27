@@ -10,8 +10,12 @@ public class AdventBoxDayResponse {
 
     private Integer boxId;
 
+    private String content;
+
     @Builder
-    public AdventBoxDayResponse(Integer boxId) {
+    public AdventBoxDayResponse(Integer boxId, String content) {
         this.boxId = boxId;
+        this.content = content;
     }
 }
+

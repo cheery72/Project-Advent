@@ -13,8 +13,8 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class AdventStorageResponse {
 
-    private Integer adventId;
-    private String recipientName;
+    private String adventId;
+    private String title;
     private boolean isReceived;
     private LocalDate endAt;
 
@@ -22,7 +22,7 @@ public class AdventStorageResponse {
         return advent.stream()
                 .map(advents -> AdventStorageResponse.builder()
                         .adventId(advents.getId())
-                        .recipientName(advents.getRecipientName())
+                        .title(advents.getTitle())
                         .isReceived(advents.isReceived())
                         .endAt(advents.getEndAt())
                         .build())
@@ -30,9 +30,9 @@ public class AdventStorageResponse {
     }
 
     @Builder
-    private AdventStorageResponse(Integer adventId, String recipientName, boolean isReceived, LocalDate endAt) {
+    private AdventStorageResponse(String adventId, String title, boolean isReceived, LocalDate endAt) {
         this.adventId = adventId;
-        this.recipientName = recipientName;
+        this.title = title;
         this.isReceived = isReceived;
         this.endAt = endAt;
     }

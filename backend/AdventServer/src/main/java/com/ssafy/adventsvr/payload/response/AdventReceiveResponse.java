@@ -9,14 +9,14 @@ import java.util.List;
 @NoArgsConstructor
 public class AdventReceiveResponse {
 
-    private Integer adventId;
-    private String recipientName;
+    private String adventId;
+    private String title;
     private List<AdventBoxListResponse> adventBoxList;
 
     @Builder
-    public AdventReceiveResponse(Integer adventId, String recipientName, List<AdventBoxListResponse> adventBoxList) {
+    public AdventReceiveResponse(String adventId, String title, List<AdventBoxListResponse> adventBoxList) {
         this.adventId = adventId;
-        this.recipientName = recipientName;
+        this.title = title;
         this.adventBoxList = adventBoxList;
     }
 }

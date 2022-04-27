@@ -31,7 +31,7 @@ public class QAdvent extends EntityPathBase<Advent> {
 
     public final DatePath<java.time.LocalDate> endAt = createDate("endAt", java.time.LocalDate.class);
 
-    public final NumberPath<Integer> id = createNumber("id", Integer.class);
+    public final StringPath id = createString("id");
 
     public final BooleanPath isPassword = createBoolean("isPassword");
 
@@ -46,7 +46,7 @@ public class QAdvent extends EntityPathBase<Advent> {
 
     public final DateTimePath<java.time.LocalDateTime> receivedAt = createDateTime("receivedAt", java.time.LocalDateTime.class);
 
-    public final StringPath recipientName = createString("recipientName");
+    public final StringPath title = createString("title");
 
     public final StringPath url = createString("url");
 
