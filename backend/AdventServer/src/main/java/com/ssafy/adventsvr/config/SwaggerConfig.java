@@ -1,4 +1,4 @@
-package com.ssafy.authsvr.config;
+package com.ssafy.adventsvr.config;
 
 import org.springframework.context.annotation.Bean;
 import springfox.documentation.builders.ApiInfoBuilder;
