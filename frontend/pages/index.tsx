@@ -15,10 +15,6 @@ const Home: NextPage = () => {
     const KAKAO_LOGIN_URL = 'http://k6c206.p.ssafy.io:8000/auth-server'
     const BASE_URL = 'http://localhost:3000'
 
-    const goWrite = () => {
-        router.push('/write')
-    }
-
     return (
         <>
             <Head>
@@ -60,7 +56,7 @@ const Home: NextPage = () => {
                             <Button 
                                 color='twitter' 
                                 animated 
-                                onClick={() => goWrite()}
+                                href='/write'
                                 style={{ height:'18%', width:'63%', padding:'5.5%', fontSize:'1.5vw' }}
                             >
                                 <Button.Content visible>
