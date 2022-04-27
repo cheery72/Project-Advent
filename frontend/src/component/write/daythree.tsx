@@ -21,13 +21,13 @@ export default function DayThree(){
                 <Row>
                     <Column width={13} />
                     <Column width={3}>
-                        <Button color="blue" onClick={writeAniversary}>개봉일 설정</Button>
+                        <Button color="blue" inverted size="large" onClick={writeAniversary}>개봉일 설정</Button>
                     </Column>
                 </Row>
                 
                 <Row>
                     <Column width={3}/>
-                    <Column width={3} className={ styles.box }>
+                    <Column width={3} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px" }} className={ styles.box }>
                         <WriteThree num={1} />
                     </Column>
                     <Column width={3} />
@@ -35,11 +35,11 @@ export default function DayThree(){
 
                 <Row>
                     <Column width={2}/>
-                    <Column width={3} className={ styles.box }>
+                    <Column width={3} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px" }} className={ styles.box }>
                         <WriteThree num={2} />
                     </Column>
                     <Column width={1}/>
-                    <Column width={3} className={ styles.box }>
+                    <Column width={3} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px" }} className={ styles.box }>
                         <WriteThree num={3} />
                     </Column>
                     <Column width={2}/>

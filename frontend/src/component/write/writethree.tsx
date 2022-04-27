@@ -19,9 +19,9 @@ export default function WriteThree({ num }: any){
         <>
             <div>
                 <Header as="h3" textAlign="left" style={{ padding: "10%" }}>D-{3-num?3-num:"day"}</Header>
-                <Button className={styles.threeopen} color="pink" onClick={()=>{ writeDetail(num) }}>열기</Button>
+                <Button className={styles.threeopen} style={{ backgroundColor: "aliceblue", color: "DarkSlateGray" }} onClick={()=>{ writeDetail(num) }}>열기</Button>
                 <br /><br />
-                <Button className={styles.threewrap} color="pink" onClick={()=>{ writeWrap(num) }}>포장지 선택</Button>
+                <Button className={styles.threewrap} style={{ backgroundColor: "aliceblue", color: "DarkSlateGray" }} onClick={()=>{ writeWrap(num) }}>포장지 선택</Button>
                 <br /><br />
             </div>
         </>

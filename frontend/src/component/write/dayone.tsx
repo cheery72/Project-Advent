@@ -21,13 +21,13 @@ export default function DayOne(){
                 <Row>
                     <Column width={13} />
                     <Column width={3} textAlign="center">
-                        <Button color="blue" onClick={writeAniversary}>개봉일 설정</Button>
+                        <Button color="blue" inverted size="large" onClick={writeAniversary}>개봉일 설정</Button>
                     </Column>
                 </Row>
 
                 <Row>
                     <Column width={5}/>
-                    <Column textAlign="center" width={6} className={ styles.box }>
+                    <Column textAlign="center" style={{ minWidth: "300px", minHeight: "300px", maxWidth: "300px", maxHeight: "300px" }} className={ styles.box }>
                         <WriteOne />
                     </Column>
                     <Column width={5}/>

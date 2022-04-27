@@ -1,5 +1,8 @@
 .box {
-    background-color: blanchedalmond;
+    /* background-color: blanchedalmond; */
+    background-color: #81d8cf7c;
+    border-radius: 5%;
+    box-shadow:rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
 .oneopen {

@@ -63,7 +63,7 @@ export default function Wrap(){
     const loadImages = async () => {
         await unsplashAxios
             .get(`/search/photos`, {
-                params: { query: searchWord, per_page: 12 }
+                params: { query: searchWord, per_page: 15 }
             })
             .then(({ data }) => {
                 setUnsplashImages(data.results)
@@ -104,7 +104,7 @@ export default function Wrap(){
                         </div>
                     </Column>
                 </Row>
-           
+
                 <Row>
                     <Column textAlign="center" width={8}>
                         {imageType===1?
@@ -128,19 +128,19 @@ export default function Wrap(){
 
                         {imageType===2?
                             <div>
-                                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==1?"yellow":"" }} onClick={() => {setPattern(1)}}>
+                                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==1?"#FFFF8C":"" }} onClick={() => {setPattern(1)}}>
                                     # 전통무늬
                                 </div>
                                 <div className={styles.backgroundcontent} hidden={pattern != 1}>
                                 
                                 </div>
-                                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==2?"yellow":"" }}  onClick={() => {setPattern(2)}}>
+                                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==2?"#FFFF8C":"" }}  onClick={() => {setPattern(2)}}>
                                     # 선물상자
                                 </div>
                                 <div className={styles.backgroundcontent} hidden={pattern != 2}>
 
                                 </div>
-                                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==3?"yellow":"" }}  onClick={() => {setPattern(3)}}>
+                                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==3?"#FFFF8C":"" }}  onClick={() => {setPattern(3)}}>
                                     # 반복패턴 
                                 </div>
                                 <div className={styles.backgroundcontent} hidden={pattern != 3}>
@@ -149,7 +149,7 @@ export default function Wrap(){
                                     <Image src='/backgroundsample/background2.jpg' alt="" wrapped onClick={selectImage}/>
                                     <Image src='/backgroundsample/background3.jpg' alt="" wrapped onClick={selectImage}/>
                                 </div>
-                                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==4?"yellow":"" }}  onClick={() => {setPattern(4)}}>
+                                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==4?"#FFFF8C":"" }}  onClick={() => {setPattern(4)}}>
                                     # 색상선택
                                 </div>
                                 <div className={styles.backgroundcontent} hidden={pattern != 4}>

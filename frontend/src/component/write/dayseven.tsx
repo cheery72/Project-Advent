@@ -21,44 +21,44 @@ export default function DaySeven(){
                 <Row>
                     <Column width={13} />
                     <Column width={3} textAlign="center">
-                        <Button color="blue" onClick={writeAniversary}>개봉일 설정</Button>
+                        <Button color="blue" inverted size="large" onClick={writeAniversary}>개봉일 설정</Button>
                     </Column>
                 </Row>
 
                 <Row>
-                    <Column width={2}/>
-                    <Column width={2} className={ styles.box }>
+                    <Column largeScreen={2} tablet={16}/>
+                    <Column width={2} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px" }} className={ styles.box }>
                         <WriteSeven num={1} />
                     </Column>
                     <Column width={1}/>
-                    <Column width={2} className={ styles.box }>
+                    <Column width={2} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px" }} className={ styles.box }>
                         <WriteSeven num={2} />
                     </Column>
                     <Column width={1}/>
-                    <Column width={2} className={ styles.box }>
+                    <Column width={2} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px" }} className={ styles.box }>
                         <WriteSeven num={3} />
                     </Column>
-                    <Column width={2} />
+                    <Column largeScreen={2} tablet={16}/>
                 </Row>
                 
                 <Row>
-                    <Column width={2}/>
-                    <Column width={2} className={ styles.box }>
+                    <Column largeScreen={1} tablet={3}/>
+                    <Column width={2} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", marginBottom: "30px" }} className={ styles.box }>
                         <WriteSeven num={4} />
                     </Column>
-                    <Column width={1}/>
-                    <Column width={2} className={ styles.box }>
+                    <Column largeScreen={1} tablet={2}/>
+                    <Column width={2} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", marginBottom: "30px" }} className={ styles.box }>
                         <WriteSeven num={5} />
                     </Column>
-                    <Column width={1}/>
-                    <Column width={2} className={ styles.box }>
+                    <Column largeScreen={1} tablet={3}/>
+                    <Column width={2} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", marginBottom: "30px" }} className={ styles.box }>
                         <WriteSeven num={6} />
                     </Column>
-                    <Column width={1}/>
-                    <Column width={2} className={ styles.box }>
+                    <Column largeScreen={1} tablet={2}/>
+                    <Column width={2} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", marginBottom: "30px" }} className={ styles.box }>
                         <WriteSeven num={7} />
                     </Column>
-                    <Column width={2}/>
+                    <Column largeScreen={1} tablet={16}/>
                 </Row>
             </Grid>
         </>
