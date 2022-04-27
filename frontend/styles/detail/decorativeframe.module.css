@@ -60,6 +60,7 @@
     border-radius: 4px;
     color: white;
     cursor: pointer;
+    border: 0px;
 }
 
 .deletebutton:hover {
@@ -76,4 +77,35 @@
     outline-color: rgba(255, 255, 255, 0); 
     outline-offset: 15px; 
     text-shadow: 1px 1px 2px #427388;  
+}
+
+.contentbox {
+    width: 300px;
+    min-height: 100px;
+    border: 0px;
+    border-radius: 5px;
+}
+
+.inputtextbox {
+    margin: 10px;
+}
+
+.backgroundtitle {
+    font-size: 20px;
+    font-weight: bold;
+    width: 150px;
+    margin: auto;
+    cursor: pointer;
+}
+
+.backgroundcontent {
+    margin: 20px;
+}
+
+.backgroundcontent img{
+    margin: 0px 5px;
+    max-width: 100px;
+    max-height: 100px;
+    border: 1px solid rgb(219, 219, 219);
+    cursor: pointer;
 }

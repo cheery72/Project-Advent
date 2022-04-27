@@ -1,12 +1,17 @@
+import { Button, Header, Image, Input } from "semantic-ui-react";
 import { useRouter } from "next/router";
 import React, { SetStateAction, useEffect, useState } from "react";
 import styles from "../../../styles/detail/selectbackground.module.css"
 import { HexColorPicker } from "react-colorful";
+import unsplashAxios from "../../../src/lib/unsplashAxios";
 
 export default function Selectbackground () {
     const router = useRouter();
     const [backgroundImage, setBackgroundImage] = useState('')
     const [imageType, setImageType] = useState(1)
+    const [pattern, setPattern] = useState(1)
+    const [searchWord, setSearchWord] = useState('')
+    const [unsplashImages, setUnsplashImages]: any = useState([])
 
     const selectImage = (e:any) => {
         setBackgroundImage(e.target.currentSrc)
@@ -35,6 +40,29 @@ export default function Selectbackground () {
 
     // Cololrpicker
     const [color, setColor] = useState("#ffffff");
+
+    // upsplash
+    const writeSearchWord = (e: { target: { value: SetStateAction<string>; }; }) => {
+        setSearchWord(e.target.value)
+    }
+
+    const searchImage = () => {
+        loadImages()
+    }
+
+
+    const loadImages = async () => {
+        await unsplashAxios
+            .get(`/search/photos`, {
+                params: { query: searchWord, per_page: 15 }
+            })
+            .then(({ data }) => {
+                setUnsplashImages(data.results)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    }
 
     return (
         <>
@@ -71,26 +99,38 @@ export default function Selectbackground () {
             {imageType===2?
                     
             <div>
-                <div className={styles.backgroundtitle}>
+                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==1?"#FFFF8C":"" }} onClick={() => {setPattern(1)}}>
                 # 전통무늬
                 </div>
-                <div className={styles.backgroundcontent}>
+                <div className={styles.backgroundcontent} hidden={pattern != 1}>
                 
                 </div>
-                <div className={styles.backgroundtitle}>
-                # 선물상자
+                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==2?"#FFFF8C":"" }}  onClick={() => {setPattern(2)}}>
+                # 생일
                 </div>
-                <div className={styles.backgroundcontent}>
+                <div className={styles.backgroundcontent} hidden={pattern != 2}>
 
                 </div>
-                <div className={styles.backgroundtitle}>
-                # 반복패턴 
+                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==3?"#FFFF8C":"" }}  onClick={() => {setPattern(3)}}>
+                # 반복무늬
                 </div>
-                <div className={styles.backgroundcontent}>
+                <div className={styles.backgroundcontent} hidden={pattern != 3}>
                 <img src='/backgroundsample/background.jpg' onClick={selectImage}></img>
                 <img src='/backgroundsample/background1.jpg' onClick={selectImage}></img>
                 <img src='/backgroundsample/background2.jpg' onClick={selectImage}></img>
                 <img src='/backgroundsample/background3.jpg' onClick={selectImage}></img>
+                </div>
+                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==4?"#FFFF8C":"" }}  onClick={() => {setPattern(4)}}>
+                # 하트
+                </div>
+                <div className={styles.backgroundcontent} hidden={pattern != 4}>
+
+                </div>
+                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==5?"#FFFF8C":"" }}  onClick={() => {setPattern(5)}}>
+                # 꽃
+                </div>
+                <div className={styles.backgroundcontent} hidden={pattern != 4}>
+
                 </div>
             </div>
         :
@@ -110,9 +150,24 @@ export default function Selectbackground () {
         ''}
         {imageType===4?
         <>
-        <div>
-            upsplash 이미지 들어올 곳 !!!
-        </div>
+            <div>
+                <Header as="h5">검색할 단어를 입력하세요!</Header>
+                <Input type="text" placeholder="영어로 입력해주세요" maxLength={15} onChange={writeSearchWord}/>
+                <Button color="blue" inverted onClick={ searchImage }>검색</Button>
+            </div>
+            <div className={styles.backgroundcontent}>   
+                {unsplashImages?
+                    unsplashImages.map((image: any) => {
+                        return (
+                            <>
+                                <span key={image.id}>
+                                <Image src={image.urls.small} alt="" wrapped width={100} onClick={selectImage}/>
+                                </span> 
+                            </>
+                        );           
+                    })
+                :''}
+            </div> 
         </>
         :
         ''}
