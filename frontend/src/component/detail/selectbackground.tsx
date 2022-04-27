@@ -1,10 +1,7 @@
-import { Image } from "semantic-ui-react";
-import React from 'react';
 import { useRouter } from "next/router";
-import { SetStateAction, useEffect, useState } from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 import styles from "../../../styles/detail/selectbackground.module.css"
-import Colorpicker from "./colorpicker"
-
+import { HexColorPicker } from "react-colorful";
 
 export default function Selectbackground () {
     const router = useRouter();
@@ -36,6 +33,8 @@ export default function Selectbackground () {
         setBackgroundImage('');
     }
 
+    // Cololrpicker
+    const [color, setColor] = useState("#ffffff");
 
     return (
         <>
@@ -57,6 +56,7 @@ export default function Selectbackground () {
                     <input
                         id="background"
                         type="file"
+                        accept="image/gif, image/jpeg, image/png"
                         style={{ display: "none" }}
                         onChange={saveImage}
                     />
@@ -97,7 +97,14 @@ export default function Selectbackground () {
         ''}
         {imageType===3?
             <>
-            <Colorpicker></Colorpicker>
+            <div>
+            <span className={styles.colorvalue} style={{ borderLeftColor: color }}>
+                내가 선택한 색상 : {color}
+            </span>
+            </div>
+            <div className={styles.colorpicker}>
+            <HexColorPicker color={color} onChange={setColor} />
+            </div>
             </>
         :
         ''}

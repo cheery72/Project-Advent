@@ -86,3 +86,16 @@
     font-weight: bolder;
     margin-bottom: 15px;
 }
+
+.colorpicker {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+/* color selector */
+.colorvalue {
+    border-left: 24px solid #000;
+    padding-left: 10px;
+
+}
