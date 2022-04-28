@@ -65,32 +65,32 @@
 }
 
 .dDayPast {
-    color: rgb(189, 98, 245);
-    text-shadow: 3px 8px 6px rgb(178, 178, 178);
+    color: rgb(203, 119, 255);
+    text-shadow: 3px 8px 6px rgb(192, 192, 192);
 }
 
 .dDayNotSet {
-    color: rgb(223, 0, 0);
-    text-shadow: 3px 8px 6px rgb(178, 178, 178);
+    color: rgb(238, 92, 7);
+    text-shadow: 3px 8px 6px rgb(192, 192, 192);
 }
 
 .dDayCnt {
     color: rgb(27, 92, 255);
-    text-shadow: 3px 8px 6px rgb(178, 178, 178);
+    text-shadow: 3px 8px 6px rgb(157, 157, 157);
     display: inline-block;
     vertical-align: middle;
 }
 
 .dDayCntBefore {
     color: rgb(0, 15, 53);
-    text-shadow: 3px 8px 6px rgb(178, 178, 178);
+    text-shadow: 3px 8px 6px rgb(157, 157, 157);
     display: inline-block;
     vertical-align: middle;
 }
 
 .dDayDate {
     color: rgb(5, 173, 199);
-    text-shadow: 3px 8px 6px rgb(178, 178, 178);
+    text-shadow: 3px 8px 6px rgb(157, 157, 157);
     display: inline-block;
     vertical-align: middle;
 }
