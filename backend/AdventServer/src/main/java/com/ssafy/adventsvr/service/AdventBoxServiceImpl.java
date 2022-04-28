@@ -143,16 +143,26 @@ public class AdventBoxServiceImpl implements AdventBoxService {
 
     // Todo: GET box detail 조회
     @Override
-    public AdventBoxDayResponse findDetailAdventBox(Integer boxId) {
-//        Optional<Advent> optionalAdvent = adventRepository.findById(adventId);
-//        Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
-//
-//        if(adventDay < 1 || advent.getDay() < adventDay){
-//            return null;
-//        }
-//
-//        Optional<AdventBox> optionalAdventBox = adventBoxRepository
-//                .findByAdventIdAndAdventDay(adventId, adventDay);
+    public AdventBoxDayResponse findDetailAdventBox(Integer boxId, Integer userId) {
+        Optional<AdventBox> optionalAdventBox = adventBoxRepository.findById(boxId);
+        AdventBox adventBox = optionalAdventBox.orElseThrow(NoSuchElementException::new);
+
+        Optional<Advent> optionalAdvent = adventRepository.findById(adventBox.getAdvent().getId());
+        Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
+
+        if(!userId.equals(advent.getUserId())){
+            return null;
+        }
+
+        return AdventBoxDayResponse.builder()
+                .boxId(adventBox.getId())
+                .content(adventBox.getContent())
+                .build();
+    }
+
+    // Todo: 받는 사람이 박스 조회
+    @Override
+    public AdventBoxDayResponse findUrlDetailAdventBox(Integer boxId) {
         Optional<AdventBox> optionalAdventBox = adventBoxRepository.findById(boxId);
         AdventBox adventBox = optionalAdventBox.orElseThrow(NoSuchElementException::new);
 
@@ -162,11 +172,30 @@ public class AdventBoxServiceImpl implements AdventBoxService {
                 .build();
     }
 
-    // Todo: 포장지 조회
+    // Todo: 받는 사람이 포장지 조회
     @Override
-    public AdventBoxWrapperResponse findWrapperDetailAdventBox(Integer boxId) {
+    public AdventBoxWrapperResponse findUrlWrapperDetailAdventBox(Integer boxId) {
         Optional<AdventBox> optionalAdventBox = adventBoxRepository.findById(boxId);
         AdventBox adventBox = optionalAdventBox.orElseThrow(NoSuchElementException::new);
+
+        return AdventBoxWrapperResponse.builder()
+                .boxId(boxId)
+                .wrapper(adventBox.getWrapper())
+                .build();
+    }
+
+    // Todo: 포장지 조회
+    @Override
+    public AdventBoxWrapperResponse findWrapperDetailAdventBox(Integer boxId, Integer userId) {
+        Optional<AdventBox> optionalAdventBox = adventBoxRepository.findById(boxId);
+        AdventBox adventBox = optionalAdventBox.orElseThrow(NoSuchElementException::new);
+
+        Optional<Advent> optionalAdvent = adventRepository.findById(adventBox.getAdvent().getId());
+        Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
+
+        if(!userId.equals(advent.getUserId())){
+            return null;
+        }
 
         return AdventBoxWrapperResponse.builder()
                 .boxId(boxId)

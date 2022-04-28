@@ -4,10 +4,7 @@ import com.ssafy.adventsvr.payload.request.AdventCertifyRequest;
 import com.ssafy.adventsvr.payload.request.AdventDayRequest;
 import com.ssafy.adventsvr.payload.request.AdventPrivateRequest;
 import com.ssafy.adventsvr.payload.request.AdventRecipientModify;
-import com.ssafy.adventsvr.payload.response.AdventDayResponse;
-import com.ssafy.adventsvr.payload.response.AdventReceiveResponse;
-import com.ssafy.adventsvr.payload.response.AdventStorageResponse;
-import com.ssafy.adventsvr.payload.response.AdventUrlResponse;
+import com.ssafy.adventsvr.payload.response.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

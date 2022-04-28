@@ -5,10 +5,7 @@ import com.ssafy.adventsvr.payload.request.AdventCertifyRequest;
 import com.ssafy.adventsvr.payload.request.AdventDayRequest;
 import com.ssafy.adventsvr.payload.request.AdventPrivateRequest;
 import com.ssafy.adventsvr.payload.request.AdventRecipientModify;
-import com.ssafy.adventsvr.payload.response.AdventDayResponse;
-import com.ssafy.adventsvr.payload.response.AdventReceiveResponse;
-import com.ssafy.adventsvr.payload.response.AdventStorageResponse;
-import com.ssafy.adventsvr.payload.response.AdventUrlResponse;
+import com.ssafy.adventsvr.payload.response.*;
 import com.ssafy.adventsvr.service.AdventService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -138,11 +135,12 @@ public class AdventController {
     @ApiOperation(value = "보관함 페이지", notes = "해당 유저 보관함 페이지")
     @GetMapping("/{userId}/storages")
     public ResponseEntity<Page<AdventStorageResponse>> adventMyStorageFind(@PageableDefault(size = 6)
-                                                            @SortDefault.SortDefaults({
-                                                            @SortDefault(sort = "isReceived"),
-                                                            @SortDefault(sort ="endAt",direction = Sort.Direction.ASC)
-                                                            }) Pageable pageable,
-                                                           @PathVariable("userId") Integer userId){
+                                                                        @SortDefault.SortDefaults({
+                                                                        @SortDefault(sort = "isReceived"),
+                                                                        @SortDefault(sort = "endAt",direction = Sort.Direction.ASC)
+                                                                        })
+                                                                             Pageable pageable,
+                                                                         @PathVariable("userId") Integer userId){
         log.info("adventMyStorageFind");
 
         return ResponseEntity
