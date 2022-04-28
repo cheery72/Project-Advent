@@ -1,6 +1,8 @@
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { Button, Grid } from "semantic-ui-react";
 import styles from "../../../styles/write/write.module.css"
+import allAxios from "../../lib/allAxios";
 import Title from "./title";
 import WriteOne from "./writeone";
 
@@ -13,6 +15,21 @@ export default function DayOne(){
     const writeAniversary = () => {
         router.push(`/write/${id}/anniversary`)
     }
+
+    const getAdventInfo = () => {
+        allAxios
+            .get(`/advents/${id}/advent`)
+            .then(({ data }) => {
+                console.log(data)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    }
+
+    useEffect(() => {
+        getAdventInfo()
+    }, [])
 
     return(
         <>
