@@ -53,13 +53,7 @@ public class Advent extends BaseTimeEntity{
     @OneToMany(mappedBy = "advent", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AdventBox> adventBoxes = new ArrayList<>();
 
-    public static Advent adventBuilder(AdventDayRequest adventDayRequest){
-        return Advent.builder()
-                .userId(adventDayRequest.getUserId())
-                .day(adventDayRequest.getDay())
-                .build();
-    }
-
+    
     @Builder
     private Advent(Integer id, String url, Integer day, String recipientName, boolean isReceived, LocalDateTime receivedAt, String password, String passwordHint, LocalDate endAt, Integer userId, List<AdventBox> adventBoxes) {
         this.id = id;
@@ -73,6 +67,13 @@ public class Advent extends BaseTimeEntity{
         this.endAt = endAt;
         this.userId = userId;
         this.adventBoxes = adventBoxes;
+    }
+
+    public static Advent adventBuilder(AdventDayRequest adventDayRequest){
+        return Advent.builder()
+                .userId(adventDayRequest.getUserId())
+                .day(adventDayRequest.getDay())
+                .build();
     }
 
     public void setAdventPrivateInfoModify(AdventPrivateRequest adventPrivateRequest, String url, LocalDate localDate){
