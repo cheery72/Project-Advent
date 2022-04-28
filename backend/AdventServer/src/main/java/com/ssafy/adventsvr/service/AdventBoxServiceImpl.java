@@ -249,4 +249,6 @@ public class AdventBoxServiceImpl implements AdventBoxService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 형식의 파일(" + fileName + ") 입니다.");
         }
     }
+
+
 }
