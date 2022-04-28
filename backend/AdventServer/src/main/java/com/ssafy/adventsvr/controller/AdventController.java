@@ -101,13 +101,19 @@ public class AdventController {
     }
 
     @ApiOperation(value = "어드벤트 조회", notes = "보관함 페이지에서 수정 눌렀을시에 조회")
-    @GetMapping("/{adventId}/advent")
-    public ResponseEntity<AdventReceiveResponse> adventFind(@PathVariable(value = "adventId") String adventId){
+    @GetMapping("/{adventId}/{userId}/advent")
+    public ResponseEntity<AdventReceiveResponse> adventFind(@PathVariable(value = "adventId") String adventId,
+                                                            @PathVariable(value = "userId") Integer userId){
         log.info("adventFind");
+        AdventReceiveResponse advent = adventService.findAdvent(adventId,userId);
+
+        if(advent == null){
+            return ResponseEntity.notFound().build();
+        }
 
         return ResponseEntity
                 .ok()
-                .body(adventService.findAdvent(adventId));
+                .body(advent);
     }
 
     @ApiOperation(value = "패스워드 인증", notes = "패스워드 있을시 인증 성공시 선물 페이지 조회")
@@ -131,7 +137,7 @@ public class AdventController {
 
     @ApiOperation(value = "보관함 페이지", notes = "해당 유저 보관함 페이지")
     @GetMapping("/{userId}/storages")
-    public ResponseEntity<Page<AdventStorageResponse>> adventMyStorageFind(@PageableDefault(size = 5)
+    public ResponseEntity<Page<AdventStorageResponse>> adventMyStorageFind(@PageableDefault(size = 6)
                                                             @SortDefault.SortDefaults({
                                                             @SortDefault(sort = "isReceived"),
                                                             @SortDefault(sort ="endAt",direction = Sort.Direction.ASC)

@@ -6,7 +6,6 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.ssafy.adventsvr.entity.Advent;
 import com.ssafy.adventsvr.entity.AdventBox;
-import com.ssafy.adventsvr.entity.BaseTimeEntity;
 import com.ssafy.adventsvr.payload.request.AdventBoxRequest;
 import com.ssafy.adventsvr.payload.request.AdventBoxWrapperRequest;
 import com.ssafy.adventsvr.payload.response.AdventBoxDayResponse;
@@ -53,7 +52,8 @@ public class AdventBoxServiceImpl implements AdventBoxService {
         Optional<AdventBox> optionalAdventBox = adventBoxRepository
                             .findByAdventIdAndAdventDay(adventBoxRequest.getAdventId(), adventBoxRequest.getAdventDay());
 
-        if(adventBoxRequest.getAdventDay() < 1 || advent.getDay() < adventBoxRequest.getAdventDay()){
+        if(!adventBoxRequest.getUserId().equals(advent.getUserId()) ||
+                (adventBoxRequest.getAdventDay() < 1 || advent.getDay() < adventBoxRequest.getAdventDay())){
             return null;
         }
 
@@ -184,11 +184,7 @@ public class AdventBoxServiceImpl implements AdventBoxService {
             for (AdventBox adventbox:adventBoxList) {
                 LocalDate localDate = LocalDate.now();
                 if(adventbox.getActiveAt() != null){
-                    if(adventbox.getActiveAt().equals(localDate)){
-                        adventbox.setAdventIsActiveModify(true);
-                    }else{
-                        adventbox.setAdventIsActiveModify(false);
-                    }
+                    adventbox.setAdventIsActiveModify(adventbox.getActiveAt().equals(localDate));
                     adventbox.setAdventActiveDayModify(localDate,adventbox.getActiveAt());
                 }
             }

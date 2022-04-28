@@ -21,7 +21,7 @@ public interface AdventService {
 
     AdventReceiveResponse findReceiveNotPasswordUrlAdvent(String url);
 
-    AdventReceiveResponse findAdvent(String adventId);
+    AdventReceiveResponse findAdvent(String adventId,Integer userId);
 
     Page<AdventStorageResponse> findMyStorageAdvent(Pageable pageable, Integer userId);
 

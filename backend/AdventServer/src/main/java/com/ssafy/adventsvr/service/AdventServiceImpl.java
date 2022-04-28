@@ -158,9 +158,13 @@ public class AdventServiceImpl implements AdventService{
 
     // Todo: 보관함 페이지에서 수정 눌렀을때 조회 - ok
     @Override
-    public AdventReceiveResponse findAdvent(String adventId) {
+    public AdventReceiveResponse findAdvent(String adventId,Integer userId) {
         Optional<Advent> optionalAdvent = adventRepository.findById(adventId);
         Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
+
+        if(!advent.getUserId().equals(userId)){
+            return null;
+        }
 
         Optional<List<AdventBox>> optionalAdventBoxes = adventBoxRepository.findAllByAdventId(adventId);
         List<AdventBox> adventBoxList = optionalAdventBoxes.orElseThrow(NoSuchElementException::new);

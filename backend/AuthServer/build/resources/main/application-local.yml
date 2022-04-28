@@ -16,7 +16,7 @@ spring:
     port: 6379
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
       use-new-id-generator-mappings: true
     show-sql: true
   profiles:
@@ -51,7 +51,7 @@ jwt:
 app:
   auth:
     tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
-    tokenExpiry: 1800000
+    tokenExpiry: 1000
     refreshTokenExpiry: 604800000
   oauth2:
     authorizedRedirectUris:
