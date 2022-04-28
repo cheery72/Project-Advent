@@ -4,10 +4,7 @@ import com.ssafy.adventsvr.payload.request.AdventCertifyRequest;
 import com.ssafy.adventsvr.payload.request.AdventDayRequest;
 import com.ssafy.adventsvr.payload.request.AdventPrivateRequest;
 import com.ssafy.adventsvr.payload.request.AdventRecipientModify;
-import com.ssafy.adventsvr.payload.response.AdventDayResponse;
-import com.ssafy.adventsvr.payload.response.AdventReceiveResponse;
-import com.ssafy.adventsvr.payload.response.AdventStorageResponse;
-import com.ssafy.adventsvr.payload.response.AdventUrlResponse;
+import com.ssafy.adventsvr.payload.response.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -21,11 +18,11 @@ public interface AdventService {
 
     AdventReceiveResponse findReceiveNotPasswordUrlAdvent(String url);
 
-    AdventReceiveResponse findAdvent(Integer adventId);
+    AdventReceiveResponse findAdvent(String adventId,Integer userId);
 
     Page<AdventStorageResponse> findMyStorageAdvent(Pageable pageable, Integer userId);
 
-    void modifyRecipientAdvent(AdventRecipientModify adventRecipientModify);
+    void modifyTitleAdvent(AdventRecipientModify adventRecipientModify);
 
-    void deleteAdvent(Integer userId, Integer adventId);
+    void deleteAdvent(Integer userId, String adventId);
 }

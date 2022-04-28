@@ -51,7 +51,7 @@ jwt:
 app:
   auth:
     tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
-    tokenExpiry: 1800000
+    tokenExpiry: 1000
     refreshTokenExpiry: 604800000
   oauth2:
     authorizedRedirectUris:

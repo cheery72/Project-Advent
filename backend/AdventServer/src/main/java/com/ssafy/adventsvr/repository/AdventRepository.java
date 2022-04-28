@@ -8,8 +8,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface AdventRepository extends JpaRepository<Advent,Integer>, AdventRepositoryCustom {
+public interface AdventRepository extends JpaRepository<Advent,String>, AdventRepositoryCustom {
     Optional<Advent> findByUrl(String url);
-    Optional<List<Advent>> findAllByUserId(Pageable pageable, Integer userId);
+    Optional<List<Advent>> findAllByUserId(Integer userId);
+    Optional<List<Advent>> findPageAllByUserId(Pageable pageable, Integer userId);
     Optional<List<Advent>> findAllBy();
 }

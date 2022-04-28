@@ -61,13 +61,47 @@
 
 .dDay {
     font-weight: bold;
-    color: rgb(97, 97, 97)
+    color: rgb(97, 97, 97);
 }
 
 .dDayPast {
-    color: rgb(209, 42, 42);
+    color: rgb(203, 119, 255);
+    text-shadow: 3px 8px 6px rgb(192, 192, 192);
 }
 
 .dDayNotSet {
-    color: rgb(45, 45, 201);
+    color: rgb(238, 92, 7);
+    text-shadow: 3px 8px 6px rgb(192, 192, 192);
+}
+
+.dDayCnt {
+    color: rgb(27, 92, 255);
+    text-shadow: 3px 8px 6px rgb(157, 157, 157);
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.dDayCntBefore {
+    color: rgb(0, 15, 53);
+    text-shadow: 3px 8px 6px rgb(157, 157, 157);
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.dDayDate {
+    color: rgb(5, 173, 199);
+    text-shadow: 3px 8px 6px rgb(157, 157, 157);
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.adventDay {
+    margin-top: 10px;
+    margin-left: 10px;
+    font-weight: bold;
+    color: grey;
+}
+
+.adventDay span {
+    color: #F2711C;
 }

@@ -1,41 +1,77 @@
-import { Grid } from "semantic-ui-react";
+import { Button, Grid, Icon } from "semantic-ui-react";
 import SendboxListItem from "./sendboxListItem";
 import styles from '../../../styles/sendbox/sendboxList.module.css'
+import { useEffect, useState } from "react";
+import allAxios from "../../lib/allAxios";
+import LoadingSpinner from "../loadingSpinner";
 
 const { Row, Column } = Grid
 
-interface Item {
-    id: number,
-    isSubmitted: boolean,
-    presentTitle: string,
-    dDay: string // api에서 어떻게 주느냐에 따라 다를 수도 있음
-}
+                            // item 타입 어떻게 설정해야할지 모르겠음(TS)
+export default function sendboxList({ userId }:any){
+    const [sendbox, setSendbox] = useState<any>('loading')
+    // console.log(sendbox)
+    // console.log(userId)
 
-export default function sendboxList(){
-    // 테스트용 임시데이터 / 추후 axios(get)로 데이터를 받아올 예정
-    const items = [
-        {id:1, isSubmitted:false, presentTitle:'테스트님께 보내는 선물🎇✨🎉🍀🎁🎀🎈🎄', dDay:'2022-04-25'},
-        {id:2, isSubmitted:false, presentTitle:'테스트께 보내는 선물', dDay:'2022-04-30'},
-        {id:3, isSubmitted:false, presentTitle:'테스트님께 보내는 선물🎁', dDay:'2022-04-23'},
-        {id:4, isSubmitted:false, presentTitle:'테스트님에게 보내는 선물💍', dDay:''},
-        {id:5, isSubmitted:true, presentTitle:'테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트', dDay:'2022-04-25'},
-        {id:6, isSubmitted:true, presentTitle:'test test test test test test test test test test test test test test', dDay:'2022-04-25'},
-    ]
-    // 텍스트가 4줄이 넘어가면 카드 높이가 달라짐(*화면 해상도에 따라 줄수가 달라짐)
-    // : 글자수 적절히 제한하거나 카드 css를 조정하거나 해야함(아직 미해결)
+    const getAdventsStorage = async () => {
+        const response = await allAxios.get(`/advents/${userId}/storages`)
+            .then((response) =>{
+                setSendbox(response.data.content)
+                // setSendbox([
+                //     {advent_id:1, received:false, title:'테스트님께 보내는 선물🎇✨🎉🍀🎁🎀🎈🎄', end_at:'2022-04-25', advent_day:7},
+                //     {advent_id:2, received:false, title:'테스트께 보내는 선물', end_at:'2022-04-30', advent_day:7},
+                //     {advent_id:3, received:false, title:'테스트님께 보내는 선물🎁', end_at:'2022-04-28', advent_day:7},
+                //     {advent_id:4, received:false, title:'테스트님에게 보내는 선물💍', end_at:'', advent_day:3},
+                //     {advent_id:5, received:false, title:'테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트', end_at:'2022-05-25', advent_day:1},
+                //     {advent_id:6, received:true, title:'test test test test test test test test test test test test test test', end_at:'2022-04-25', advent_day:3},
+                // ]) // test data
+            })
+        
+    }
+
+    useEffect(() => {
+        getAdventsStorage()
+    }, [userId])
 
     return (
         <div className={ styles.sendboxListWrapper }>
-            <Grid columns={2} doubling>
-                {
-                    items.map((item:Item) => 
-                        <Column key={item.id}>
-                            <Row width={8}>
-                                <SendboxListItem item={item} />
-                            </Row> 
-                        </Column>)
-                }
-            </Grid>
+            {
+                sendbox === 'loading' 
+                ?
+                <LoadingSpinner />
+                :
+                sendbox.length === 0
+                ?
+                <div className={ styles.empty }>
+                    {/* 이 자리에 빈 상자 일러스트 표시를 고려 */}
+                    <h3 data-aos="zoom-in-up">
+                        아직 보낸 선물이 없어요 . . 😗
+                    </h3>
+                    <Button 
+                        color='twitter' 
+                        animated 
+                        href='/write'
+                    >
+                        <Button.Content visible>
+                            <Icon name='gift' color='yellow'/>선물하러 가기!
+                        </Button.Content>
+                        <Button.Content hidden>
+                            <Icon name='arrow right' />Go!
+                        </Button.Content>
+                    </Button>
+                </div>
+                :
+                <Grid columns={2} doubling>
+                    {
+                        sendbox.map((item:any) => 
+                            <Column key={item.advent_id}>
+                                <Row width={8} style={{ height: '100%' }}>
+                                    <SendboxListItem item={item} userId={userId} getAdventsStorage={getAdventsStorage} />
+                                </Row> 
+                            </Column>)
+                    }
+                </Grid>
+            }
         </div>
     )
 }
