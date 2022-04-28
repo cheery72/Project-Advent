@@ -14,9 +14,13 @@ public interface AdventBoxService {
 
     AdventBoxWrapperResponse modifyWrapperAdventBox(AdventBoxWrapperRequest adventBoxWrapperRequest, MultipartFile file);
 
-    AdventBoxDayResponse findDetailAdventBox(Integer boxId);
+    AdventBoxDayResponse findDetailAdventBox(Integer boxId, Integer userId);
 
-    AdventBoxWrapperResponse findWrapperDetailAdventBox(Integer boxId);
+    AdventBoxDayResponse findUrlDetailAdventBox(Integer boxId);
+
+    AdventBoxWrapperResponse findUrlWrapperDetailAdventBox(Integer boxId);
+
+    AdventBoxWrapperResponse findWrapperDetailAdventBox(Integer boxId, Integer userId);
 
     void modifyDaysAdventBox();
 }

@@ -180,14 +180,18 @@ public class AdventServiceImpl implements AdventService{
     // Todo: GET 보관함 페이지 - ok
     @Override
     public Page<AdventStorageResponse> findMyStorageAdvent(Pageable pageable, Integer userId) {
-        Optional<List<Advent>> optionalAdvent = adventRepository.findAllByUserId(pageable,userId);
+        Optional<List<Advent>> optionalAdvent = adventRepository.findAllByUserId(userId);
         List<Advent> advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
-        List<AdventStorageResponse> advents = AdventStorageResponse.storageBuilder(advent);
+
+        Optional<List<Advent>> optionalPage = adventRepository.findPageAllByUserId(pageable, userId);
+        List<Advent> pageAdvent = optionalPage.orElseThrow(NoSuchElementException::new);
+
+        List<AdventStorageResponse> advents = AdventStorageResponse.storageBuilder(pageAdvent);
 
         return new PageImpl<>(advents,pageable,advent.size());
     }
 
-    // Todo: GET 포장지 조회
+    // Todo: 제목 수정
     @Transactional
     @Override
     public void modifyTitleAdvent(AdventRecipientModify adventRecipientModify) {
