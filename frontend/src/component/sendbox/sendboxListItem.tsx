@@ -13,14 +13,14 @@ export default function SendboxListItem({ item, userId, getAdventsStorage }:any)
 
     const deleteAdvent = async () => {
         if (confirm('선물을 삭제하면 복구할 수 없습니다. 삭제하시겠습니까?')) {
-            const response = await allAxios.delete(`/advents/${item.advent_id}/${userId}/`)
-            .then(() =>{
-                notify('success', '선물이 삭제되었습니다.', 3000)
-                getAdventsStorage()
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+            allAxios.delete(`/advents/${item.advent_id}/${userId}/`)
+                .then(() =>{
+                    notify('success', '선물이 삭제되었습니다.', 3000)
+                    getAdventsStorage()
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
         } else {
             notify('info', '삭제가 취소되었습니다.')
         }
@@ -153,7 +153,7 @@ export default function SendboxListItem({ item, userId, getAdventsStorage }:any)
                 </Column>
                 <Column width={3}>
                 { !item.received && // 전달 전에만 수정, 삭제가 가능
-                    (<>
+                    <>
                         <Button 
                             animated='fade' 
                             color='blue' 
@@ -175,7 +175,7 @@ export default function SendboxListItem({ item, userId, getAdventsStorage }:any)
                                 <Icon name='trash alternate' />
                             </Button.Content>
                         </Button>
-                    </>)
+                    </>
                 }
                 </Column>
 
