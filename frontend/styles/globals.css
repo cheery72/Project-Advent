@@ -4,13 +4,21 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-}
+  }
+  
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  /* 배경색 */
+  .background {
+    background: linear-gradient(45deg, #e8e1ff 5%, rgb(227, 223, 255) 15%, rgb(255, 216, 219) 45%, #fff1e4 70%, rgb(255, 225, 212) 80%, rgb(255, 221, 184) 91%);
+    min-height: 85vh;
+    padding-bottom: 20vh;
+    position: relative;
+  }

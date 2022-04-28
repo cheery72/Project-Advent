@@ -1,6 +1,5 @@
 package com.ssafy.adventsvr.payload.response;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,10 +8,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AdventDayResponse {
 
-    private Integer adventId;
+    private String adventId;
 
     @Builder
-    public AdventDayResponse(Integer adventId) {
+    public AdventDayResponse(String adventId) {
         this.adventId = adventId;
     }
 }
