@@ -10,15 +10,14 @@ export default function Sendbox(){
     const router = useRouter();
     
     const [username, setUsername] = useState<string>('')
-    const [userId, setUserId] = useState<number>(56586189) // 테스트용 임시 userId
+    const [userId, setUserId] = useState<number>(0)
 
 
     const getUserInfo = async () => {
-        const response = await userAxios.get(`/auth/users`)
+        userAxios.get(`/auth/users`)
             .then((data) => {
                 setUsername(data.data.body.user.name)
                 setUserId(data.data.body.user.id) // 유저의 userId를 받아옴
-                // console.log(data.data.body.user.id)
             })
             .catch((e) => {
                 console.log(e)
