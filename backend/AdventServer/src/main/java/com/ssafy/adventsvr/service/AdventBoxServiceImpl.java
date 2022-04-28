@@ -32,6 +32,12 @@ public class AdventBoxServiceImpl implements AdventBoxService {
         return null;
     }
 
+    // Todo: GET box detail 조회
+    @Override
+    public AdventBoxDetailResponse findDetailAdventBox(Integer userId, Integer adventId, Integer day) {
+        return null;
+    }
+
     // Todo: PUT box 포장지 수정
     @Transactional
     @Override
@@ -39,9 +45,5 @@ public class AdventBoxServiceImpl implements AdventBoxService {
         return null;
     }
 
-    // Todo: GET box detail 조회
-    @Override
-    public AdventBoxDetailResponse findDetailAdventBox(Integer userId, Integer adventId, Integer day) {
-        return null;
-    }
+
 }

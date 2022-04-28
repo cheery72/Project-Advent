@@ -11,7 +11,8 @@ public interface AdventBoxService {
 
     Integer modifyBoxAdventBox(AdventBoxModifyRequest adventBoxModifyRequest);
 
+    AdventBoxDetailResponse findDetailAdventBox(Integer userId, Integer adventId, Integer day);
+
     Integer modifyWrapperAdventBox(AdventBoxWrapperRequest adventBoxWrapperRequest);
 
-    AdventBoxDetailResponse findDetailAdventBox(Integer userId, Integer adventId, Integer day);
 }
