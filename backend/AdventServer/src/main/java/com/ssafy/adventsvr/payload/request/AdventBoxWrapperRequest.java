@@ -17,4 +17,7 @@ public class AdventBoxWrapperRequest {
 
     @NotNull
     private Integer adventDay;
+
+    @NotNull
+    private Integer userId;
 }

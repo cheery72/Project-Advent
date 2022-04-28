@@ -105,12 +105,14 @@ public class AdventBoxServiceImpl implements AdventBoxService {
     public AdventBoxWrapperResponse modifyWrapperAdventBox(AdventBoxWrapperRequest adventBoxWrapperRequest, MultipartFile file) {
         Optional<Advent> optionalAdvent = adventRepository.findById(adventBoxWrapperRequest.getAdventId());
         Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
-        Optional<AdventBox> optionalAdventBox = adventBoxRepository
-                .findByAdventIdAndAdventDay(adventBoxWrapperRequest.getAdventId(), adventBoxWrapperRequest.getAdventDay());
 
-        if(adventBoxWrapperRequest.getAdventDay() < 1 || advent.getDay() < adventBoxWrapperRequest.getAdventDay()){
+        if(!adventBoxWrapperRequest.getUserId().equals(advent.getUserId()) ||
+                (adventBoxWrapperRequest.getAdventDay() < 1 || advent.getDay() < adventBoxWrapperRequest.getAdventDay())){
             return null;
         }
+
+        Optional<AdventBox> optionalAdventBox = adventBoxRepository
+                .findByAdventIdAndAdventDay(adventBoxWrapperRequest.getAdventId(), adventBoxWrapperRequest.getAdventDay());
 
         String imageUrl = null;
 
