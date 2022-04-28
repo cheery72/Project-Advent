@@ -1,14 +1,78 @@
-import { Grid, Button, Advertisement } from "semantic-ui-react";
-import React, {useState} from 'react'
-import Decorativeframe from "../../../src/component/detail/decorativeframe"
+import { Grid, Button, Icon } from "semantic-ui-react";
+import React, {useState, useCallback} from 'react'
 import { useRouter } from "next/router";
 
 import styles from "../../../styles/detail/detail.module.css"
+import Selectbackground from "../../../src/component/detail/selectbackground"
+import { HexColorPicker } from "react-colorful";
+
+import { wrap } from "module";
 
 export default function Detail(){
     const router = useRouter();
     const day = router.query.day
     const {Row, Column} = Grid
+
+    //decorativeframe
+    const[index, setIndex] = useState(0);
+    const [image, setImage] = useState('')
+    const [pattern, setPattern] = useState(1)
+
+    // 스티커
+    const [sticker, setSticker] = useState('')
+    const selectSticker = (e:any) => {
+        setSticker(e.target.currentSrc)
+    }
+
+    // 이미지 업로드
+    const saveImage = (e:any) => {
+        setImage('');
+        if(e.target.files.length !== 0){
+        setImage(URL.createObjectURL(e.target.files[0]))};
+    };
+
+    const deleteImage = () => {
+        URL.revokeObjectURL(image);
+        setImage('');
+    }
+
+    // 텍스트 입력
+    const [text, setText] = useState('');
+    const [color, setColor] = useState("#000000");
+    const createText = (e:any) => {
+        setText(e.target.value);
+        };
+
+    // 줄바꿈 제한
+    // const textlimitcheck = () => {
+
+    //     var str = $("#textlimit").val();
+        
+    //     var str_arr = str.split("\n");  // 줄바꿈 기준으로 나눔 
+        
+    //     var row = str_arr.length;  // row = 줄 수 
+        
+    //     if(row >5){
+        
+    //     //마지막 입력문자 삭제
+        
+    //     alert("5줄까지만 작성 가능합니다.")
+        
+    //     var lastChar = str.slice(0,-1); //열 
+        
+    //     $("#textlimit").val(lastChar)
+        
+    //     }
+        
+    //     }
+
+
+
+    // 초기화 버튼
+    const resetbutton = () => {
+        setText('');
+        setColor("#000000");
+    }
 
 return(
     <>
@@ -22,6 +86,19 @@ return(
             <Column width={8}>
             <div className={styles.boxlocation}>
             <div className={styles.box}>
+                <div className={styles.box_image}>
+                {image && (
+                    <img
+                        alt="img"
+                        src={image}
+                        style={{height:150, maxWidth:300}}
+                    />
+                    )}
+                </div>
+                <div className={styles.box_text} style={{color:color}}>
+                    {text}
+                </div>
+                
             </div>
             </div>
             </Column>
@@ -36,7 +113,92 @@ return(
         </Row>
         </Grid>
         <div className={styles.listbetween}>
-            <Decorativeframe></Decorativeframe>
+            <div className={styles.tabs}>
+                <div className={styles.tablist}>
+                    <div className={index===0?styles.selecttab:styles.tabhead} onClick={()=>{setIndex(0)}}>
+                        <Icon name='file outline'/>배경선택
+                    </div>
+                    <div className={index===1?styles.selecttab:styles.tabhead} onClick={()=>{setIndex(1)}}>
+                        <Icon name='smile outline'/>스티커
+                    </div>
+                    <div className={index===2?styles.selecttab:styles.tabhead} onClick={()=>{setIndex(2)}}>
+                        <Icon name='upload'/>이미지업로드
+                    </div>
+                    <div className={index===3?styles.selecttab:styles.tabhead} onClick={()=>{setIndex(3)}}>
+                        <Icon name='pencil alternate'/>텍스트 입력
+                    </div>
+                </div>
+            </div>
+            <div className={styles.tabcontent} hidden={index != 0}>
+            <Selectbackground></Selectbackground>
+            </div>
+            <div className={styles.tabcontent} hidden={index != 1}>
+            <div>
+                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==1?"#FFFF8C":"" }} onClick={() => {setPattern(1)}}>
+                # 알파벳
+                </div>
+                <div className={styles.backgroundcontent} hidden={pattern != 1}>
+                
+                </div>
+                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==2?"#FFFF8C":"" }}  onClick={() => {setPattern(2)}}>
+                # 축하
+                </div>
+                <div className={styles.backgroundcontent} hidden={pattern != 2}>
+
+                </div>
+                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==3?"#FFFF8C":"" }}  onClick={() => {setPattern(3)}}>
+                # 하트 
+                </div>
+                <div className={styles.backgroundcontent} hidden={pattern != 3}>
+                <img src='/stickersample/sample1.png' onClick={selectSticker}></img>
+                <img src='/stickersample/sample2.png' onClick={selectSticker}></img>
+                <img src='/stickersample/sample3.png' onClick={selectSticker}></img>
+                <img src='/stickersample/sample4.png' onClick={selectSticker}></img>
+                </div>
+                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==4?"#FFFF8C":"" }}  onClick={() => {setPattern(4)}}>
+                # 숫자
+                </div>
+                <div className={styles.backgroundcontent} hidden={pattern != 4}>
+
+                </div>
+            </div>
+            </div>
+            <div className={styles.tabcontent} hidden={index != 2}>
+                <div>
+                    <div className={styles.imageupload}>
+                    <label className={styles.filebutton} htmlFor="file">이미지 업로드</label>
+                    <input
+                        id="file"
+                        type="file"
+                        accept="image/gif, image/jpeg, image/png"
+                        style={{ display: "none" }}
+                        onChange={saveImage}
+                    />
+                    <button className={styles.deletebutton} onClick={() => deleteImage()}>
+                        삭제
+                    </button>
+                    </div>
+                </div>
+            </div>
+            <div className={styles.tabcontent} hidden={index != 3}>
+                <div className={styles.inputtextbox}>
+                    <textarea id="textlimit" style={{color:color}} value={text} placeholder="내용을 입력해 주세요" onChange={createText} className={styles.contentbox}></textarea>
+                </div>
+                <div className={styles.changetextcolor}>
+                    현재 선택된 글자색      
+                    <div style={{background:color, width:"15px", height:"15px", marginLeft:"5px"}}></div>
+                </div>
+                <div className={styles.rgbacolorpicker}>
+                    <HexColorPicker color={color} onChange={setColor} />
+
+                </div>
+                <div>
+                    <button className={styles.deletebutton} onClick={() => resetbutton()}>
+                        초기화
+                    </button>
+                </div>
+            </div>
+        
         </div>
         </div>
     </>
