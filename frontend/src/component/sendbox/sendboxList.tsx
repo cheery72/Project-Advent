@@ -8,14 +8,23 @@ import LoadingSpinner from "../loadingSpinner";
 const { Row, Column } = Grid
 
                             // item 타입 어떻게 설정해야할지 모르겠음(TS)
-export default function sendboxList({userId}:any){
+export default function sendboxList({ userId }:any){
     const [sendbox, setSendbox] = useState<any>('loading')
     // console.log(sendbox)
+    // console.log(userId)
 
     const getAdventsStorage = async () => {
         const response = await allAxios.get(`/advents/${userId}/storages`)
             .then((response) =>{
                 setSendbox(response.data.content)
+                // setSendbox([
+                //     {advent_id:1, received:false, title:'테스트님께 보내는 선물🎇✨🎉🍀🎁🎀🎈🎄', end_at:'2022-04-25', advent_day:7},
+                //     {advent_id:2, received:false, title:'테스트께 보내는 선물', end_at:'2022-04-30', advent_day:7},
+                //     {advent_id:3, received:false, title:'테스트님께 보내는 선물🎁', end_at:'2022-04-28', advent_day:7},
+                //     {advent_id:4, received:false, title:'테스트님에게 보내는 선물💍', end_at:'', advent_day:3},
+                //     {advent_id:5, received:false, title:'테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트', end_at:'2022-05-25', advent_day:1},
+                //     {advent_id:6, received:true, title:'test test test test test test test test test test test test test test', end_at:'2022-04-25', advent_day:3},
+                // ]) // test data
             })
         
     }
@@ -35,7 +44,7 @@ export default function sendboxList({userId}:any){
                 ?
                 <div className={ styles.empty }>
                     {/* 이 자리에 빈 상자 일러스트 표시를 고려 */}
-                    <h3>
+                    <h3 data-aos="zoom-in-up">
                         아직 보낸 선물이 없어요 . . 😗
                     </h3>
                     <Button 

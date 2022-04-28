@@ -7,7 +7,8 @@ import notify from "../../src/component/notify/notify";
 import { useRouter } from 'next/router';
 
 export default function Sendbox(){
-    const router = useRouter()
+    const router = useRouter();
+    
     const [username, setUsername] = useState<string>('')
     const [userId, setUserId] = useState<number>(56586189) // 테스트용 임시 userId
 
@@ -17,13 +18,13 @@ export default function Sendbox(){
             .then((data) => {
                 setUsername(data.data.body.user.name)
                 setUserId(data.data.body.user.id) // 유저의 userId를 받아옴
-                console.log(data.data.body.user.id)
+                // console.log(data.data.body.user.id)
             })
             .catch((e) => {
                 console.log(e)
-                // localStorage.removeItem("token")
-                // router.push('/')
-                // notify('info', '로그인 시간이 만료되어 로그아웃합니다😥')
+                localStorage.removeItem('token')
+                router.push('/')
+                notify('info', '로그인 시간이 만료되어 로그아웃합니다😥')
             });
     };
 
