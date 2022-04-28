@@ -79,6 +79,13 @@ public class Advent extends BaseTimeEntity{
         this.adventBoxes = adventBoxes;
     }
 
+    public static Advent adventBuilder(AdventDayRequest adventDayRequest){
+        return Advent.builder()
+                .userId(adventDayRequest.getUserId())
+                .day(adventDayRequest.getDay())
+                .build();
+    }
+
     public void setAdventPrivateInfoModify(AdventPrivateRequest adventPrivateRequest, String url, LocalDate localDate){
         if(adventPrivateRequest.getPassword() != null){
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
