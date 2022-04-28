@@ -1,16 +1,20 @@
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { Button, Grid } from "semantic-ui-react";
 import styles from "../../../styles/write/write.module.css"
 import allAxios from "../../lib/allAxios";
 import Title from "./title";
 import WriteThree from "./writethree";
 
-export default function DayThree(){
+export default function DayThree({ userInfo }: any){
 
     const router = useRouter()
     const id = router.query.id
     const { Row, Column } = Grid
+    const [adventInfo, setAdventInfo]: any = useState([])
+    const [wrapper1, setWrapper1] = useState("")
+    const [wrapper2, setWrapper2] = useState("")
+    const [wrapper3, setWrapper3] = useState("")
 
     const writeAniversary = () => {
         router.push(`/write/${id}/anniversary`)
@@ -18,9 +22,20 @@ export default function DayThree(){
 
     const getAdventInfo = () => {
         allAxios
-            .get(`/advents/${id}/advent`)
+            .get(`/advents/${id}/${userInfo.id}/advent`)
             .then(({ data }) => {
                 console.log(data)
+                setAdventInfo(data.advent_box_list)
+                data.advent_box_list.map((box: { advent_day: number; wrapper: SetStateAction<string>; }) => {
+                    if (box.advent_day === 1){
+                        setWrapper1(box.wrapper)
+                    } else if (box.advent_day === 2){
+                        setWrapper2(box.wrapper)
+                    } else if (box.advent_day === 3){
+                        setWrapper3(box.wrapper)
+                    }
+                    
+                })
             })
             .catch((e) => {
                 console.log(e)
@@ -28,8 +43,10 @@ export default function DayThree(){
     }
 
     useEffect(() => {
-        getAdventInfo()
-    }, [])
+        if (userInfo){
+            getAdventInfo()
+        }
+    }, [userInfo])
 
     return(
         <>
@@ -44,7 +61,7 @@ export default function DayThree(){
                 
                 <Row>
                     <Column width={3}/>
-                    <Column width={3} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px" }} className={ styles.box }>
+                    <Column width={3} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", backgroundImage: `url(${ wrapper1 })` }} className={ styles.box }>
                         <WriteThree num={1} />
                     </Column>
                     <Column width={3} />
@@ -52,11 +69,11 @@ export default function DayThree(){
 
                 <Row>
                     <Column width={2}/>
-                    <Column width={3} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px" }} className={ styles.box }>
+                    <Column width={3} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", backgroundImage: `url(${ wrapper2 })` }} className={ styles.box }>
                         <WriteThree num={2} />
                     </Column>
                     <Column width={1}/>
-                    <Column width={3} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px" }} className={ styles.box }>
+                    <Column width={3} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", backgroundImage: `url(${ wrapper3 })` }} className={ styles.box }>
                         <WriteThree num={3} />
                     </Column>
                     <Column width={2}/>

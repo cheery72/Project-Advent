@@ -1,8 +1,8 @@
-import axios from "axios";
 import { SetStateAction, useEffect, useState } from "react";
 import { Button, Grid, Header, Icon, Input, Popup } from "semantic-ui-react";
 import styles from "../../../styles/write/title.module.css"
 import allAxios from "../../lib/allAxios";
+import userAxios from "../../lib/userAxios";
 import notify from "../notify/notify";
 
 export default function Title({ id, day }: any){
@@ -10,6 +10,7 @@ export default function Title({ id, day }: any){
     const [title, setTitle] = useState("")
     const [tempTitle, setTempTitle] = useState('')
     const [openTitle, setOpenTitle] = useState(false)
+    const [userInfo, setUserInfo]: any = useState()
 
     const { Row, Column } = Grid
 
@@ -32,6 +33,17 @@ export default function Title({ id, day }: any){
         saveTitle()
     }
 
+    const getUserInfo = async () => {
+        userAxios
+            .get(`/auth/users`)
+            .then(({ data }) => {
+                setUserInfo(data.body.user)
+            })
+            .catch((e) => {
+                console.log(e)
+            });
+        };
+
     const saveTitle = () => {
         const body: any = {
             advent_id: id,
@@ -40,7 +52,6 @@ export default function Title({ id, day }: any){
         allAxios
             .patch(`/advents/recipients`, body)
             .then((data) => {
-                console.log(data)
                 notify('success', `👋제목이 저장되었습니다.`)
                 setOpenTitle(!openTitle)
                 setTitle(tempTitle)
@@ -53,7 +64,7 @@ export default function Title({ id, day }: any){
 
     const getAdventInfo = () => {
         allAxios
-            .get(`/advents/${id}/advent`)
+            .get(`/advents/${id}/${userInfo.id}/advent`)
             .then(({ data }) => {
                 setTitle(data.title)
             })
@@ -63,8 +74,14 @@ export default function Title({ id, day }: any){
     }
 
     useEffect(() => {
-        getAdventInfo()
-    }, [title])
+        if (userInfo) {
+            getAdventInfo()
+        }
+    }, [title, userInfo])
+
+    useEffect(() => {
+        getUserInfo()
+    }, [])
 
     return(
         <>

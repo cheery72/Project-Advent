@@ -20,7 +20,7 @@ export default function Write(){
     }
 
     const getUserInfo = async () => {
-        userAxios
+        await userAxios
             .get(`/auth/users`)
             .then(({ data }) => {
                 setUserInfo(data.body.user)
