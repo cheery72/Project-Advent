@@ -8,9 +8,10 @@ import LoadingSpinner from "../loadingSpinner";
 const { Row, Column } = Grid
 
                             // item 타입 어떻게 설정해야할지 모르겠음(TS)
-export default function sendboxList({userId}:any){
+export default function sendboxList({ userId }:any){
     const [sendbox, setSendbox] = useState<any>('loading')
     // console.log(sendbox)
+    // console.log(userId)
 
     const getAdventsStorage = async () => {
         const response = await allAxios.get(`/advents/${userId}/storages`)
@@ -35,7 +36,7 @@ export default function sendboxList({userId}:any){
                 ?
                 <div className={ styles.empty }>
                     {/* 이 자리에 빈 상자 일러스트 표시를 고려 */}
-                    <h3>
+                    <h3 data-aos="zoom-in-up">
                         아직 보낸 선물이 없어요 . . 😗
                     </h3>
                     <Button 

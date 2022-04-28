@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { Button, Grid, Icon, Image } from "semantic-ui-react";
 import styles from '../../../styles/sendbox/sendboxListItem.module.css'
 import allAxios from "../../lib/allAxios";
@@ -8,6 +9,8 @@ const { Row, Column } = Grid
 
                             // item 타입 어떻게 설정해야할지 잘 모르겠음(TS)
 export default function SendboxListItem({ item, userId, getAdventsStorage }:any){
+    const router = useRouter()
+
     const deleteAdvent = async () => {
         if (confirm('선물을 삭제하면 복구할 수 없습니다. 삭제하시겠습니까?')) {
             const response = await allAxios.delete(`/advents/${item.advent_id}/${userId}/`)
@@ -22,6 +25,15 @@ export default function SendboxListItem({ item, userId, getAdventsStorage }:any)
             notify('info', '삭제가 취소되었습니다.')
         }
     }
+
+    const goModify = () => {
+        notify('success', '선물 수정페이지로 이동되었습니다.')
+        router.push(`/write/${item.advent_id}?day=${item.advent_day}`)
+    }
+    const adventPassing = () => {
+        alert('카카오 전달')
+    }
+
 
     // 오늘 날짜 기준 d-day 계산 함수
     const dDayCount = () => {
@@ -85,7 +97,7 @@ export default function SendboxListItem({ item, userId, getAdventsStorage }:any)
                             <a 
                                 className={ `${styles.title} ${!item.received ? styles.hrefDisabled : ''}` }
                             >
-                                ❝{ item.recipient_name }❞ 
+                                ❝{ item.title }❞ 
                             </a>
                         </Link>
 
@@ -98,6 +110,7 @@ export default function SendboxListItem({ item, userId, getAdventsStorage }:any)
                             animated='fade' 
                             color='blue' 
                             style={{ margin:'10px 0' }}
+                            onClick={ () => { goModify() }}
                         >
                             <Button.Content hidden>수정</Button.Content>
                             <Button.Content visible>
@@ -126,7 +139,9 @@ export default function SendboxListItem({ item, userId, getAdventsStorage }:any)
                         <></>
                         :
                         <Button style={{ color:'black', background:'#F9E84F' }}>
-                            <Icon name='comment' />전달하기
+                            <Icon
+                                onClick={ () => adventPassing() } 
+                                name='comment' />전달하기
                         </Button>
                 }
                 </Column>
