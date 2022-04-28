@@ -18,4 +18,7 @@ public class AdventBoxRequest {
     @NotNull
     private Integer adventDay;
 
+    @NotNull
+    private Integer userId;
+
 }

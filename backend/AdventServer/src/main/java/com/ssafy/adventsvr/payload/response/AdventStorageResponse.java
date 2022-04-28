@@ -4,7 +4,6 @@ import com.ssafy.adventsvr.entity.Advent;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,6 +16,7 @@ public class AdventStorageResponse {
     private String title;
     private boolean isReceived;
     private LocalDate endAt;
+    private Integer adventDay;
 
     public static List<AdventStorageResponse> storageBuilder(List<Advent> advent){
         return advent.stream()
@@ -25,15 +25,17 @@ public class AdventStorageResponse {
                         .title(advents.getTitle())
                         .isReceived(advents.isReceived())
                         .endAt(advents.getEndAt())
+                        .adventDay(advents.getDay())
                         .build())
                 .collect(Collectors.toList());
     }
 
     @Builder
-    private AdventStorageResponse(String adventId, String title, boolean isReceived, LocalDate endAt) {
+    public AdventStorageResponse(String adventId, String title, boolean isReceived, LocalDate endAt, Integer adventDay) {
         this.adventId = adventId;
         this.title = title;
         this.isReceived = isReceived;
         this.endAt = endAt;
+        this.adventDay = adventDay;
     }
 }
