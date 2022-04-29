@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.6.6'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
 }
 
 group = 'com.ssafy'
@@ -23,22 +24,35 @@ ext {
 }
 
 dependencies {
+
+	//Database
+	runtimeOnly 'mysql:mysql-connector-java'
+	implementation 'com.querydsl:querydsl-jpa:5.0.0'
+	implementation 'com.querydsl:querydsl-apt:5.0.0'
+	// https://mvnrepository.com/artifact/com.h2database/h2
+	testImplementation group: 'com.h2database', name: 'h2', version: '1.4.199'
+
+	// aws
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+
+	implementation 'org.apache.commons:commons-lang3:3.12.0'
+
+	//Web
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-//	implementation 'org.springframework.cloud:spring-cloud-starter-config'
-//	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+//	implementation 'org.springframework.cloud:spring-cloud-starter-config'
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
-    testImplementation group: 'com.h2database', name: 'h2', version: '1.4.199'
-    compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    runtimeOnly 'mysql:mysql-connector-java'
-    annotationProcessor 'org.projectlombok:lombok'
-	// https://mvnrepository.com/artifact/com.h2database/h2
-	// https://mvnrepository.com/artifact/pl.pragmatists/JUnitParams
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation group: 'pl.pragmatists', name: 'JUnitParams', version: '1.1.1'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	implementation group: 'io.swagger', name: 'swagger-annotations', version: '1.6.5'
+
 }
 
 dependencyManagement {
@@ -49,4 +63,45 @@ dependencyManagement {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+/
+*
+* Querydsl 설정
+* */
+
+//def querydslSrcDir = "src/main/generated"
+def querydslSrcDir = "$buildDir/generated/querydsl"
+
+querydsl {
+	jpa = true
+	library = "com.querydsl:querydsl-apt"
+	querydslSourcesDir = querydslSrcDir
+}
+
+compileQuerydsl {
+	options.annotationProcessorPath = configurations.querydsl
+}
+
+configurations {
+	querydsl.extendsFrom compileClasspath
+}
+
+sourceSets {
+	main {
+		java {
+			srcDirs = ['src/main/java', querydslSrcDir]
+		}
+	}
+}
+
+task deleteGeneratedSources(type: Delete) {
+	delete file(querydslSrcDir)
+}
+
+tasks.withType(JavaCompile) { it.dependsOn('deleteGeneratedSources') }
+
+compileQuerydsl {
+	if(file(querydslSrcDir).exists() )
+		delete(file(querydslSrcDir))
 }

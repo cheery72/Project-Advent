@@ -1,0 +1,52 @@
+.pointer {
+    cursor: pointer;
+}
+
+.inline {
+    display: inline;
+}
+
+.one_images {
+    margin: auto;
+    cursor: pointer;
+    height: 350px;
+    width: 350px;
+    background-size: cover;
+}
+
+.one_lock_images {
+    margin: auto;
+    height: 350px;
+    width: 350px;
+    background-color: #C8FFFF;
+}
+
+.three_images {
+    margin: auto;
+    cursor: pointer;
+    height: 150px;
+    width: 150px;
+    background-size: cover;
+}
+
+.three_lock_images {
+    margin: auto;
+    height: 150px;
+    width: 150px;
+    background-color: #C8FFFF;
+}
+
+.seven_images {
+    margin: auto;
+    cursor: pointer;
+    height: 150px;
+    width: 150px;
+    background-size: cover;
+}
+
+.seven_lock_images {
+    margin: auto;
+    height: 150px;
+    width: 150px;
+    background-color: #C8FFFF;
+}

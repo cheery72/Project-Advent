@@ -1,25 +1,19 @@
 package com.ssafy.authsvr.entity;
 
-import com.ssafy.authsvr.oauth.domain.ProviderType;
 import com.ssafy.authsvr.oauth.domain.RoleType;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "user")
-public class User {
+public class User extends BaseTimeEntity {
     @Id
     @Column(name = "user_id")
     private Integer id;
-
-    @Enumerated(EnumType.STRING)
-    private ProviderType providerType;
 
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
@@ -28,16 +22,20 @@ public class User {
 
     private String name;
 
-    private LocalDateTime created_datetime;
+    private Integer adventCount;
 
-    private LocalDateTime modified_datetime;
+    private LocalDate adventWriteAt;
 
-
-    public User(Integer id, String tokenId , String name, LocalDateTime created_datetime, LocalDateTime modified_datetime) {
+    public User(Integer id, RoleType roleType, String tokenId, String name, Integer adventCount) {
         this.id = id;
+        this.roleType = roleType;
         this.tokenId = tokenId;
         this.name = name;
-        this.created_datetime = created_datetime;
-        this.modified_datetime = modified_datetime;
+        this.adventCount = adventCount;
+    }
+
+    public void setAdventCountModify(Integer adventCount, LocalDate localDate){
+        this.adventCount = ++adventCount;
+        this.adventWriteAt = localDate;
     }
 }

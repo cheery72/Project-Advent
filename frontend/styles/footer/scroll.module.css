@@ -1,0 +1,29 @@
+
+.topBtn {
+    position: fixed; 
+    opacity: 0; 
+    bottom: 40px; 
+    right: 40px;
+    z-index: -10; 
+    width: 50px; 
+    height: 50px;
+    border-radius: 100%;
+    background: #FEDAD5;
+    color: rgb(154, 54, 255);
+    border: 2px solid rgb(177, 94, 255);
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: -0.06em;
+    box-shadow: 1px 1px 6px 3px rgba(0,0,0,0.3);
+    cursor: pointer;
+    transition: opacity 0.3s ease-in;
+}
+  
+.topBtn.active {
+    z-index: 10; 
+    opacity: 1; 
+}
+  
+.topBtn:hover {
+    background: #faf0ff;
+}

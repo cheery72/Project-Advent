@@ -3,26 +3,22 @@ package com.ssafy.adventsvr.payload.request;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class AdventPrivateRequest {
 
-    @NotNull
-    private Integer adventId;
+    @NotBlank
+    private String adventId;
 
     @NotNull
     private Integer userId;
 
-    @NotNull
     private String password;
 
-    @NotNull
     private String passwordVal;
 
     private String passwordHint;
