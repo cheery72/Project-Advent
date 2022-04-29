@@ -40,11 +40,10 @@ export default function SendboxListItem({ item, userId, getAdventsStorage }:any)
 
     // 카카오 링크 공유하기
     const deliveryToKaKao = () => {
-        const { Kakao, location } = window;
+        const { Kakao } = window;
         Kakao.Link.sendScrap({
-            requestUrl: location.href, // 현재url??
+            requestUrl: `localhost:3000/present/${item.advent_id}`, // 공유할 링크
         });
-        console.log(location.href)
     }
 
     // 오늘 날짜 기준 d-day 계산 함수
