@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,6 +17,7 @@ public class AdventStorageResponse {
     private String title;
     private boolean isReceived;
     private LocalDate endAt;
+    private LocalDateTime modifiedAt;
     private Integer adventDay;
 
     public static List<AdventStorageResponse> storageBuilder(List<Advent> advent){
@@ -26,16 +28,18 @@ public class AdventStorageResponse {
                         .isReceived(advents.isReceived())
                         .endAt(advents.getEndAt())
                         .adventDay(advents.getDay())
+                        .modifiedAt(advents.getModifiedAt())
                         .build())
                 .collect(Collectors.toList());
     }
 
     @Builder
-    public AdventStorageResponse(String adventId, String title, boolean isReceived, LocalDate endAt, Integer adventDay) {
+    public AdventStorageResponse(String adventId, String title, boolean isReceived, LocalDate endAt, LocalDateTime modifiedAt, Integer adventDay) {
         this.adventId = adventId;
         this.title = title;
         this.isReceived = isReceived;
         this.endAt = endAt;
+        this.modifiedAt = modifiedAt;
         this.adventDay = adventDay;
     }
 }
