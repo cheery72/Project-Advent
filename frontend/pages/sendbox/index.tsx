@@ -12,7 +12,7 @@ export default function Sendbox(){
     const [username, setUsername] = useState<string>('')
     const [userId, setUserId] = useState<number>(0)
 
-
+    
     const getUserInfo = async () => {
         userAxios.get(`/auth/users`)
             .then((data) => {
@@ -47,7 +47,7 @@ export default function Sendbox(){
                         <span>❝ { username } ❞님</span>의 <span>보낸 선물함</span>
                     </h1>
                 </div>
-                <SendboxList userId={ userId } />
+                <SendboxList userId={ userId } username={ username } />
             </div>
         </>
     );

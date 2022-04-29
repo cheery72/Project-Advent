@@ -10,22 +10,23 @@ const { Row, Column } = Grid
 
 
                             // item 타입 어떻게 설정해야할지 잘 모르겠음(TS)
-export default function SendboxListItem({ item, userId, getAdventsStorage }:any){
+export default function SendboxListItem({ item, userId, username, getAdventsStorage }:any){
     const router = useRouter()
-
+    
+    
     const deleteAdvent = async () => {
         if (confirm('선물을 삭제하면 복구할 수 없습니다. 삭제하시겠습니까?')) {
             allAxios.delete(`/advents/${item.advent_id}/${userId}/`)
-                .then(() =>{
-                    notify('success', '선물이 삭제되었습니다.', 3000)
+            .then(() =>{
+                notify('success', '선물이 삭제되었습니다.', 3000)
                     getAdventsStorage()
                 })
                 .catch((error) => {
                     console.log(error)
                 })
-        } else {
-            notify('info', '삭제가 취소되었습니다.')
-        }
+            } else {
+                notify('info', '삭제가 취소되었습니다.')
+            }
     }
 
     const goModify = () => {
@@ -35,18 +36,33 @@ export default function SendboxListItem({ item, userId, getAdventsStorage }:any)
 
     const goAniversary = () => {
         router.push(`/write/${item.advent_id}/anniversary`)
-        notify('success', 'D-day 설정 페이지로 이동되었습니다.')
+        notify('success', '기념일 설정 페이지로 이동되었습니다.')
     }
 
     // 카카오 링크 공유하기
+    const KAKAO_API_KEY = 'fee4389053b0873a7e46c5134141b59a'
+
     const deliveryToKaKao = () => {
-        const { Kakao } = window;
-        Kakao.Link.sendScrap({
-            requestUrl: `localhost:3000/present/${item.advent_id}`, // 공유할 링크
+        const { Kakao } = window
+        try {
+            if (Kakao) {
+                Kakao.init(KAKAO_API_KEY)
+            };
+        } catch(e) {
+            console.log(e)
+        };
+        Kakao.Link.sendCustom({
+            templateId: 75804,
+            templateArgs: {
+                'title': `${item.title}`,
+                'description': `${username}님께서 보내신 어드벤트 스페셜 데이 선물이 도착했습니다.`,
+                'url': `${item.advent_id}`
+            }
         });
+        Kakao.Link.cleanup()
     }
 
-    // 오늘 날짜 기준 d-day 계산 함수
+    // 오늘 날짜 기준 기념일 계산 함수
     const dDay = () => {
         const { end_at } = item 
         const dDayDate = new Date(end_at.substring(0, 4), Number(end_at.substring(5, 7))-1, end_at.substring(8, 10)) // month는 -1을 해줘야한다
@@ -61,30 +77,30 @@ export default function SendboxListItem({ item, userId, getAdventsStorage }:any)
         if (item.end_at) {
             const dDayQualify = dDay()
             const { advent_day } = item
-            const msg = 'D-DAY를 수정하여 전달하시겠습니까? 확인을 누르시면 D-DAY 수정 페이지로, 취소를 누르시면 선물 전달 페이지로 이동합니다.'
+            const msg = '기념일을 수정하여 전달하시겠습니까? 확인을 누르시면 기념일 수정 페이지로, 취소를 누르시면 선물 전달 페이지로 이동합니다.'
             if (dDayQualify > advent_day) {
                 deliveryToKaKao()
             } else if (dDayQualify > 0) {
-                confirm(`D-DAY가 설정한 선물일수인 ${advent_day}일보다 적게 남았습니다. ` + msg) 
+                confirm(`기념일이 설정한 선물일수인 ${advent_day}일보다 적게 남았습니다. ` + msg) 
                 ?
                 goAniversary()
                 :
                 deliveryToKaKao()
             } else if (dDayQualify === 0) {
-                confirm('오늘은 D-DAY 입니다. ' + msg)
+                confirm('오늘은 기념일 입니다. ' + msg)
                 ?
                 goAniversary()
                 :
                 deliveryToKaKao()
             } else if (dDayQualify < 0) {
-                confirm('D-DAY가 경과되었습니다. ' + msg)
+                confirm('기념일이 경과되었습니다. ' + msg)
                 ?
                 goAniversary()
                 :
                 deliveryToKaKao()
             }
         } else {
-            confirm('D-DAY를 미설정한 선물은 전달할 수 없습니다. D-DAY를 설정하시겠습니까? 확인을 누르시면 D-DAY 설정페이지로 이동합니다.')
+            confirm('기념일을 미설정한 선물은 전달할 수 없습니다. 기념일을 설정하시겠습니까? 확인을 누르시면 기념일 설정페이지로 이동합니다.')
             ?
             goAniversary()
             :
@@ -99,12 +115,12 @@ export default function SendboxListItem({ item, userId, getAdventsStorage }:any)
             if (result > 0) {
                 return <span className={result>item.advent_day ? styles.dDayCntBefore : styles.dDayCnt }>D - {result}</span>
             } else if (result === 0) {
-                return <span className={ styles.dDayDate }>D-Day</span>
+                return <span className={ styles.dDayDate }>기념일</span>
             } else if (result <= 0) {
-                return <span className={ styles.dDayPast }>D-Day<br />경과</span>
+                return <span className={ styles.dDayPast }>기념일<br />경과</span>
             } 
         } else {
-            return <span className={ styles.dDayNotSet }>D-Day<br />미설정</span>
+            return <span className={ styles.dDayNotSet }>기념일<br />미설정</span>
         }
     }
 
@@ -155,7 +171,7 @@ export default function SendboxListItem({ item, userId, getAdventsStorage }:any)
                     
                     <p className={styles.adventDay}>
                         <Icon name="gift" color="yellow" />
-                        선물일수 : <span> { item.advent_day }</span>  DAY
+                        선물일수 : <span> { item.advent_day }</span>  DAYS
                     </p>
                 </Column>
                 <Column width={3}>
