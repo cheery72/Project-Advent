@@ -161,7 +161,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
             if (dDayQualify > advent_day) {
                 choiceKakaoOrCopy()
             } else if (dDayQualify > 0) {
-                choiceModifyOrDelivery(`기념일이 설정한 선물일수인 \n " ${advent_day}일 " 보다 적게 남았습니다.`)
+                choiceModifyOrDelivery(`기념일이 설정한 선물일수인 \n ❝ ${advent_day}일 ❞ 보다 적게 남았습니다.`)
             } else if (dDayQualify === 0) {
                 choiceModifyOrDelivery('오늘은 기념일 입니다.')
             } else if (dDayQualify < 0) {
@@ -267,7 +267,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
 
             </Row>
             <Row>
-                <Column width={6}>    
+                <Column width={5}>    
                 {
                     item.received ? 
                         <></>
@@ -281,7 +281,12 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                         </Button>
                 }
                 </Column>
-                <Column width={7} />
+                <Column width={8}>
+                    <Icon name="write square" />
+                    <span className={styles.modifyTime}>
+                        작성(수정)일자 : { item.modified_at.substring(0, 4) }년 { Number(item.modified_at.substring(5, 7)) }월 { item.modified_at.substring(8, 10) }일 { item.modified_at.substring(11, 19) }
+                    </span>
+                </Column>
                 <Column
                     width={3} 
                     textAlign='center'
