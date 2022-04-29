@@ -150,7 +150,8 @@ public class AdventController {
     public ResponseEntity<Page<AdventStorageResponse>> adventMyStorageFind(@PageableDefault(size = 6)
                                                                         @SortDefault.SortDefaults({
                                                                         @SortDefault(sort = "isReceived"),
-                                                                        @SortDefault(sort = "endAt",direction = Sort.Direction.ASC)
+                                                                        @SortDefault(sort = "endAt",direction = Sort.Direction.ASC),
+                                                                        @SortDefault(sort = "modifiedAt", direction = Sort.Direction.DESC)
                                                                         })
                                                                              Pageable pageable,
                                                                          @PathVariable("userId") Integer userId){
