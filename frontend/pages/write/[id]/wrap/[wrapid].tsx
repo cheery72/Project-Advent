@@ -66,7 +66,7 @@ export default function Wrap(){
     }
 
     const getUserInfo = async () => {
-        userAxios
+        await userAxios
             .get(`/auth/users`)
             .then(({ data }) => {
                 setUserInfo(data.body.user)
@@ -82,7 +82,6 @@ export default function Wrap(){
                 params: { query: searchWord, per_page: 15 }
             })
             .then(({ data }) => {
-                console.log(data)
                 setUnsplashImages(data.results)
             })
             .catch((e) => {
@@ -93,12 +92,12 @@ export default function Wrap(){
     const saveImages = async () => {
         const body = new FormData();
         const adventBoxWrapperRequest: any = {
-            advent_day: day,
+            advent_day: wrapid,
             advent_id: id,
             user_id: userInfo.id
         }
-        const newBlob: any = new Blob([new Uint8Array(backgroundImage)]);
-        const files = new File([newBlob], backgroundImage, {type: "image/jpeg"})
+        // const newBlob: any = new Blob([new Uint8Array(backgroundImage)]);
+        // const files = new File([newBlob], backgroundImage, {type: "image/jpeg"})
         body.append("adventBoxWrapperRequest", new Blob([JSON.stringify(adventBoxWrapperRequest)],{type: "application/json"}))
         body.append("file", fileImage)
 
@@ -108,10 +107,9 @@ export default function Wrap(){
             })
             .then((data) => {
                 notify('success', `👋${wrapid}번 포장지가 변경되었습니다.`)
-                // router.push({ pathname: `/write/${id}`, query: { day: `${day}` }})
+                router.push({ pathname: `/write/${id}`, query: { day: `${day}` }})
             })
             .catch((e) => {
-                console.log(body)
                 console.log(e)
             })
     }
