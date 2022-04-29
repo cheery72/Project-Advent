@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -62,8 +60,6 @@ public class Advent extends BaseTimeEntity{
                 .build();
     }
 
-
-
     @Builder
     private Advent(String id, String url, Integer day, String title, boolean isReceived, LocalDateTime receivedAt, String password, String passwordHint, LocalDate endAt, Integer userId, List<AdventBox> adventBoxes) {
         this.id = id;
@@ -77,13 +73,6 @@ public class Advent extends BaseTimeEntity{
         this.endAt = endAt;
         this.userId = userId;
         this.adventBoxes = adventBoxes;
-    }
-
-    public static Advent adventBuilder(AdventDayRequest adventDayRequest){
-        return Advent.builder()
-                .userId(adventDayRequest.getUserId())
-                .day(adventDayRequest.getDay())
-                .build();
     }
 
     public void setAdventPrivateInfoModify(AdventPrivateRequest adventPrivateRequest, String url, LocalDate localDate){

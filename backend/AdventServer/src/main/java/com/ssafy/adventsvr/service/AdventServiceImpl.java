@@ -131,7 +131,7 @@ public class AdventServiceImpl implements AdventService{
         Optional<Advent> optionalAdvent = adventRepository.findByUrl(url);
         Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
 
-        Optional<List<AdventBox>> optionalAdventBoxes  =adventBoxRepository.findAllByAdventId(advent.getId());
+        Optional<List<AdventBox>> optionalAdventBoxes = adventBoxRepository.findAllByAdventId(advent.getId());
         List<AdventBox> adventBoxList = optionalAdventBoxes.orElseThrow(NoSuchElementException::new);
         advent.setAdventIsReceivedModify();
 
