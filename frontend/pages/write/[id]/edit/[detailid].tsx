@@ -1,6 +1,6 @@
 import { Grid, Button, Advertisement } from "semantic-ui-react";
 import React from 'react'
-import Decorativeframe from "../../../../src/component/detail/decorativeframe"
+import Decorativeframe from "../../../../src/component/detail/selectbackground"
 import { useRouter } from "next/router";
 
 import styles from "../../../../styles/detail/detail.module.css"
