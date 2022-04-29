@@ -8,7 +8,6 @@ import Pagination from "./pagination"
 
 const { Row, Column } = Grid
 
-                            // item 타입 어떻게 설정해야할지 모르겠음(TS)
 export default function sendboxList({ userId, username }:any){
     const [sendbox, setSendbox] = useState<any>('loading')
     const [currentPage, setCurrentPage] = useState(1)

@@ -1,34 +1,27 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import { Button, Grid, Icon, Image } from "semantic-ui-react";
 import styles from '../../../styles/sendbox/sendboxListItem.module.css'
 import allAxios from "../../lib/allAxios";
 import notify from "../notify/notify";
+import Swal from 'sweetalert2'
 
 const { Row, Column } = Grid
 
-
-                            // item 타입 어떻게 설정해야할지 잘 모르겠음(TS)
 export default function SendboxListItem({ item, userId, username, getAdventsStorage }:any){
     const router = useRouter()
     
-    
     const deleteAdvent = async () => {
-        if (confirm('선물을 삭제하면 복구할 수 없습니다. 삭제하시겠습니까?')) {
-            allAxios.delete(`/advents/${item.advent_id}/${userId}/`)
+        allAxios.delete(`/advents/${item.advent_id}/${userId}/`)
             .then(() =>{
                 notify('success', '선물이 삭제되었습니다.', 3000)
-                    getAdventsStorage()
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
-            } else {
-                notify('info', '삭제가 취소되었습니다.')
-            }
+                getAdventsStorage()
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }
-
+    
     const goModify = () => {
         notify('success', '선물 수정페이지로 이동되었습니다.')
         router.push(`/write/${item.advent_id}?day=${item.advent_day}`)
@@ -36,13 +29,73 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
 
     const goAniversary = () => {
         router.push(`/write/${item.advent_id}/anniversary`)
-        notify('success', '기념일 설정 페이지로 이동되었습니다.')
+        notify('success', '기념일 수정 페이지로 이동되었습니다.')
+    }
+
+    const confirmDelete = () => {
+        Swal.fire({
+            title: '삭제하시겠습니까?',
+            text: "선물을 삭제하면 복구할 수 없습니다😥",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#F27117',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: '삭제',
+            cancelButtonText: '취소'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    deleteAdvent()
+                } else {
+                    notify('info', '삭제가 취소되었습니다.')
+                }
+        })
+    }
+
+    const confirmAniversary = () => {
+        Swal.fire({
+            title: '기념일을 설정하지 않은 선물은 \n 전달할 수 없습니다.',
+            text: "기념일을 설정하시겠습니까?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#FC9D9A',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: '기념일 설정하기',
+            cancelButtonText: '전달 취소'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    goAniversary()
+                } else {
+                    notify('info', '전달이 취소되었습니다.')
+                }
+        })
+    }
+
+    const choiceModifyOrDelivery = (title:string) => {
+        Swal.fire({
+            title: title,
+            text: '기념일을 수정하여 전달하시겠습니까?',
+            icon: 'question',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonColor: '#FC9D9A',
+            denyButtonColor: '#87adbd',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: '기념일 수정하기',
+            denyButtonText: '그대로 전달하기',
+            cancelButtonText: '전달 취소'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                goAniversary()
+                } else if (result.isDenied) {
+                choiceKakaoOrCopy()
+                }
+            })
     }
 
     // 카카오 링크 공유하기
     const KAKAO_API_KEY = 'fee4389053b0873a7e46c5134141b59a'
 
-    const deliveryToKaKao = () => {
+    const deliveryToKakao = () => {
         const { Kakao } = window
         try {
             if (Kakao) {
@@ -62,6 +115,34 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
         Kakao.Link.cleanup()
     }
 
+    // 전달하기 방법 선택
+    const choiceKakaoOrCopy = () => {
+        Swal.fire({
+            title: '선물 전달하기',
+            text: '전달 방법을 선택해주세요!',
+            icon: 'info',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonColor: '#fbbd08',
+            denyButtonColor: '#00B5AD',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: '카카오톡으로 전달하기',
+            denyButtonText: '링크로 전달하기',
+            cancelButtonText: '전달 취소'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    deliveryToKakao()
+                } else if (result.isDenied) {
+                    navigator.clipboard.writeText(`http://localhost:3000/present/${item.advent_id}`) // 임시
+                    Swal.fire(
+                        '클립보드에 선물 링크가 \n 복사되었습니다!',
+                        '복사된 링크를 붙여넣기하여 선물을 전달하세요.',
+                        'success'
+                    )
+                }
+        })
+    }
+
     // 오늘 날짜 기준 기념일 계산 함수
     const dDay = () => {
         const { end_at } = item 
@@ -77,34 +158,17 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
         if (item.end_at) {
             const dDayQualify = dDay()
             const { advent_day } = item
-            const msg = '기념일을 수정하여 전달하시겠습니까? 확인을 누르시면 기념일 수정 페이지로, 취소를 누르시면 선물 전달 페이지로 이동합니다.'
             if (dDayQualify > advent_day) {
-                deliveryToKaKao()
+                choiceKakaoOrCopy()
             } else if (dDayQualify > 0) {
-                confirm(`기념일이 설정한 선물일수인 ${advent_day}일보다 적게 남았습니다. ` + msg) 
-                ?
-                goAniversary()
-                :
-                deliveryToKaKao()
+                choiceModifyOrDelivery(`기념일이 설정한 선물일수인 \n " ${advent_day}일 " 보다 적게 남았습니다.`)
             } else if (dDayQualify === 0) {
-                confirm('오늘은 기념일 입니다. ' + msg)
-                ?
-                goAniversary()
-                :
-                deliveryToKaKao()
+                choiceModifyOrDelivery('오늘은 기념일 입니다.')
             } else if (dDayQualify < 0) {
-                confirm('기념일이 경과되었습니다. ' + msg)
-                ?
-                goAniversary()
-                :
-                deliveryToKaKao()
+                choiceModifyOrDelivery('기념일이 경과되었습니다.')
             }
         } else {
-            confirm('기념일을 미설정한 선물은 전달할 수 없습니다. 기념일을 설정하시겠습니까? 확인을 누르시면 기념일 설정페이지로 이동합니다.')
-            ?
-            goAniversary()
-            :
-            notify('info', '전달이 취소되었습니다.')
+            confirmAniversary()
         }
     }
     
@@ -123,7 +187,6 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
             return <span className={ styles.dDayNotSet }>기념일<br />미설정</span>
         }
     }
-
 
     return (
         <Grid 
@@ -181,7 +244,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                             animated='fade' 
                             color='blue' 
                             style={{ margin:'10px 0' }}
-                            onClick={ () => { goModify() }}
+                            onClick={() => goModify()}
                         >
                             <Button.Content hidden>수정</Button.Content>
                             <Button.Content visible>
@@ -191,7 +254,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                         <Button 
                             animated='fade' 
                             color='orange'
-                            onClick={() => { deleteAdvent() }}
+                            onClick={() => confirmDelete()}
                         >
                             <Button.Content hidden>삭제</Button.Content>
                             <Button.Content visible>
