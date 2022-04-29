@@ -1,23 +1,28 @@
 import { useRouter } from "next/router";
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { Button, Grid, Header, Image, Input } from "semantic-ui-react";
 import notify from "../../../../src/component/notify/notify";
+import allAxios from "../../../../src/lib/allAxios";
 import unsplashAxios from "../../../../src/lib/unsplashAxios";
+import userAxios from "../../../../src/lib/userAxios";
 import styles from "../../../../styles/write/wrap.module.css"
 
 export default function Wrap(){
 
     const router = useRouter()
-    const day = router.query.day
+    const day: any = router.query.day
     const wrapid = router.query.wrapid
+    const id: any = router.query.id
 
     const { Row, Column } = Grid
 
-    const [backgroundImage, setBackgroundImage] = useState('')
+    const [backgroundImage, setBackgroundImage]: any = useState('')
     const [imageType, setImageType] = useState(1)
     const [pattern, setPattern] = useState(1)
     const [searchWord, setSearchWord] = useState('')
     const [unsplashImages, setUnsplashImages]: any = useState([])
+    const [fileImage, setFileImage]: any = useState()
+    const [userInfo, setUserInfo]: any = useState()
 
     const selectImage = (e: { target: { currentSrc: SetStateAction<string>; }; }) => {
         setBackgroundImage(e.target.currentSrc)
@@ -36,6 +41,7 @@ export default function Wrap(){
     const saveImage = (e:any) => {
         if(e.target.files.length !== 0){
         setBackgroundImage(URL.createObjectURL(e.target.files[0]))};
+        setFileImage(e.target.files[0])
     };
 
     const deleteBackgroundImageupload = () => {
@@ -44,12 +50,11 @@ export default function Wrap(){
     }
 
     const writeWrap = () => {
-        notify('success', `👋${wrapid}번 포장지가 변경되었습니다.`)
-        router.push({ pathname: '/write/testid', query: { day: `${day}` }})
+        saveImages()
     }
 
     const closeWrap = () => {
-        router.push({ pathname: '/write/testid', query: { day: `${day}` }})
+        router.push({ pathname: `/write/${id}`, query: { day: `${day}` }})
     }
 
     const writeSearchWord = (e: { target: { value: SetStateAction<string>; }; }) => {
@@ -60,18 +65,60 @@ export default function Wrap(){
         loadImages()
     }
 
+    const getUserInfo = async () => {
+        userAxios
+            .get(`/auth/users`)
+            .then(({ data }) => {
+                setUserInfo(data.body.user)
+            })
+            .catch((e) => {
+                console.log(e)
+            });
+        };
+
     const loadImages = async () => {
         await unsplashAxios
             .get(`/search/photos`, {
                 params: { query: searchWord, per_page: 15 }
             })
             .then(({ data }) => {
+                console.log(data)
                 setUnsplashImages(data.results)
             })
             .catch((e) => {
                 console.log(e)
             })
     }
+
+    const saveImages = async () => {
+        const body = new FormData();
+        const adventBoxWrapperRequest: any = {
+            advent_day: day,
+            advent_id: id,
+            user_id: userInfo.id
+        }
+        const newBlob: any = new Blob([new Uint8Array(backgroundImage)]);
+        const files = new File([newBlob], backgroundImage, {type: "image/jpeg"})
+        body.append("adventBoxWrapperRequest", new Blob([JSON.stringify(adventBoxWrapperRequest)],{type: "application/json"}))
+        body.append("file", fileImage)
+
+        await allAxios
+            .post(`/boxes/wrappers`, body, {
+                headers: {"Content-Type": "multipart/form-data"}
+            })
+            .then((data) => {
+                notify('success', `👋${wrapid}번 포장지가 변경되었습니다.`)
+                // router.push({ pathname: `/write/${id}`, query: { day: `${day}` }})
+            })
+            .catch((e) => {
+                console.log(body)
+                console.log(e)
+            })
+    }
+
+    useEffect(() => {
+        getUserInfo()
+    }, [])
 
     return(
         <>

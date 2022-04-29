@@ -20,7 +20,7 @@ export default function Write(){
     }
 
     const getUserInfo = async () => {
-        userAxios
+        await userAxios
             .get(`/auth/users`)
             .then(({ data }) => {
                 setUserInfo(data.body.user)
@@ -30,15 +30,16 @@ export default function Write(){
             });
         };
 
-    const makeAdventCalender = (day: Number) => {
+    const makeAdventCalender = async (day: Number) => {
         const body = {
             day: day,
             user_id: userInfo.id,
         }
-        allAxios
+        await allAxios
             .post(`/advents`, body)
             .then(({ data }) => {
-                notify('success', `👋어드벤트 켈린더(${day}일)이 생성되었습니다. 작성한 어드벤트 켈린더는 보낸 선물함에서 확인할 수 있습니다`)
+                notify('success', `🎁어드벤트 캘린더(${day}일)이 생성되었습니다.🎁`, 5000)
+                notify('success', `❕작성한 어드벤트 켈린더는 보낸 선물함에서 확인할 수 있습니다`, 10000)
                 router.push({ pathname: `/write/${ data.advent_id }`, query: { day: `${day}` }})
                 
             })

@@ -1,13 +1,16 @@
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { Button, Grid, Header, Icon, Input, Popup } from "semantic-ui-react";
 import styles from "../../../styles/write/title.module.css"
+import allAxios from "../../lib/allAxios";
+import userAxios from "../../lib/userAxios";
 import notify from "../notify/notify";
 
 export default function Title({ id, day }: any){
 
-    const [title, setTitle] = useState(`${day}일 선물상자`)
+    const [title, setTitle] = useState("")
     const [tempTitle, setTempTitle] = useState('')
     const [openTitle, setOpenTitle] = useState(false)
+    const [userInfo, setUserInfo]: any = useState()
 
     const { Row, Column } = Grid
 
@@ -27,11 +30,58 @@ export default function Title({ id, day }: any){
             notify('error', `제목은 1~12 글자수로 작성해야합니다.`)
             return
         }
-        notify('success', `👋제목이 저장되었습니다.`)
-        setOpenTitle(!openTitle)
-        setTitle(tempTitle)
-        setTempTitle('')
+        saveTitle()
     }
+
+    const getUserInfo = async () => {
+        userAxios
+            .get(`/auth/users`)
+            .then(({ data }) => {
+                setUserInfo(data.body.user)
+            })
+            .catch((e) => {
+                console.log(e)
+            });
+        };
+
+    const saveTitle = () => {
+        const body: any = {
+            advent_id: id,
+            title: tempTitle
+        }
+        allAxios
+            .patch(`/advents/recipients`, body)
+            .then((data) => {
+                notify('success', `👋제목이 저장되었습니다.`)
+                setOpenTitle(!openTitle)
+                setTitle(tempTitle)
+                setTempTitle('')
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    }
+
+    const getAdventInfo = () => {
+        allAxios
+            .get(`/advents/${id}/${userInfo.id}/advent`)
+            .then(({ data }) => {
+                setTitle(data.title)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    }
+
+    useEffect(() => {
+        if (userInfo) {
+            getAdventInfo()
+        }
+    }, [title, userInfo])
+
+    useEffect(() => {
+        getUserInfo()
+    }, [])
 
     return(
         <>
