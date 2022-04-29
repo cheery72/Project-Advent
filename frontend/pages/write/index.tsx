@@ -30,12 +30,12 @@ export default function Write(){
             });
         };
 
-    const makeAdventCalender = (day: Number) => {
+    const makeAdventCalender = async (day: Number) => {
         const body = {
             day: day,
             user_id: userInfo.id,
         }
-        allAxios
+        await allAxios
             .post(`/advents`, body)
             .then(({ data }) => {
                 notify('success', `🎁어드벤트 캘린더(${day}일)이 생성되었습니다.🎁`, 5000)

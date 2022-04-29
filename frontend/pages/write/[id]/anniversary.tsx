@@ -1,19 +1,29 @@
 import { useRouter } from "next/router";
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { Button, Form, Grid, Header, Icon, Input, Popup, TextArea } from "semantic-ui-react";
 import notify from "../../../src/component/notify/notify";
+import allAxios from "../../../src/lib/allAxios";
+import userAxios from "../../../src/lib/userAxios";
 import styles from "../../../styles/write/anniversary.module.css"
 
 export default function Anniversary(){
 
     const router = useRouter()
+    const advent_id = router.query.id
     const { Row, Column } = Grid
 
+    const today = new Date()
+    const year = today.getFullYear();
+    const month = today.getMonth() + 1;
+    const date = today.getDate();
+
     const [anniversary, setAnniversary] = useState('')
+    const [adventDay, setAdventDay] = useState(1)
     const [isHint, setIsHint] = useState(false)
     const [hint, setHint] = useState('')
     const [password, setPassword] = useState('')
     const [password2, setPassword2] = useState('')
+    const [userInfo, setUserInfo]: any = useState([])
 
     const writeAnniversary = (e: { target: { value: SetStateAction<string>; }; }) => {
         setAnniversary(e.target.value)
@@ -40,6 +50,14 @@ export default function Anniversary(){
             notify('error', `기념일을 등록해주세요!`)
             return
         }
+        if (Number(anniversary.slice(0, 4)) < year){
+            notify('error', `올해부터 등록해주세요!`)
+            return
+        }
+        if (Number(anniversary.slice(5, 7)) < month){
+            notify('error', `이번달부터 등록해주세요!`)
+            return
+        }
         if (isHint && !hint){
             notify('error', `힌트를 작성해주세요!`)
             return
@@ -48,10 +66,43 @@ export default function Anniversary(){
             notify('error', `비밀번호가 일치하지 않습니다.`)
             return
         }
-        console.log(`기념일: ${anniversary} 힌트: ${hint} 비밀번호: ${password} 비밀번호 확인: ${password2}`)
-        notify('success', `👋어드벤트 캘린더가 완성되었습니다.`)
-        router.push(`/sendbox`)
+        saveAnniversary()
     }
+
+    const getUserInfo = async () => {
+        await userAxios
+            .get(`/auth/users`)
+            .then(({ data }) => {
+                setUserInfo(data.body.user)
+            })
+            .catch((e) => {
+                console.log(e)
+            });
+        };
+
+    const saveAnniversary = async () => {
+        const body = {
+            advent_id: advent_id,
+            end_at: anniversary,
+            password: password,
+            password_hint: hint,
+            password_val: password2,
+            user_id: userInfo.id
+        }
+        await allAxios
+            .patch(`/advents/days`, body)
+            .then((data) => {
+                notify('success', `👋어드벤트 캘린더가 완성되었습니다.`)
+                router.push(`/sendbox`)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    }
+
+    useEffect(() => {
+        getUserInfo()
+    }, [])
 
     return(
         <>
