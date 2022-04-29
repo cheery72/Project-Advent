@@ -18,6 +18,7 @@ export default function Sendbox(){
             .then((data) => {
                 setUsername(data.data.body.user.name)
                 setUserId(data.data.body.user.id) // 유저의 userId를 받아옴
+                // setUserId(56586189) // test id
             })
             .catch((e) => {
                 console.log(e)

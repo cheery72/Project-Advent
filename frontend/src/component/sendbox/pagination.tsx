@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import styles from '../../../styles/sendbox/pagination.module.css'
 
 const createPagination = (params:any) => {
@@ -60,6 +61,13 @@ const Pagination = ({ currentPage, setCurrentPage, totalPages }:any) => {
         currentPage
         }
     );
+
+    // 마지막페이지에서 삭제했을때 페이지수가 줄어드는 경우 currentPage가 기존 페이지가 아닌 마지막페이지로 바뀌도록 수정
+    useEffect(() => {
+        if (currentPage > totalPages) {
+            setCurrentPage(totalPages)
+        }
+    }, [totalPages])
     
     const handleClick = (page:any) => setCurrentPage(page);
 
@@ -76,6 +84,7 @@ const Pagination = ({ currentPage, setCurrentPage, totalPages }:any) => {
                     <li
                         className={`${currentPage === page && styles.active}`}
                         onClick={handleClick.bind(null, page)}
+                        key={page}
                     >
                         {page}
                     </li>

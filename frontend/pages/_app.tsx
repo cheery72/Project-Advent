@@ -9,6 +9,12 @@ import Footer from '../src/component/footer/footer';
 import Aos from 'aos';
 import 'aos/dist/aos.css'; 
 
+declare global {
+    interface Window {
+      Kakao: any;
+    }
+}
+
 function MyApp({ Component, pageProps }: AppProps) {
     useEffect(() => {
         Aos.init({

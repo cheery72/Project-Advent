@@ -14,6 +14,16 @@ export default function sendboxList({ userId }:any){
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(0)
 
+    // 카카오 링크 공유하기 기능
+    const KAKAO_API_KEY = 'fee4389053b0873a7e46c5134141b59a'
+    interface IProps {
+        children: React.ReactNode;
+    }
+
+    useEffect(() => {
+        window.Kakao.init(KAKAO_API_KEY);
+    }, []);
+
     const getAdventsStorage = async () => {
         if (userId) {
             allAxios.get(`/advents/${userId}/storages?page=${currentPage-1}`)

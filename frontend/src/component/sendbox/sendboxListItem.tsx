@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { Button, Grid, Icon, Image } from "semantic-ui-react";
 import styles from '../../../styles/sendbox/sendboxListItem.module.css'
 import allAxios from "../../lib/allAxios";
 import notify from "../notify/notify";
 
 const { Row, Column } = Grid
+
 
                             // item 타입 어떻게 설정해야할지 잘 모르겠음(TS)
 export default function SendboxListItem({ item, userId, getAdventsStorage }:any){
@@ -36,10 +38,14 @@ export default function SendboxListItem({ item, userId, getAdventsStorage }:any)
         notify('success', 'D-day 설정 페이지로 이동되었습니다.')
     }
 
+    // 카카오 링크 공유하기
     const deliveryToKaKao = () => {
-        alert('카카오 전달처리 연결 예정')
+        const { Kakao } = window;
+        Kakao.Link.sendScrap({
+            requestUrl: `localhost:3000/present/${item.advent_id}`, // 공유할 링크
+        });
     }
-     
+
     // 오늘 날짜 기준 d-day 계산 함수
     const dDay = () => {
         const { end_at } = item 
@@ -101,6 +107,7 @@ export default function SendboxListItem({ item, userId, getAdventsStorage }:any)
             return <span className={ styles.dDayNotSet }>D-Day<br />미설정</span>
         }
     }
+
 
     return (
         <Grid 
