@@ -1,6 +1,9 @@
 .backgroundtitle {
     font-size: 20px;
     font-weight: bold;
+    width: 150px;
+    margin: auto;
+    cursor: pointer;
 }
 
 .backgroundcontent {
@@ -98,4 +101,10 @@
     border-left: 24px solid #000;
     padding-left: 10px;
 
+}
+
+.box {
+    width: 300px;
+    height: 300px;
+    border: 1px solid;
 }
