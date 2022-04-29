@@ -11,7 +11,6 @@ import com.ssafy.adventsvr.payload.response.*;
 import com.ssafy.adventsvr.repository.AdventBoxRepository;
 import com.ssafy.adventsvr.repository.AdventRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +18,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -40,6 +38,7 @@ public class AdventServiceImpl implements AdventService{
     @Override
     public AdventDayResponse inputDayAdvent(AdventDayRequest adventDayRequest) {
         Advent advent = Advent.adventBuilder(adventDayRequest);
+
 //        Integer userAdventCount = userServiceClient.userAdventCountFind(adventDayRequest.getUserId(), LocalDate.now());
 //
 //        if(10 < userAdventCount){

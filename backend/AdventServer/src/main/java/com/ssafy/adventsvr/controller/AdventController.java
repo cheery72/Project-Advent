@@ -8,6 +8,7 @@ import com.ssafy.adventsvr.payload.request.AdventRecipientModify;
 import com.ssafy.adventsvr.payload.response.*;
 import com.ssafy.adventsvr.service.AdventService;
 import io.swagger.annotations.ApiOperation;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 
 @RestController
 @RequiredArgsConstructor
@@ -171,5 +173,15 @@ public class AdventController {
         adventService.deleteAdvent(userId, adventId);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @ApiOperation(value = "시간 체크 테스트용", notes = "시간 체크 테스트용")
+    @GetMapping("/test")
+    public ResponseEntity<LocalDateTime> timeTest(){
+        log.info("timeTest");
+
+        return ResponseEntity
+                .ok()
+                .body(LocalDateTime.now());
     }
 }
