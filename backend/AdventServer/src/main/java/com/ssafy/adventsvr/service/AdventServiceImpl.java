@@ -59,7 +59,7 @@ public class AdventServiceImpl implements AdventService{
         Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
 
         // 시간 포맷팅
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.parse(adventPrivateRequest.getEndAt(),formatter);
 
         // 설정한 기간이랑 현재 시간이랑 데이의 차이가 설정한 박스 데이 이상이어야함
@@ -173,7 +173,18 @@ public class AdventServiceImpl implements AdventService{
         return AdventReceiveResponse.builder()
                 .adventId(adventId)
                 .title(advent.getTitle())
+                .day(advent.getDay())
                 .adventBoxList(adventBoxListResponse)
+                .build();
+    }
+
+    @Override
+    public AdventDaysResponse findDayAdvent(String adventId) {
+        Optional<Advent> optionalAdvent = adventRepository.findById(adventId);
+        Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
+
+        return AdventDaysResponse.builder()
+                .day(advent.getDay())
                 .build();
     }
 

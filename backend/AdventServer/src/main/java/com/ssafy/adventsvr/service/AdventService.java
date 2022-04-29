@@ -20,6 +20,8 @@ public interface AdventService {
 
     AdventReceiveResponse findAdvent(String adventId,Integer userId);
 
+    AdventDaysResponse findDayAdvent(String adventId);
+
     Page<AdventStorageResponse> findMyStorageAdvent(Pageable pageable, Integer userId);
 
     void modifyTitleAdvent(AdventRecipientModify adventRecipientModify);

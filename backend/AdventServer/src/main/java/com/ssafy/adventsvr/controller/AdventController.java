@@ -54,14 +54,17 @@ public class AdventController {
     public ResponseEntity<AdventUrlResponse> adventPrivateInfoModify(@RequestBody @Valid AdventPrivateRequest adventPrivateRequest) {
         log.info("adventPrivateInfoModify");
 
-        if((adventPrivateRequest.getPasswordVal() != null && adventPrivateRequest.getPassword() != null) &&
-                (adventPrivateRequest.getPasswordVal().equals(adventPrivateRequest.getPassword()))){
+
+        if ((!"".equals(adventPrivateRequest.getPassword()) && !"".equals(adventPrivateRequest.getPasswordVal())) &&
+                !adventPrivateRequest.getPasswordVal().equals(adventPrivateRequest.getPassword())) {
             return ResponseEntity.badRequest().build();
         }
+
 
         if (ObjectUtils.isEmpty(adventPrivateRequest)) {
             return ResponseEntity.notFound().build();
         }
+
         AdventUrlResponse advent = adventService.modifyPrivateInfoAdvent(adventPrivateRequest);
 
         if(advent == null){
@@ -95,6 +98,16 @@ public class AdventController {
         return ResponseEntity
                 .ok()
                 .body(adventService.findReceiveNotPasswordUrlAdvent(url));
+    }
+
+    @ApiOperation(value = "어드벤트 day 조회", notes = "어드벤트 day 조회")
+    @GetMapping("/{adventId}/days")
+    public ResponseEntity<AdventDaysResponse> adventDayFind(@PathVariable String adventId){
+        log.info("adventDayFind");
+
+        return ResponseEntity
+                .ok()
+                .body(adventService.findDayAdvent(adventId));
     }
 
     @ApiOperation(value = "어드벤트 조회", notes = "보관함 페이지에서 수정 눌렀을시에 조회")

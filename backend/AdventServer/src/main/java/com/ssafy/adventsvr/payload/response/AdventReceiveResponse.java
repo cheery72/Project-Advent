@@ -11,12 +11,14 @@ public class AdventReceiveResponse {
 
     private String adventId;
     private String title;
+    private Integer day;
     private List<AdventBoxListResponse> adventBoxList;
 
     @Builder
-    public AdventReceiveResponse(String adventId, String title, List<AdventBoxListResponse> adventBoxList) {
+    public AdventReceiveResponse(String adventId, String title, Integer day, List<AdventBoxListResponse> adventBoxList) {
         this.adventId = adventId;
         this.title = title;
+        this.day = day;
         this.adventBoxList = adventBoxList;
     }
 }
