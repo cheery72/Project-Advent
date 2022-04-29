@@ -103,3 +103,10 @@
 .adventDay span {
     color: #F2711C;
 }
+
+.modifyTime {
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 8px;
+    color: grey;
+}

@@ -13,7 +13,7 @@ declare global {
     interface Window {
       Kakao: any;
     }
-}
+  }
 
 function MyApp({ Component, pageProps }: AppProps) {
     useEffect(() => {

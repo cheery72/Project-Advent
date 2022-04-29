@@ -8,21 +8,10 @@ import Pagination from "./pagination"
 
 const { Row, Column } = Grid
 
-                            // item 타입 어떻게 설정해야할지 모르겠음(TS)
-export default function sendboxList({ userId }:any){
+export default function sendboxList({ userId, username }:any){
     const [sendbox, setSendbox] = useState<any>('loading')
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(0)
-
-    // 카카오 링크 공유하기 기능
-    const KAKAO_API_KEY = 'fee4389053b0873a7e46c5134141b59a'
-    interface IProps {
-        children: React.ReactNode;
-    }
-
-    useEffect(() => {
-        window.Kakao.init(KAKAO_API_KEY);
-    }, []);
 
     const getAdventsStorage = async () => {
         if (userId) {
@@ -79,7 +68,7 @@ export default function sendboxList({ userId }:any){
                         sendbox.map((item:any) => 
                             <Column key={item.advent_id}>
                                 <Row width={8} style={{ height: '100%' }}>
-                                    <SendboxListItem item={item} userId={userId} getAdventsStorage={getAdventsStorage} />
+                                    <SendboxListItem item={item} userId={userId} username={username} getAdventsStorage={getAdventsStorage} />
                                 </Row> 
                             </Column>)
                     }
