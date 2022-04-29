@@ -27,6 +27,9 @@ export default function Selectbackground () {
     }
 
 
+    // 배경색 선택
+    const [backgroundcolor, setBackgroundcolor] = useState(''); 
+
     // 배경 이미지 업로드
     const saveImage = (e:any) => {
         if(e.target.files.length !== 0){
@@ -69,7 +72,9 @@ export default function Selectbackground () {
             <div>
             <div className={styles.selectimage}>
                 <div className={styles.selecttitle}>내가 선택한 배경</div>
-                <img src={backgroundImage} onClick={deleteImage}></img>
+                <div className={styles.box} style={{backgroundImage:`url(${backgroundImage})`}}>
+                </div>
+                {/* <img src={backgroundImage} onClick={deleteImage}></img> */}
             </div>
             <div className={styles.imagetitle}>
                 <div onClick={()=>{selectImageType(1)}} className={imageType===1?styles.selecttab:styles.tabhead }>내 이미지 찾기</div>

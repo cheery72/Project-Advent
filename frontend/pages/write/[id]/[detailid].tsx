@@ -1,12 +1,10 @@
-import { Grid, Button, Icon } from "semantic-ui-react";
-import React, {useState, useCallback} from 'react'
+import { Grid, Button, Icon, ModalActions } from "semantic-ui-react";
+import React, {useState} from 'react'
 import { useRouter } from "next/router";
 
 import styles from "../../../styles/detail/detail.module.css"
 import Selectbackground from "../../../src/component/detail/selectbackground"
 import { HexColorPicker } from "react-colorful";
-
-import { wrap } from "module";
 
 export default function Detail(){
     const router = useRouter();
@@ -18,10 +16,14 @@ export default function Detail(){
     const [image, setImage] = useState('')
     const [pattern, setPattern] = useState(1)
 
+    // 배경선택
+    const [backgroundcolor, setBackgroundcolor] = useState('');
+    
+
     // 스티커
-    const [sticker, setSticker] = useState('')
+    const [stickers, setStickers] = useState([])
     const selectSticker = (e:any) => {
-        setSticker(e.target.currentSrc)
+        setStickers(e.target.currentSrc)
     }
 
     // 이미지 업로드
@@ -43,31 +45,6 @@ export default function Detail(){
         setText(e.target.value);
         };
 
-    // 줄바꿈 제한
-    // const textlimitcheck = () => {
-
-    //     var str = $("#textlimit").val();
-        
-    //     var str_arr = str.split("\n");  // 줄바꿈 기준으로 나눔 
-        
-    //     var row = str_arr.length;  // row = 줄 수 
-        
-    //     if(row >5){
-        
-    //     //마지막 입력문자 삭제
-        
-    //     alert("5줄까지만 작성 가능합니다.")
-        
-    //     var lastChar = str.slice(0,-1); //열 
-        
-    //     $("#textlimit").val(lastChar)
-        
-    //     }
-        
-    //     }
-
-
-
     // 초기화 버튼
     const resetbutton = () => {
         setText('');
@@ -85,7 +62,7 @@ return(
             <Column width={4}></Column>
             <Column width={8}>
             <div className={styles.boxlocation}>
-            <div className={styles.box}>
+            <div className={styles.box} style={{ background:color }}>
                 <div className={styles.box_image}>
                 {image && (
                     <img
@@ -105,7 +82,7 @@ return(
             <Column width={4}>
                 <div className={styles.buttonbetween}>
                     <Button inverted color='blue' onClick={() => {router.push({ pathname: `/write/testid`, query: { day: `${day}`} });}}>&nbsp;&nbsp;&nbsp;&nbsp;저&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;장&nbsp;&nbsp;&nbsp;&nbsp;</Button>
-                 </div>
+                </div>
                 <div className={styles.cancelbutton}>    
                     <Button inverted color='blue' onClick={() => {router.push({ pathname: `/write/testid`, query: { day: `${day}`} });}}>&nbsp;&nbsp;&nbsp;&nbsp;취&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소&nbsp;&nbsp;&nbsp;&nbsp;</Button>  
                 </div>             
@@ -182,7 +159,8 @@ return(
             </div>
             <div className={styles.tabcontent} hidden={index != 3}>
                 <div className={styles.inputtextbox}>
-                    <textarea id="textlimit" style={{color:color}} value={text} placeholder="내용을 입력해 주세요" onChange={createText} className={styles.contentbox}></textarea>
+                    <textarea  id="textarea" style={{color:color}} value={text} placeholder="내용을 입력해 주세요" onChange={createText} className={styles.contentbox}></textarea>
+                    {/* onKeyUp={onChange} , height: textareaheight*/}
                 </div>
                 <div className={styles.changetextcolor}>
                     현재 선택된 글자색      
