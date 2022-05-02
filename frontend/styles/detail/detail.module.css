@@ -118,6 +118,7 @@
 
 .contentbox {
     width: 300px;
+    height: 85px;
     border: 0px;
     border-radius: 5px;
     overflow: hidden;
