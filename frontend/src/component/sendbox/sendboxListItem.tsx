@@ -158,7 +158,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
         if (item.end_at) {
             const dDayQualify = dDay()
             const { advent_day } = item
-            if (dDayQualify > advent_day) {
+            if (dDayQualify >= advent_day) {
                 choiceKakaoOrCopy()
             } else if (dDayQualify > 0) {
                 choiceModifyOrDelivery(`기념일이 설정한 선물일수인 \n ❝ ${advent_day}일 ❞ 보다 적게 남았습니다.`)
