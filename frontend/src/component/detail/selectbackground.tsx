@@ -5,7 +5,7 @@ import styles from "../../../styles/detail/selectbackground.module.css"
 import { HexColorPicker } from "react-colorful";
 import unsplashAxios from "../../../src/lib/unsplashAxios";
 
-export default function Selectbackground () {
+export default function Selectbackground ({setBackgroundColor, setBackImage}:any) {
     const router = useRouter();
     const [backgroundImage, setBackgroundImage] = useState('')
     const [imageType, setImageType] = useState(1)
@@ -14,34 +14,34 @@ export default function Selectbackground () {
     const [unsplashImages, setUnsplashImages]: any = useState([])
 
     const selectImage = (e:any) => {
-        setBackgroundImage(e.target.currentSrc)
+        setBackImage(e.target.currentSrc)
     }
 
     const deleteImage = (e:any) => {
-        setBackgroundImage('')
+        setBackImage('')
     }
 
-    // 배경선택 
+    // 
     const selectImageType = (num: SetStateAction<number>) => {
         setImageType(num)
     }
 
 
-    // 배경색 선택
-    const [backgroundcolor, setBackgroundcolor] = useState(''); 
+    // 배경 결정
+    // const [background, setBackground] = useState(''); 
 
     // 배경 이미지 업로드
     const saveImage = (e:any) => {
         if(e.target.files.length !== 0){
-        setBackgroundImage(URL.createObjectURL(e.target.files[0]))};
+            setBackImage(URL.createObjectURL(e.target.files[0]))};
     };
 
     const deleteBackgroundImageupload = () => {
         URL.revokeObjectURL(backgroundImage);
-        setBackgroundImage('');
+        setBackImage('');
     }
 
-    // Cololrpicker
+    // Cololrpicker 배경선택 
     const [color, setColor] = useState("#ffffff");
 
     // upsplash
@@ -72,9 +72,8 @@ export default function Selectbackground () {
             <div>
             <div className={styles.selectimage}>
                 <div className={styles.selecttitle}>내가 선택한 배경</div>
-                <div className={styles.box} style={{backgroundImage:`url(${backgroundImage})`}}>
-                </div>
-                {/* <img src={backgroundImage} onClick={deleteImage}></img> */}
+                {/* <div className={styles.box} style={{backgroundImage:`url(${backgroundImage})`, background:color}}>
+                </div> */}
             </div>
             <div className={styles.imagetitle}>
                 <div onClick={()=>{selectImageType(1)}} className={imageType===1?styles.selecttab:styles.tabhead }>내 이미지 찾기</div>
@@ -148,7 +147,7 @@ export default function Selectbackground () {
             </span>
             </div>
             <div className={styles.colorpicker}>
-            <HexColorPicker color={color} onChange={setColor} />
+            <HexColorPicker color={color} onChange={setBackgroundColor} />
             </div>
             </>
         :
