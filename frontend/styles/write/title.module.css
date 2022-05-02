@@ -1,6 +1,6 @@
 .title {
     cursor: pointer;
-    border-bottom: 1.5px solid black;
+    border-bottom: 1.5px solid rgb(198, 198, 198);
 }
 
 .title span {
