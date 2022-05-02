@@ -64,9 +64,13 @@ export default function Write(){
                 <Row />
                 <Row>
                     <Column width={5} />
-                    <Column textAlign="center" width={6}>
-                        <Header as='h1' className={ styles.inline }>선물할 기간을 선택하세요</Header>&nbsp;
-                        <Popup content="원하는 기간에 따라 선물 개수를 선택할 수 있습니다." trigger={<Icon name='question circle' className={ styles.pointer }/>}/>
+                    <Column textAlign="center" data-aos="zoom-in-right" width={6}>
+                        <Header 
+                            as='h1' 
+                            className={ styles.inline }
+                        ><span className={ styles.title1 }>선물할 기간</span>을 <span className={ styles.title2 }>선택하세요!</span>
+                        </Header>&nbsp;
+                        <Popup content="원하는 기간에 따라 선물 일수를 선택할 수 있습니다." trigger={<Icon name='question circle' color='teal' className={ styles.pointer }/>}/>
                     </Column>
                     <Column width={5} />
                 </Row>
@@ -84,10 +88,10 @@ export default function Write(){
                             data-aos="zoom-in"
                         >
                             <Button.Content hidden>
-                                작성하러가기
+                                작성하러 가기!<Icon name="arrow circle right" color="teal"/>
                             </Button.Content>
                             <Button.Content visible>
-                                1일
+                                <Icon name="gift" color="teal"/>1일
                             </Button.Content>
                         </Button>
                     </Column>
@@ -108,10 +112,10 @@ export default function Write(){
                             data-aos="zoom-in"
                         >
                             <Button.Content hidden>
-                                작성하러가기
+                                작성하러 가기!<Icon name="arrow circle right" color="teal"/>
                             </Button.Content>
                             <Button.Content visible>
-                                3일
+                                <Icon name="gift" color="teal"/>3일
                             </Button.Content>
                         </Button>
                     </Column>
@@ -125,10 +129,10 @@ export default function Write(){
                             data-aos="zoom-in"
                         >
                             <Button.Content hidden>
-                                작성하러가기
+                                작성하러 가기!<Icon name="arrow circle right" color="teal"/>
                             </Button.Content>
                             <Button.Content visible>
-                                7일
+                                <Icon name="gift" color="teal"/>7일
                             </Button.Content>
                         </Button>
                     </Column>
