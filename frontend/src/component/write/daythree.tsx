@@ -61,7 +61,7 @@ export default function DayThree({ userInfo }: any){
                 
                 <Row>
                     <Column width={3}/>
-                    <Column width={3} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", backgroundImage: `url(${ wrapper1 })` }} className={ styles.box }>
+                    <Column width={3} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", backgroundImage: `url(${ wrapper1 })` }} className={ styles.boxdaythree2 }>
                         <WriteThree num={1} />
                     </Column>
                     <Column width={3} />
@@ -69,11 +69,11 @@ export default function DayThree({ userInfo }: any){
 
                 <Row>
                     <Column width={2}/>
-                    <Column width={3} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", backgroundImage: `url(${ wrapper2 })` }} className={ styles.box }>
+                    <Column width={3} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", backgroundImage: `url(${ wrapper2 })` }} className={ styles.boxdaythree1 }>
                         <WriteThree num={2} />
                     </Column>
                     <Column width={1}/>
-                    <Column width={3} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", backgroundImage: `url(${ wrapper3 })` }} className={ styles.box }>
+                    <Column width={3} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", backgroundImage: `url(${ wrapper3 })` }} className={ styles.boxdaythree0 }>
                         <WriteThree num={3} />
                     </Column>
                     <Column width={2}/>

@@ -1,6 +1,76 @@
 .box {
+    background-color: #71fff17c;
+    border-radius: 5%;
+    box-shadow:rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    background-size: cover;
+}
+
+.boxdaythree2 {
     /* background-color: blanchedalmond; */
-    background-color: #81d8cf7c;
+    background-color: #aafaf37c;
+    border-radius: 5%;
+    box-shadow:rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    background-size: cover;
+}
+
+.boxdaythree1 {
+    background-color: #74ffe17c;
+    border-radius: 5%;
+    box-shadow:rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    background-size: cover;
+}
+
+.boxdaythree0 {
+    background-color: rgba(0, 241, 221, 0.486);
+    border-radius: 5%;
+    box-shadow:rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    background-size: cover;
+}
+
+.boxdayseven6 {
+    background-color: #a4ddd97c;
+    border-radius: 5%;
+    box-shadow:rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    background-size: cover;
+}
+
+.boxdayseven5 {
+    background-color: #93efe67c;
+    border-radius: 5%;
+    box-shadow:rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    background-size: cover;
+}
+
+.boxdayseven4 {
+    background-color: #6feee47c;
+    border-radius: 5%;
+    box-shadow:rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    background-size: cover;
+}
+
+.boxdayseven3 {
+    background-color: #60e0d67c;
+    border-radius: 5%;
+    box-shadow:rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    background-size: cover;
+}
+
+.boxdayseven2 {
+    background-color: rgba(94, 244, 219, 0.486);
+    border-radius: 5%;
+    box-shadow:rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    background-size: cover;
+}
+
+.boxdayseven1 {
+    background-color: rgba(43, 255, 227, 0.486);
+    border-radius: 5%;
+    box-shadow:rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    background-size: cover;
+}
+
+.boxdayseven0 {
+    background-color: rgba(0, 255, 234, 0.486);
     border-radius: 5%;
     box-shadow:rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     background-size: cover;
