@@ -1,16 +1,13 @@
 import type { NextPage } from 'next'
 import styles from '../styles/index/index.module.css'
 import { Button, Grid, Icon, Image } from 'semantic-ui-react'
-import { useRouter } from 'next/router'
 import Link from 'next/link'
 import IsLogin from '../src/lib/IsLogin'
 import Head from 'next/head'
-// import Image from 'next/image'
 
 const { Row, Column } = Grid
 
 const Home: NextPage = () => {
-    const router = useRouter()
 
     const KAKAO_LOGIN_URL = 'http://k6c206.p.ssafy.io:8000/auth-server'
     const BASE_URL = 'http://localhost:3000'
@@ -25,17 +22,20 @@ const Home: NextPage = () => {
                 data-aos-duration='3000'
             >
                 <h2 className={ `${styles.titleStyle}` }>
-                <span className={ `${styles.titleWord} ${styles.titleWord1}` }>Make&nbsp;</span>
+                    <span className={ `${styles.titleWord} ${styles.titleWord1}` }>Make&nbsp;</span>
                     <span className={ `${styles.titleWord} ${styles.titleWord2}` }>Our&nbsp;</span>
                     <span className={ `${styles.titleWord} ${styles.titleWord3}` }>Spe</span>
                     <span className={ `${styles.titleWord} ${styles.titleWord4}` }>cial</span>
                 </h2>
-                <h1 className={ styles.titleStyle }>어드벤트 스페셜 데이</h1>
+                <h2 className={ styles.titleStyle }>어드벤트 스페셜 데이</h2>
             </div>  
-            <Grid >
-                <Row textAlign='center'>
-                    <Column width={3} />
-                    <Column width={5} 
+            <Grid 
+                container 
+                centered
+            >
+                <Row>
+                    <Column 
+                        mobile={14} tablet={8} computer={7}
                         data-aos='zoom-in-right' 
                         data-aos-duration='3000'
                     >
@@ -44,12 +44,14 @@ const Home: NextPage = () => {
                             alt='어드벤트 스페셜 데이'
                         />
                     </Column>
-                    <Column width={5} 
+                    <Column 
+                        mobile={14} tablet={8} computer={7}
+                        textAlign='center'
                         className={ styles.mainCard } 
                         data-aos='flip-left'
                         data-aos-duration="3000"
                     >
-                        <h2 className={ styles.mainText }>소중한 사람에게 <br />특별한 선물을 해보세요</h2> 
+                        <h2 className={ styles.mainText }>소중한 사람에게 <br />특별한 선물을 해보세요 <br />
                         {/* 로그인 유무 판별 */}
                         {
                             IsLogin() ?
@@ -57,7 +59,7 @@ const Home: NextPage = () => {
                                 color='twitter' 
                                 animated 
                                 href='/write'
-                                style={{ height:'18%', width:'63%', padding:'5.5%', fontSize:'1.5vw' }}
+                                style={{ height:'18%', width:'60%', padding:'5%', marginTop:'5%', fontSize:'1.5vw' }}
                             >
                                 <Button.Content visible>
                                     <Icon name='gift' color='yellow'/>선물하러 가기!
@@ -78,10 +80,9 @@ const Home: NextPage = () => {
                                 />
                             </Link>
                         }
+                        </h2> 
                     </Column>
-                    <Column width={3}/>
                 </Row>
-                <Row />
             </Grid>
         </>
     )

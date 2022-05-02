@@ -243,22 +243,23 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                         <Button 
                             animated='fade' 
                             color='blue' 
-                            style={{ margin:'10px 0' }}
+                            style={{ margin:'5px 0', width:'100%'}}
                             onClick={() => goModify()}
                         >
                             <Button.Content hidden>수정</Button.Content>
                             <Button.Content visible>
-                                <Icon name='pencil' />
+                                <Icon name='pencil' style={{ fontSize:'1vw'}} />
                             </Button.Content>
                         </Button>
                         <Button 
                             animated='fade' 
                             color='orange'
+                            style={{ margin:'5px 0', width:'100%'}}
                             onClick={() => confirmDelete()}
                         >
                             <Button.Content hidden>삭제</Button.Content>
                             <Button.Content visible>
-                                <Icon name='trash alternate' />
+                                <Icon name='trash alternate' style={{ fontSize:'1vw'}} />
                             </Button.Content>
                         </Button>
                     </>
@@ -274,10 +275,11 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                         :
                         <Button 
                             onClick={() => adventPassing()}
-                            style={{ color:'black', background:'#F9E84F' }}
+                            style={{ color:'black', background:'#F9E84F', height:'100%', width:'90%', fontSize: '0.9vw' }}
                         >
                             <Icon 
-                                name='comment' />전달하기
+                                name='comment' 
+                            />&nbsp;&nbsp;전달하기
                         </Button>
                 }
                 </Column>
