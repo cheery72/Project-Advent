@@ -62,7 +62,7 @@ return(
             <Column width={4}></Column>
             <Column width={8}>
             <div className={styles.boxlocation}>
-            <div className={styles.box} style={{ background:backgroundColor, backgroundImage:`url(${backImage})` }}>
+            <div className={styles.box} style={{ background:backgroundColor, backgroundImage:`url(${backImage})`}}>
                 <div className={styles.box_image}>
                 {image && (
                     <img
