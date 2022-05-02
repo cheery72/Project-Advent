@@ -18,7 +18,6 @@ export default function Navbar() {
             router.push('/')
             msg += ' 메인으로 이동합니다.'
         } else {
-            location.reload()
             setTimeout(() => location.reload(), 1000) // 1초 후 새로고침(새로고침:로그아웃 후 버튼 상태 toggle + 1초 delay:tostify 표시)
         }
         notify('success', msg)

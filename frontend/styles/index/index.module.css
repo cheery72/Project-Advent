@@ -37,7 +37,7 @@
 }
 
 .titleStyle {
-    font-size: 3vw;
+    font-size: 42px;
     text-align: center;
     margin: 1% auto;
     text-shadow: 0 13.36px 8.896px #c4b59d,0 -2px 1px #fff;
@@ -54,8 +54,7 @@
 }
 
 .mainText {
-    padding: 23% 0 0;
-    margin-bottom: 4%;
+    padding: 20% 5%;
     font-size: 2vw;
     font-weight: 3px;
     line-height: 180%;
@@ -67,9 +66,32 @@
     cursor: pointer;
     border-radius: 5px;
     width: 60%;
+    margin-top: 5%
 }
 
 .kakaoButton:hover {
     transform: scale(1.1);
     box-shadow: #FC0 1px 0 20px;
+}
+
+/* mobile styles */
+@media only screen and (max-width: 767px) { 
+    .titleStyle {
+        font-size: 5vw;
+        text-align: center;
+        text-shadow: 0 13.36px 8.896px #c4b59d,0 -2px 1px #fff;
+        margin-bottom: 10px;
+    }
+    .mainText {
+        padding: 25% 0;
+        margin-bottom: 4%;
+        font-size: 2.5vw;
+        font-weight: 3px;
+        line-height: 180%;
+        text-shadow: 0 13.36px 8.896px #c4b59d,0 -2px 1px #fff;
+    }
+    .titleWrapper {
+        padding: 10%;
+    }
+
 }

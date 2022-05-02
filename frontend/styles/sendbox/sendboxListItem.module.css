@@ -45,6 +45,8 @@
     border-radius: 100%;
     background-color: white;
     font-weight: bold;
+    font-size: 0.9vw;
+    line-height: 150%;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
@@ -56,6 +58,8 @@
     border-radius: 100%;
     background-color: #F9E84F;
     font-weight: bold;
+    font-size: 0.9vw;
+    line-height: 150%;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
@@ -109,4 +113,9 @@
     font-weight: bold;
     font-size: 8px;
     color: grey;
+}
+
+/* mobile styles */
+@media only screen and (max-width: 767px) { 
+
 }
