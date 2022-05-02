@@ -43,11 +43,11 @@ export default function DayOne({ userInfo }: any){
 
     return(
         <>
-            <Title id={id} day={1}/>
+            <Title id={id} day={1} />
             <Grid stackable centered>
                 <Row>
-                    <Column width={13} />
-                    <Column width={3} textAlign="center">
+                    <Column width={10} />
+                    <Column width={6} textAlign="center">
                         <Button color="blue" inverted size="large" onClick={writeAniversary}>개봉일 설정</Button>
                     </Column>
                 </Row>

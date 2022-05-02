@@ -64,8 +64,8 @@ export default function DaySeven({ userInfo }: any){
             <Title id={id} day={7}/>
             <Grid textAlign="center" stackable>
                 <Row>
-                    <Column width={13} />
-                    <Column width={3} textAlign="center">
+                    <Column width={10} />
+                    <Column width={6} textAlign="center">
                         <Button color="blue" inverted size="large" onClick={writeAniversary}>개봉일 설정</Button>
                     </Column>
                 </Row>

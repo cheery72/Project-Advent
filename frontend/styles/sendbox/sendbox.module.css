@@ -15,7 +15,7 @@ h1.title span:first-child {
 h1.title span:nth-child(2) {
     display: inline;
     background-image: 
-      linear-gradient(to right, rgb(255, 183, 239), rgb(207, 222, 255));
+      linear-gradient(to right, rgb(255, 200, 230), rgb(142, 234, 255));
     background-size: 100% 30%;
     background-repeat: no-repeat;
     background-position: center bottom;

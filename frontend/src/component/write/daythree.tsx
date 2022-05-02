@@ -53,27 +53,25 @@ export default function DayThree({ userInfo }: any){
             <Title id={id} day={3}/>
             <Grid textAlign="center" stackable>
                 <Row>
-                    <Column width={13} />
-                    <Column width={3}>
+                    <Column width={10} />
+                    <Column width={6}>
                         <Button color="blue" inverted size="large" onClick={writeAniversary}>개봉일 설정</Button>
                     </Column>
                 </Row>
                 
                 <Row>
-                    <Column width={3}/>
-                    <Column width={3} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", backgroundImage: `url(${ wrapper1 })` }} className={ styles.boxdaythree2 }>
+                    <Column width={2} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", backgroundImage: `url(${ wrapper1 })` }} className={ styles.boxdaythree2 }>
                         <WriteThree num={1} />
                     </Column>
-                    <Column width={3} />
                 </Row>
 
                 <Row>
                     <Column width={2}/>
-                    <Column width={3} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", backgroundImage: `url(${ wrapper2 })` }} className={ styles.boxdaythree1 }>
+                    <Column width={2} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", backgroundImage: `url(${ wrapper2 })` }} className={ styles.boxdaythree1 }>
                         <WriteThree num={2} />
                     </Column>
                     <Column width={1}/>
-                    <Column width={3} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", backgroundImage: `url(${ wrapper3 })` }} className={ styles.boxdaythree0 }>
+                    <Column width={2} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", backgroundImage: `url(${ wrapper3 })` }} className={ styles.boxdaythree0 }>
                         <WriteThree num={3} />
                     </Column>
                     <Column width={2}/>
