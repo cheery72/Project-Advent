@@ -18,8 +18,8 @@ export default function WriteOne(){
     return(
         <>
             <div>
-                <Header as="h3" textAlign="left" style={{ padding: "5%" }}>D-day</Header>
-                <br /><br />
+                <div className={styles.ribbon}>D-day</div>
+                <br /><br /><br /><br />
                 <Button className={ styles.oneopen } style={{ backgroundColor: "aliceblue", color: "DarkSlateGray" }} onClick={()=>{ writeDetail(1) }}>열기</Button>
                 <br /><br /><br />
                 <Button className={ styles.onewrap } style={{ backgroundColor: "aliceblue", color: "DarkSlateGray" }} onClick={()=>{writeWrap(1)}}>포장지 선택</Button>

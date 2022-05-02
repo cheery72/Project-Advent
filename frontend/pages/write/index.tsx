@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Button, Grid, Header, Icon, Popup } from "semantic-ui-react";
@@ -38,8 +39,8 @@ export default function Write(){
         await allAxios
             .post(`/advents`, body)
             .then(({ data }) => {
-                notify('success', `🎁어드벤트 캘린더(${day}일)이 생성되었습니다.🎁`, 5000)
-                notify('success', `❕작성한 어드벤트 켈린더는 보낸 선물함에서 확인할 수 있습니다`, 10000)
+                notify('success', `🎁어드벤트 캘린더(${day}일)이 생성되었습니다.`, 5000)
+                notify('success', `작성한 어드벤트 캘린더는 보낸 선물함에서 확인할 수 있습니다❕`, 10000)
                 router.push({ pathname: `/write/${ data.advent_id }`, query: { day: `${day}` }})
                 
             })
@@ -60,6 +61,9 @@ export default function Write(){
     
     return(
         <>
+            <Head>
+                <title>선물 기간 선택 | Make Our Special</title>
+            </Head>
             <Grid stackable>
                 <Row />
                 <Row>

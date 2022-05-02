@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import DayOne from "../../../src/component/write/dayone";
@@ -27,16 +28,19 @@ export default function WritePresent(){
     }, [])
 
     return(
-        <>
+        <div data-aos="zoom-in" data-aos-duration="2000">
+            <Head>
+                <title>선물 작성하기 | Make Our Special</title>
+            </Head>
             {day==='1'?
-            <DayOne userInfo={userInfo}/>
+            <DayOne userInfo={userInfo} />
             :''}
             {day==='3'?
-            <DayThree userInfo={userInfo}/>
+            <DayThree userInfo={userInfo} />
             :''}
             {day==='7'?
-            <DaySeven userInfo={userInfo}/>
+            <DaySeven userInfo={userInfo} />
             :''}
-        </>
+        </div>
     );
 }
