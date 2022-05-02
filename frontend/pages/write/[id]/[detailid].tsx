@@ -17,8 +17,8 @@ export default function Detail(){
     const [pattern, setPattern] = useState(1)
 
     // 배경선택
-    const [backgroundcolor, setBackgroundcolor] = useState('');
-    
+    const [backgroundColor, setBackgroundColor] = useState('');
+    const [backImage, setBackImage] = useState('');
 
     // 스티커
     const [stickers, setStickers] = useState([])
@@ -62,7 +62,7 @@ return(
             <Column width={4}></Column>
             <Column width={8}>
             <div className={styles.boxlocation}>
-            <div className={styles.box} style={{ background:color }}>
+            <div className={styles.box} style={{ background:backgroundColor, backgroundImage:`url(${backImage})` }}>
                 <div className={styles.box_image}>
                 {image && (
                     <img
@@ -107,7 +107,7 @@ return(
                 </div>
             </div>
             <div className={styles.tabcontent} hidden={index != 0}>
-            <Selectbackground></Selectbackground>
+            <Selectbackground setBackgroundColor={setBackgroundColor} setBackImage={setBackImage}></Selectbackground>
             </div>
             <div className={styles.tabcontent} hidden={index != 1}>
             <div>
