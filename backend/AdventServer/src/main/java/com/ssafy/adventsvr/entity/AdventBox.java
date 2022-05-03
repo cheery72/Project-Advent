@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Table(name = "advent_box")
 @Getter
@@ -16,9 +17,8 @@ import java.time.LocalDate;
 public class AdventBox extends BaseTimeEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "advent_box_id")
-    private Integer id;
+    private String id;
 
     private String content;
 
@@ -39,6 +39,7 @@ public class AdventBox extends BaseTimeEntity{
 
     public static AdventBox adventBoxBuilder(AdventBoxRequest adventBoxRequest, Advent advent, String imageUrl){
         return AdventBox.builder()
+                .id((UUID.randomUUID().toString()).replace("-",""))
                 .adventDay(adventBoxRequest.getAdventDay())
                 .advent(advent)
                 .content(imageUrl)
@@ -54,10 +55,12 @@ public class AdventBox extends BaseTimeEntity{
     }
 
     @Builder
-    private AdventBox(String content, boolean isActive, LocalDate activeAt, Integer adventDay, String wrapper, Advent advent) {
+    public AdventBox(String id, String content, boolean isActive, LocalDate activeAt, Integer activeDay, Integer adventDay, String wrapper, Advent advent) {
+        this.id = id;
         this.content = content;
         this.isActive = isActive;
         this.activeAt = activeAt;
+        this.activeDay = activeDay;
         this.adventDay = adventDay;
         this.wrapper = wrapper;
         this.advent = advent;

@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AdventBoxWrapperResponse {
 
-    private Integer boxId;
+    private String boxId;
     private String wrapper;
 
     @Builder
-    public AdventBoxWrapperResponse(Integer boxId, String wrapper) {
+    public AdventBoxWrapperResponse(String boxId, String wrapper) {
         this.boxId = boxId;
         this.wrapper = wrapper;
     }

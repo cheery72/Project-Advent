@@ -66,7 +66,7 @@ public class AdventBoxServiceImpl implements AdventBoxService {
             }
 
             AdventBox adventBox;
-            Integer boxId;
+            String boxId;
             // 비어 있을 경우에 같은 박스가 생성되면 안됨
             if (optionalAdventBox.isEmpty()) {
                 adventBox = AdventBox.adventBoxBuilder(adventBoxRequest, advent, imageUrl);
@@ -121,7 +121,7 @@ public class AdventBoxServiceImpl implements AdventBoxService {
             String imageUrl = !file.isEmpty() ? awsFile(file) : adventBoxWrapperRequest.getImage();
 
             AdventBox adventBox;
-            Integer boxId;
+            String boxId;
             // 비어 있을 경우에 같은 박스가 생성되면 안됨
             if (optionalAdventBox.isEmpty()) {
                 adventBox = AdventBox.adventBoxWrapperBuilder(adventBoxWrapperRequest, advent, imageUrl);
@@ -146,7 +146,7 @@ public class AdventBoxServiceImpl implements AdventBoxService {
 
     // Todo: GET box detail 조회
     @Override
-    public AdventBoxDayResponse findDetailAdventBox(Integer boxId, Integer userId) throws NoSuchUserException {
+    public AdventBoxDayResponse findDetailAdventBox(String boxId, Integer userId) {
         Optional<AdventBox> optionalAdventBox = adventBoxRepository.findById(boxId);
         AdventBox adventBox = optionalAdventBox.orElseThrow(NoSuchElementException::new);
 
@@ -163,9 +163,9 @@ public class AdventBoxServiceImpl implements AdventBoxService {
                 .build();
     }
 
-    // Todo: 받는 사람이 박스 조회
+    // Todo: 받는 사람이 박스 조회, isActive
     @Override
-    public AdventBoxDayResponse findUrlDetailAdventBox(Integer boxId) {
+    public AdventBoxDayResponse findUrlDetailAdventBox(String boxId) {
         Optional<AdventBox> optionalAdventBox = adventBoxRepository.findById(boxId);
         AdventBox adventBox = optionalAdventBox.orElseThrow(NoSuchElementException::new);
 
@@ -177,7 +177,7 @@ public class AdventBoxServiceImpl implements AdventBoxService {
 
     // Todo: 받는 사람이 포장지 조회
     @Override
-    public AdventBoxWrapperResponse findUrlWrapperDetailAdventBox(Integer boxId) {
+    public AdventBoxWrapperResponse findUrlWrapperDetailAdventBox(String boxId) {
         Optional<AdventBox> optionalAdventBox = adventBoxRepository.findById(boxId);
         AdventBox adventBox = optionalAdventBox.orElseThrow(NoSuchElementException::new);
 
@@ -189,7 +189,7 @@ public class AdventBoxServiceImpl implements AdventBoxService {
 
     // Todo: 포장지 조회
     @Override
-    public AdventBoxWrapperResponse findWrapperDetailAdventBox(Integer boxId, Integer userId) throws NoSuchUserException{
+    public AdventBoxWrapperResponse findWrapperDetailAdventBox(String boxId, Integer userId){
         Optional<AdventBox> optionalAdventBox = adventBoxRepository.findById(boxId);
         AdventBox adventBox = optionalAdventBox.orElseThrow(NoSuchElementException::new);
 

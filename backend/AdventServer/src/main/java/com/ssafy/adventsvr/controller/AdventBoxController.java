@@ -66,7 +66,7 @@ public class AdventBoxController {
 
     @ApiOperation(value = "선물 박스 디테일 정보", notes = "선물 박스 상세 정보 조회")
     @GetMapping("/{boxId}/{userId}")
-    public ResponseEntity<AdventBoxDayResponse> adventBoxDetailFind(@PathVariable(value = "boxId") Integer boxId,
+    public ResponseEntity<AdventBoxDayResponse> adventBoxDetailFind(@PathVariable(value = "boxId") String boxId,
                                                                     @PathVariable(value = "userId") Integer userId) {
         log.info("adventBoxDetailFind");
 
@@ -76,7 +76,7 @@ public class AdventBoxController {
 
     @ApiOperation(value = "포장지 디테일 정보", notes = "포장지 상세 정보 조회")
     @GetMapping("/{boxId}/{userId}/wrappers")
-    public ResponseEntity<AdventBoxWrapperResponse> adventBoxWrapperDetailFind(@PathVariable(value = "boxId") Integer boxId
+    public ResponseEntity<AdventBoxWrapperResponse> adventBoxWrapperDetailFind(@PathVariable(value = "boxId") String boxId
                                                                             , @PathVariable(value = "userId") Integer userId) {
         log.info("adventBoxDetailFind");
 
@@ -86,7 +86,7 @@ public class AdventBoxController {
 
     @ApiOperation(value = "받는 사람이 선물 박스 디테일 정보", notes = "선물 박스 상세 정보 조회")
     @GetMapping("/{boxId}")
-    public ResponseEntity<AdventBoxDayResponse> adventBoxUrlDetailFind(@PathVariable(value = "boxId") Integer boxId) {
+    public ResponseEntity<AdventBoxDayResponse> adventBoxUrlDetailFind(@PathVariable(value = "boxId") String boxId) {
         log.info("adventBoxUrlDetailFind");
 
         return ResponseEntity
@@ -95,7 +95,7 @@ public class AdventBoxController {
 
     @ApiOperation(value = "받는 사람이 포장지 디테일 정보", notes = "선물 박스 상세 정보 조회")
     @GetMapping("/{boxId}/wrappers")
-    public ResponseEntity<AdventBoxWrapperResponse> adventBoxUrlWrapperDetailFind(@PathVariable(value = "boxId") Integer boxId) {
+    public ResponseEntity<AdventBoxWrapperResponse> adventBoxUrlWrapperDetailFind(@PathVariable(value = "boxId") String boxId) {
         log.info("adventBoxUrlWrapperDetailFind");
 
         return ResponseEntity
