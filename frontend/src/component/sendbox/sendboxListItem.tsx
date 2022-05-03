@@ -13,7 +13,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
     
     const deleteAdvent = async () => {
         allAxios.delete(`/advents/${item.advent_id}/${userId}/`)
-            .then(() =>{
+            .then(() => {
                 notify('success', '선물이 삭제되었습니다.', 3000)
                 getAdventsStorage()
             })
@@ -24,7 +24,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
     
     const goModify = () => {
         notify('success', '선물 수정페이지로 이동되었습니다.')
-        router.push(`/write/${item.advent_id}?day=${item.advent_day}`)
+        router.push(`/write/${item.advent_id}?day=${item.advent_day}`) // url 변경으로 수정
     }
 
     const goAniversary = () => {
@@ -93,13 +93,11 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
     }
 
     // 카카오 링크 공유하기
-    const KAKAO_API_KEY = 'fee4389053b0873a7e46c5134141b59a'
-
     const deliveryToKakao = () => {
         const { Kakao } = window
         try {
             if (Kakao) {
-                Kakao.init(KAKAO_API_KEY)
+                Kakao.init(process.env.NEXT_PUBLIC_API_KAKAO_LINK)
             };
         } catch(e) {
             console.log(e)
