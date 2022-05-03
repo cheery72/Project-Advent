@@ -20,9 +20,9 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/{userId}/{localDate}")
-    public Integer userAdventCountFind(@PathVariable(value = "userId") Integer userId, @PathVariable LocalDate localDate){
+    public Integer userAdventCountFind(@PathVariable(value = "userId") Integer userId){
         log.info("userAdventCountFind");
 
-        return userService.findAdventWriteCountUser(userId,localDate);
+        return userService.findAdventWriteCountUser(userId);
     }
 }

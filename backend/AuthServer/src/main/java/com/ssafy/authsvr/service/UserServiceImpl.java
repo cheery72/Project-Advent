@@ -22,9 +22,10 @@ public class UserServiceImpl implements UserService{
 
     @Transactional
     @Override
-    public Integer findAdventWriteCountUser(Integer userId, LocalDate localDate) {
+    public Integer findAdventWriteCountUser(Integer userId) {
         Optional<User> optionalUser = userRepository.findById(userId);
         User user = optionalUser.orElseThrow(NoSuchElementException::new);
+        LocalDate localDate = LocalDate.now();
 
         if(user.getAdventWriteAt() == null || !user.getAdventWriteAt().equals(localDate)){
             user.setAdventCountModify(0, localDate);

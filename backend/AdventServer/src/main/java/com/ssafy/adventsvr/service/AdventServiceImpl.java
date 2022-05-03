@@ -6,7 +6,6 @@ import com.ssafy.adventsvr.entity.AdventBox;
 import com.ssafy.adventsvr.exception.NoDayAdventException;
 import com.ssafy.adventsvr.exception.NoSuchPasswordException;
 import com.ssafy.adventsvr.exception.NoSuchUserException;
-import com.ssafy.adventsvr.exception.NoWriteAdventException;
 import com.ssafy.adventsvr.payload.request.AdventCertifyRequest;
 import com.ssafy.adventsvr.payload.request.AdventDayRequest;
 import com.ssafy.adventsvr.payload.request.AdventPrivateRequest;
