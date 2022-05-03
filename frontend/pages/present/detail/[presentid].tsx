@@ -17,10 +17,10 @@ return(
         <Row>
             <Column width={4}></Column>
             <Column width={8}>
-            <div className={styles.boxlocation}>
-            <div className={styles.box}>
-            </div>
-            </div>
+                <div className={styles.boxlocation}>
+                    <div className={styles.box}>
+                    </div>
+                </div>
             </Column>
             <Column width={4}>
                 <div className={styles.buttonbetween}>
