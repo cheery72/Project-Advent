@@ -43,15 +43,16 @@ public class AdventServiceImpl implements AdventService {
     public AdventDayResponse inputDayAdvent(AdventDayRequest adventDayRequest) {
         Advent advent = Advent.adventBuilder(adventDayRequest);
 
-        Integer userAdventCount = userServiceClient.userAdventCountFind(adventDayRequest.getUserId(), LocalDate.now());
+//        Integer userAdventCount = userServiceClient.userAdventCountFind(adventDayRequest.getUserId(), LocalDate.now());
 
-        if (10 >= userAdventCount) {
-            return AdventDayResponse.builder()
-                    .adventId(adventRepository.save(advent).getId())
-                    .build();
-        }
+//        if (10 >= userAdventCount) {
+//        }
+        
+        return AdventDayResponse.builder()
+                .adventId(adventRepository.save(advent).getId())
+                .build();
 
-        throw new NoWriteAdventException("오늘 게시글 작성 수가 초과되었습니다.");
+//        throw new NoWriteAdventException("오늘 게시글 작성 수가 초과되었습니다.");
     }
 
     @Transactional
