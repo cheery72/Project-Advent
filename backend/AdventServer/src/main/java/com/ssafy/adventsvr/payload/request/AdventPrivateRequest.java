@@ -11,9 +11,6 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class AdventPrivateRequest {
 
-    @NotBlank
-    private String adventId;
-
     @NotNull
     private Integer userId;
 

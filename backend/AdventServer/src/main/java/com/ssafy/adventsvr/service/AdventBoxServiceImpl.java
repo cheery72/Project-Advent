@@ -6,6 +6,8 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.ssafy.adventsvr.entity.Advent;
 import com.ssafy.adventsvr.entity.AdventBox;
+import com.ssafy.adventsvr.exception.NoSuchAdventDayException;
+import com.ssafy.adventsvr.exception.NoSuchUserException;
 import com.ssafy.adventsvr.payload.request.AdventBoxRequest;
 import com.ssafy.adventsvr.payload.request.AdventBoxWrapperRequest;
 import com.ssafy.adventsvr.payload.response.AdventBoxDayResponse;
@@ -52,35 +54,38 @@ public class AdventBoxServiceImpl implements AdventBoxService {
         Optional<AdventBox> optionalAdventBox = adventBoxRepository
                             .findByAdventIdAndAdventDay(adventBoxRequest.getAdventId(), adventBoxRequest.getAdventDay());
 
-        if(!adventBoxRequest.getUserId().equals(advent.getUserId()) ||
-                (adventBoxRequest.getAdventDay() < 1 || advent.getDay() < adventBoxRequest.getAdventDay())){
-            return null;
+        if (!adventBoxRequest.getUserId().equals(advent.getUserId())){
+            throw new NoSuchUserException("잘못된 유저입니다.");
         }
 
-        String imageUrl = null;
+        if (adventBoxRequest.getAdventDay() >= 1 && advent.getDay() >= adventBoxRequest.getAdventDay()) {
+            String imageUrl = null;
 
-        if (!file.isEmpty()) {
-            imageUrl = awsFile(file);
+            if (!file.isEmpty()) {
+                imageUrl = awsFile(file);
+            }
+
+            AdventBox adventBox;
+            Integer boxId;
+            // 비어 있을 경우에 같은 박스가 생성되면 안됨
+            if (optionalAdventBox.isEmpty()) {
+                adventBox = AdventBox.adventBoxBuilder(adventBoxRequest, advent, imageUrl);
+                boxId = adventBoxRepository.save(adventBox).getId();
+                // 이미 생성된 박스가 있을 경우에
+            } else {
+                adventBox = optionalAdventBox.orElseThrow(NoSuchElementException::new);
+
+                adventBox.setAdventBoxContentModify(imageUrl);
+                boxId = adventBox.getId();
+            }
+
+            return AdventBoxDayResponse.builder()
+                    .boxId(boxId)
+                    .content(adventBox.getContent())
+                    .build();
         }
 
-        AdventBox adventBox;
-        Integer boxId;
-        // 비어 있을 경우에 같은 박스가 생성되면 안됨
-        if (optionalAdventBox.isEmpty()) {
-            adventBox = AdventBox.adventBoxBuilder(adventBoxRequest, advent, imageUrl);
-            boxId = adventBoxRepository.save(adventBox).getId();
-            // 이미 생성된 박스가 있을 경우에
-        } else {
-            adventBox = optionalAdventBox.orElseThrow(NoSuchElementException::new);
-
-            adventBox.setAdventBoxContentModify(imageUrl);
-            boxId = adventBox.getId();
-        }
-
-        return AdventBoxDayResponse.builder()
-                .boxId(boxId)
-                .content(adventBox.getContent())
-                .build();
+        throw new NoSuchAdventDayException("요청하신 요일이 1미만이거나 설정한 요일을 초과했습니다.");
     }
 
 //    // Todo: PUT box 수정
@@ -103,47 +108,49 @@ public class AdventBoxServiceImpl implements AdventBoxService {
     @Transactional
     @Override
     public AdventBoxWrapperResponse modifyWrapperAdventBox(AdventBoxWrapperRequest adventBoxWrapperRequest, MultipartFile file) {
-        Optional<Advent> optionalAdvent = adventRepository.findById(adventBoxWrapperRequest.getAdventId());
-        Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
+        Advent advent = adventRepository.findById(adventBoxWrapperRequest.getAdventId()).orElseThrow(NoSuchElementException::new);
 
-        if(!adventBoxWrapperRequest.getUserId().equals(advent.getUserId()) ||
-                (adventBoxWrapperRequest.getAdventDay() < 1 || advent.getDay() < adventBoxWrapperRequest.getAdventDay())){
-            return null;
+        if(!adventBoxWrapperRequest.getUserId().equals(advent.getUserId())){
+            throw new NoSuchUserException("잘못된 유저입니다.");
         }
 
-        Optional<AdventBox> optionalAdventBox = adventBoxRepository
-                .findByAdventIdAndAdventDay(adventBoxWrapperRequest.getAdventId(), adventBoxWrapperRequest.getAdventDay());
+        if (adventBoxWrapperRequest.getAdventDay() >= 1 && advent.getDay() >= adventBoxWrapperRequest.getAdventDay()) {
+            Optional<AdventBox> optionalAdventBox = adventBoxRepository
+                    .findByAdventIdAndAdventDay(adventBoxWrapperRequest.getAdventId(), adventBoxWrapperRequest.getAdventDay());
 
-        String imageUrl = null;
+            String imageUrl = null;
 
-        if (!file.isEmpty()) {
-            imageUrl = awsFile(file);
+            if (!file.isEmpty()) {
+                imageUrl = awsFile(file);
+            }
+
+            AdventBox adventBox;
+            Integer boxId;
+            // 비어 있을 경우에 같은 박스가 생성되면 안됨
+            if (optionalAdventBox.isEmpty()) {
+                adventBox = AdventBox.adventBoxWrapperBuilder(adventBoxWrapperRequest, advent, imageUrl);
+                boxId = adventBoxRepository.save(adventBox).getId();
+                // 이미 생성된 박스가 있을 경우에
+            } else {
+                adventBox = optionalAdventBox.orElseThrow(NoSuchElementException::new);
+
+                adventBox.setAdventBoxWrapperModify(imageUrl);
+
+                boxId = adventBox.getId();
+            }
+
+            return AdventBoxWrapperResponse.builder()
+                    .boxId(boxId)
+                    .wrapper(adventBox.getWrapper())
+                    .build();
         }
 
-        AdventBox adventBox;
-        Integer boxId;
-        // 비어 있을 경우에 같은 박스가 생성되면 안됨
-        if (optionalAdventBox.isEmpty()) {
-            adventBox = AdventBox.adventBoxWrapperBuilder(adventBoxWrapperRequest, advent, imageUrl);
-            boxId = adventBoxRepository.save(adventBox).getId();
-            // 이미 생성된 박스가 있을 경우에
-        } else {
-            adventBox = optionalAdventBox.orElseThrow(NoSuchElementException::new);
-
-            adventBox.setAdventBoxWrapperModify(imageUrl);
-
-            boxId = adventBox.getId();
-        }
-
-        return AdventBoxWrapperResponse.builder()
-                .boxId(boxId)
-                .wrapper(adventBox.getWrapper())
-                .build();
+        throw new NoSuchAdventDayException("요청하신 요일이 1미만이거나 설정한 요일을 초과했습니다.");
     }
 
     // Todo: GET box detail 조회
     @Override
-    public AdventBoxDayResponse findDetailAdventBox(Integer boxId, Integer userId) {
+    public AdventBoxDayResponse findDetailAdventBox(Integer boxId, Integer userId) throws NoSuchUserException {
         Optional<AdventBox> optionalAdventBox = adventBoxRepository.findById(boxId);
         AdventBox adventBox = optionalAdventBox.orElseThrow(NoSuchElementException::new);
 
@@ -151,7 +158,7 @@ public class AdventBoxServiceImpl implements AdventBoxService {
         Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
 
         if(!userId.equals(advent.getUserId())){
-            return null;
+            throw new NoSuchUserException("잘못된 유저입니다.");
         }
 
         return AdventBoxDayResponse.builder()
@@ -186,7 +193,7 @@ public class AdventBoxServiceImpl implements AdventBoxService {
 
     // Todo: 포장지 조회
     @Override
-    public AdventBoxWrapperResponse findWrapperDetailAdventBox(Integer boxId, Integer userId) {
+    public AdventBoxWrapperResponse findWrapperDetailAdventBox(Integer boxId, Integer userId) throws NoSuchUserException{
         Optional<AdventBox> optionalAdventBox = adventBoxRepository.findById(boxId);
         AdventBox adventBox = optionalAdventBox.orElseThrow(NoSuchElementException::new);
 
@@ -194,7 +201,7 @@ public class AdventBoxServiceImpl implements AdventBoxService {
         Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
 
         if(!userId.equals(advent.getUserId())){
-            return null;
+            throw new NoSuchUserException("잘못된 유저입니다.");
         }
 
         return AdventBoxWrapperResponse.builder()
@@ -206,12 +213,10 @@ public class AdventBoxServiceImpl implements AdventBoxService {
     // Todo: 크론탭
     @Override
     public void modifyDaysAdventBox() {
-        Optional<List<Advent>> optionalAdvent = adventRepository.findAllBy();
-        List<Advent> advents = optionalAdvent.orElseThrow(NoSuchElementException::new);
+        List<Advent> advents = adventRepository.findAllBy();
 
         for (Advent advent :advents) {
-            Optional<List<AdventBox>> optionalAdventBoxes = adventBoxRepository.findAllByAdventId(advent.getId());
-            List<AdventBox> adventBoxList = optionalAdventBoxes.orElseThrow(NoSuchElementException::new);
+            List<AdventBox> adventBoxList = adventBoxRepository.findAllByAdventId(advent.getId());
             for (AdventBox adventbox:adventBoxList) {
                 LocalDate localDate = LocalDate.now();
                 if(adventbox.getActiveAt() != null){
@@ -249,6 +254,4 @@ public class AdventBoxServiceImpl implements AdventBoxService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 형식의 파일(" + fileName + ") 입니다.");
         }
     }
-
-
 }

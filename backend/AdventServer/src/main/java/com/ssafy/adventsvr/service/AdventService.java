@@ -12,7 +12,7 @@ public interface AdventService {
 
     AdventDayResponse inputDayAdvent(AdventDayRequest adventDayRequest);
 
-    AdventUrlResponse modifyPrivateInfoAdvent(AdventPrivateRequest adventPrivateRequest);
+    AdventUrlResponse modifyPrivateInfoAdvent(String adventId,AdventPrivateRequest adventPrivateRequest);
 
     AdventReceiveResponse findReceiveUrlAdvent(AdventCertifyRequest adventCertifyRequest);
 
@@ -24,7 +24,7 @@ public interface AdventService {
 
     Page<AdventStorageResponse> findMyStorageAdvent(Pageable pageable, Integer userId);
 
-    void modifyTitleAdvent(AdventRecipientModify adventRecipientModify);
+    void modifyTitleAdvent(String adventId,AdventRecipientModify adventRecipientModify);
 
     void deleteAdvent(Integer userId, String adventId);
 }
