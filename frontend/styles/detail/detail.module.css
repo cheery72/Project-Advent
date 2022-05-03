@@ -122,6 +122,7 @@
     border: 0px;
     border-radius: 5px;
     overflow: hidden;
+    resize: none;
 }
 
 .inputtextbox {
@@ -174,7 +175,6 @@
     flex-direction: column;
     align-items: center;
     margin: 10px 0px;
-
 }
 
 .rgbacolorpicker header {
@@ -189,4 +189,21 @@
 
 .changetextcolor {
     display: inline-flex;
+}
+
+.fontweight {
+    margin: 10px 0px;
+}
+
+.fontsize {
+    margin: 10px 0px;    
+}
+
+.fontsize input{
+    cursor: pointer;
+    height: 5px;
+    background: #c9a8f0;
+    -webkit-appearance: none;
+    box-shadow: 2px 1px 4px #9f63da;
+    accent-color: #9c45db;
 }
