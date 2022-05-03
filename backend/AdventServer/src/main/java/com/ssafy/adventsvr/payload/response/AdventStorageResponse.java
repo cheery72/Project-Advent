@@ -19,6 +19,7 @@ public class AdventStorageResponse {
     private LocalDate endAt;
     private LocalDateTime modifiedAt;
     private Integer adventDay;
+    private String url;
 
     public static List<AdventStorageResponse> storageBuilder(List<Advent> advent){
         return advent.stream()
@@ -29,17 +30,19 @@ public class AdventStorageResponse {
                         .endAt(advents.getEndAt())
                         .adventDay(advents.getDay())
                         .modifiedAt(advents.getModifiedAt())
+                        .url(advents.getUrl())
                         .build())
                 .collect(Collectors.toList());
     }
 
     @Builder
-    public AdventStorageResponse(String adventId, String title, boolean isReceived, LocalDate endAt, LocalDateTime modifiedAt, Integer adventDay) {
+    public AdventStorageResponse(String adventId, String title, boolean isReceived, LocalDate endAt, LocalDateTime modifiedAt, Integer adventDay, String url) {
         this.adventId = adventId;
         this.title = title;
         this.isReceived = isReceived;
         this.endAt = endAt;
         this.modifiedAt = modifiedAt;
         this.adventDay = adventDay;
+        this.url = url;
     }
 }

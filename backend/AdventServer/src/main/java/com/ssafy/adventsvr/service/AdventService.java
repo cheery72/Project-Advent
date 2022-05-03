@@ -12,7 +12,7 @@ public interface AdventService {
 
     AdventDayResponse inputDayAdvent(AdventDayRequest adventDayRequest);
 
-    AdventUrlResponse modifyPrivateInfoAdvent(String adventId,AdventPrivateRequest adventPrivateRequest);
+    void modifyPrivateInfoAdvent(String adventId,AdventPrivateRequest adventPrivateRequest);
 
     AdventReceiveResponse findReceiveUrlAdvent(AdventCertifyRequest adventCertifyRequest);
 
