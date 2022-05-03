@@ -112,7 +112,6 @@ export default function Anniversary(){
 
     const saveAnniversary = async () => {
         const body = {
-            advent_id: adventId,
             end_at: anniversary,
             password: password,
             password_hint: hint,
@@ -120,7 +119,7 @@ export default function Anniversary(){
             user_id: userInfo.id
         }
         await allAxios
-            .patch(`/advents/days`, body)
+            .patch(`/advents/${adventId}/days`, body)
             .then(() => {
                 notify('success', `📅🎁어드벤트 캘린더가 완성되었습니다.`)
                 router.push(`/sendbox`)

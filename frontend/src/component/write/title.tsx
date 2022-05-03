@@ -46,11 +46,10 @@ export default function Title({ id, day }: any){
 
     const saveTitle = () => {
         const body: any = {
-            advent_id: id,
             title: tempTitle
         }
         allAxios
-            .patch(`/advents/recipients`, body)
+            .patch(`/advents/${id}/recipients`, body)
             .then((data) => {
                 notify('success', `👋제목이 저장되었습니다.`)
                 setOpenTitle(!openTitle)
