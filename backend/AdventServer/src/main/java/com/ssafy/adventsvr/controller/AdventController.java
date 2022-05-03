@@ -44,7 +44,7 @@ public class AdventController {
 
     @ApiOperation(value = "password 및 기간 설정", notes = "패스워드, 힌트, 기간 설정")
     @PatchMapping("/{adventId}/days")
-    public ResponseEntity<AdventUrlResponse> adventPrivateInfoModify(@PathVariable String adventId
+    public ResponseEntity<Object> adventPrivateInfoModify(@PathVariable String adventId
                                                                     ,@RequestBody @Valid AdventPrivateRequest adventPrivateRequest) {
         log.info("adventPrivateInfoModify");
 
@@ -56,10 +56,9 @@ public class AdventController {
         if (ObjectUtils.isEmpty(adventPrivateRequest)) {
             return ResponseEntity.notFound().build();
         }
+        adventService.modifyPrivateInfoAdvent(adventId,adventPrivateRequest);
 
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(adventService.modifyPrivateInfoAdvent(adventId,adventPrivateRequest));
+        return ResponseEntity.noContent().build();
     }
 
     @ApiOperation(value = "타이틀 제목 설정", notes = "타이틀 제목 설정")
@@ -74,10 +73,9 @@ public class AdventController {
 
         adventService.modifyTitleAdvent(adventId,adventRecipientModify);
         return ResponseEntity.noContent().build();
-
     }
 
-    @ApiOperation(value = "password 없이 조회", notes = "패스워드 없이 조회")
+    @ApiOperation(value = "password 없이 url 조회", notes = "패스워드 없이 조회")
     @GetMapping("/{url}")
     public ResponseEntity<AdventReceiveResponse> adventNotPasswordFind(@PathVariable(value = "url") String url){
         log.info("adventNotPasswordFind");

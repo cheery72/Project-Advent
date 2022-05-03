@@ -57,7 +57,7 @@ public class AdventServiceImpl implements AdventService {
     @Transactional
     // Todo: POST 비밀번호, 힌트, 기념일 설정 페이지 작성
     @Override
-    public AdventUrlResponse modifyPrivateInfoAdvent(String adventId,AdventPrivateRequest adventPrivateRequest) {
+    public void modifyPrivateInfoAdvent(String adventId,AdventPrivateRequest adventPrivateRequest) {
         Optional<Advent> optionalAdvent = adventRepository.findById(adventId);
         Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
 
@@ -78,9 +78,6 @@ public class AdventServiceImpl implements AdventService {
             List<AdventBox> adventBoxList = adventBoxRepository.findAllByAdventId(advent.getId());
             adventBoxList.forEach(adventbox -> adventbox.setAdventBoxActiveAtModify(localDate, advent.getDay(), adventbox));
 
-            return AdventUrlResponse.builder()
-                    .url(url)
-                    .build();
         }
 
         throw new NoDayAdventException("내일 기준으로 요일을 +day 해주세요.");
@@ -208,8 +205,8 @@ public class AdventServiceImpl implements AdventService {
 
         if (advent.getUserId().equals(userId)) {
             adventRepository.deleteById(advent.getId());
+        }else{
+            throw new NoSuchUserException("잘못된 유저입니다.");
         }
-
-        throw new NoSuchUserException("잘못된 유저입니다.");
     }
 }
