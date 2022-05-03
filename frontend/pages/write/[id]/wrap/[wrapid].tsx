@@ -10,9 +10,8 @@ import styles from "../../../../styles/write/wrap.module.css"
 export default function Wrap(){
 
     const router = useRouter()
-    const day: any = router.query.day
     const wrapid = router.query.wrapid
-    const id: any = router.query.id
+    const adventId: any = router.query.id
 
     const { Row, Column } = Grid
 
@@ -26,10 +25,12 @@ export default function Wrap(){
 
     const selectImage = (e: { target: { currentSrc: SetStateAction<string>; }; }) => {
         setBackgroundImage(e.target.currentSrc)
+        setFileImage()
     }
 
     const deleteImage = () => {
         setBackgroundImage('')
+        setFileImage()
     }
 
     // 배경선택 
@@ -47,6 +48,7 @@ export default function Wrap(){
     const deleteBackgroundImageupload = () => {
         URL.revokeObjectURL(backgroundImage);
         setBackgroundImage('');
+        setFileImage()
     }
 
     const writeWrap = () => {
@@ -54,7 +56,7 @@ export default function Wrap(){
     }
 
     const closeWrap = () => {
-        router.push({ pathname: `/write/${id}`, query: { day: `${day}` }})
+        router.push({ pathname: `/write/${adventId}`})
     }
 
     const writeSearchWord = (e: { target: { value: SetStateAction<string>; }; }) => {
@@ -93,21 +95,26 @@ export default function Wrap(){
         const body = new FormData();
         const adventBoxWrapperRequest: any = {
             advent_day: wrapid,
-            advent_id: id,
+            advent_id: adventId,
+            image: backgroundImage,
             user_id: userInfo.id
         }
-        // const newBlob: any = new Blob([new Uint8Array(backgroundImage)]);
-        // const files = new File([newBlob], backgroundImage, {type: "image/jpeg"})
+        const newBlob: any = new Blob([new Uint8Array(backgroundImage)]);
+        const files = new File([newBlob], backgroundImage, {type: "image/jpeg"})
         body.append("adventBoxWrapperRequest", new Blob([JSON.stringify(adventBoxWrapperRequest)],{type: "application/json"}))
-        body.append("file", fileImage)
-
+        if (fileImage) {
+            body.append("file", fileImage)
+        } else {
+            body.append("file", files)
+        }
+        
         await allAxios
             .post(`/boxes/wrappers`, body, {
                 headers: {"Content-Type": "multipart/form-data"}
             })
-            .then((data) => {
+            .then(() => {
                 notify('success', `👋${wrapid}번 포장지가 변경되었습니다.`)
-                router.push({ pathname: `/write/${id}`, query: { day: `${day}` }})
+                router.push({ pathname: `/write/${adventId}`})
             })
             .catch((e) => {
                 console.log(e)
@@ -207,8 +214,8 @@ export default function Wrap(){
                         {imageType===3?
                             <>
                                 <div>
-                                    <Header as="h5">검색할 단어를 입력하세요!</Header>
-                                    <Input type="text" placeholder="영어로 입력해주세요" maxLength={15} onChange={writeSearchWord}/>
+                                    <Header as="h5">검색할 영단어를 입력하세요!</Header>
+                                    <Input type="text" placeholder="ex) flower" maxLength={15} onChange={writeSearchWord}/>
                                     <Button color="blue" inverted onClick={ searchImage }>검색</Button>
                                 </div>
                                 <div className={styles.backgroundcontent}>   

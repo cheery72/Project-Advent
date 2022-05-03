@@ -9,23 +9,22 @@ import WriteThree from "./writethree";
 export default function DayThree({ userInfo }: any){
 
     const router = useRouter()
-    const id = router.query.id
+    const adventId = router.query.id
     const { Row, Column } = Grid
-    const [adventInfo, setAdventInfo]: any = useState([])
+    // const [adventInfo, setAdventInfo]: any = useState([])
     const [wrapper1, setWrapper1] = useState("")
     const [wrapper2, setWrapper2] = useState("")
     const [wrapper3, setWrapper3] = useState("")
 
     const writeAniversary = () => {
-        router.push(`/write/${id}/anniversary`)
+        router.push(`/write/${adventId}/anniversary`)
     }
 
-    const getAdventInfo = () => {
-        allAxios
-            .get(`/advents/${id}/${userInfo.id}/advent`)
+    const getAdventInfo = async () => {
+        await allAxios
+            .get(`/advents/${adventId}/${userInfo.id}/advent`)
             .then(({ data }) => {
-                console.log(data)
-                setAdventInfo(data.advent_box_list)
+                // setAdventInfo(data.advent_box_list)
                 data.advent_box_list.map((box: { advent_day: number; wrapper: SetStateAction<string>; }) => {
                     if (box.advent_day === 1){
                         setWrapper1(box.wrapper)
@@ -50,7 +49,7 @@ export default function DayThree({ userInfo }: any){
 
     return(
         <>
-            <Title id={id} day={3}/>
+            <Title id={adventId} day={3}/>
             <Grid textAlign="center" stackable>
                 <Row>
                     <Column width={10} />

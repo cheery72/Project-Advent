@@ -9,21 +9,20 @@ import WriteOne from "./writeone";
 export default function DayOne({ userInfo }: any){
 
     const router = useRouter()
-    const id = router.query.id
+    const adventId = router.query.id
     const { Row, Column } = Grid
-    const [adventInfo, setAdventInfo]: any = useState([])
+    // const [adventInfo, setAdventInfo]: any = useState([])
     const [oneWrapper, setOneWrapper] = useState("")
 
     const writeAniversary = () => {
-        router.push(`/write/${id}/anniversary`)
+        router.push(`/write/${adventId}/anniversary`)
     }
 
-    const getAdventInfo = () => {
-        allAxios
-            .get(`/advents/${id}/${userInfo.id}/advent`)
+    const getAdventInfo = async () => {
+        await allAxios
+            .get(`/advents/${adventId}/${userInfo.id}/advent`)
             .then(({ data }) => {
-                console.log(data)
-                setAdventInfo(data.advent_box_list)
+                // setAdventInfo(data.advent_box_list)
                 data.advent_box_list.map((box: { advent_day: number; wrapper: SetStateAction<string>; }) => {
                     if (box.advent_day === 1){
                         setOneWrapper(box.wrapper)
@@ -43,7 +42,7 @@ export default function DayOne({ userInfo }: any){
 
     return(
         <>
-            <Title id={id} day={1} />
+            <Title id={adventId} day={1} />
             <Grid stackable centered>
                 <Row>
                     <Column width={10} />

@@ -34,7 +34,7 @@ export default function Title({ id, day }: any){
     }
 
     const getUserInfo = async () => {
-        userAxios
+        await userAxios
             .get(`/auth/users`)
             .then(({ data }) => {
                 setUserInfo(data.body.user)
@@ -44,14 +44,13 @@ export default function Title({ id, day }: any){
             });
         };
 
-    const saveTitle = () => {
+    const saveTitle = async () => {
         const body: any = {
-            advent_id: id,
             title: tempTitle
         }
-        allAxios
-            .patch(`/advents/recipients`, body)
-            .then((data) => {
+        await allAxios
+            .patch(`/advents/${id}/recipients`, body)
+            .then(() => {
                 notify('success', `👋제목이 저장되었습니다.`)
                 setOpenTitle(!openTitle)
                 setTitle(tempTitle)
@@ -62,8 +61,8 @@ export default function Title({ id, day }: any){
             })
     }
 
-    const getAdventInfo = () => {
-        allAxios
+    const getAdventInfo = async () => {
+        await allAxios
             .get(`/advents/${id}/${userInfo.id}/advent`)
             .then(({ data }) => {
                 setTitle(data.title)
