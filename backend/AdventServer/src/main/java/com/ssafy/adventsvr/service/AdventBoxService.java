@@ -1,5 +1,6 @@
 package com.ssafy.adventsvr.service;
 
+import com.ssafy.adventsvr.exception.NoSuchUserException;
 import com.ssafy.adventsvr.payload.request.AdventBoxRequest;
 import com.ssafy.adventsvr.payload.request.AdventBoxWrapperRequest;
 import com.ssafy.adventsvr.payload.response.AdventBoxDayResponse;
@@ -14,7 +15,7 @@ public interface AdventBoxService {
 
     AdventBoxWrapperResponse modifyWrapperAdventBox(AdventBoxWrapperRequest adventBoxWrapperRequest, MultipartFile file);
 
-    AdventBoxDayResponse findDetailAdventBox(Integer boxId, Integer userId);
+    AdventBoxDayResponse findDetailAdventBox(Integer boxId, Integer userId) throws NoSuchUserException;
 
     AdventBoxDayResponse findUrlDetailAdventBox(Integer boxId);
 

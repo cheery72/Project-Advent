@@ -11,8 +11,5 @@ import javax.validation.constraints.NotBlank;
 public class AdventRecipientModify {
 
     @NotBlank
-    private String adventId;
-
-    @NotBlank
     private String title;
 }

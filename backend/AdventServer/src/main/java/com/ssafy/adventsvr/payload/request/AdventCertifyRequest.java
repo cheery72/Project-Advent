@@ -13,6 +13,5 @@ public class AdventCertifyRequest {
     @NotBlank
     private String url;
 
-    @NotBlank
     private String password;
 }

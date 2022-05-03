@@ -10,6 +10,6 @@ import java.util.Optional;
 
 public interface AdventBoxRepository extends JpaRepository<AdventBox,Integer>, AdventBoxRepositoryCustom {
 
-    Optional<List<AdventBox>> findAllByAdventId(String adventId);
+    List<AdventBox> findAllByAdventId(String adventId);
     Optional<AdventBox> findByAdventIdAndAdventDay(String adventId, Integer adventDay);
 }
