@@ -92,7 +92,7 @@ export default function Anniversary(){
             notify('error', `힌트를 작성해주세요!`)
             return
         }
-        if (password !== password2 || !password2){
+        if (password !== password2){
             notify('error', `비밀번호가 일치하지 않습니다.`)
             return
         }

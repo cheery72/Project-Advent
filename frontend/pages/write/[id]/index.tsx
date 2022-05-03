@@ -4,13 +4,15 @@ import { useEffect, useState } from "react";
 import DayOne from "../../../src/component/write/dayone";
 import DaySeven from "../../../src/component/write/dayseven";
 import DayThree from "../../../src/component/write/daythree";
+import allAxios from "../../../src/lib/allAxios";
 import userAxios from "../../../src/lib/userAxios";
 
 export default function WritePresent(){
 
     const router = useRouter()
-    const day = router.query.day
+    const adventId = router.query.id
     const [userInfo, setUserInfo]: any = useState()
+    const [adventDay, setAdventDay] = useState(1)
 
     const getUserInfo = async () => {
         await userAxios
@@ -23,22 +25,43 @@ export default function WritePresent(){
             });
         };
 
+    const getDay = async () => {
+        await allAxios
+            .get(`/advents/${adventId}/days`, {
+                params: {
+                    adventId: adventId
+                }
+            })
+            .then(({ data }) => {
+                setAdventDay(data.day)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    }
+
     useEffect(() => {
         getUserInfo()
     }, [])
+
+    useEffect(() => {
+        if (adventId) {
+            getDay()
+        }
+    }, [adventId])
 
     return(
         <div data-aos="zoom-in" data-aos-duration="2000">
             <Head>
                 <title>선물 작성하기 | Make Our Special</title>
             </Head>
-            {day==='1'?
+            {adventDay===1?
             <DayOne userInfo={userInfo} />
             :''}
-            {day==='3'?
+            {adventDay===3?
             <DayThree userInfo={userInfo} />
             :''}
-            {day==='7'?
+            {adventDay===7?
             <DaySeven userInfo={userInfo} />
             :''}
         </div>

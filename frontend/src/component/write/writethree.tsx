@@ -5,14 +5,14 @@ import styles from "../../../styles/write/write.module.css"
 export default function WriteThree({ num }: any){
 
     const router = useRouter()
-    const id = router.query.id
+    const adventId = router.query.id
 
     const writeDetail = (number: Number) => {
-        router.push({ pathname: `/write/${id}/${number}`, query: { day: `${3}`}})
+        router.push({ pathname: `/write/${adventId}/${number}`})
     }
     
     const writeWrap = (number: Number) => {
-        router.push({ pathname: `/write/${id}/wrap/${number}`, query: { day: `${3}`} })
+        router.push({ pathname: `/write/${adventId}/wrap/${number}`})
     }
 
     return(
