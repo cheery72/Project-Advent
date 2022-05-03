@@ -24,7 +24,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
     
     const goModify = () => {
         notify('success', '선물 수정페이지로 이동되었습니다.')
-        router.push(`/write/${item.advent_id}?day=${item.advent_day}`) // url 변경으로 수정
+        router.push(`/write/${item.advent_id}`)
     }
 
     const goAniversary = () => {
@@ -107,7 +107,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
             templateArgs: {
                 'title': `${item.title}`,
                 'description': `${username}님께서 보내신 어드벤트 스페셜 데이 선물이 도착했습니다.`,
-                'url': `${item.advent_id}`
+                'url': `${item.url}`
             }
         });
         Kakao.Link.cleanup()
@@ -131,7 +131,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                 if (result.isConfirmed) {
                     deliveryToKakao()
                 } else if (result.isDenied) {
-                    navigator.clipboard.writeText(`http://localhost:3000/present/${item.advent_id}`) // 임시
+                    navigator.clipboard.writeText(`http://localhost:3000/present/${item.url}`) // 임시
                     Swal.fire(
                         '클립보드에 선물 링크가 \n 복사되었습니다!',
                         '복사된 링크를 붙여넣기하여 선물을 전달하세요.',
@@ -222,7 +222,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                     }
                     <br />
                     {/* 전송완료인 선물만 제목 클릭시(난수정보 기준으로) 보낸 선물 상세보기 링크와 연결 */}
-                    <Link href={`/present/${item.advent_id}`}>
+                    <Link href={`/present/${item.url}`}>
                         <a 
                             className={ `${styles.title} ${!item.received ? styles.hrefDisabled : ''}` }
                         >
