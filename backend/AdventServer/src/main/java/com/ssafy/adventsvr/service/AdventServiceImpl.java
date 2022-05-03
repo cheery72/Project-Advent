@@ -34,7 +34,7 @@ public class AdventServiceImpl implements AdventService {
 
     private final AdventRepository adventRepository;
     private final AdventBoxRepository adventBoxRepository;
-    private final UserServiceClient userServiceClient;
+//    private final UserServiceClient userServiceClient;
 
     // Todo: POST 1,3,7 클릭시 게시글 생성 - ok
     @Transactional
@@ -42,15 +42,18 @@ public class AdventServiceImpl implements AdventService {
     public AdventDayResponse inputDayAdvent(AdventDayRequest adventDayRequest) {
         Advent advent = Advent.adventBuilder(adventDayRequest);
 
-        Integer userAdventCount = userServiceClient.userAdventCountFind(adventDayRequest.getUserId());
+//        Integer userAdventCount = userServiceClient.userAdventCountFind(adventDayRequest.getUserId());
 
-        if (10 >= userAdventCount) {
-            return AdventDayResponse.builder()
-                    .adventId(adventRepository.save(advent).getId())
-                    .build();
-        }
+//        if (10 >= userAdventCount) {
+//            return AdventDayResponse.builder()
+//                    .adventId(adventRepository.save(advent).getId())
+//                    .build();
+//        }
+        return AdventDayResponse.builder()
+                .adventId(adventRepository.save(advent).getId())
+                .build();
 
-        throw new NoSuchAdventException("오늘 게시글 작성 수가 초과되었습니다.");
+//        throw new NoSuchAdventException("오늘 게시글 작성 수가 초과되었습니다.");
     }
 
     // Todo: POST 비밀번호, 힌트, 기념일 설정 페이지 작성
