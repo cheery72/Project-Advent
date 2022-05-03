@@ -75,22 +75,45 @@ public class AdventController {
         return ResponseEntity.noContent().build();
     }
 
+    @ApiOperation(value = "패스워드 인증", notes = "패스워드 있을시 인증 성공시 선물 페이지 조회")
+    @PostMapping("/auths")
+    public ResponseEntity<AdventUrlReceiveResponse> adventReceiveUrlFind(@RequestBody @Valid AdventCertifyRequest adventCertifyRequest){
+        log.info("adventUrlFind");
+
+        if (ObjectUtils.isEmpty(adventCertifyRequest)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(adventService.findReceiveUrlAdvent(adventCertifyRequest));
+    }
+
     @ApiOperation(value = "password 없이 url 조회", notes = "패스워드 없이 조회")
     @GetMapping("/{url}")
-    public ResponseEntity<AdventReceiveResponse> adventNotPasswordFind(@PathVariable(value = "url") String url){
+    public ResponseEntity<AdventUrlReceiveResponse> adventNotPasswordFind(@PathVariable(value = "url") String url){
         log.info("adventNotPasswordFind");
 
         return ResponseEntity
                 .ok(adventService.findReceiveNotPasswordUrlAdvent(url));
     }
 
-    @ApiOperation(value = "어드벤트 day 조회", notes = "어드벤트 day 조회")
+    @ApiOperation(value = "adventId로 어드벤트 day 조회", notes = "어드벤트 day 조회")
     @GetMapping("/{adventId}/days")
     public ResponseEntity<AdventDaysResponse> adventDayFind(@PathVariable String adventId){
         log.info("adventDayFind");
 
         return ResponseEntity
                 .ok(adventService.findDayAdvent(adventId));
+    }
+
+    @ApiOperation(value = "url로 어드벤트 day 조회", notes = "어드벤트 day url조회")
+    @GetMapping("/{url}/url-days")
+    public ResponseEntity<AdventDaysResponse> adventDayUrlFind(@PathVariable String url){
+        log.info("adventDayUrlFind");
+
+        return ResponseEntity
+                .ok(adventService.findUrlDayAdvent(url));
     }
 
     @ApiOperation(value = "어드벤트 조회", notes = "보관함 페이지에서 수정 눌렀을시에 조회")
@@ -101,20 +124,6 @@ public class AdventController {
 
         return ResponseEntity
                 .ok(adventService.findAdvent(adventId,userId));
-    }
-
-    @ApiOperation(value = "패스워드 인증", notes = "패스워드 있을시 인증 성공시 선물 페이지 조회")
-    @PostMapping("/auths")
-    public ResponseEntity<AdventReceiveResponse> adventReceiveUrlFind(@RequestBody @Valid AdventCertifyRequest adventCertifyRequest){
-        log.info("adventUrlFind");
-
-        if (ObjectUtils.isEmpty(adventCertifyRequest)) {
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(adventService.findReceiveUrlAdvent(adventCertifyRequest));
     }
 
     @ApiOperation(value = "보관함 페이지", notes = "해당 유저 보관함 페이지")

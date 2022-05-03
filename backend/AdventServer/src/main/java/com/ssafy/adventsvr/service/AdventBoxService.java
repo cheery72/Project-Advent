@@ -15,13 +15,13 @@ public interface AdventBoxService {
 
     AdventBoxWrapperResponse modifyWrapperAdventBox(AdventBoxWrapperRequest adventBoxWrapperRequest, MultipartFile file);
 
-    AdventBoxDayResponse findDetailAdventBox(Integer boxId, Integer userId) throws NoSuchUserException;
+    AdventBoxDayResponse findDetailAdventBox(String boxId, Integer userId);
 
-    AdventBoxDayResponse findUrlDetailAdventBox(Integer boxId);
+    AdventBoxDayResponse findUrlDetailAdventBox(String boxId);
 
-    AdventBoxWrapperResponse findUrlWrapperDetailAdventBox(Integer boxId);
+    AdventBoxWrapperResponse findUrlWrapperDetailAdventBox(String boxId);
 
-    AdventBoxWrapperResponse findWrapperDetailAdventBox(Integer boxId, Integer userId);
+    AdventBoxWrapperResponse findWrapperDetailAdventBox(String boxId, Integer userId);
 
     void modifyDaysAdventBox();
 }

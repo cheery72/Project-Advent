@@ -4,13 +4,14 @@ import com.ssafy.adventsvr.entity.AdventBox;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor
-public class AdventBoxListResponse {
+public class AdventBoxListUrlResponse {
 
     // 박스 PK
     private String boxId;
@@ -25,9 +26,9 @@ public class AdventBoxListResponse {
     // 포장지 이미지
     private String wrapper;
 
-    public static List<AdventBoxListResponse> adventBoxListBuilder(List<AdventBox> adventBoxs){
+    public static List<AdventBoxListUrlResponse> adventBoxListUrlBuilder(List<AdventBox> adventBoxs){
         return adventBoxs.stream()
-                .map(adventBox -> AdventBoxListResponse.builder()
+                .map(adventBox -> AdventBoxListUrlResponse.builder()
                         .boxId(adventBox.getId())
                         .isActive(adventBox.isActive())
                         .activeDay(adventBox.getActiveDay())
@@ -39,7 +40,7 @@ public class AdventBoxListResponse {
     }
 
     @Builder
-    private AdventBoxListResponse(String boxId, LocalDate isActiveAt, boolean isActive, Integer adventDay, Integer activeDay, String wrapper) {
+    public AdventBoxListUrlResponse(String boxId, LocalDate isActiveAt, boolean isActive, Integer adventDay, Integer activeDay, String wrapper) {
         this.boxId = boxId;
         this.isActiveAt = isActiveAt;
         this.isActive = isActive;

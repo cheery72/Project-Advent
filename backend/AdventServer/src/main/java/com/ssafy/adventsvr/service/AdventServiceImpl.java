@@ -87,7 +87,7 @@ public class AdventServiceImpl implements AdventService {
     // Todo: POST 비밀번호 인증시 게시글 조회 - ok
     @Transactional
     @Override
-    public AdventReceiveResponse findReceiveUrlAdvent(AdventCertifyRequest adventCertifyRequest) {
+    public AdventUrlReceiveResponse findReceiveUrlAdvent(AdventCertifyRequest adventCertifyRequest) {
         Optional<Advent> optionalAdvent = adventRepository.findByUrl(adventCertifyRequest.getUrl());
         Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
 
@@ -107,8 +107,7 @@ public class AdventServiceImpl implements AdventService {
                 }
             });
 
-            return AdventReceiveResponse.builder()
-                    .adventId(advent.getId())
+            return AdventUrlReceiveResponse.builder()
                     .title(advent.getTitle())
                     .adventBoxList(AdventBoxListResponse.adventBoxListBuilder(adventBoxList))
                     .build();
@@ -120,7 +119,7 @@ public class AdventServiceImpl implements AdventService {
     // Todo: 패스워드 설정 안돼있을시에 - ok
     @Transactional
     @Override
-    public AdventReceiveResponse findReceiveNotPasswordUrlAdvent(String url) {
+    public AdventUrlReceiveResponse findReceiveNotPasswordUrlAdvent(String url) {
         Optional<Advent> optionalAdvent = adventRepository.findByUrl(url);
         Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
 
@@ -136,8 +135,7 @@ public class AdventServiceImpl implements AdventService {
             }
         });
 
-        return AdventReceiveResponse.builder()
-                .adventId(advent.getId())
+        return AdventUrlReceiveResponse.builder()
                 .title(advent.getTitle())
                 .adventBoxList(AdventBoxListResponse.adventBoxListBuilder(adventBoxList))
                 .build();
@@ -174,6 +172,17 @@ public class AdventServiceImpl implements AdventService {
         return AdventDaysResponse.builder()
                 .day(advent.getDay())
                 .build();
+    }
+
+    @Override
+    public AdventDaysResponse findUrlDayAdvent(String url) {
+        Optional<Advent> optionalAdvent = adventRepository.findByUrl(url);
+        Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
+
+        return AdventDaysResponse.builder()
+                .day(advent.getDay())
+                .build();
+
     }
 
     // Todo: GET 보관함 페이지 - ok

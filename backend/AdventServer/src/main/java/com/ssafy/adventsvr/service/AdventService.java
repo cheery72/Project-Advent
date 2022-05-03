@@ -14,13 +14,15 @@ public interface AdventService {
 
     void modifyPrivateInfoAdvent(String adventId,AdventPrivateRequest adventPrivateRequest);
 
-    AdventReceiveResponse findReceiveUrlAdvent(AdventCertifyRequest adventCertifyRequest);
+    AdventUrlReceiveResponse findReceiveUrlAdvent(AdventCertifyRequest adventCertifyRequest);
 
-    AdventReceiveResponse findReceiveNotPasswordUrlAdvent(String url);
+    AdventUrlReceiveResponse findReceiveNotPasswordUrlAdvent(String url);
 
     AdventReceiveResponse findAdvent(String adventId,Integer userId);
 
     AdventDaysResponse findDayAdvent(String adventId);
+
+    AdventDaysResponse findUrlDayAdvent(String url);
 
     Page<AdventStorageResponse> findMyStorageAdvent(Pageable pageable, Integer userId);
 
