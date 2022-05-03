@@ -48,8 +48,8 @@ public class AdventController {
                                                                     ,@RequestBody @Valid AdventPrivateRequest adventPrivateRequest) {
         log.info("adventPrivateInfoModify");
 
-        if (!adventPrivateRequest.getPasswordVal().equals(adventPrivateRequest.getPassword()) &&
-                (!"".equals(adventPrivateRequest.getPassword()) && !"".equals(adventPrivateRequest.getPasswordVal()))) {
+        if ((!"".equals(adventPrivateRequest.getPassword()) && !"".equals(adventPrivateRequest.getPasswordVal()) &&
+                !adventPrivateRequest.getPasswordVal().equals(adventPrivateRequest.getPassword()))) {
             return ResponseEntity.badRequest().build();
         }
 
