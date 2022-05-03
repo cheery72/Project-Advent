@@ -51,14 +51,15 @@ public class AdventBoxServiceImpl implements AdventBoxService {
     public AdventBoxDayResponse inputBoxAdventBox(AdventBoxRequest adventBoxRequest, MultipartFile file) {
         Optional<Advent> optionalAdvent = adventRepository.findById(adventBoxRequest.getAdventId());
         Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
-        Optional<AdventBox> optionalAdventBox = adventBoxRepository
-                            .findByAdventIdAndAdventDay(adventBoxRequest.getAdventId(), adventBoxRequest.getAdventDay());
 
         if (!adventBoxRequest.getUserId().equals(advent.getUserId())){
             throw new NoSuchUserException("잘못된 유저입니다.");
         }
 
         if (adventBoxRequest.getAdventDay() >= 1 && advent.getDay() >= adventBoxRequest.getAdventDay()) {
+            Optional<AdventBox> optionalAdventBox = adventBoxRepository
+                    .findByAdventIdAndAdventDay(adventBoxRequest.getAdventId(), adventBoxRequest.getAdventDay());
+
             String imageUrl = null;
 
             if (!file.isEmpty()) {
@@ -108,7 +109,8 @@ public class AdventBoxServiceImpl implements AdventBoxService {
     @Transactional
     @Override
     public AdventBoxWrapperResponse modifyWrapperAdventBox(AdventBoxWrapperRequest adventBoxWrapperRequest, MultipartFile file) {
-        Advent advent = adventRepository.findById(adventBoxWrapperRequest.getAdventId()).orElseThrow(NoSuchElementException::new);
+        Optional<Advent> optionalAdvent = adventRepository.findById(adventBoxWrapperRequest.getAdventId());
+        Advent advent = optionalAdvent.orElseThrow(NoSuchElementException::new);
 
         if(!adventBoxWrapperRequest.getUserId().equals(advent.getUserId())){
             throw new NoSuchUserException("잘못된 유저입니다.");

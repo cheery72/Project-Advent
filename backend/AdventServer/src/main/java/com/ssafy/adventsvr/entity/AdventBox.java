@@ -48,6 +48,7 @@ public class AdventBox extends BaseTimeEntity{
 
     public static AdventBox adventBoxWrapperBuilder(AdventBoxWrapperRequest adventBoxWrapperRequest, Advent advent, String imageUrl){
         return AdventBox.builder()
+                .id((UUID.randomUUID().toString()).replace("-",""))
                 .adventDay(adventBoxWrapperRequest.getAdventDay())
                 .advent(advent)
                 .wrapper(imageUrl)
