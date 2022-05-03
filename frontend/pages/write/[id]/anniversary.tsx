@@ -10,13 +10,14 @@ import styles from "../../../styles/write/anniversary.module.css"
 export default function Anniversary(){
 
     const router = useRouter()
-    const advent_id = router.query.id
+    const adventId = router.query.id
     const { Row, Column } = Grid
 
     const today = new Date()
     const year = today.getFullYear();
     const month = today.getMonth() + 1;
     const date = today.getDate();
+    const totalDay = new Date(year, month, 0).getDate()
 
     const [anniversary, setAnniversary] = useState('')
     const [adventDay, setAdventDay] = useState(1)
@@ -26,7 +27,27 @@ export default function Anniversary(){
     const [password2, setPassword2] = useState('')
     const [userInfo, setUserInfo]: any = useState([])
 
-    const writeAnniversary = (e: { target: { value: SetStateAction<string>; }; }) => {
+    const writeAnniversary = (e: any) => {
+        if (Number(e.target.value.slice(0, 4)) < year){
+            e.target.value=""
+            notify('error', `올해부터 등록해주세요!`)
+            return
+        }
+        if (Number(e.target.value.slice(5, 7)) < month){
+            e.target.value=""
+            notify('error', `이번달부터 등록해주세요!`)
+            return
+        }
+        if (Number(e.target.value.slice(5, 7)) === month && Number(e.target.value.slice(8, 10)) < date+adventDay){
+            e.target.value=""
+            notify('error', `${adventDay}일 어드벤트 캘린더는 ${adventDay}일 이후로 등록할 수 있습니다.`)
+            return
+        }
+        if (Number(e.target.value.slice(5, 7)) === month+1 && (date+adventDay) > totalDay && Number(e.target.value.slice(8, 10)) < (date+adventDay)%totalDay){
+            e.target.value=""
+            notify('error', `${adventDay}일 어드벤트 캘린더는 ${adventDay}일 이후로 등록할 수 있습니다.`)
+            return
+        } 
         setAnniversary(e.target.value)
     }
 
@@ -59,6 +80,14 @@ export default function Anniversary(){
             notify('error', `이번달부터 등록해주세요!`)
             return
         }
+        if (Number(anniversary.slice(5, 7)) === month && Number(anniversary.slice(8, 10)) < date+adventDay){
+            notify('error', `${adventDay}일 어드벤트 캘린더는 ${adventDay}일 이후로 등록할 수 있습니다.`)
+            return
+        }
+        if (Number(anniversary.slice(5, 7)) === month+1 && (date+adventDay) > totalDay && Number(anniversary.slice(8, 10)) < (date+adventDay)%totalDay){
+            notify('error', `${adventDay}일 어드벤트 캘린더는 ${adventDay}일 이후로 등록할 수 있습니다.`)
+            return
+        } 
         if (isHint && !hint){
             notify('error', `힌트를 작성해주세요!`)
             return
@@ -83,7 +112,7 @@ export default function Anniversary(){
 
     const saveAnniversary = async () => {
         const body = {
-            advent_id: advent_id,
+            advent_id: adventId,
             end_at: anniversary,
             password: password,
             password_hint: hint,
@@ -92,9 +121,24 @@ export default function Anniversary(){
         }
         await allAxios
             .patch(`/advents/days`, body)
-            .then((data) => {
+            .then(() => {
                 notify('success', `📅🎁어드벤트 캘린더가 완성되었습니다.`)
                 router.push(`/sendbox`)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    }
+
+    const getDay = async () => {
+        await allAxios
+            .get(`/advents/${adventId}/days`, {
+                params: {
+                    adventId: adventId
+                }
+            })
+            .then(({ data }) => {
+                setAdventDay(data.day)
             })
             .catch((e) => {
                 console.log(e)
@@ -105,9 +149,11 @@ export default function Anniversary(){
         getUserInfo()
     }, [])
 
-    console.log(anniversary)
-    console.log(hint)
-    console.log(password2)
+    useEffect(() => {
+        if (adventId) {
+            getDay()
+        }
+    }, [adventId])
 
     return(
         <>
