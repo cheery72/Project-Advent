@@ -21,10 +21,11 @@ public class ServiceExceptionHandler {
         final ErrorResponse errorResponse = ErrorResponse.builder().code("Advent Bad Request").message(e.getMessage()).build();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
+
     @ExceptionHandler(NotRequestException.class)
     protected ResponseEntity handleNotRequestException(NotRequestException e) {
         final ErrorResponse errorResponse = ErrorResponse.builder().code("Advent Not Found").message(e.getMessage()).build();
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
 }

@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService{
         User user = optionalUser.orElseThrow(NoSuchElementException::new);
         LocalDate localDate = LocalDate.now();
 
-        if(user.getAdventWriteAt() == null || !user.getAdventWriteAt().equals(localDate)){
+        if(user.getAdventWriteAt() == null || !localDate.equals(user.getAdventWriteAt())){
             user.setAdventCountModify(0, localDate);
         }else{
             if(10 >= user.getAdventCount()){
