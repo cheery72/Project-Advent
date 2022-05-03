@@ -1,5 +1,6 @@
 package com.ssafy.adventsvr.controller;
 
+import com.ssafy.adventsvr.exception.NotRequestException;
 import com.ssafy.adventsvr.payload.request.AdventBoxRequest;
 import com.ssafy.adventsvr.payload.request.AdventBoxWrapperRequest;
 import com.ssafy.adventsvr.payload.response.AdventBoxDayResponse;
@@ -30,7 +31,7 @@ public class AdventBoxController {
         log.info("adventBoxDayInput");
 
         if (ObjectUtils.isEmpty(adventBoxRequest)) {
-            return ResponseEntity.notFound().build();
+            throw new NotRequestException("요청 데이터가 비었습니다.");
         }
 
         return ResponseEntity
@@ -56,7 +57,7 @@ public class AdventBoxController {
         log.info("adventBoxWrapperModify");
 
         if (ObjectUtils.isEmpty(adventBoxWrapperRequest)) {
-            return ResponseEntity.notFound().build();
+            throw new NotRequestException("요청 데이터가 비었습니다.");
         }
 
         return ResponseEntity
@@ -101,17 +102,5 @@ public class AdventBoxController {
         return ResponseEntity
                 .ok(adventBoxService.findUrlWrapperDetailAdventBox(boxId));
     }
-
-
-    @ApiOperation(value = "박스 열리는 날짜 수정 배치", notes = "박스 열리는 날짜 수정 - 배치용, 사용 안해두 됨")
-    @PatchMapping("/opens")
-    public ResponseEntity<Object> adventBoxDaysModify() {
-        log.info("adventBoxDaysModify");
-
-        adventBoxService.modifyDaysAdventBox();
-
-        return ResponseEntity.noContent().build();
-    }
-
 
 }
