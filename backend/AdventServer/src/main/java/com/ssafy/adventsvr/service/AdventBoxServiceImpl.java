@@ -118,11 +118,7 @@ public class AdventBoxServiceImpl implements AdventBoxService {
             Optional<AdventBox> optionalAdventBox = adventBoxRepository
                     .findByAdventIdAndAdventDay(adventBoxWrapperRequest.getAdventId(), adventBoxWrapperRequest.getAdventDay());
 
-            String imageUrl = null;
-
-            if (!file.isEmpty()) {
-                imageUrl = awsFile(file);
-            }
+            String imageUrl = !file.isEmpty() ? awsFile(file) : adventBoxWrapperRequest.getImage();
 
             AdventBox adventBox;
             Integer boxId;
@@ -130,7 +126,7 @@ public class AdventBoxServiceImpl implements AdventBoxService {
             if (optionalAdventBox.isEmpty()) {
                 adventBox = AdventBox.adventBoxWrapperBuilder(adventBoxWrapperRequest, advent, imageUrl);
                 boxId = adventBoxRepository.save(adventBox).getId();
-                // 이미 생성된 박스가 있을 경우에
+            // 이미 생성된 박스가 있을 경우에
             } else {
                 adventBox = optionalAdventBox.orElseThrow(NoSuchElementException::new);
 

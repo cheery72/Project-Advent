@@ -7,5 +7,5 @@ import java.time.LocalDate;
 public interface UserService {
     User findDetailsUser(String tokenId);
 
-    Integer findAdventWriteCountUser(Integer userId, LocalDate localDate);
+    Integer findAdventWriteCountUser(Integer userId);
 }

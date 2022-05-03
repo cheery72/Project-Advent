@@ -15,6 +15,8 @@ public class AdventBoxWrapperRequest {
     @NotBlank
     private String adventId;
 
+    private String image;
+
     @NotNull
     private Integer adventDay;
 
