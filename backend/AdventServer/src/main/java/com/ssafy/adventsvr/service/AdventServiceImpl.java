@@ -1,5 +1,6 @@
 package com.ssafy.adventsvr.service;
 
+import com.ssafy.adventsvr.client.UserServiceClient;
 import com.ssafy.adventsvr.entity.Advent;
 import com.ssafy.adventsvr.entity.AdventBox;
 import com.ssafy.adventsvr.exception.NoSuchAdventException;
@@ -18,6 +19,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.NotActiveException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -31,7 +34,7 @@ public class AdventServiceImpl implements AdventService {
 
     private final AdventRepository adventRepository;
     private final AdventBoxRepository adventBoxRepository;
-//    private final UserServiceClient userServiceClient;
+    private final UserServiceClient userServiceClient;
 
     // Todo: POST 1,3,7 클릭시 게시글 생성 - ok
     @Transactional
@@ -39,16 +42,15 @@ public class AdventServiceImpl implements AdventService {
     public AdventDayResponse inputDayAdvent(AdventDayRequest adventDayRequest) {
         Advent advent = Advent.adventBuilder(adventDayRequest);
 
-//        Integer userAdventCount = userServiceClient.userAdventCountFind(adventDayRequest.getUserId(), LocalDate.now());
+        Integer userAdventCount = userServiceClient.userAdventCountFind(adventDayRequest.getUserId());
 
-//        if (10 >= userAdventCount) {
-//        }
+        if (10 >= userAdventCount) {
+            return AdventDayResponse.builder()
+                    .adventId(adventRepository.save(advent).getId())
+                    .build();
+        }
 
-        return AdventDayResponse.builder()
-                .adventId(adventRepository.save(advent).getId())
-                .build();
-
-//        throw new NoWriteAdventException("오늘 게시글 작성 수가 초과되었습니다.");
+        throw new NoSuchAdventException("오늘 게시글 작성 수가 초과되었습니다.");
     }
 
     // Todo: POST 비밀번호, 힌트, 기념일 설정 페이지 작성
