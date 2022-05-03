@@ -76,14 +76,15 @@ public class Advent extends BaseTimeEntity{
     }
 
     public void setAdventPrivateInfoModify(AdventPrivateRequest adventPrivateRequest, String url, LocalDate localDate){
-        if(adventPrivateRequest.getPassword() != null){
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
+        if ("".equals(adventPrivateRequest.getPassword())) {
+            this.isPassword = false;
+            this.password = encoder.encode(adventPrivateRequest.getPassword());
+        } else {
             this.password = encoder.encode(adventPrivateRequest.getPassword());
             this.passwordHint = adventPrivateRequest.getPasswordHint();
             this.isPassword = true;
-        }else{
-            this.isPassword = false;
         }
 
         this.endAt = localDate;

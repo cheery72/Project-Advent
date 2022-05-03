@@ -1,5 +1,7 @@
 package com.ssafy.adventsvr.controller;
 
+import com.ssafy.adventsvr.exception.NotAuthenticationException;
+import com.ssafy.adventsvr.exception.NotRequestException;
 import com.ssafy.adventsvr.payload.request.AdventCertifyRequest;
 import com.ssafy.adventsvr.payload.request.AdventDayRequest;
 import com.ssafy.adventsvr.payload.request.AdventPrivateRequest;
@@ -31,10 +33,10 @@ public class AdventController {
     @ApiOperation(value = "1,3,7 선물 생성", notes = "선물 생성")
     @PostMapping
     public ResponseEntity<AdventDayResponse> adventDayInput(@RequestBody @Valid AdventDayRequest adventDayRequest){
-        log.info("adventInput");
+        log.debug("adventInput");
 
         if(ObjectUtils.isEmpty(adventDayRequest)){
-            return ResponseEntity.notFound().build();
+            throw new NotRequestException("요청한 데이터가 비어있습니다.");
         }
 
         return ResponseEntity
@@ -45,16 +47,15 @@ public class AdventController {
     @ApiOperation(value = "password 및 기간 설정", notes = "패스워드, 힌트, 기간 설정")
     @PatchMapping("/{adventId}/days")
     public ResponseEntity<Object> adventPrivateInfoModify(@PathVariable String adventId
-                                                                    ,@RequestBody @Valid AdventPrivateRequest adventPrivateRequest) {
-        log.info("adventPrivateInfoModify");
+                                                        ,@RequestBody @Valid AdventPrivateRequest adventPrivateRequest) {
+        log.debug("adventPrivateInfoModify");
 
-        if ((!"".equals(adventPrivateRequest.getPassword()) && !"".equals(adventPrivateRequest.getPasswordVal()) &&
-                !adventPrivateRequest.getPasswordVal().equals(adventPrivateRequest.getPassword()))) {
-            return ResponseEntity.badRequest().build();
+        if (!adventPrivateRequest.getPasswordVal().equals(adventPrivateRequest.getPassword())) {
+            throw new NotAuthenticationException("패스워드와 패스워드 확인이 다릅니다.");
         }
 
         if (ObjectUtils.isEmpty(adventPrivateRequest)) {
-            return ResponseEntity.notFound().build();
+            throw new NotRequestException("요청한 데이터가 비어있습니다.");
         }
         adventService.modifyPrivateInfoAdvent(adventId,adventPrivateRequest);
 
@@ -65,10 +66,10 @@ public class AdventController {
     @PatchMapping("/{adventId}/recipients")
     public ResponseEntity<Object> adventTitleModify(@PathVariable String adventId
                                                     ,@RequestBody AdventRecipientModify adventRecipientModify){
-        log.info("adventRecipientModify");
+        log.debug("adventRecipientModify");
 
         if (ObjectUtils.isEmpty(adventRecipientModify)) {
-            return ResponseEntity.notFound().build();
+            throw new NotRequestException("요청한 데이터가 비어있습니다.");
         }
 
         adventService.modifyTitleAdvent(adventId,adventRecipientModify);
@@ -78,10 +79,10 @@ public class AdventController {
     @ApiOperation(value = "패스워드 인증", notes = "패스워드 있을시 인증 성공시 선물 페이지 조회")
     @PostMapping("/auths")
     public ResponseEntity<AdventUrlReceiveResponse> adventReceiveUrlFind(@RequestBody @Valid AdventCertifyRequest adventCertifyRequest){
-        log.info("adventUrlFind");
+        log.debug("adventUrlFind");
 
         if (ObjectUtils.isEmpty(adventCertifyRequest)) {
-            return ResponseEntity.notFound().build();
+            throw new NotRequestException("요청한 데이터가 비어있습니다.");
         }
 
         return ResponseEntity
@@ -92,7 +93,7 @@ public class AdventController {
     @ApiOperation(value = "password 없이 url 조회", notes = "패스워드 없이 조회")
     @GetMapping("/{url}")
     public ResponseEntity<AdventUrlReceiveResponse> adventNotPasswordFind(@PathVariable(value = "url") String url){
-        log.info("adventNotPasswordFind");
+        log.debug("adventNotPasswordFind");
 
         return ResponseEntity
                 .ok(adventService.findReceiveNotPasswordUrlAdvent(url));
@@ -101,7 +102,7 @@ public class AdventController {
     @ApiOperation(value = "adventId로 어드벤트 day 조회", notes = "어드벤트 day 조회")
     @GetMapping("/{adventId}/days")
     public ResponseEntity<AdventDaysResponse> adventDayFind(@PathVariable String adventId){
-        log.info("adventDayFind");
+        log.debug("adventDayFind");
 
         return ResponseEntity
                 .ok(adventService.findDayAdvent(adventId));
@@ -110,17 +111,26 @@ public class AdventController {
     @ApiOperation(value = "url로 어드벤트 day 조회", notes = "어드벤트 day url조회")
     @GetMapping("/{url}/url-days")
     public ResponseEntity<AdventDaysResponse> adventDayUrlFind(@PathVariable String url){
-        log.info("adventDayUrlFind");
+        log.debug("adventDayUrlFind");
 
         return ResponseEntity
                 .ok(adventService.findUrlDayAdvent(url));
+    }
+
+    @ApiOperation(value = "패스워드 힌트 및 패스워드 설정 유무 조회", notes = "패스워드 힌트 및 패스워드 설정 유무 조회")
+    @GetMapping("/{url}/hints")
+    public ResponseEntity<AdventIsPasswordResponse> adventIsPasswordFind(@PathVariable String url){
+        log.debug("adventIsPasswordFind");
+
+        return ResponseEntity
+                .ok(adventService.findIsPasswordAdvent(url));
     }
 
     @ApiOperation(value = "어드벤트 조회", notes = "보관함 페이지에서 수정 눌렀을시에 조회")
     @GetMapping("/{adventId}/{userId}/advent")
     public ResponseEntity<AdventReceiveResponse> adventFind(@PathVariable(value = "adventId") String adventId,
                                                             @PathVariable(value = "userId") Integer userId){
-        log.info("adventFind");
+        log.debug("adventFind");
 
         return ResponseEntity
                 .ok(adventService.findAdvent(adventId,userId));
@@ -136,7 +146,7 @@ public class AdventController {
                                                                         })
                                                                              Pageable pageable,
                                                                          @PathVariable("userId") Integer userId){
-        log.info("adventMyStorageFind");
+        log.debug("adventMyStorageFind");
 
         return ResponseEntity
                 .ok(adventService.findMyStorageAdvent(pageable,userId));
@@ -146,10 +156,21 @@ public class AdventController {
     @DeleteMapping("/{adventId}/{userId}")
     public ResponseEntity<Object> adventDelete(@PathVariable(value = "adventId") String adventId,
                                                @PathVariable(value = "userId") Integer userId){
-        log.info("adventDelete");
+        log.debug("adventDelete");
 
         adventService.deleteAdvent(userId, adventId);
 
         return ResponseEntity.noContent().build();
     }
+
+    @ApiOperation(value = "박스 열리는 날짜 수정 배치", notes = "박스 열리는 날짜 수정 - 배치용, 사용 안해두 됨")
+    @PatchMapping("/opens")
+    public ResponseEntity<Object> adventBoxDaysModify() {
+        log.info("adventBoxDaysModify");
+
+        adventService.modifyDaysAdventBox();
+
+        return ResponseEntity.noContent().build();
+    }
+
 }

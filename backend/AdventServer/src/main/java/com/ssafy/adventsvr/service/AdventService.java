@@ -24,9 +24,14 @@ public interface AdventService {
 
     AdventDaysResponse findUrlDayAdvent(String url);
 
+    AdventIsPasswordResponse findIsPasswordAdvent(String url);
+
     Page<AdventStorageResponse> findMyStorageAdvent(Pageable pageable, Integer userId);
 
     void modifyTitleAdvent(String adventId,AdventRecipientModify adventRecipientModify);
 
     void deleteAdvent(Integer userId, String adventId);
+
+    void modifyDaysAdventBox();
+
 }

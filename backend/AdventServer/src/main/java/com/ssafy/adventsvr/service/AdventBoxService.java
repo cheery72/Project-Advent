@@ -1,6 +1,5 @@
 package com.ssafy.adventsvr.service;
 
-import com.ssafy.adventsvr.exception.NoSuchUserException;
 import com.ssafy.adventsvr.payload.request.AdventBoxRequest;
 import com.ssafy.adventsvr.payload.request.AdventBoxWrapperRequest;
 import com.ssafy.adventsvr.payload.response.AdventBoxDayResponse;
@@ -23,5 +22,4 @@ public interface AdventBoxService {
 
     AdventBoxWrapperResponse findWrapperDetailAdventBox(String boxId, Integer userId);
 
-    void modifyDaysAdventBox();
 }

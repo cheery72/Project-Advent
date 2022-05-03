@@ -75,15 +75,17 @@ public class AdventBox extends BaseTimeEntity{
         this.activeAt = endAt.minusDays(day-adventBox.getAdventDay());
     }
 
-    public void setAdventIsActiveModify(boolean isCheck){
-        this.isActive = isCheck;
-    }
-
     public void setAdventActiveDayModify(LocalDate localDate, LocalDate activeAt){
-        int day = activeAt.minusDays(localDate.getDayOfMonth()).getDayOfMonth();
-        if(day == 31){
+        int day;
+
+        if(localDate.equals(activeAt) || activeAt.isBefore(localDate)){
             day = 0;
+            this.isActive = true;
+        }else{
+            day = activeAt.minusDays(localDate.getDayOfMonth()).getDayOfMonth();
+            this.isActive = false;
         }
+
         this.activeDay = day;
     }
 

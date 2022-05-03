@@ -9,34 +9,22 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice(annotations = RestController.class)
 public class ServiceExceptionHandler {
 
-    @ExceptionHandler(NoSuchUserException.class)
-    protected ResponseEntity handleNoSuchUserException(NoSuchUserException e) {
-        final ErrorResponse errorResponse = ErrorResponse.builder().code("Item Not Found").message(e.getMessage()).build();
+    @ExceptionHandler(NotAuthenticationException.class)
+    protected ResponseEntity NotAuthenticationException(NotAuthenticationException e) {
+        final ErrorResponse errorResponse = ErrorResponse.builder().code("User Not Authentication").message(e.getMessage()).build();
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
 
     }
 
-    @ExceptionHandler(NoSuchAdventDayException.class)
-    protected ResponseEntity handleNoSuchAdventDayException(NoSuchAdventDayException e) {
-        final ErrorResponse errorResponse = ErrorResponse.builder().code("Item Not Found").message(e.getMessage()).build();
+    @ExceptionHandler(NoSuchAdventException.class)
+    protected ResponseEntity handleNoSuchAdventException(NoSuchAdventException e) {
+        final ErrorResponse errorResponse = ErrorResponse.builder().code("Advent Bad Request").message(e.getMessage()).build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+    @ExceptionHandler(NotRequestException.class)
+    protected ResponseEntity handleNotRequestException(NotRequestException e) {
+        final ErrorResponse errorResponse = ErrorResponse.builder().code("Advent Not Found").message(e.getMessage()).build();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
-    @ExceptionHandler(NoWriteAdventException.class)
-    protected ResponseEntity handleNoWriteAdventException(NoWriteAdventException e) {
-        final ErrorResponse errorResponse = ErrorResponse.builder().code("Item Not Found").message(e.getMessage()).build();
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
-    }
-
-    @ExceptionHandler(NoDayAdventException.class)
-    protected ResponseEntity handleNoDayAdventException(NoDayAdventException e) {
-        final ErrorResponse errorResponse = ErrorResponse.builder().code("Item Not Found").message(e.getMessage()).build();
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
-    }
-
-    @ExceptionHandler(NoSuchPasswordException.class)
-    protected ResponseEntity handleNoSuchPasswordException(NoSuchPasswordException e) {
-        final ErrorResponse errorResponse = ErrorResponse.builder().code("Item Not Found").message(e.getMessage()).build();
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
-    }
 }
