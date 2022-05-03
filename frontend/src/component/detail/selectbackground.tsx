@@ -111,10 +111,10 @@ export default function Selectbackground ({setBackgroundColor, setBackImage}:any
                 # 반복무늬
                 </div>
                 <div className={styles.backgroundcontent} hidden={pattern != 3}>
-                <img src='/backgroundsample/background.jpg' onClick={selectImage}></img>
-                <img src='/backgroundsample/background1.jpg' onClick={selectImage}></img>
-                <img src='/backgroundsample/background2.jpg' onClick={selectImage}></img>
-                <img src='/backgroundsample/background3.jpg' onClick={selectImage}></img>
+                <img src='/backgroundsample/background.jpg' onClick={selectImage} alt="backgroundimg"></img>
+                <img src='/backgroundsample/background1.jpg' onClick={selectImage} alt="backgroundimg"></img>
+                <img src='/backgroundsample/background2.jpg' onClick={selectImage} alt="backgroundimg"></img>
+                <img src='/backgroundsample/background3.jpg' onClick={selectImage} alt="backgroundimg"></img>
                 </div>
                 <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==4?"#FFFF8C":"" }}  onClick={() => {setPattern(4)}}>
                 # 하트

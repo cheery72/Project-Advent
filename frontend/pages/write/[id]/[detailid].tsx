@@ -1,5 +1,5 @@
 import { Grid, Button, Icon, Checkbox } from "semantic-ui-react";
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { useRouter } from "next/router";
 
 import styles from "../../../styles/detail/detail.module.css"
@@ -21,9 +21,9 @@ export default function Detail(){
     const [backImage, setBackImage] = useState('');
 
     // 스티커
-    const [stickers, setStickers] = useState([])
+    const [stickers, setStickers] = useState('')
     const selectSticker = (e:any) => {
-        setStickers(e.target.currentSrc)
+        setStickers(e.target.currentSrc);
     }
 
     // 이미지 업로드
@@ -72,11 +72,20 @@ return(
             <Column width={4}></Column>
             <Column width={8}>
             <div className={styles.boxlocation}>
-            <div className={styles.box} style={{ background:backgroundColor, backgroundImage:`url(${backImage})`}}>
+            <div className={styles.box} style={{ background:backgroundColor, backgroundImage:`url(${backImage})`, backgroundSize:'cover'}}>
+                <div style={{position:'absolute', cursor:'grab'}} draggable>
+                    {stickers && (
+                            <img
+                                alt="sticker"
+                                src={stickers}
+                                style={{height:100, maxWidth:100}}
+                            />
+                    )}
+                </div>
                 <div className={styles.box_image}>
                 {image && (
                     <img
-                        alt="img"
+                        alt="imguploadfile"
                         src={image}
                         style={{height:150, maxWidth:300}}
                     />
@@ -91,10 +100,10 @@ return(
             </Column>
             <Column width={4}>
                 <div className={styles.buttonbetween}>
-                    <Button inverted color='blue' onClick={() => {router.push({ pathname: `/write/testid`, query: { day: `${day}`} });}}>&nbsp;&nbsp;&nbsp;&nbsp;저&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;장&nbsp;&nbsp;&nbsp;&nbsp;</Button>
+                    <Button inverted color='blue' onClick={() => {router.push({ pathname: `/write/testid` });}}>&nbsp;&nbsp;&nbsp;&nbsp;저&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;장&nbsp;&nbsp;&nbsp;&nbsp;</Button>
                 </div>
                 <div className={styles.cancelbutton}>    
-                    <Button inverted color='blue' onClick={() => {router.push({ pathname: `/write/testid`, query: { day: `${day}`} });}}>&nbsp;&nbsp;&nbsp;&nbsp;취&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소&nbsp;&nbsp;&nbsp;&nbsp;</Button>  
+                    <Button inverted color='blue' onClick={() => {router.push({ pathname: `/write/testid` });}}>&nbsp;&nbsp;&nbsp;&nbsp;취&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소&nbsp;&nbsp;&nbsp;&nbsp;</Button>  
                 </div>             
             </Column>
         </Row>
@@ -137,10 +146,10 @@ return(
                 # 하트 
                 </div>
                 <div className={styles.backgroundcontent} hidden={pattern != 3}>
-                <img src='/stickersample/sample1.png' onClick={selectSticker}></img>
-                <img src='/stickersample/sample2.png' onClick={selectSticker}></img>
-                <img src='/stickersample/sample3.png' onClick={selectSticker}></img>
-                <img src='/stickersample/sample4.png' onClick={selectSticker}></img>
+                <img src='/stickersample/sample1.png' onClick={selectSticker} alt="stickerimg"></img>
+                <img src='/stickersample/sample2.png' onClick={selectSticker} alt="stickerimg"></img>
+                <img src='/stickersample/sample3.png' onClick={selectSticker} alt="stickerimg"></img>
+                <img src='/stickersample/sample4.png' onClick={selectSticker} alt="stickerimg"></img>
                 </div>
                 <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==4?"#FFFF8C":"" }}  onClick={() => {setPattern(4)}}>
                 # 숫자
