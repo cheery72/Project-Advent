@@ -77,10 +77,11 @@ public class AdventServiceImpl implements AdventService {
 
             List<AdventBox> adventBoxList = adventBoxRepository.findAllByAdventId(advent.getId());
             adventBoxList.forEach(adventbox -> adventbox.setAdventBoxActiveAtModify(localDate, advent.getDay(), adventbox));
+        }else{
 
+            throw new NoDayAdventException("내일 기준으로 요일을 +day 해주세요.");
         }
 
-        throw new NoDayAdventException("내일 기준으로 요일을 +day 해주세요.");
     }
 
     // Todo: POST 비밀번호 인증시 게시글 조회 - ok
