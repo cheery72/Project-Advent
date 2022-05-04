@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 
 import styles from "../../../styles/detail/detail.module.css"
 import Selectbackground from "../../../src/component/detail/selectbackground"
+import Text from "../../../src/component/detail/text"
 import { HexColorPicker } from "react-colorful";
 
 export default function Detail(){
@@ -41,25 +42,12 @@ export default function Detail(){
     // 텍스트 입력
     const [text, setText] = useState('');
     const [color, setColor] = useState("#000000");
-    const createText = (e:any) => {
-        setText(e.target.value);
-        };
 
     // 텍스트 굵기
     const [fontweight, setFontweight]:any = React.useState('normal')
     
     // 텍스트 사이즈
     const [fontsize, setFontsize]:any = useState(30)
-    
-    function changefontsize(e:any){
-        setFontsize(e.target.value)
-    }
-
-    // 초기화 버튼
-    const resetbutton = () => {
-        setText('');
-        setColor("#000000");
-    }
 
 return(
     <>
@@ -73,12 +61,12 @@ return(
             <Column width={8}>
             <div className={styles.boxlocation}>
             <div className={styles.box} style={{ background:backgroundColor, backgroundImage:`url(${backImage})`, backgroundSize:'cover'}}>
-                <div style={{position:'absolute', cursor:'grab'}} draggable>
+                <div style={{position:'absolute', cursor:'grab'}}>
                     {stickers && (
                             <img
                                 alt="sticker"
                                 src={stickers}
-                                style={{height:100, maxWidth:100}}
+                                style={{height:80, maxWidth:80}}
                             />
                     )}
                 </div>
@@ -177,51 +165,7 @@ return(
                 </div>
             </div>
             <div className={styles.tabcontent} hidden={index != 3}>
-                <div className={styles.inputtextbox}>
-                    <textarea  id="textarea" style={{color:color}} value={text} placeholder="내용을 입력해 주세요" onChange={createText} className={styles.contentbox}></textarea>
-                    {/* onKeyUp={onChange} , height: textareaheight*/}
-                </div>
-                <div className={styles.fontweight}>                    
-                    글자 굵기 : &nbsp;&nbsp;
-                    <Checkbox
-                    radio
-                    label = '보통'
-                    name = 'checkboxRadioGroup'
-                    value='normal'
-                    checked={fontweight === 'normal'}
-                    onChange={(e, data) => setFontweight(data.value)}
-                    ></Checkbox>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <Checkbox
-                    radio
-                    label = '굵게'
-                    name = 'checkboxRadioGroup'
-                    value='bolder'
-                    checked={fontweight === 'bolder'}
-                    onChange={(e, data) => setFontweight(data.value)}
-                    ></Checkbox>
-                </div>
-                <div className={styles.fontsize}>                    
-                    글자 크기 : &nbsp;&nbsp;
-                    <input
-                        type='range'
-                        min={10}
-                        max={100}
-                        value={fontsize}
-                        onChange={changefontsize}
-                        />
-                </div>
-                <div className={styles.changetextcolor}>
-                    현재 선택된 글자색      
-                    <div style={{background:color, width:"15px", height:"15px", marginLeft:"5px"}}></div>
-                </div>
-                <div className={styles.rgbacolorpicker}>
-                    <HexColorPicker color={color} onChange={setColor} />
-                </div>
-                <div>
-                    <button className={styles.deletebutton} onClick={() => resetbutton()}>
-                        초기화
-                    </button>
-                </div>
+                <Text setText={setText} setColor={setColor} setFontsize={setFontsize} setFontweight={setFontweight} text={text} fontweight={fontweight} color={color} fontsize={fontsize}></Text>
             </div>
         
         </div>

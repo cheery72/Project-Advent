@@ -116,23 +116,6 @@
     text-shadow: 1px 1px 2px #427388;  
 }
 
-.contentbox {
-    width: 300px;
-    height: 85px;
-    border: 0px;
-    border-radius: 5px;
-    overflow: hidden;
-    resize: none;
-}
-
-.inputtextbox {
-    margin: 10px;
-}
-
-.inputtextbox textarea{
-    overflow:hidden
-}
-
 .backgroundtitle {
     font-size: 20px;
     font-weight: bold;
@@ -169,41 +152,8 @@
     white-space: pre-wrap;
 }
 
-
-.rgbacolorpicker {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 10px 0px;
-}
-
-.rgbacolorpicker header {
-    margin-bottom: 10px;
-}
-
 .value {
     border-left: 24px solid #000;
     padding-left: 10px;
     margin-top: 20px;
-}
-
-.changetextcolor {
-    display: inline-flex;
-}
-
-.fontweight {
-    margin: 10px 0px;
-}
-
-.fontsize {
-    margin: 10px 0px;    
-}
-
-.fontsize input{
-    cursor: pointer;
-    height: 5px;
-    background: #c9a8f0;
-    -webkit-appearance: none;
-    box-shadow: 2px 1px 4px #9f63da;
-    accent-color: #9c45db;
 }
