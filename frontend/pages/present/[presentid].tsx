@@ -13,7 +13,6 @@ export default function Present(){
     const router = useRouter()
     const presentUrl = router.query.presentid
 
-    const [isHint, setIsHint] = useState(false)
     const [hint, setHint] = useState('')
     const [password, setPassword] = useState('')
     const [openPresent, setOpenPresent] =useState(false)
@@ -42,11 +41,11 @@ export default function Present(){
         await allAxios
             .get(`/advents/${presentUrl}/hints`)
             .then(({ data }) => {
+                console.log(data)
                 if (data.password === false){
                     setOpenPresent(true)
                     setAdventDay(data.day)
                 } else {
-                    setIsHint(true)
                     setHint(data.password_hint)
                 }
             })
@@ -85,15 +84,15 @@ export default function Present(){
                     <Row />
                     <Row>
                         <Column textAlign="center">
-                            <Header as="h3" className={ styles.inline }>선물 비밀번호를 입력하세요!</Header>&nbsp;
-                            <Popup content="비밀번호를 맞춰야 선물을 확인할 수 있습니다." trigger={<Icon name='question circle' className={ styles.pointer }/>}/>
+                            <Header as="h1" className={ styles.inline }>선물 비밀번호를 입력하세요!</Header>&nbsp;
+                            <Popup content="비밀번호를 맞춰야 선물을 확인할 수 있습니다." trigger={<Icon name='question circle' color='teal' className={ styles.pointer }/>}/>
                         </Column>
                     </Row>
-                    {isHint?
+                    {hint?
                         <>
                             <Row>
-                                <Header as="h5" className={ styles.inline }>{ hint }</Header>&nbsp;
-                                <Popup content="힌트입니다." trigger={<Icon name='question circle' className={ styles.pointer }/>}/>
+                                <Header as="h4" className={ styles.inline }>힌트: { hint }</Header>&nbsp;
+                                <Popup content="비밀번호 힌트입니다." trigger={<Icon name='question circle' color='teal' className={ styles.pointer }/>}/>
                             </Row>
                         </>
                     :''}
