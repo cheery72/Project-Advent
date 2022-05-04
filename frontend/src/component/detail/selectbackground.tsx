@@ -5,7 +5,7 @@ import styles from "../../../styles/detail/selectbackground.module.css"
 import { HexColorPicker } from "react-colorful";
 import unsplashAxios from "../../../src/lib/unsplashAxios";
 
-export default function Selectbackground ({setBackgroundColor, setBackImage}:any) {
+export default function Selectbackground ({setBackgroundColor, setBackImage, backgroundcolor}:any) {
     const router = useRouter();
     const [backgroundImage, setBackgroundImage] = useState('')
     const [imageType, setImageType] = useState(1)
@@ -30,6 +30,7 @@ export default function Selectbackground ({setBackgroundColor, setBackImage}:any
     // 배경 이미지 업로드
     const saveImage = (e:any) => {
         if(e.target.files.length !== 0){
+            setBackgroundColor('')
             setBackImage(URL.createObjectURL(e.target.files[0]))};
     };
 
@@ -39,7 +40,10 @@ export default function Selectbackground ({setBackgroundColor, setBackImage}:any
     }
 
     // Cololrpicker 배경선택 
-    const [color, setColor] = useState("#ffffff");
+    const selectbackgroundcolor = (updatedcolor:any) => {
+        setBackImage('')
+        setBackgroundColor(updatedcolor)
+    }
 
     // upsplash
     const writeSearchWord = (e: { target: { value: SetStateAction<string>; }; }) => {
@@ -134,12 +138,12 @@ export default function Selectbackground ({setBackgroundColor, setBackImage}:any
         {imageType===3?
             <>
             <div>
-            <span className={styles.colorvalue} style={{ borderLeftColor: color }}>
-                내가 선택한 색상 : {color}
+            <span className={styles.colorvalue} style={{ borderLeftColor: backgroundcolor }}>
+                내가 선택한 색상 : {backgroundcolor}
             </span>
             </div>
             <div className={styles.colorpicker}>
-            <HexColorPicker color={color} onChange={setBackgroundColor} />
+            <HexColorPicker color={backgroundcolor} onChange={selectbackgroundcolor} />
             </div>
             </>
         :
