@@ -39,14 +39,10 @@ export default function Detail(){
         setImage('');
     }
 
-    // 텍스트 입력
+    // 텍스트
     const [text, setText] = useState('');
     const [color, setColor] = useState("#000000");
-
-    // 텍스트 굵기
     const [fontweight, setFontweight]:any = React.useState('normal')
-    
-    // 텍스트 사이즈
     const [fontsize, setFontsize]:any = useState(30)
 
 return(
@@ -60,7 +56,7 @@ return(
             <Column width={4}></Column>
             <Column width={8}>
             <div className={styles.boxlocation}>
-            <div className={styles.box} style={{ background:backgroundColor, backgroundImage:`url(${backImage})`, backgroundSize:'cover'}}>
+            <div className={styles.box} style={{ backgroundSize:'cover', backgroundColor:backgroundColor, backgroundImage:`url(${backImage})`}}>
                 <div style={{position:'absolute', cursor:'grab'}}>
                     {stickers && (
                             <img
@@ -114,7 +110,7 @@ return(
                 </div>
             </div>
             <div className={styles.tabcontent} hidden={index != 0}>
-            <Selectbackground setBackgroundColor={setBackgroundColor} setBackImage={setBackImage}></Selectbackground>
+            <Selectbackground setBackgroundColor={setBackgroundColor} setBackImage={setBackImage} backgroundcolor={backgroundColor}></Selectbackground>
             </div>
             <div className={styles.tabcontent} hidden={index != 1}>
             <div>
