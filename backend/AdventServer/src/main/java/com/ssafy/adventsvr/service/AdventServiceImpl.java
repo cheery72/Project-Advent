@@ -200,6 +200,7 @@ public class AdventServiceImpl implements AdventService {
 
         return AdventIsPasswordResponse.builder()
                 .isPassword(advent.isPassword())
+                .day(advent.getDay())
                 .passwordHint(advent.getPasswordHint())
                 .build();
     }

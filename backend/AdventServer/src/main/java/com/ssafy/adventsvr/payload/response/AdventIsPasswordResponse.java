@@ -10,10 +10,12 @@ public class AdventIsPasswordResponse {
 
     private boolean isPassword;
     private String passwordHint;
+    private Integer day;
 
     @Builder
-    public AdventIsPasswordResponse(boolean isPassword, String passwordHint) {
+    public AdventIsPasswordResponse(boolean isPassword, String passwordHint, Integer day) {
         this.isPassword = isPassword;
         this.passwordHint = passwordHint;
+        this.day = day;
     }
 }
