@@ -12,7 +12,7 @@ export default function WritePresent(){
     const router = useRouter()
     const adventId = router.query.id
     const [userInfo, setUserInfo]: any = useState()
-    const [adventDay, setAdventDay] = useState(1)
+    const [adventDay, setAdventDay] = useState(0)
 
     const getUserInfo = async () => {
         await userAxios

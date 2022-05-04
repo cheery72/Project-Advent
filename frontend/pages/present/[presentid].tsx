@@ -1,16 +1,23 @@
-import { SetStateAction, useState } from "react";
+import { useRouter } from "next/router";
+import { SetStateAction, useEffect, useState } from "react";
 import { Button, Grid, Header, Icon, Input, Popup } from "semantic-ui-react";
+import notify from "../../src/component/notify/notify";
 import PresentOne from "../../src/component/present/presentone";
 import PresentSeven from "../../src/component/present/presentseven";
 import PresentThree from "../../src/component/present/presentthree";
+import allAxios from "../../src/lib/allAxios";
 import styles from "../../styles/present/present.module.css"
 
 export default function Present(){
 
+    const router = useRouter()
+    const presentUrl = router.query.presentid
+
+    const [isHint, setIsHint] = useState(false)
+    const [hint, setHint] = useState('')
     const [password, setPassword] = useState('')
-    const [isHint, setIsHint] = useState(true)
-    const [openPresent, setOpenPresent] =useState(true)
-    const [day, setDay] = useState(3)
+    const [openPresent, setOpenPresent] =useState(false)
+    const [adventDay, setAdventDay] = useState(0)
 
     const {Row, Column} = Grid
 
@@ -18,12 +25,57 @@ export default function Present(){
         setPassword(e.target.value)
     }
 
+    const enterPassword = (e: { code: string; }) => {
+        if (e.code === 'Enter') {
+            submitPassword()
+        }
+    }
+
     const submitPassword = () => {
+        checkPassword()
         setPassword('')
         const inputText: any = document.getElementsByName('inputtext')[0]
         inputText['value'] = ''
-        console.log(`제출된 비밀번호: ${password}`)
     }
+
+    const loadIsPassword = async () => {
+        await allAxios
+            .get(`/advents/${presentUrl}/hints`)
+            .then(({ data }) => {
+                if (data.password === false){
+                    setOpenPresent(true)
+                    setAdventDay(data.day)
+                } else {
+                    setIsHint(true)
+                    setHint(data.password_hint)
+                }
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    }
+
+    const checkPassword = async () => {
+        const body = {
+            password: password,
+            url: presentUrl
+        }
+        await allAxios
+            .post(`/advents/auths`, body)
+            .then(({ data }) => {
+                setOpenPresent(true)
+                setAdventDay(data.day)
+            })
+            .catch(() => {
+                notify('error', `잘못된 비밀번호 입니다.`)
+            })
+    }
+
+    useEffect(() => {
+        if (presentUrl) {
+            loadIsPassword()
+        }
+    }, [presentUrl])
 
     return(
         <>
@@ -40,14 +92,14 @@ export default function Present(){
                     {isHint?
                         <>
                             <Row>
-                                <Header as="h5" className={ styles.inline }>힌트입니다.</Header>&nbsp;
+                                <Header as="h5" className={ styles.inline }>{ hint }</Header>&nbsp;
                                 <Popup content="힌트입니다." trigger={<Icon name='question circle' className={ styles.pointer }/>}/>
                             </Row>
                         </>
                     :''}
                     <Row>
                         <Column textAlign="center">
-                            <Input type="password" name="inputtext" onChange={writePassword}/>
+                            <Input type="password" name="inputtext" onChange={writePassword} onKeyUp={enterPassword}/>
                             <Button color="blue" onClick={submitPassword}>입력</Button>
                         </Column>
                     </Row>
@@ -56,11 +108,11 @@ export default function Present(){
             :''}
             
             {openPresent?
-                day === 1?
+                adventDay === 1?
                     <PresentOne />
-                :day === 3?
+                :adventDay === 3?
                     <PresentThree />
-                :day === 7?
+                :adventDay === 7?
                     <PresentSeven />
                 :""
             :''}
