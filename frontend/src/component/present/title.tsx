@@ -1,0 +1,24 @@
+import styles from "../../../styles/present/present.module.css"
+import { Grid, Header } from "semantic-ui-react";
+
+export default function Title({ title }:any){
+
+    const { Row, Column } = Grid   
+    return(
+        <Grid centered>
+            <Row />
+            <Row>
+                <Column 
+                    textAlign="center" 
+                    width={6} 
+                    className={ styles.title }
+                >
+                    <Header as="h1">
+                        <span>{ title }</span>
+                    </Header>
+                </Column>
+            </Row>
+            <Row />
+        </Grid>
+    );
+}
