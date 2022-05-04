@@ -7,7 +7,7 @@ export default function ContactUs ({ setVisible }:any) {
     const settings = {
         YOUR_SERVICE_ID : 'service_fxbly8a',
         YOUR_TEMPLATE_ID : 'template_2og0plp',
-        YOUR_PUBLIC_KEY : '0Zv_25HlLTzNkCwwK',
+        YOUR_PUBLIC_KEY : process.env.NEXT_PUBLIC_API_EMAILJS_KEY,
     }
 
     const sendEmail = (e:React.FormEvent<HTMLFormElement>) => {
