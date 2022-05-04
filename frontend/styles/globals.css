@@ -21,4 +21,5 @@ body {
     min-height: 85vh;
     padding-bottom: 20vh;
     position: relative;
+    overflow-x: hidden;
   }
