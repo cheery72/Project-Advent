@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         Aos.init({
             duration: 1000
         });
-    })
+    }, [])
     return(
         <>
             <div className="background">
