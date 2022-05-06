@@ -187,7 +187,6 @@ export default function Anniversary(){
 
                 <Row>
                     <Column textAlign="center">
-                        {/* <Input type="date" onChange={writeAnniversary} /> */}
                         <input 
                             type="date" 
                             onChange={writeAnniversary} 
@@ -210,7 +209,7 @@ export default function Anniversary(){
                             <span className={ styles.title2}> 설정 </span>&nbsp;
                             </Header>
                         <Popup 
-                            content="힌트설정을 눌러 힌트 여부를 선택하여 입력할 수 있습니다." 
+                            content={<>힌트설정을 눌러 힌트 여부를 선택하여 입력할 수 있습니다. <br /> 비밀번호는 미설정할수 있습니다.</>}
                             trigger={<Icon 
                                 name='question circle' 
                                 color='teal' 
@@ -235,7 +234,6 @@ export default function Anniversary(){
                 {isHint?
                     <>
                         <Row>
-                            {/* <Column textAlign="center" width={4}> */}
                                 <form>
                                     <textarea 
                                         onChange={writeHint} 
@@ -245,10 +243,6 @@ export default function Anniversary(){
                                         placeholder="힌트를 작성해주세요."
                                     />
                                 </form>
-                                {/* <Form>
-                                    <TextArea onChange={writeHint} rows={3} maxlength={50} className={styles.textarea} placeholder="힌트를 작성해주세요!"/>
-                                </Form> */}
-                            {/* </Column> */}
                         </Row>
                     </>
                 :<></>}
@@ -268,7 +262,6 @@ export default function Anniversary(){
                 </Row>
 
                 <Row>
-                    {/* <Column textAlign="center"> */}
                         <div className={ styles.formField }>
                             <input 
                                 type="password" 
@@ -276,12 +269,11 @@ export default function Anniversary(){
                                 className={ styles.formInput } 
                                 pattern=".{8,}" 
                                 required 
+                                maxLength={12}
                                 onChange={writePassword} 
                             />
                             <span className={ styles.icon }></span>
                         </div>
-                        {/* <Input type="password" placeholder="비밀번호를 입력해주세요." onChange={writePassword}/> */}
-                    {/* </Column>  */}
                 </Row>
 
                 <Row>
@@ -299,19 +291,17 @@ export default function Anniversary(){
                 </Row>
 
                 <Row>
-                    {/* <Column textAlign="center"> */}
                     <div className={ styles.formField }>
                         <input 
                             type="password" 
                             placeholder="비밀번호를 확인해주세요." 
                             className={ `${password===password2 && password2?styles.formInputPassCheckValid:styles.formInputPassCheck}` } 
                             required 
+                            maxLength={12}
                             onChange={checkPassword} 
                         />
                         <span className={ styles.icon }>{password===password2 && password2?'⭕':''}</span>
                     </div>
-                        {/* <Input type="password" placeholder="비밀번호를 확인해주세요." onChange={checkPassword}/> */}
-                    {/* </Column>   */}
                 </Row>
                 
                 <Row>

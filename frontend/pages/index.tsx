@@ -4,6 +4,7 @@ import { Button, Grid, Icon, Image } from 'semantic-ui-react'
 import Link from 'next/link'
 import IsLogin from '../src/lib/IsLogin'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 
 const { Row, Column } = Grid
 
@@ -11,6 +12,12 @@ const Home: NextPage = () => {
 
     const KAKAO_LOGIN_URL = 'http://k6c206.p.ssafy.io:8000/auth-server'
     const BASE_URL = 'http://localhost:3000'
+
+    const router = useRouter()
+
+    const goWritePage = () => {
+        router.push('/write')
+    }
 
     return (
         <>
@@ -58,7 +65,7 @@ const Home: NextPage = () => {
                             <Button 
                                 color='twitter' 
                                 animated 
-                                href='/write'
+                                onClick={goWritePage}
                                 style={{ height:'18%', width:'60%', padding:'5%', marginTop:'5%', fontSize:'1.5vw' }}
                             >
                                 <Button.Content visible>

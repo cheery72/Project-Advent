@@ -5,6 +5,8 @@ import { Button, Icon } from 'semantic-ui-react';
 import notify from './notify/notify';
 import IsLogin from '../../src/lib/IsLogin'
 import { ToastContainer } from 'react-toastify';
+import { useEffect } from 'react';
+import userAxios from '../lib/userAxios';
 
 export default function Navbar() {
     const KAKAO_LOGIN_URL = 'http://k6c206.p.ssafy.io:8000/auth-server'
@@ -22,6 +24,23 @@ export default function Navbar() {
         }
         notify('success', msg)
     }
+
+    const getUserInfo = async () => {
+        await userAxios
+            .get(`/auth/users`)
+            .then(() => {
+            })
+            .catch(() => {
+                notify('error', "🕛로그인 시간이 만료되었습니다.")
+                logout()
+            });
+        };
+
+    useEffect(() => {
+        if (IsLogin()){
+            getUserInfo()
+        }
+    }, [])
 
     return(
         <>
@@ -78,7 +97,6 @@ export default function Navbar() {
                                     </Button.Content>
                                 </Button>
                                 :
-                                // 임시경로( 소셜로그인테스트: kwky.shop:8081 / 리다이렉트: localhost:3000 )
                                 <Link href={`${KAKAO_LOGIN_URL}/oauth2/authorization/kakao?redirect_uri=${BASE_URL}/oauth/redirect`}>
                                     <img 
                                         src="/kakao_button/kakao_login_large.png" 
