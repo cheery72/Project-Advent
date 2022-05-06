@@ -10,16 +10,16 @@ export default function Presentdetail(){
     const {Row, Column} = Grid
     const boxId = router.query.boxid
     const [content, setContent] = useState('/main/temp_main.png') // 기본이미지(임시)
-    const [day, setDay] = useState('Day')
+    const [day, setDay] = useState('?')
 
     const loadIsPassword = async () => {
         await allAxios
             .get(`/boxes/${boxId}`)
             .then(({ data }) => {
                 console.log(data)
+                setDay(data.advent_day)
                 if (data.content) {
                     setContent(data.content)
-                    setDay(data.advent_day)
                 }
             })
             .catch((e) => {
@@ -34,7 +34,7 @@ export default function Presentdetail(){
 return(
     <>
         <div className={styles.presentdetailhead}>
-            <span>✨&nbsp;D-{day}&nbsp;✨</span>
+            <span>✨&nbsp;D-{day? day : 'day'}&nbsp;✨</span>
         </div>
         <Grid stackable>
         <Row>
