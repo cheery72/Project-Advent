@@ -3,6 +3,7 @@ package com.ssafy.adventsvr.service;
 import com.ssafy.adventsvr.payload.request.AdventBoxRequest;
 import com.ssafy.adventsvr.payload.request.AdventBoxWrapperRequest;
 import com.ssafy.adventsvr.payload.response.AdventBoxDayResponse;
+import com.ssafy.adventsvr.payload.response.AdventBoxDetailResponse;
 import com.ssafy.adventsvr.payload.response.AdventBoxWrapperResponse;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,7 +17,7 @@ public interface AdventBoxService {
 
     AdventBoxDayResponse findDetailAdventBox(String boxId, Integer userId);
 
-    AdventBoxDayResponse findUrlDetailAdventBox(String boxId);
+    AdventBoxDetailResponse findUrlDetailAdventBox(String boxId);
 
     AdventBoxWrapperResponse findUrlWrapperDetailAdventBox(String boxId);
 

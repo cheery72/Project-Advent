@@ -11,6 +11,7 @@ import com.ssafy.adventsvr.exception.NotAuthenticationException;
 import com.ssafy.adventsvr.payload.request.AdventBoxRequest;
 import com.ssafy.adventsvr.payload.request.AdventBoxWrapperRequest;
 import com.ssafy.adventsvr.payload.response.AdventBoxDayResponse;
+import com.ssafy.adventsvr.payload.response.AdventBoxDetailResponse;
 import com.ssafy.adventsvr.payload.response.AdventBoxWrapperResponse;
 import com.ssafy.adventsvr.repository.AdventBoxRepository;
 import com.ssafy.adventsvr.repository.AdventRepository;
@@ -170,12 +171,12 @@ public class AdventBoxServiceImpl implements AdventBoxService {
 
     // Todo: 받는 사람이 박스 조회, isActive
     @Override
-    public AdventBoxDayResponse findUrlDetailAdventBox(String boxId) {
+    public AdventBoxDetailResponse findUrlDetailAdventBox(String boxId) {
         AdventBox adventBox = adventBoxRepository.findById(boxId)
                 .orElseThrow(() -> new NoSuchAdventException("요청한 게시글 박스를 찾을 수 없습니다."));
 
-        return AdventBoxDayResponse.builder()
-                .boxId(adventBox.getId())
+        return AdventBoxDetailResponse.builder()
+                .adventDay(adventBox.getAdventDay())
                 .content(adventBox.getContent())
                 .build();
     }

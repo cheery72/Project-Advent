@@ -204,13 +204,31 @@ public class AdventServiceImpl implements AdventService {
     // Todo: GET 보관함 페이지 - ok
     @Override
     public Page<AdventStorageResponse> findMyStorageAdvent(Pageable pageable, Integer userId) {
-        List<Advent> advent = adventRepository.findAllByUserId(userId);
+        List<Advent> advents = adventRepository.findAllByUserId(userId);
 
         List<Advent> pageAdvent = adventRepository.findPageAllByUserId(pageable, userId);
 
-        List<AdventStorageResponse> advents = AdventStorageResponse.storageBuilder(pageAdvent);
+//        for (Advent advent: pageAdvent) {
+//            List<AdventBox> adventBoxs = adventBoxRepository.findAllByAdventIdOrderByAdventDayAsc(advent.getId());
+//            Integer unCreateBox,unContentBox;
+//            List<Integer> unCreateBoxList,unContentBoxList;
+//
+//            if(adventBoxs.size() == advent.getDay()) continue;
+//
+//            for (int i = 1; i <= advent.getDay(); i++) {
+//                // 해당 박스가 포함되어 있는지 확인해야함 1~7
+//                for (AdventBox adventBox: adventBoxs) {
+//                     if(adventBox.getAdventDay() == i){
+//
+//                         break;
+//                     }
+//                }
+//            }
+//        }
 
-        return new PageImpl<>(advents, pageable, advent.size());
+        List<AdventStorageResponse> adventList = AdventStorageResponse.storageBuilder(pageAdvent);
+
+        return new PageImpl<>(adventList, pageable, advents.size());
     }
 
     // Todo: 제목 수정
