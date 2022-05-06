@@ -4,17 +4,19 @@ import { useRouter } from "next/router";
 
 import styles from "../../../styles/detail/detail.module.css"
 import allAxios from "../../../src/lib/allAxios";
+import userAxios from "../../../src/lib/userAxios";
 
 export default function Presentdetail(){
     const router = useRouter();
     const {Row, Column} = Grid
+    const [userId, setUserId] = useState<number>(0)
     const boxId = router.query.boxid
-    const [content, setContent] = useState('/main/temp_main.png') // 기본이미지(임시)
-    const [day, setDay] = useState('?')
+    const [content, setContent] = useState('') //loading spinner 연결을 고려
+    const [day, setDay] = useState('?') //loading spinner 연결을 고려
 
     const getBoxInfo = async () => {
         await allAxios
-            .get(`/boxes/${boxId}`)
+            .get(`/boxes/${boxId}/${userId}`)
             .then(({ data }) => {
                 console.log(data)
                 setDay(data.advent_day)
@@ -27,14 +29,28 @@ export default function Presentdetail(){
             })
     }
 
+    const getUserInfo = async () => {
+        await userAxios.get(`/auth/users`)
+            .then((data) => {
+                setUserId(data.data.body.user.id) // 유저의 userId를 받아옴)
+            })
+            .catch((e) => {
+                console.log(e)
+            });
+    };
+
     useEffect(() => {
-        getBoxInfo()
+        getUserInfo()
     }, [])
 
+    useEffect(() => {
+        getBoxInfo()
+    }, [userId])
+
 return(
-    <div data-aos="zoom-in">
+    <div data-aos="zoom-out">
         <div className={styles.presentdetailhead}>
-            <span>✨&nbsp;D-{day? day : 'day'}&nbsp;✨</span>
+            <span>✨&nbsp;D-{day? day : 'day'}&nbsp;✨</span> {/* BE에 api response 반영 요청해야함 */}
         </div>
         <Grid stackable>
         <Row>
