@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { SetStateAction, useEffect, useState } from "react";
 import { Button, Grid, Header, Icon, Input, Popup } from "semantic-ui-react";
@@ -16,8 +17,8 @@ export default function Present(){
     const [hint, setHint] = useState('')
     const [password, setPassword] = useState('')
     const [openPresent, setOpenPresent] =useState(false)
-    const [adventDay, setAdventDay] = useState(0)
-    const [presentInfo, setPresentInfo] = useState({})
+    // const [adventDay, setAdventDay] = useState(0)
+    // const [presentInfo, setPresentInfo] = useState({})
 
     const {Row, Column} = Grid
 
@@ -38,14 +39,23 @@ export default function Present(){
         inputText['value'] = ''
     }
 
+    const goPresent = (data:any) => {
+        router.push(
+            { pathname:`/present/${presentUrl}/content`, query: {data: JSON.stringify(data)} }, // query로 props를 넘김(JSON data를 문자열로)
+            `/present/${presentUrl}/content`, // 보여줄 url (query.data url에서 보여지지 않도록 처리)
+        )
+    }
+
     const getAdventInfo = async () => {
         await allAxios
             .get(`/advents/${presentUrl}`)
             .then(({ data }) => {
                 // console.log(data)
-                setPresentInfo(data)
-                setOpenPresent(true)
-                setAdventDay(data.day)
+                // setPresentInfo(data)
+                // setOpenPresent(true)
+                // setAdventDay(data.day)
+                goPresent(data)
+                
             })
             .catch((e) => {
                 console.log(e)
@@ -77,9 +87,11 @@ export default function Present(){
         await allAxios
             .post(`/advents/auths`, body)
             .then(({ data }) => {
-                setPresentInfo(data)
-                setAdventDay(data.day)
-                setOpenPresent(true)
+                // setPresentInfo(data)
+                // setAdventDay(data.day)
+                // setOpenPresent(true)
+                goPresent(data)
+                
             })
             .catch(() => {
                 notify('error', `잘못된 비밀번호 입니다.`)
@@ -94,6 +106,9 @@ export default function Present(){
 
     return(
         <>
+            <Head>
+                <title>선물 확인하기 | Make Our Special</title>
+            </Head>
             {!openPresent?
             <div className={styles.marginTop} data-aos="zoom-in">
                 <Grid centered stackable>
@@ -133,7 +148,7 @@ export default function Present(){
             </div>
             :''}
             
-            {openPresent?
+            {/* {openPresent?
                 adventDay === 1?
                     <PresentOne presentInfo={presentInfo} />
                 :adventDay === 3?
@@ -141,7 +156,7 @@ export default function Present(){
                 :adventDay === 7?
                     <PresentSeven presentInfo={presentInfo} />
                 :""
-            :''}
+            :''} */}
         </>
     );
 }

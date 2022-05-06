@@ -1,5 +1,5 @@
 import styles from "../../../styles/present/present.module.css"
-import { Grid, Header } from "semantic-ui-react";
+import { Grid, Header, Icon } from "semantic-ui-react";
 
 export default function Title({ title }:any){
 
@@ -13,8 +13,9 @@ export default function Title({ title }:any){
                     width={6} 
                     className={ styles.title }
                 >
+                    <span className={ styles.titleNotice }>(<Icon name="asterisk" color="red" />발송자 확인용)</span>
                     <Header as="h1">
-                        <span>{ title }</span>
+                        <span className={ styles.titleText }>{ title }</span>
                     </Header>
                 </Column>
             </Row>

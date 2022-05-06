@@ -22,7 +22,7 @@ export default function Box({day, boxInfo}:any){
                     ><Icon name="gift" size="small" />열기</strong>
                 </h3>
             </div>
-            <div className={styles.ribbonIsActive}> <br /> <br /> </div>
+            {/* <div className={styles.ribbonIsActive}> <br /> <br /> </div> */}
 
             <div className={styles.wrap}>
                 <span className={styles.ribbonCross}>{ day ? `D-${day}`: 'D-day' }</span>
