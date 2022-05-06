@@ -20,8 +20,10 @@ public class AdventStorageResponse {
     private LocalDateTime modifiedAt;
     private Integer adventDay;
     private String url;
+//    private CreatedBoxDto createdBoxDto;
 
     public static List<AdventStorageResponse> storageBuilder(List<Advent> advent){
+//    public static List<AdventStorageResponse> storageBuilder(List<Advent> advent, CreatedBoxDto createdBoxDto){
         return advent.stream()
                 .map(advents -> AdventStorageResponse.builder()
                         .adventId(advents.getId())
@@ -31,6 +33,7 @@ public class AdventStorageResponse {
                         .adventDay(advents.getDay())
                         .modifiedAt(advents.getModifiedAt())
                         .url(advents.getUrl())
+//                        .createdBoxDto(createdBoxDto)
                         .build())
                 .collect(Collectors.toList());
     }
@@ -44,5 +47,27 @@ public class AdventStorageResponse {
         this.modifiedAt = modifiedAt;
         this.adventDay = adventDay;
         this.url = url;
+//        this.createdBoxDto = createdBoxDto;
     }
+
+//    @Getter
+//    @NoArgsConstructor
+//    static class CreatedBoxDto {
+//        private Integer unCreateBox;
+//        private List<Integer> unCreateBoxList;
+//        private Integer unContentBox;
+//        private List<Integer> unContentBoxList;
+//
+//        public static CreatedBoxDto createdBuilder(Integer unCreateBox, List<Integer> unCreateBoxList,
+//                                                Integer unContentBox, List<Integer> unContentBoxList){
+//            return new CreatedBoxDto(unCreateBox,unCreateBoxList,unContentBox,unContentBoxList);
+//        }
+//
+//        public createdDto(Integer unCreateBox, List<Integer> unCreateBoxList, Integer unContentBox, List<Integer> unContentBoxList) {
+//            this.unCreateBox = unCreateBox;
+//            this.unCreateBoxList = unCreateBoxList;
+//            this.unContentBox = unContentBox;
+//            this.unContentBoxList = unContentBoxList;
+//        }
+//    }
 }
