@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 export default function Sendbox(){
     const router = useRouter();
     
-    const [username, setUsername] = useState<string>('')
+    const [username, setUsername] = useState<string>('') //loading spinner 연결을 고려
     const [userId, setUserId] = useState<number>(0)
 
     
