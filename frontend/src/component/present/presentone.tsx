@@ -1,29 +1,26 @@
 import { Grid } from "semantic-ui-react";
-import Box from "./box";
 import styles from "../../../styles/present/present.module.css"
-import { useState } from "react";
 import Title from "./title";
+import Box from "./box";
 
-export default function PresentOne(){
+export default function PresentOne({presentInfo}:any){
 
     const { Row, Column } = Grid
 
-    const [title, setTitle] = useState<string>("Advent Special Day")
-    const [oneWrapper, setOneWrapper] = useState("")
 
     return(
         <>
-            <Title title={title} />
+            <Title title={presentInfo.title} />
             <Grid stackable centered>
 
                 <Row>
                     <Column width={5}/>
                     <Column 
                         textAlign="center" 
-                        style={{ minWidth: "300px", minHeight: "300px", maxWidth: "300px", maxHeight: "300px", backgroundImage: `url(${ oneWrapper })` }} 
+                        style={{ minWidth: "300px", minHeight: "300px", maxWidth: "300px", maxHeight: "300px", backgroundImage: `url(${ presentInfo.advent_box_list[0] ? presentInfo.advent_box_list[0].wrapper : '' })` }} 
                         className={ styles.box }
                     >
-                        <Box />
+                        <Box boxInfo={ presentInfo.advent_box_list[0] ? presentInfo.advent_box_list[0] : { active:false, active_day:'???' } } />
                     </Column>
                     <Column width={5}/>
                 </Row>

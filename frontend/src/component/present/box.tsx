@@ -1,20 +1,18 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
 import { Icon } from "semantic-ui-react";
 import styles from "../../../styles/present/present.module.css"
 
-export default function Box({day}:any){
+export default function Box({day, boxInfo}:any){
 
     const router = useRouter()
-    const [isDday, setIsDday] = useState(false)
 
     const openPresent = () => {
-        router.push('/')
+        router.push(`/present/detail/${boxInfo.box_id}`)
     }
 
     return(
         <>
-            {isDday?
+            {boxInfo.active?
                 <>
                     <div className={styles.ribbonWrapper}>
                         <h3 className={styles.ribbonOpen}>
@@ -32,7 +30,7 @@ export default function Box({day}:any){
                     <div className={styles.ribbonVertical}></div>
                     <div className={styles.ribbonHorizontal}>
                         <Icon name="lock" />
-                        1일 뒤 열어보실 수 있습니다.
+                        {boxInfo.active_day}일 뒤 열어보실 수 있습니다.
                     </div>
                 </>
             }
