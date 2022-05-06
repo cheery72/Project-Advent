@@ -157,3 +157,12 @@
     padding-left: 10px;
     margin-top: 20px;
 }
+
+.presentdetailhead span {
+    background-image: linear-gradient(to right, rgb(255, 221, 188), rgb(243, 173, 255));
+    background-size: 100% 60%;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    font-weight: bold;
+    color: black;
+}
