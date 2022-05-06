@@ -12,7 +12,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
     const router = useRouter()
     
     const deleteAdvent = async () => {
-        allAxios.delete(`/advents/${item.advent_id}/${userId}/`)
+        await allAxios.delete(`/advents/${item.advent_id}/${userId}/`)
             .then(() => {
                 notify('success', '선물이 삭제되었습니다.', 3000)
                 getAdventsStorage()

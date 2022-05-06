@@ -14,17 +14,16 @@ export default function Sendbox(){
 
     
     const getUserInfo = async () => {
-        userAxios.get(`/auth/users`)
+        await userAxios.get(`/auth/users`)
             .then((data) => {
                 setUsername(data.data.body.user.name)
                 setUserId(data.data.body.user.id) // 유저의 userId를 받아옴
-                // setUserId(56586189) // test id
             })
             .catch((e) => {
                 console.log(e)
-                localStorage.removeItem('token')
-                router.push('/')
-                notify('info', '로그인 시간이 만료되어 로그아웃합니다😥')
+                // localStorage.removeItem('token')
+                // router.push('/')
+                // notify('info', '로그인 시간이 만료되어 로그아웃합니다😥')
             });
     };
 

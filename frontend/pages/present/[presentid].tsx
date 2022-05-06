@@ -17,6 +17,7 @@ export default function Present(){
     const [password, setPassword] = useState('')
     const [openPresent, setOpenPresent] =useState(false)
     const [adventDay, setAdventDay] = useState(0)
+    const [presentInfo, setPresentInfo] = useState({})
 
     const {Row, Column} = Grid
 
@@ -37,14 +38,28 @@ export default function Present(){
         inputText['value'] = ''
     }
 
+    const getAdventInfo = async () => {
+        await allAxios
+            .get(`/advents/${presentUrl}`)
+            .then(({ data }) => {
+                // console.log(data)
+                setPresentInfo(data)
+                setOpenPresent(true)
+                setAdventDay(data.day)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    }
+
     const loadIsPassword = async () => {
         await allAxios
             .get(`/advents/${presentUrl}/hints`)
             .then(({ data }) => {
-                console.log(data)
+                // console.log(data)
                 if (data.password === false){
-                    setOpenPresent(true)
-                    setAdventDay(data.day)
+                    getAdventInfo()
+
                 } else {
                     setHint(data.password_hint)
                 }
@@ -62,8 +77,10 @@ export default function Present(){
         await allAxios
             .post(`/advents/auths`, body)
             .then(({ data }) => {
-                setOpenPresent(true)
+                // console.log('&&&',data)
+                setPresentInfo(data)
                 setAdventDay(data.day)
+                setOpenPresent(true)
             })
             .catch(() => {
                 notify('error', `잘못된 비밀번호 입니다.`)
@@ -119,11 +136,11 @@ export default function Present(){
             
             {openPresent?
                 adventDay === 1?
-                    <PresentOne  data-aos="zoom-in" />
+                    <PresentOne presentInfo={presentInfo} data-aos="zoom-in" />
                 :adventDay === 3?
-                    <PresentThree data-aos="zoom-in" />
+                    <PresentThree presentInfo={presentInfo} data-aos="zoom-in" />
                 :adventDay === 7?
-                    <PresentSeven data-aos="zoom-in" />
+                    <PresentSeven presentInfo={presentInfo} data-aos="zoom-in" />
                 :""
             :''}
         </>
