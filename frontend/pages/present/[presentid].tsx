@@ -77,7 +77,6 @@ export default function Present(){
         await allAxios
             .post(`/advents/auths`, body)
             .then(({ data }) => {
-                // console.log('&&&',data)
                 setPresentInfo(data)
                 setAdventDay(data.day)
                 setOpenPresent(true)
@@ -136,11 +135,11 @@ export default function Present(){
             
             {openPresent?
                 adventDay === 1?
-                    <PresentOne presentInfo={presentInfo} data-aos="zoom-in" />
+                    <PresentOne presentInfo={presentInfo} />
                 :adventDay === 3?
-                    <PresentThree presentInfo={presentInfo} data-aos="zoom-in" />
+                    <PresentThree presentInfo={presentInfo} />
                 :adventDay === 7?
-                    <PresentSeven presentInfo={presentInfo} data-aos="zoom-in" />
+                    <PresentSeven presentInfo={presentInfo} />
                 :""
             :''}
         </>

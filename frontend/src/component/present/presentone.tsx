@@ -9,7 +9,7 @@ export default function PresentOne({presentInfo}:any){
 
 
     return(
-        <>
+        <div data-aos="zoom-in">
             <Title title={presentInfo.title} />
             <Grid stackable centered>
 
@@ -25,6 +25,6 @@ export default function PresentOne({presentInfo}:any){
                     <Column width={5}/>
                 </Row>
             </Grid>
-        </>
+        </div>
     );
 }

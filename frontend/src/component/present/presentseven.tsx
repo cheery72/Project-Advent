@@ -7,7 +7,7 @@ export default function PresentSeven({presentInfo}:any){
     const { Row, Column } = Grid
     
     return(
-        <>
+        <div data-aos="zoom-in">
             <Title title={presentInfo.title} />
             <Grid textAlign="center" stackable>
                 <Row>
@@ -73,6 +73,6 @@ export default function PresentSeven({presentInfo}:any){
                     <Column largeScreen={1} tablet={16}/>
                 </Row>
             </Grid>
-        </>
+        </div>
     );
 }

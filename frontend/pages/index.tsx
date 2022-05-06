@@ -28,7 +28,7 @@ const Home: NextPage = () => {
                 data-aos='fade-up' 
                 data-aos-duration='3000'
             >
-                <h2 className={ `${styles.titleStyle}` }>
+                <h2 className={ `${styles.titleStyle}` } style={{ fontFamily: 'helvetica'}}>
                     <span className={ `${styles.titleWord} ${styles.titleWord1}` }>Make&nbsp;</span>
                     <span className={ `${styles.titleWord} ${styles.titleWord2}` }>Our&nbsp;</span>
                     <span className={ `${styles.titleWord} ${styles.titleWord3}` }>Spe</span>

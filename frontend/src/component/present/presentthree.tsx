@@ -9,7 +9,7 @@ export default function PresentThree({presentInfo}:any){
     // console.log(presentInfo)
 
     return(
-        <>
+        <div data-aos="zoom-in">
             <Title title={presentInfo.title} /> 
             <Grid textAlign="center" stackable>
 
@@ -43,6 +43,6 @@ export default function PresentThree({presentInfo}:any){
                     <Column width={2}/>
                 </Row>
             </Grid>
-        </>
+        </div>
     );
 }
