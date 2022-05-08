@@ -77,7 +77,7 @@ const Home: NextPage = () => {
                             </Button>
                             : 
                             <Link 
-                                href={`${KAKAO_LOGIN_URL}/oauth2/authorization/kakao?redirect_uri=${BASE_URL}/oauth/redirect`}
+                                href={`${KAKAO_LOGIN_URL}/oauth2/authorization/kakao?redirect_uri=${BASE_URL}/oauth/redirect/write`}
                                 passHref
                             >
                                 <Image
