@@ -1,13 +1,11 @@
 import { useRouter } from "next/router";
-import { SetStateAction, useEffect, useState } from "react";
-import { Button, Grid, Header, Icon, Input, Popup } from "semantic-ui-react";
-import notify from "../../src/component/notify/notify";
+import { useEffect, useState } from "react";
 import PresentOne from "../../src/component/mypresent/presentone";
 import PresentSeven from "../../src/component/mypresent/presentseven";
 import PresentThree from "../../src/component/mypresent/presentthree";
 import allAxios from "../../src/lib/allAxios";
 import userAxios from "../../src/lib/userAxios";
-import styles from "../../styles/present/password.module.css"
+import Head from "next/head";
 
 export default function Present(){
 
@@ -54,7 +52,9 @@ export default function Present(){
 
     return(
         <>
-            
+            <Head>
+                <title>보낸 선물 확인하기 | Make Our Special</title>
+            </Head>
             {
                 adventDay === 1?
                     <PresentOne presentInfo={presentInfo} />

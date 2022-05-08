@@ -14,7 +14,7 @@ export default function Title({ title }:any){
                     className={ styles.title }
                 >
                     <Header as="h1">
-                        <span>{ title }</span>
+                        <span className={ styles.titleText }>{ title }</span>
                     </Header>
                 </Column>
             </Row>
