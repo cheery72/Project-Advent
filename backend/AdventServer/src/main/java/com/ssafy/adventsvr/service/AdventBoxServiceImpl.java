@@ -24,8 +24,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.time.LocalDate;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
@@ -92,26 +90,26 @@ public class AdventBoxServiceImpl implements AdventBoxService {
         throw new NoSuchAdventException("요청하신 요일이 1미만이거나 설정한 요일을 초과했습니다.");
     }
 
-//    // Todo: PUT box 수정
-//    @Transactional
-//    @Override
-//    public void modifyBoxAdventBox(Integer boxId, MultipartFile file) {
-//        Optional<AdventBox> optionalAdventBox= adventBoxRepository.findById(boxId);
-//        AdventBox adventBox = optionalAdventBox.orElseThrow(NoSuchElementException::new);
-//
-//        // Todo: 기존 이미지 검증
-//        String imageUrl;
-//        if(!file.isEmpty()) {
-//            imageUrl = awsFile(file);
-//            adventBox.setAdventBoxContentModify(imageUrl);
-//        }
-//
-//    }
-
-    // Todo: POST box 포장지 생성 수정
+    // Todo: PUT box 수정
     @Transactional
     @Override
-    public AdventBoxWrapperResponse modifyWrapperAdventBox(AdventBoxWrapperRequest adventBoxWrapperRequest, MultipartFile file) {
+    public void modifyBoxAdventBox(String boxId, MultipartFile file) {
+        Optional<AdventBox> optionalAdventBox= adventBoxRepository.findById(boxId);
+        AdventBox adventBox = optionalAdventBox.orElseThrow(NoSuchElementException::new);
+
+        // Todo: 기존 이미지 검증
+        String imageUrl;
+        if(!file.isEmpty()) {
+            imageUrl = awsFile(file);
+            adventBox.setAdventBoxContentModify(imageUrl);
+        }
+
+    }
+
+    // Todo: POST box 포장지 생성
+    @Transactional
+    @Override
+    public AdventBoxWrapperResponse inputWrapperAdventBox(AdventBoxWrapperRequest adventBoxWrapperRequest, MultipartFile file) {
         Advent advent = adventRepository.findById(adventBoxWrapperRequest.getAdventId())
                 .orElseThrow(() -> new NoSuchAdventException("요청한 게시글을 찾을 수 없습니다."));
 
@@ -150,6 +148,33 @@ public class AdventBoxServiceImpl implements AdventBoxService {
         throw new NoSuchAdventException("요청하신 요일이 1미만이거나 설정한 요일을 초과했습니다.");
     }
 
+    @Override
+    public AdventBoxWrapperResponse modifyWrapperAdventBox(String boxId, AdventBoxWrapperRequest adventBoxWrapperRequest, MultipartFile file) {
+        Advent advent = adventRepository.findById(adventBoxWrapperRequest.getAdventId())
+                .orElseThrow(() -> new NoSuchAdventException("요청한 게시글을 찾을 수 없습니다."));
+
+        if(!adventBoxWrapperRequest.getUserId().equals(advent.getUserId())){
+            throw new NotAuthenticationException("잘못된 유저입니다.");
+        }
+
+        if (adventBoxWrapperRequest.getAdventDay() >= 1 && advent.getDay() >= adventBoxWrapperRequest.getAdventDay()) {
+            AdventBox adventBox = adventBoxRepository
+                    .findByAdventIdAndAdventDay(adventBoxWrapperRequest.getAdventId(), adventBoxWrapperRequest.getAdventDay())
+                    .orElseThrow(() -> new NoSuchAdventException("요청한 게시글 박스를 찾을 수 없습니다."));
+
+            String imageUrl = !file.isEmpty() ? awsFile(file) : adventBoxWrapperRequest.getImage();
+
+            adventBox.setAdventBoxWrapperModify(imageUrl);
+
+            return AdventBoxWrapperResponse.builder()
+                    .boxId(boxId)
+                    .wrapper(adventBox.getWrapper())
+                    .build();
+        }
+
+        throw new NoSuchAdventException("요청하신 요일이 1미만이거나 설정한 요일을 초과했습니다.");
+    }
+
     // Todo: GET box detail 조회
     @Override
     public AdventBoxDayResponse findDetailAdventBox(String boxId, Integer userId) {
@@ -169,14 +194,16 @@ public class AdventBoxServiceImpl implements AdventBoxService {
                 .build();
     }
 
-    // Todo: 받는 사람이 박스 조회, isActive
+    // Todo: 받는 사람이 박스 조회,
     @Override
     public AdventBoxDetailResponse findUrlDetailAdventBox(String boxId) {
         AdventBox adventBox = adventBoxRepository.findById(boxId)
                 .orElseThrow(() -> new NoSuchAdventException("요청한 게시글 박스를 찾을 수 없습니다."));
+        Advent advent = adventRepository.findById(adventBox.getAdvent().getId())
+                .orElseThrow(() -> new NoSuchAdventException("요청한 게시글을 찾을 수 없습니다."));
 
         return AdventBoxDetailResponse.builder()
-                .adventDay(adventBox.getAdventDay())
+                .adventDay(advent.getDay()-adventBox.getAdventDay())
                 .content(adventBox.getContent())
                 .build();
     }

@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -207,26 +208,38 @@ public class AdventServiceImpl implements AdventService {
         List<Advent> advents = adventRepository.findAllByUserId(userId);
 
         List<Advent> pageAdvent = adventRepository.findPageAllByUserId(pageable, userId);
+        List<AdventCreatedResponse> createList = new ArrayList<>();
 
-//        for (Advent advent: pageAdvent) {
-//            List<AdventBox> adventBoxs = adventBoxRepository.findAllByAdventIdOrderByAdventDayAsc(advent.getId());
-//            Integer unCreateBox,unContentBox;
-//            List<Integer> unCreateBoxList,unContentBoxList;
-//
-//            if(adventBoxs.size() == advent.getDay()) continue;
-//
-//            for (int i = 1; i <= advent.getDay(); i++) {
-//                // 해당 박스가 포함되어 있는지 확인해야함 1~7
-//                for (AdventBox adventBox: adventBoxs) {
-//                     if(adventBox.getAdventDay() == i){
-//
-//                         break;
-//                     }
-//                }
-//            }
-//        }
+        for (Advent advent: pageAdvent) {
+            List<AdventBox> adventBoxs = adventBoxRepository.findAllByAdventIdOrderByAdventDayAsc(advent.getId());
+            Integer unCreateBox = 0, unContentBox = 0;
+            List<Integer> unCreateBoxList = new ArrayList<>();
+            List<Integer> unContentBoxList = new ArrayList<>();
+            boolean[] isCreate = new boolean[advent.getDay()+1];
 
-        List<AdventStorageResponse> adventList = AdventStorageResponse.storageBuilder(pageAdvent);
+            if (adventBoxs.size() != advent.getDay()) {
+                for (AdventBox adventBox : adventBoxs) {
+                    isCreate[adventBox.getAdventDay()] = true;
+                    if(adventBox.getContent() == null) {
+                        unContentBoxList.add(adventBox.getAdventDay());
+                        unContentBox++;
+                    }
+                }
+
+                for (int i=1; i< isCreate.length; i++) {
+                    if(!isCreate[i]){
+                        unCreateBoxList.add(i);
+                        unCreateBox++;
+                    }
+                }
+            }
+            AdventCreatedResponse adventCreatedResponse = AdventCreatedResponse
+                                                        .createdBuilder(advent,unCreateBox,unCreateBoxList,
+                                                                        unContentBox,unContentBoxList);
+            createList.add(adventCreatedResponse);
+        }
+
+        List<AdventStorageResponse> adventList = AdventStorageResponse.storageBuilder(createList);
 
         return new PageImpl<>(adventList, pageable, advents.size());
     }

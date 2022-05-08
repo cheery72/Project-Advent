@@ -13,5 +13,4 @@ public interface AdventRepository extends JpaRepository<Advent,String>, AdventRe
     List<Advent> findAllByUserId(Integer userId);
     List<Advent> findPageAllByUserId(Pageable pageable, Integer userId);
     List<Advent> findAllBy();
-    
 }
