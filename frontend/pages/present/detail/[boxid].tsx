@@ -39,7 +39,7 @@ export default function Presentdetail(){
             </Head>
             <div data-aos="zoom-in">
                 <div className={styles.presentdetailhead}>
-                    <span>✨&nbsp;D-{day? day : 'day'}&nbsp;✨</span>
+                    <span>✨&nbsp;{day? `${day}일차 🎁` : '선물'}&nbsp;✨</span>
                 </div>
                 <Grid stackable>
                 <Row>

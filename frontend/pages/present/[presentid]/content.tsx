@@ -38,7 +38,7 @@ export default function Present(){
                     useEffect(() => {
                         router.push('/404') 
                         notify('error', '비정상적인 접근입니다.')
-                        }, [])
+                    }, [])
                 }
             </>
         )
