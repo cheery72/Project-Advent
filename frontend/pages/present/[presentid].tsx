@@ -16,9 +16,8 @@ export default function Present(){
 
     const [hint, setHint] = useState('')
     const [password, setPassword] = useState('')
-    const [openPresent, setOpenPresent] =useState(false)
-    // const [adventDay, setAdventDay] = useState(0)
-    // const [presentInfo, setPresentInfo] = useState({})
+    const [openPresent, setOpenPresent] = useState(true)
+
 
     const {Row, Column} = Grid
 
@@ -50,10 +49,6 @@ export default function Present(){
         await allAxios
             .get(`/advents/${presentUrl}`)
             .then(({ data }) => {
-                // console.log(data)
-                // setPresentInfo(data)
-                // setOpenPresent(true)
-                // setAdventDay(data.day)
                 goPresent(data)
                 
             })
@@ -72,6 +67,8 @@ export default function Present(){
 
                 } else {
                     setHint(data.password_hint)
+                    setOpenPresent(false)
+                    
                 }
             })
             .catch((e) => {
@@ -87,9 +84,6 @@ export default function Present(){
         await allAxios
             .post(`/advents/auths`, body)
             .then(({ data }) => {
-                // setPresentInfo(data)
-                // setAdventDay(data.day)
-                // setOpenPresent(true)
                 goPresent(data)
                 
             })
