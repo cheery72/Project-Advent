@@ -47,8 +47,9 @@ const Home: NextPage = () => {
                         data-aos-duration='3000'
                     >
                         <Image
-                            src='/main/temp_main.png' 
-                            alt='어드벤트 스페셜 데이'
+                            src='/main/temp_main_2.png'
+                            // https://pixabay.com/ko/vectors/%ec%83%9d%ec%9d%bc-%ec%84%a0%eb%ac%bc-%ec%83%81%ec%9e%90-%eb%86%80%eb%9d%bc%eb%8b%a4-1670415/ 무료이미지 사용
+                            alt='어드벤트 스페셜 데이 main image'
                         />
                     </Column>
                     <Column 
