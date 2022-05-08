@@ -1,11 +1,8 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { SetStateAction, useEffect, useState } from "react";
-import { Button, Grid, Header, Icon, Input, Popup } from "semantic-ui-react";
+import { Grid, Header, Icon, Popup } from "semantic-ui-react";
 import notify from "../../src/component/notify/notify";
-import PresentOne from "../../src/component/present/presentone";
-import PresentSeven from "../../src/component/present/presentseven";
-import PresentThree from "../../src/component/present/presentthree";
 import allAxios from "../../src/lib/allAxios";
 import styles from "../../styles/present/password.module.css"
 
@@ -141,16 +138,6 @@ export default function Present(){
                 </Grid>  
             </div>
             :''}
-            
-            {/* {openPresent?
-                adventDay === 1?
-                    <PresentOne presentInfo={presentInfo} />
-                :adventDay === 3?
-                    <PresentThree presentInfo={presentInfo} />
-                :adventDay === 7?
-                    <PresentSeven presentInfo={presentInfo} />
-                :""
-            :''} */}
         </>
     );
 }

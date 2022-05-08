@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 import notify from "../../../src/component/notify/notify";
 import PresentOne from "../../../src/component/present/presentone";
@@ -26,7 +26,7 @@ export default function Present(){
                         <PresentThree presentInfo={content} />
                     :content.day === 7?
                         <PresentSeven presentInfo={content} />
-                    :<></>
+                    :""
                 }
             </>
         );

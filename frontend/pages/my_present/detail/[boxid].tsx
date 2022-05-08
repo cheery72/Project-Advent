@@ -48,31 +48,31 @@ export default function Presentdetail(){
         getBoxInfo()
     }, [userId])
 
-return(
-    <>
-        <Head>
-            <title>보낸 선물 상세 | Make Our Special</title>
-        </Head>
-        <div data-aos="zoom-out">
-            <div className={styles.presentdetailhead}>
-                <span>✨&nbsp;D-{day? day : 'day'}&nbsp;✨</span> {/* BE에 api response 반영 요청해야함 */}
+    return(
+        <>
+            <Head>
+                <title>보낸 선물 상세 | Make Our Special</title>
+            </Head>
+            <div data-aos="zoom-out">
+                <div className={styles.presentdetailhead}>
+                    <span>✨&nbsp;D-{day? day : 'day'}&nbsp;✨</span> {/* BE에 api response 반영 요청해야함 */}
+                </div>
+                <Grid stackable>
+                <Row>
+                    <Column width={4}></Column>
+                    <Column width={8}>
+                        <div className={styles.boxlocation}>
+                            <Image src={content} alt="present_image" className={styles.box} />
+                        </div>
+                    </Column>
+                    <Column width={2}>
+                        <div className={styles.buttonbetween}>
+                            <Button inverted color='blue' onClick={() => {router.back();}}>뒤로 가기</Button>
+                        </div>        
+                    </Column>
+                </Row>
+                </Grid>
             </div>
-            <Grid stackable>
-            <Row>
-                <Column width={4}></Column>
-                <Column width={8}>
-                    <div className={styles.boxlocation}>
-                        <Image src={content} alt="present_image" className={styles.box} />
-                    </div>
-                </Column>
-                <Column width={2}>
-                    <div className={styles.buttonbetween}>
-                        <Button inverted color='blue' onClick={() => {router.back();}}>뒤로 가기</Button>
-                    </div>        
-                </Column>
-            </Row>
-            </Grid>
-        </div>
-    </>
-);
+        </>
+    );
 }
