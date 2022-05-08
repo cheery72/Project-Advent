@@ -25,7 +25,7 @@ public class AdventBoxController {
 
     private final AdventBoxService adventBoxService;
 
-    @ApiOperation(value = "선물 박스 생성 및 수정", notes = "박스 생성 및 수정")
+    @ApiOperation(value = "선물 박스 생성", notes = "박스 생성")
     @PostMapping
     public ResponseEntity<AdventBoxDayResponse> adventBoxDayInput(@RequestPart(value = "adventBoxRequest") @Valid AdventBoxRequest adventBoxRequest,
                                                                   @RequestPart(required = false) MultipartFile file) {
@@ -40,20 +40,20 @@ public class AdventBoxController {
                 .body(adventBoxService.inputBoxAdventBox(adventBoxRequest, file));
     }
 
-//    @ApiOperation(value = "선물 박스 수정", notes = "박스 수정")
-//    @PatchMapping("/{boxId}")
-//    public ResponseEntity<Object> adventBoxContentModify(@PathVariable("boxId") Integer boxId,
-//                                                         @RequestPart MultipartFile file) {
-//        log.info("adventBoxContentModify");
-//
-//        adventBoxService.modifyBoxAdventBox(boxId,file);
-//
-//        return ResponseEntity.noContent().build();
-//    }
+    @ApiOperation(value = "선물 박스 수정", notes = "박스 수정")
+    @PatchMapping("/{boxId}")
+    public ResponseEntity<Object> adventBoxContentModify(@PathVariable("boxId") String boxId,
+                                                         @RequestPart(required = false) MultipartFile file) {
+        log.info("adventBoxContentModify");
 
-    @ApiOperation(value = "선물 박스 생성 및 수정 포장지 선택", notes = "선물 박스 생성 및 수정 포장지 선택")
+        adventBoxService.modifyBoxAdventBox(boxId,file);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @ApiOperation(value = "선물 포장지 생성", notes = "선물 포장지 생성")
     @PostMapping("/wrappers")
-    public ResponseEntity<AdventBoxWrapperResponse> adventBoxWrapperModify(@RequestPart(value = "adventBoxWrapperRequest") AdventBoxWrapperRequest adventBoxWrapperRequest
+    public ResponseEntity<AdventBoxWrapperResponse> adventBoxWrapperInput(@RequestPart(value = "adventBoxWrapperRequest") AdventBoxWrapperRequest adventBoxWrapperRequest
                                                                          , @RequestPart(required = false) MultipartFile file) {
         log.info("adventBoxWrapperModify");
 
@@ -62,8 +62,24 @@ public class AdventBoxController {
         }
 
         return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .body(adventBoxService.inputWrapperAdventBox(adventBoxWrapperRequest, file));
+    }
+
+    @ApiOperation(value = "선물 포장지 수정", notes = "선물 포장지 수정")
+    @PatchMapping("/{boxId}/wrappers")
+    public ResponseEntity<AdventBoxWrapperResponse> adventBoxWrapperModify(String boxId,
+                                                                           @RequestPart(value = "adventBoxWrapperRequest") AdventBoxWrapperRequest adventBoxWrapperRequest
+                                                                            , @RequestPart(required = false) MultipartFile file) {
+        log.info("adventBoxWrapperModify");
+
+        if (ObjectUtils.isEmpty(adventBoxWrapperRequest)) {
+            throw new NotRequestException("요청 데이터가 비었습니다.");
+        }
+
+        return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(adventBoxService.modifyWrapperAdventBox(adventBoxWrapperRequest, file));
+                .body(adventBoxService.modifyWrapperAdventBox(boxId,adventBoxWrapperRequest, file));
     }
 
     @ApiOperation(value = "선물 박스 디테일 정보", notes = "선물 박스 상세 정보 조회")

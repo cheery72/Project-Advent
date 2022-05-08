@@ -11,9 +11,11 @@ public interface AdventBoxService {
 
     AdventBoxDayResponse inputBoxAdventBox(AdventBoxRequest adventBoxRequest, MultipartFile file);
 
-//    void modifyBoxAdventBox(Integer boxId, MultipartFile file);
+    void modifyBoxAdventBox(String boxId, MultipartFile file);
 
-    AdventBoxWrapperResponse modifyWrapperAdventBox(AdventBoxWrapperRequest adventBoxWrapperRequest, MultipartFile file);
+    AdventBoxWrapperResponse inputWrapperAdventBox(AdventBoxWrapperRequest adventBoxWrapperRequest, MultipartFile file);
+
+    AdventBoxWrapperResponse modifyWrapperAdventBox(String boxId,AdventBoxWrapperRequest adventBoxWrapperRequest, MultipartFile file);
 
     AdventBoxDayResponse findDetailAdventBox(String boxId, Integer userId);
 
