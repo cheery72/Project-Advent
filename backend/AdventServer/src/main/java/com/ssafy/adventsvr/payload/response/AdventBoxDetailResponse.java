@@ -8,11 +8,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AdventBoxDetailResponse {
     private Integer adventDay;
+    private Integer dDay;
     private String content;
 
     @Builder
-    public AdventBoxDetailResponse(Integer adventDay, String content) {
+    public AdventBoxDetailResponse(Integer adventDay, Integer dDay, String content) {
         this.adventDay = adventDay;
+        this.dDay = dDay;
         this.content = content;
     }
 }

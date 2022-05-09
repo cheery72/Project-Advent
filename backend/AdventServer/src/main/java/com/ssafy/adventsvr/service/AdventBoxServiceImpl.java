@@ -203,7 +203,8 @@ public class AdventBoxServiceImpl implements AdventBoxService {
                 .orElseThrow(() -> new NoSuchAdventException("요청한 게시글을 찾을 수 없습니다."));
 
         return AdventBoxDetailResponse.builder()
-                .adventDay(advent.getDay()-adventBox.getAdventDay())
+                .adventDay(adventBox.getAdventDay())
+                .dDay(advent.getDay()-adventBox.getAdventDay())
                 .content(adventBox.getContent())
                 .build();
     }

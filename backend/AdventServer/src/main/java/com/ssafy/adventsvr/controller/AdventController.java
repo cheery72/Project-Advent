@@ -7,6 +7,7 @@ import com.ssafy.adventsvr.payload.request.AdventDayRequest;
 import com.ssafy.adventsvr.payload.request.AdventPrivateRequest;
 import com.ssafy.adventsvr.payload.request.AdventRecipientModify;
 import com.ssafy.adventsvr.payload.response.*;
+import com.ssafy.adventsvr.repository.AdventRepository;
 import com.ssafy.adventsvr.service.AdventService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -171,6 +172,12 @@ public class AdventController {
         adventService.modifyDaysAdventBox();
 
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/image")
+    public ResponseEntity imageInput() {
+        adventService.imageInput();
+        return ResponseEntity.ok().build();
     }
 
 }
