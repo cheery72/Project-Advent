@@ -39,12 +39,15 @@ const Home: NextPage = () => {
             <Grid 
                 container 
                 centered
+                stackable
+                // reversed='computer'
             >
                 <Row>
                     <Column 
                         mobile={14} tablet={8} computer={7}
                         data-aos='zoom-in-right' 
                         data-aos-duration='3000'
+                        style={{ maxWidth: '80%' }}
                     >
                         <Image
                             src='/main/temp_main.png'
@@ -57,6 +60,7 @@ const Home: NextPage = () => {
                         className={ styles.mainCard } 
                         data-aos='flip-left'
                         data-aos-duration="3000"
+                        style={{maxWidth: '80%'}}
                     >
                         <h2 className={ styles.mainText }>소중한 사람에게 <br />특별한 선물을 해보세요 <br />
                         {/* 로그인 유무 판별 */}
@@ -66,7 +70,7 @@ const Home: NextPage = () => {
                                 color='twitter' 
                                 animated 
                                 onClick={goWritePage}
-                                style={{ height:'18%', width:'60%', padding:'5%', marginTop:'5%', fontSize:'1.5vw' }}
+                                style={{ height:'18%', width:'60%', padding:'5%', marginTop:'5%'}}
                             >
                                 <Button.Content visible>
                                     <Icon name='gift' color='yellow'/>선물하러 가기!
