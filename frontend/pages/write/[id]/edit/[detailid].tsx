@@ -20,7 +20,7 @@ export default function Edit(){
         router.push({ pathname: `/write/${adventId}/${boxInfo.advent_day}`})
     }
 
-    const getBoxInfo = async () => {
+    const getBoxInfo = async (boxId: string | string[]) => {
         await allAxios
             .get(`/boxes/${boxId}`)
             .then(({ data }) => {
@@ -33,7 +33,7 @@ export default function Edit(){
 
     useEffect(() => {
         if (boxId){
-            getBoxInfo()
+            getBoxInfo(boxId)
         }
     }, [boxId])
 

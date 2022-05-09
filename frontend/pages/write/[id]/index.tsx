@@ -25,7 +25,7 @@ export default function WritePresent(){
             });
         };
 
-    const getDay = async () => {
+    const getDay = async (adventId: string | string[]) => {
         await allAxios
             .get(`/advents/${adventId}/days`, {
                 params: {
@@ -46,7 +46,7 @@ export default function WritePresent(){
 
     useEffect(() => {
         if (adventId) {
-            getDay()
+            getDay(adventId)
         }
     }, [adventId])
 

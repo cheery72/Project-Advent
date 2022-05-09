@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Button, Grid, Header, Icon, Popup } from "semantic-ui-react";
 import notify from "../../src/component/notify/notify";
@@ -20,13 +20,15 @@ export default function Write(){
         }
     }
 
-    const getUserInfo = async () => {
+    const getUserInfo = async (router: NextRouter | string[]) => {
         await userAxios
             .get(`/auth/users`)
             .then(({ data }) => {
                 setUserInfo(data.body.user)
             })
             .catch((e) => {
+                notify('error', `로그인을 해야 작성할 수 있습니다.`)
+                router.push('/')
                 console.log(e)
             });
         };
@@ -50,14 +52,10 @@ export default function Write(){
     }
 
     useEffect(() => {
-        if(!IsLogin()){
-            notify('error', `로그인을 해야 작성할 수 있습니다.`)
-            router.push('/')
-        }
         if (IsLogin()){
-            getUserInfo()
-        }
-    }, [])
+            getUserInfo(router)
+        }   
+    }, [router])
     
     return(
         <>
