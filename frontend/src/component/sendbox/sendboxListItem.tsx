@@ -107,6 +107,28 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                 }
             })
     }
+    const emptybox = [...item.un_create_box_list, ...item.un_content_box_list]
+    emptybox.sort() // 정렬
+
+    // 생성되지 않은 상자 / 내용이 없는 상자 있을 때
+    const boxValidationCheck = () => {
+        Swal.fire({
+            title: `❝ ${item.un_create_box+item.un_content_box} ❞개의 선물 내용이 비어있어 \n 전달할 수 없습니다.`,
+            text: `❝ ${emptybox} ❞일차 선물에 추가 작성이 필요합니다. \n 선물 수정페이지로 이동하시겠습니까?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#07bcb3',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: '선물 수정하기',
+            cancelButtonText: '전달 취소'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                goModify()
+                } else if (result.isDenied) {
+                choiceKakaoOrCopy()
+                }
+            })
+    }
 
     // 카카오 링크 공유하기
     const deliveryToKakao = () => {
@@ -164,7 +186,9 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
     }
     
     const adventPassing = () => {
-        if (item.end_at) {
+        if (item.un_create_box || item.un_content_box) { 
+            boxValidationCheck()
+        } else if (item.end_at) {
             const dDayQualify = dDay()
             const { advent_day } = item
             if (dDayQualify >= advent_day) {
@@ -242,6 +266,15 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                         <Icon name="gift" color="yellow" />
                         선물일수 : <span> { item.advent_day }</span>  DAYS
                     </p>
+                    {
+                        item.un_create_box && item.un_content_box ?
+                        <p className={styles.adventDay2}>
+                            <Icon name="pencil" color="red" />
+                            미작성 선물 : <span> { item.un_create_box + item.un_content_box}</span> DAY ({emptybox.map((x, index) => index+1 !== emptybox.length ? x+', ' : x)} 일차)
+                        </p>
+                        :
+                        <></>
+                    }
                 </Column>
                 <Column width={3}>
                 { !item.received ?// 전달 전에만 수정, 삭제가 가능

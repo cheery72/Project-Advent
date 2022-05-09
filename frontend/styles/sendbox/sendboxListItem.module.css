@@ -105,7 +105,18 @@
 }
 
 .adventDay span {
-    color: #F2711C;
+    color: #4c5df7;
+}
+
+.adventDay2 {
+    margin-top: 10px;
+    margin-left: 10px;
+    font-weight: bold;
+    color: grey;
+}
+
+.adventDay2 span {
+    color: #f2631c;
 }
 
 .modifyTime {
