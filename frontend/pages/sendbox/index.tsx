@@ -4,8 +4,10 @@ import styles from '../../styles/sendbox/sendbox.module.css'
 import SendboxList from "../../src/component/sendbox/sendboxList";
 import userAxios from "../../src/lib/userAxios";
 import { useRouter } from 'next/router';
+import notify from "../../src/component/notify/notify";
 
 export default function Sendbox(){
+    const router = useRouter()
 
     const [username, setUsername] = useState<string>('') //loading spinner 연결을 고려
     const [userId, setUserId] = useState<number>(0)
@@ -19,9 +21,9 @@ export default function Sendbox(){
             })
             .catch((e) => {
                 console.log(e)
-                // localStorage.removeItem('token')
-                // router.push('/')
-                // notify('info', '로그인 시간이 만료되어 로그아웃합니다😥')
+                localStorage.removeItem('token')
+                router.push('/')
+                notify('info', '로그인 시간이 만료되어 로그아웃합니다😥')
             });
     };
 
