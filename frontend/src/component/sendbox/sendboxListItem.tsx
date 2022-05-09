@@ -225,6 +225,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
         <Grid 
             columns={3} 
             data-aos="flip-up"
+            data-aos-once="false"
             className={ `${styles.sendboxListCard} ${item.received? styles.cardAfterColor : styles.cardBeforeColor}` } 
             style={{ padding: '20px 10px 10px', margin: '0 auto' }}
         >
