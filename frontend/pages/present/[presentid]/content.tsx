@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import PresentOne from "../../../src/component/present/presentone";
 import PresentSeven from "../../../src/component/present/presentseven";
 import PresentThree from "../../../src/component/present/presentthree";
-import styles from "../../../styles/detail/detail.module.css"
 
 export default function Present(){
 

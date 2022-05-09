@@ -14,14 +14,14 @@ export default function Presentdetail(){
     
     const [userId, setUserId] = useState<number>(0)
     const [content, setContent] = useState('') //loading spinner 연결을 고려
-    const [day, setDay] = useState('') //loading spinner 연결을 고려
+    const [dday, setDday] = useState('') //loading spinner 연결을 고려
     
     const getBoxInfo = async () => {
         await allAxios
             .get(`/boxes/${boxId}/${userId}`)
             .then(({ data }) => {
-                console.log(data)
-                setDay(data.advent_day)
+                // console.log(data)
+                setDday(data.dday)
                 if (data.content) {
                     setContent(data.content)
                 }
@@ -46,8 +46,10 @@ export default function Presentdetail(){
     }, [])
 
     useEffect(() => {
-        getBoxInfo()
-    }, [userId, boxId])
+        if(userId) {
+            getBoxInfo()
+        }
+    }, [userId])
 
     return(
         <>
@@ -56,7 +58,7 @@ export default function Presentdetail(){
             </Head>
             <div data-aos="zoom-out">
                 <div className={styles.presentdetailhead}>
-                    <span>✨&nbsp;{day? `${day}일차 🎁` : '????'}&nbsp;✨</span> {/* BE에 api response 반영 요청해야함 */}
+                    <span>✨&nbsp;D-{dday? `${dday}` : 'day'}&nbsp;✨</span> {/* BE에 api response 반영 요청해야함 */}
                 </div>
                 <Grid stackable>
                 <Row>

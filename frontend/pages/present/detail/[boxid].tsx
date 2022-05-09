@@ -11,14 +11,14 @@ export default function Presentdetail(){
     const {Row, Column} = Grid
     const boxId = router.query.boxid
     const [content, setContent] = useState('/main/temp_main.png') // 기본이미지(임시)
-    const [day, setDay] = useState('?')
+    const [dday, setDday] = useState('?')
 
     const getBoxInfo = async () => {
         await allAxios
             .get(`/boxes/${boxId}`)
             .then(({ data }) => {
-                console.log(data)
-                setDay(data.advent_day)
+                // console.log(data)
+                setDday(data.dday)
                 if (data.content) {
                     setContent(data.content)
                 }
@@ -29,7 +29,9 @@ export default function Presentdetail(){
     }
 
     useEffect(() => {
-        getBoxInfo()
+        if (boxId) {
+            getBoxInfo()
+        }
     }, [])
 
     return(
@@ -39,7 +41,7 @@ export default function Presentdetail(){
             </Head>
             <div data-aos="zoom-in">
                 <div className={styles.presentdetailhead}>
-                    <span>✨&nbsp;{day? `${day}일차 🎁` : '선물'}&nbsp;✨</span>
+                    <span>✨&nbsp;D-{dday? `${dday}` : 'day'}&nbsp;✨</span>
                 </div>
                 <Grid stackable>
                 <Row>
