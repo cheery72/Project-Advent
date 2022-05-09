@@ -54,7 +54,7 @@
 }
 
 .mainText {
-    padding: 20% 5%;
+    padding: 25% 5%;
     font-size: 2vw;
     font-weight: 3px;
     line-height: 180%;
@@ -77,21 +77,16 @@
 /* mobile styles */
 @media only screen and (max-width: 767px) { 
     .titleStyle {
-        font-size: 5vw;
+        font-size: 8vw;
         text-align: center;
         text-shadow: 0 13.36px 8.896px #c4b59d,0 -2px 1px #fff;
-        margin-bottom: 10px;
+        /* margin-bottom: 5px; */
     }
     .mainText {
-        padding: 25% 0;
-        margin-bottom: 4%;
-        font-size: 2.5vw;
+        padding: 15% 0;
+        font-size: 4.5vw;
         font-weight: 3px;
         line-height: 180%;
         text-shadow: 0 13.36px 8.896px #c4b59d,0 -2px 1px #fff;
     }
-    .titleWrapper {
-        padding: 10%;
-    }
-
 }
