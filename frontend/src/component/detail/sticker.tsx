@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import styles from "../../../styles/detail/sticker.module.css"
 
-export default function Sticker ({pattern, setPattern, stickers, setStickers}:any) {
+export default function Sticker ({pattern, setPattern, setStickers}:any) {
     
     // 스티커
     const selectSticker = (e:any) => {
