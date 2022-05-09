@@ -12,6 +12,7 @@ import com.ssafy.adventsvr.payload.request.AdventBoxRequest;
 import com.ssafy.adventsvr.payload.request.AdventBoxWrapperRequest;
 import com.ssafy.adventsvr.payload.response.AdventBoxDayResponse;
 import com.ssafy.adventsvr.payload.response.AdventBoxDetailResponse;
+import com.ssafy.adventsvr.payload.response.AdventBoxUrlDetailResponse;
 import com.ssafy.adventsvr.payload.response.AdventBoxWrapperResponse;
 import com.ssafy.adventsvr.repository.AdventBoxRepository;
 import com.ssafy.adventsvr.repository.AdventRepository;
@@ -177,7 +178,7 @@ public class AdventBoxServiceImpl implements AdventBoxService {
 
     // Todo: GET box detail 조회
     @Override
-    public AdventBoxDayResponse findDetailAdventBox(String boxId, Integer userId) {
+    public AdventBoxDetailResponse findDetailAdventBox(String boxId, Integer userId) {
         AdventBox adventBox = adventBoxRepository.findById(boxId)
                 .orElseThrow(() -> new NoSuchAdventException("요청한 게시글 박스를 찾을 수 없습니다."));
 
@@ -188,21 +189,23 @@ public class AdventBoxServiceImpl implements AdventBoxService {
             throw new NotAuthenticationException("잘못된 유저입니다.");
         }
 
-        return AdventBoxDayResponse.builder()
+        return AdventBoxDetailResponse.builder()
                 .boxId(adventBox.getId())
+                .adventDay(adventBox.getAdventDay())
+                .dDay(advent.getDay()-adventBox.getAdventDay())
                 .content(adventBox.getContent())
                 .build();
     }
 
     // Todo: 받는 사람이 박스 조회,
     @Override
-    public AdventBoxDetailResponse findUrlDetailAdventBox(String boxId) {
+    public AdventBoxUrlDetailResponse findUrlDetailAdventBox(String boxId) {
         AdventBox adventBox = adventBoxRepository.findById(boxId)
                 .orElseThrow(() -> new NoSuchAdventException("요청한 게시글 박스를 찾을 수 없습니다."));
         Advent advent = adventRepository.findById(adventBox.getAdvent().getId())
                 .orElseThrow(() -> new NoSuchAdventException("요청한 게시글을 찾을 수 없습니다."));
 
-        return AdventBoxDetailResponse.builder()
+        return AdventBoxUrlDetailResponse.builder()
                 .adventDay(adventBox.getAdventDay())
                 .dDay(advent.getDay()-adventBox.getAdventDay())
                 .content(adventBox.getContent())

@@ -5,6 +5,7 @@ import com.ssafy.adventsvr.payload.request.AdventBoxRequest;
 import com.ssafy.adventsvr.payload.request.AdventBoxWrapperRequest;
 import com.ssafy.adventsvr.payload.response.AdventBoxDayResponse;
 import com.ssafy.adventsvr.payload.response.AdventBoxDetailResponse;
+import com.ssafy.adventsvr.payload.response.AdventBoxUrlDetailResponse;
 import com.ssafy.adventsvr.payload.response.AdventBoxWrapperResponse;
 import com.ssafy.adventsvr.service.AdventBoxService;
 import io.swagger.annotations.ApiOperation;
@@ -84,7 +85,7 @@ public class AdventBoxController {
 
     @ApiOperation(value = "선물 박스 디테일 정보", notes = "선물 박스 상세 정보 조회")
     @GetMapping("/{boxId}/{userId}")
-    public ResponseEntity<AdventBoxDayResponse> adventBoxDetailFind(@PathVariable(value = "boxId") String boxId,
+    public ResponseEntity<AdventBoxDetailResponse> adventBoxDetailFind(@PathVariable(value = "boxId") String boxId,
                                                                     @PathVariable(value = "userId") Integer userId) {
         log.info("adventBoxDetailFind");
 
@@ -104,7 +105,7 @@ public class AdventBoxController {
 
     @ApiOperation(value = "받는 사람이 선물 박스 디테일 정보", notes = "선물 박스 상세 정보 조회")
     @GetMapping("/{boxId}")
-    public ResponseEntity<AdventBoxDetailResponse> adventBoxUrlDetailFind(@PathVariable(value = "boxId") String boxId) {
+    public ResponseEntity<AdventBoxUrlDetailResponse> adventBoxUrlDetailFind(@PathVariable(value = "boxId") String boxId) {
         log.info("adventBoxUrlDetailFind");
 
         return ResponseEntity

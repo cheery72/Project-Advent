@@ -6,15 +6,13 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class AdventBoxDetailResponse {
-    private String boxId;
+public class AdventBoxUrlDetailResponse {
     private Integer adventDay;
     private Integer dDay;
     private String content;
 
     @Builder
-    public AdventBoxDetailResponse(String boxId, Integer adventDay, Integer dDay, String content) {
-        this.boxId = boxId;
+    public AdventBoxUrlDetailResponse(Integer adventDay, Integer dDay, String content) {
         this.adventDay = adventDay;
         this.dDay = dDay;
         this.content = content;
