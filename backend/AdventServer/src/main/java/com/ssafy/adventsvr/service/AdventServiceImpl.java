@@ -284,4 +284,9 @@ public class AdventServiceImpl implements AdventService {
             }
         }
     }
+
+    @Override
+    public void imageInput() {
+//        adventRepository.
+    }
 }
