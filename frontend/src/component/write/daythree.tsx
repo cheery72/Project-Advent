@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Grid } from "semantic-ui-react";
 import styles from "../../../styles/write/write.module.css"
 import allAxios from "../../lib/allAxios";
@@ -11,10 +11,9 @@ export default function DayThree({ userInfo }: any){
     const router = useRouter()
     const adventId = router.query.id
     const { Row, Column } = Grid
-    // const [adventInfo, setAdventInfo]: any = useState([])
-    const [wrapper1, setWrapper1] = useState("")
-    const [wrapper2, setWrapper2] = useState("")
-    const [wrapper3, setWrapper3] = useState("")
+    const [box1, setBox1]: any = useState([])
+    const [box2, setBox2]: any = useState([])
+    const [box3, setBox3]: any = useState([])
 
     const writeAniversary = () => {
         router.push(`/write/${adventId}/anniversary`)
@@ -24,14 +23,13 @@ export default function DayThree({ userInfo }: any){
         await allAxios
             .get(`/advents/${adventId}/${userInfo.id}/advent`)
             .then(({ data }) => {
-                // setAdventInfo(data.advent_box_list)
-                data.advent_box_list.map((box: { advent_day: number; wrapper: SetStateAction<string>; }) => {
+                data.advent_box_list.map((box: any) => {
                     if (box.advent_day === 1){
-                        setWrapper1(box.wrapper)
+                        setBox1(box)
                     } else if (box.advent_day === 2){
-                        setWrapper2(box.wrapper)
+                        setBox2(box)
                     } else if (box.advent_day === 3){
-                        setWrapper3(box.wrapper)
+                        setBox3(box)
                     }
                     
                 })
@@ -59,19 +57,19 @@ export default function DayThree({ userInfo }: any){
                 </Row>
                 
                 <Row>
-                    <Column width={2} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", backgroundImage: `url(${ wrapper1 })` }} className={ styles.boxdaythree2 }>
-                        <WriteThree num={1} />
+                    <Column width={2} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", backgroundImage: `url(${ box1.wrapper })` }} className={ styles.boxdaythree2 }>
+                        <WriteThree num={1} userInfo={userInfo} boxId={box1.box_id} />
                     </Column>
                 </Row>
 
                 <Row>
                     <Column width={2}/>
-                    <Column width={2} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", backgroundImage: `url(${ wrapper2 })` }} className={ styles.boxdaythree1 }>
-                        <WriteThree num={2} />
+                    <Column width={2} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", backgroundImage: `url(${ box2.wrapper })` }} className={ styles.boxdaythree1 }>
+                        <WriteThree num={2} userInfo={userInfo} boxId={box2.box_id} />
                     </Column>
                     <Column width={1}/>
-                    <Column width={2} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", backgroundImage: `url(${ wrapper3 })` }} className={ styles.boxdaythree0 }>
-                        <WriteThree num={3} />
+                    <Column width={2} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", backgroundImage: `url(${ box3.wrapper })` }} className={ styles.boxdaythree0 }>
+                        <WriteThree num={3} userInfo={userInfo} boxId={box3.box_id} />
                     </Column>
                     <Column width={2}/>
                 </Row>

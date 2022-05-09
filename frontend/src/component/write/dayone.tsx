@@ -1,18 +1,18 @@
 import { useRouter } from "next/router";
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Grid } from "semantic-ui-react";
 import styles from "../../../styles/write/write.module.css"
 import allAxios from "../../lib/allAxios";
 import Title from "./title";
 import WriteOne from "./writeone";
 
+
 export default function DayOne({ userInfo }: any){
 
     const router = useRouter()
     const adventId = router.query.id
     const { Row, Column } = Grid
-    // const [adventInfo, setAdventInfo]: any = useState([])
-    const [oneWrapper, setOneWrapper] = useState("")
+    const [box1, setBox1]: any = useState([])
 
     const writeAniversary = () => {
         router.push(`/write/${adventId}/anniversary`)
@@ -22,10 +22,9 @@ export default function DayOne({ userInfo }: any){
         await allAxios
             .get(`/advents/${adventId}/${userInfo.id}/advent`)
             .then(({ data }) => {
-                // setAdventInfo(data.advent_box_list)
-                data.advent_box_list.map((box: { advent_day: number; wrapper: SetStateAction<string>; }) => {
+                data.advent_box_list.map((box: any) => {
                     if (box.advent_day === 1){
-                        setOneWrapper(box.wrapper)
+                        setBox1(box)
                     }
                 })
             })
@@ -53,8 +52,8 @@ export default function DayOne({ userInfo }: any){
 
                 <Row>
                     <Column width={5}/>
-                    <Column textAlign="center" style={{ minWidth: "300px", minHeight: "300px", maxWidth: "300px", maxHeight: "300px", backgroundImage: `url(${ oneWrapper })` }} className={ styles.box }>
-                        <WriteOne />
+                    <Column textAlign="center" style={{ minWidth: "300px", minHeight: "300px", maxWidth: "300px", maxHeight: "300px", backgroundImage: `url(${ box1.wrapper })` }} className={ styles.box }>
+                        <WriteOne userInfo={userInfo} boxId={box1.box_id}/>
                     </Column>
                     <Column width={5}/>
                 </Row>
