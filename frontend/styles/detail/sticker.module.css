@@ -1,0 +1,19 @@
+.backgroundtitle {
+    font-size: 20px;
+    font-weight: bold;
+    width: 150px;
+    margin: auto;
+    cursor: pointer;
+}
+
+.backgroundcontent {
+    margin: 20px;
+}
+
+.backgroundcontent img{
+    margin: 0px 5px;
+    max-width: 100px;
+    max-height: 100px;
+    border: 1px solid rgb(219, 219, 219);
+    cursor: pointer;
+}
