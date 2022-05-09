@@ -25,22 +25,22 @@ export default function Navbar() {
         notify('success', msg)
     }
 
-    const getUserInfo = async () => {
-        await userAxios
-            .get(`/auth/users`)
-            .then(() => {
-            })
-            .catch(() => {
-                notify('error', "🕛로그인 시간이 만료되었습니다.")
-                logout()
-            });
-        };
+    // const getUserInfo = async () => {
+    //     await userAxios
+    //         .get(`/auth/users`)
+    //         .then(() => {
+    //         })
+    //         .catch(() => {
+    //             notify('error', "🕛로그인 시간이 만료되었습니다.")
+    //             logout()
+    //         });
+    //     };
 
-    useEffect(() => {
-        if (IsLogin()){
-            getUserInfo()
-        }
-    }, [])
+    // useEffect(() => {
+    //     if (IsLogin()){
+    //         getUserInfo()
+    //     }
+    // }, [])
 
     return(
         <>
