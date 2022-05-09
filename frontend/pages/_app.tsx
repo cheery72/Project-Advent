@@ -18,6 +18,9 @@ declare global {
 function MyApp({ Component, pageProps }: AppProps) {
     useEffect(() => {
         Aos.init({
+            easing: "ease-out-cubic",
+            once: true,
+            offset: 50,
             duration: 1000
         });
     }, [])
