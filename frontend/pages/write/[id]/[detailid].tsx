@@ -1,4 +1,4 @@
-import { Grid, Button, Icon, Checkbox } from "semantic-ui-react";
+import { Grid, Button, Icon, Checkbox, Image } from "semantic-ui-react";
 import React, {useState, useEffect} from 'react'
 import { useRouter } from "next/router";
 
@@ -102,10 +102,8 @@ export default function Detail(){
     }
 
     useEffect(() => {
-        if (IsLogin()) {
-            getUserInfo()
-        }  
-    }, [IsLogin()])
+        getUserInfo()
+    }, [])
 
 return(
     <>
@@ -121,7 +119,7 @@ return(
             <div id="canvas" className={styles.box} style={{ backgroundSize:'cover', backgroundColor:backgroundColor, backgroundImage:`url(${backImage})`}}>
                 <div style={{position:'absolute', cursor:'grab'}}>
                     {stickers && (
-                            <img
+                            <Image
                                 alt="sticker"
                                 src={stickers}
                                 style={{height:80, maxWidth:80}}
@@ -130,7 +128,7 @@ return(
                 </div>
                 <div className={styles.box_image}>
                 {image && (
-                    <img
+                    <Image
                         alt="imguploadfile"
                         src={image}
                         style={{height:150, maxWidth:300}}
@@ -192,10 +190,10 @@ return(
                 # 하트 
                 </div>
                 <div className={styles.backgroundcontent} hidden={pattern != 3}>
-                <img src='/stickersample/sample1.png' onClick={selectSticker} alt="stickerimg"></img>
-                <img src='/stickersample/sample2.png' onClick={selectSticker} alt="stickerimg"></img>
-                <img src='/stickersample/sample3.png' onClick={selectSticker} alt="stickerimg"></img>
-                <img src='/stickersample/sample4.png' onClick={selectSticker} alt="stickerimg"></img>
+                    <Image src='/stickersample/sample1.png' onClick={selectSticker} alt="stickerimg" />
+                    <Image src='/stickersample/sample2.png' onClick={selectSticker} alt="stickerimg" />
+                    <Image src='/stickersample/sample3.png' onClick={selectSticker} alt="stickerimg" />
+                    <Image src='/stickersample/sample4.png' onClick={selectSticker} alt="stickerimg" />
                 </div>
                 <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==4?"#FFFF8C":"" }}  onClick={() => {setPattern(4)}}>
                 # 숫자

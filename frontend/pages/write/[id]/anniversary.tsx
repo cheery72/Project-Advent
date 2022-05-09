@@ -129,7 +129,7 @@ export default function Anniversary(){
             })
     }
 
-    const getDay = async () => {
+    const getDay = async (adventId: string | string[]) => {
         await allAxios
             .get(`/advents/${adventId}/days`, {
                 params: {
@@ -150,7 +150,7 @@ export default function Anniversary(){
 
     useEffect(() => {
         if (adventId) {
-            getDay()
+            getDay(adventId)
         }
     }, [adventId])
 
