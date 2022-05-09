@@ -1,10 +1,9 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
-import notify from "../../../src/component/notify/notify";
 import PresentOne from "../../../src/component/present/presentone";
 import PresentSeven from "../../../src/component/present/presentseven";
 import PresentThree from "../../../src/component/present/presentthree";
+import styles from "../../../styles/detail/detail.module.css"
 
 export default function Present(){
 
@@ -26,21 +25,12 @@ export default function Present(){
                         <PresentThree presentInfo={content} />
                     :content.day === 7?
                         <PresentSeven presentInfo={content} />
-                    :""
+                    :<></>
                 }
             </>
         );
     }
-    catch { // present/[presentid]/content url 직접접근시 에러 처리
-        return (
-            <>
-                {
-                    useEffect(() => {
-                        router.push('/404') 
-                        notify('error', '비정상적인 접근입니다.')
-                    }, [])
-                }
-            </>
-        )
+    catch {
+        return <>비정상적인 접근입니다.</>
     }
 }
