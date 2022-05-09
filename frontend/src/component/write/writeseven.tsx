@@ -25,7 +25,7 @@ export default function WriteSeven({ num, userInfo, boxId }: any){
             .get(`/boxes/${boxId}/${userInfo.id}`)
             .then(({ data }) => {
                 if (data.content){
-                    router.push({ pathname: `/write/${adventId}/edit/${number}`})
+                    router.push({ pathname: `/write/${adventId}/edit/${boxId}`})
                 } else {
                     router.push({ pathname: `/write/${adventId}/${number}`})
                 }
