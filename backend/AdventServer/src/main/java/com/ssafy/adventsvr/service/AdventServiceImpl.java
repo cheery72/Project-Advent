@@ -220,10 +220,6 @@ public class AdventServiceImpl implements AdventService {
             if (adventBoxs.size() != advent.getDay()) {
                 for (AdventBox adventBox : adventBoxs) {
                     isCreate[adventBox.getAdventDay()] = true;
-                    if(adventBox.getContent() == null) {
-                        unContentBoxList.add(adventBox.getAdventDay());
-                        unContentBox++;
-                    }
                 }
 
                 for (int i=1; i< isCreate.length; i++) {
@@ -233,6 +229,14 @@ public class AdventServiceImpl implements AdventService {
                     }
                 }
             }
+
+            for (AdventBox adventBox : adventBoxs) {
+                if(adventBox.getContent() == null) {
+                    unContentBoxList.add(adventBox.getAdventDay());
+                    unContentBox++;
+                }
+            }
+
             AdventCreatedResponse adventCreatedResponse = AdventCreatedResponse
                                                         .createdBuilder(advent,unCreateBox,unCreateBoxList,
                                                                         unContentBox,unContentBoxList);
