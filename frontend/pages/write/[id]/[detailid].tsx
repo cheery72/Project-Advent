@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import styles from "../../../styles/detail/detail.module.css"
 import Selectbackground from "../../../src/component/detail/selectbackground"
 import Text from "../../../src/component/detail/text"
+import Sticker from "../../../src/component/detail/sticker"
 import { HexColorPicker } from "react-colorful";
 import allAxios from "../../../src/lib/allAxios";
 import userAxios from "../../../src/lib/userAxios";
@@ -28,9 +29,6 @@ export default function Detail(){
 
     // 스티커
     const [stickers, setStickers] = useState('')
-    const selectSticker = (e:any) => {
-        setStickers(e.target.currentSrc);
-    }
 
     // 이미지 업로드
     const saveImage = (e:any) => {
@@ -102,7 +100,9 @@ export default function Detail(){
     }
 
     useEffect(() => {
+        if (IsLogin()){
         getUserInfo()
+    }
     }, [])
 
 return(
@@ -173,35 +173,7 @@ return(
             <Selectbackground setBackgroundColor={setBackgroundColor} setBackImage={setBackImage} backgroundcolor={backgroundColor}></Selectbackground>
             </div>
             <div className={styles.tabcontent} hidden={index != 1}>
-            <div>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==1?"#FFFF8C":"" }} onClick={() => {setPattern(1)}}>
-                # 알파벳
-                </div>
-                <div className={styles.backgroundcontent} hidden={pattern != 1}>
-                
-                </div>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==2?"#FFFF8C":"" }}  onClick={() => {setPattern(2)}}>
-                # 축하
-                </div>
-                <div className={styles.backgroundcontent} hidden={pattern != 2}>
-
-                </div>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==3?"#FFFF8C":"" }}  onClick={() => {setPattern(3)}}>
-                # 하트 
-                </div>
-                <div className={styles.backgroundcontent} hidden={pattern != 3}>
-                    <Image src='/stickersample/sample1.png' onClick={selectSticker} alt="stickerimg" />
-                    <Image src='/stickersample/sample2.png' onClick={selectSticker} alt="stickerimg" />
-                    <Image src='/stickersample/sample3.png' onClick={selectSticker} alt="stickerimg" />
-                    <Image src='/stickersample/sample4.png' onClick={selectSticker} alt="stickerimg" />
-                </div>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==4?"#FFFF8C":"" }}  onClick={() => {setPattern(4)}}>
-                # 숫자
-                </div>
-                <div className={styles.backgroundcontent} hidden={pattern != 4}>
-
-                </div>
-            </div>
+            <Sticker pattern={pattern} setPattern={setPattern} setStickers={setStickers}></Sticker>
             </div>
             <div className={styles.tabcontent} hidden={index != 2}>
                 <div>
