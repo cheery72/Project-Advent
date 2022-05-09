@@ -5,6 +5,7 @@ import SendboxList from "../../src/component/sendbox/sendboxList";
 import userAxios from "../../src/lib/userAxios";
 import { useRouter } from 'next/router';
 import notify from "../../src/component/notify/notify";
+import IsLogin from "../../src/lib/IsLogin";
 
 export default function Sendbox(){
     const router = useRouter()
@@ -28,9 +29,10 @@ export default function Sendbox(){
     };
 
     useEffect(() => {
-        getUserInfo()
+        if (IsLogin()) {
+            getUserInfo()
+        }
     }, [])
-
 
     return(
         <>

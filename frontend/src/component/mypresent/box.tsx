@@ -7,7 +7,7 @@ export default function Box({day, boxInfo}:any){
     const router = useRouter()
 
     const openPresent = () => {
-        console.log(boxInfo)
+        // console.log(boxInfo)
         router.push(`/my_present/detail/${boxInfo.box_id}`)
     }
 

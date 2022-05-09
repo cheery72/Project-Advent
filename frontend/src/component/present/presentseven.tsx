@@ -9,6 +9,9 @@ export default function PresentSeven({presentInfo}:any){
     return(
         <div data-aos="zoom-in">
             <Title title={presentInfo.title} />
+            <div className={styles.dateStyle}>
+                <span>🗓️ D-DAY | { presentInfo.advent_box_list[6].is_active_at }</span>
+            </div>
             <Grid textAlign="center" stackable>
                 <Row>
                     <Column largeScreen={2} tablet={16}/>

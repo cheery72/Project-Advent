@@ -391,11 +391,24 @@
     display: block;
     border-style: solid;
     border-color: #937f7f transparent transparent;
-    bottom: -1em
+    bottom: -1em;
 }
   
 .ribbonOpen .ribbonInner:before {
     left: 0;
-    border-width: 1em 0 0 1em
+    border-width: 1em 0 0 1em;
 }
-  
+
+.dateStyle {
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.dateStyle span {
+    background-image: linear-gradient(to right, rgb(254, 255, 181), rgb(255, 178, 91));
+    background-size: 100% 30%;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    color: black;
+}

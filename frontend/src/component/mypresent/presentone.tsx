@@ -11,6 +11,9 @@ export default function PresentOne({presentInfo}:any){
     return(
         <div data-aos="zoom-out">
             <Title title={presentInfo.title} />
+            <div className={styles.dateStyle}>
+                <span>🗓️ D-DAY | { presentInfo.advent_box_list[0].is_active_at }</span>
+            </div>
             <Grid stackable centered>
 
                 <Row>
