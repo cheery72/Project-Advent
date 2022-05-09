@@ -186,7 +186,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
     }
     
     const adventPassing = () => {
-        if (item.un_create_box || item.un_content_box) { 
+        if (item.un_create_box + item.un_content_box) { 
             boxValidationCheck()
         } else if (item.end_at) {
             const dDayQualify = dDay()
@@ -267,9 +267,9 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                         선물일수 : <span> { item.advent_day }</span>  DAYS
                     </p>
                     {
-                        item.un_create_box && item.un_content_box ?
+                        (item.un_create_box + item.un_content_box) ?
                         <p className={styles.adventDay2}>
-                            <Icon name="pencil" color="red" />
+                            <Icon name="warning" color="red" />
                             미작성 선물 : <span> { item.un_create_box + item.un_content_box}</span> DAY ({emptybox.map((x, index) => index+1 !== emptybox.length ? x+', ' : x)} 일차)
                         </p>
                         :
