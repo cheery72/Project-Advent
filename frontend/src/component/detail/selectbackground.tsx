@@ -17,10 +17,6 @@ export default function Selectbackground ({setBackgroundColor, setBackImage, bac
         setBackImage(e.target.currentSrc)
     }
 
-    const deleteImage = (e:any) => {
-        setBackImage('')
-    }
-
     // tab
     const selectImageType = (num: SetStateAction<number>) => {
         setImageType(num)
