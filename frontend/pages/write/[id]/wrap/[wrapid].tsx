@@ -10,8 +10,8 @@ import styles from "../../../../styles/write/wrap.module.css"
 export default function Wrap(){
 
     const router = useRouter()
-    const wrapid = router.query.wrapid
-    const adventId: any = router.query.id
+    const wrapId = router.query.wrapid
+    const adventId: string | string[] | undefined = router.query.id
 
     const { Row, Column } = Grid
 
@@ -94,7 +94,7 @@ export default function Wrap(){
     const saveImages = async () => {
         const body = new FormData();
         const adventBoxWrapperRequest: any = {
-            advent_day: wrapid,
+            advent_day: wrapId,
             advent_id: adventId,
             image: backgroundImage,
             user_id: userInfo.id
@@ -113,8 +113,23 @@ export default function Wrap(){
                 headers: {"Content-Type": "multipart/form-data"}
             })
             .then(() => {
-                notify('success', `👋${wrapid}번 포장지가 변경되었습니다.`)
+                notify('success', `👋${wrapId}번 포장지가 변경되었습니다.`)
                 router.push({ pathname: `/write/${adventId}`})
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    }
+
+    const getAdventInfo = async (adventId: string | string[] | undefined, userInfo: any) => {
+        await allAxios
+            .get(`/advents/${adventId}/${userInfo.id}/advent`)
+            .then(({ data }) => {
+                data.advent_box_list.map((box: any) => {
+                    if (box.advent_day == wrapId) {
+                        setBackgroundImage(box.wrapper)
+                    }
+                })
             })
             .catch((e) => {
                 console.log(e)
@@ -124,6 +139,12 @@ export default function Wrap(){
     useEffect(() => {
         getUserInfo()
     }, [])
+
+    useEffect(() => {
+        if (userInfo && adventId){
+            getAdventInfo(adventId, userInfo)
+        }
+    }, [userInfo, adventId])
 
     return(
         <>
