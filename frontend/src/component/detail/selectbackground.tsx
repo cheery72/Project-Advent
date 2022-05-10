@@ -10,8 +10,6 @@ export default function Selectbackground ({setBackgroundColor, setBackImage, bac
     const [backgroundImage, setBackgroundImage] = useState('')
     const [imageType, setImageType] = useState(1)
     const [pattern, setPattern] = useState(1)
-    const [searchWord, setSearchWord] = useState('')
-    const [unsplashImages, setUnsplashImages]: any = useState([])
 
     const selectImage = (e:any) => {
         setBackImage(e.target.currentSrc)
@@ -41,28 +39,6 @@ export default function Selectbackground ({setBackgroundColor, setBackImage, bac
         setBackgroundColor(updatedcolor)
     }
 
-    // upsplash
-    const writeSearchWord = (e: { target: { value: SetStateAction<string>; }; }) => {
-        setSearchWord(e.target.value)
-    }
-
-    const searchImage = () => {
-        loadImages()
-    }
-
-
-    const loadImages = async () => {
-        await unsplashAxios
-            .get(`/search/photos`, {
-                params: { query: searchWord, per_page: 15 }
-            })
-            .then(({ data }) => {
-                setUnsplashImages(data.results)
-            })
-            .catch((e) => {
-                console.log(e)
-            })
-    }
 
     return (
         <>
@@ -71,7 +47,6 @@ export default function Selectbackground ({setBackgroundColor, setBackImage, bac
                 <div onClick={()=>{selectImageType(1)}} className={imageType===1?styles.selecttab:styles.tabhead }>내 이미지 찾기</div>
                 <div onClick={()=>{selectImageType(2)}} className={imageType===2?styles.selecttab:styles.tabhead }>기존 이미지 선택</div>
                 <div onClick={()=>{selectImageType(3)}} className={imageType===3?styles.selecttab:styles.tabhead }>색상 선택</div>
-                <div onClick={()=>{selectImageType(4)}} className={imageType===4?styles.selecttab:styles.tabhead }>이미지 검색</div>
             </div>
             {imageType===1?
                 <div>
@@ -144,30 +119,7 @@ export default function Selectbackground ({setBackgroundColor, setBackImage, bac
             </>
         :
         ''}
-        {imageType===4?
-        <>
-            <div>
-                <Header as="h5">검색할 단어를 입력하세요!</Header>
-                <Input type="text" placeholder="영어로 입력해주세요" maxLength={15} onChange={writeSearchWord}/>
-                <Button color="blue" inverted onClick={ searchImage }>검색</Button>
-            </div>
-            <div className={styles.backgroundcontent}>   
-                {unsplashImages?
-                    unsplashImages.map((image: any) => {
-                        return (
-                            <>
-                                <span key={image.id}>
-                                <Image src={image.urls.small} alt="" wrapped width={100} onClick={selectImage}/>
-                                </span> 
-                            </>
-                        );           
-                    })
-                :''}
-            </div> 
-        </>
-        :
-        ''}
-            </div>
+        </div>
         </>
     );
 }

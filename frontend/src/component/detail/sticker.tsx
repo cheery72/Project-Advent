@@ -15,54 +15,54 @@ export default function Sticker ({pattern, setPattern, setStickers}:any) {
             <div className={styles.tabs}>
                 <div className={styles.tablist}>
                     <div className={stickerIndex===0?styles.selecttab:styles.tabhead} onClick={()=>{setStickerIndex(0)}}>
-                        <img src='/stickercategory/alphabet.png' onClick={selectSticker} alt="stickercategoryimg"></img>
+                        <img src='/stickercategory/alphabet.png' alt="stickercategoryimg"></img>
                     </div>
                     <div className={stickerIndex===1?styles.selecttab:styles.tabhead} onClick={()=>{setStickerIndex(1)}}>
-                        <img src='/stickercategory/alphabet2.png' onClick={selectSticker} alt="stickercategoryimg"></img>
+                        <img src='/stickercategory/alphabet2.png' alt="stickercategoryimg"></img>
                     </div>
                     <div className={stickerIndex===2?styles.selecttab:styles.tabhead} onClick={()=>{setStickerIndex(2)}}>
-                        <img src='/stickercategory/alphabet3.png' onClick={selectSticker} alt="stickercategoryimg"></img>
+                        <img src='/stickercategory/alphabet3.png' alt="stickercategoryimg"></img>
                     </div>
                     <div className={stickerIndex===3?styles.selecttab:styles.tabhead} onClick={()=>{setStickerIndex(3)}}>
-                        <img src='/stickercategory/alphabet4.png' onClick={selectSticker} alt="stickercategoryimg"></img>
+                        <img src='/stickercategory/alphabet4.png' alt="stickercategoryimg"></img>
                     </div>
                     <div className={stickerIndex===4?styles.selecttab:styles.tabhead} onClick={()=>{setStickerIndex(4)}}>
-                        <img src='/stickercategory/catchword.png' onClick={selectSticker} alt="stickercategoryimg"></img>
+                        <img src='/stickercategory/catchword.png' alt="stickercategoryimg"></img>
                     </div>
                     <div className={stickerIndex===5?styles.selecttab:styles.tabhead} onClick={()=>{setStickerIndex(5)}}>
-                        <img src='/stickercategory/number2.png' onClick={selectSticker} alt="stickercategoryimg"></img>
+                        <img src='/stickercategory/number2.png' alt="stickercategoryimg"></img>
                     </div>
                     <div className={stickerIndex===6?styles.selecttab:styles.tabhead} onClick={()=>{setStickerIndex(6)}}>
-                        <img src='/stickercategory/day.png' onClick={selectSticker} alt="stickercategoryimg"></img>
+                        <img src='/stickercategory/day.png' alt="stickercategoryimg"></img>
                     </div>
                     <div className={stickerIndex===7?styles.selecttab:styles.tabhead} onClick={()=>{setStickerIndex(7)}}>
-                        <img src='/stickercategory/birthday.png' onClick={selectSticker} alt="stickercategoryimg"></img>
+                        <img src='/stickercategory/birthday.png' alt="stickercategoryimg"></img>
                     </div>
                 </div>
                 <div className={styles.tablist}>
                     <div className={stickerIndex===8?styles.selecttab:styles.tabhead} onClick={()=>{setStickerIndex(8)}}>
-                        <img src='/stickercategory/love.png' onClick={selectSticker} alt="stickercategoryimg"></img>
+                        <img src='/stickercategory/love.png' alt="stickercategoryimg"></img>
                     </div>
                     <div className={stickerIndex===9?styles.selecttab:styles.tabhead} onClick={()=>{setStickerIndex(9)}}>
-                        <img src='/stickercategory/love2.png' onClick={selectSticker} alt="stickercategoryimg"></img>
+                        <img src='/stickercategory/love2.png' alt="stickercategoryimg"></img>
                     </div>
                     <div className={stickerIndex===10?styles.selecttab:styles.tabhead} onClick={()=>{setStickerIndex(10)}}>
-                        <img src='/stickercategory/food.png' onClick={selectSticker} alt="stickercategoryimg"></img>
+                        <img src='/stickercategory/food.png' alt="stickercategoryimg"></img>
                     </div>
                     <div className={stickerIndex===11?styles.selecttab:styles.tabhead} onClick={()=>{setStickerIndex(11)}}>
-                        <img src='/stickercategory/animal.png' onClick={selectSticker} alt="stickercategoryimg"></img>
+                        <img src='/stickercategory/animal.png' alt="stickercategoryimg"></img>
                     </div>
                     <div className={stickerIndex===12?styles.selecttab:styles.tabhead} onClick={()=>{setStickerIndex(12)}}>
-                        <img src='/stickercategory/animal2.png' onClick={selectSticker} alt="stickercategoryimg"></img>
+                        <img src='/stickercategory/animal2.png' alt="stickercategoryimg"></img>
                     </div>
                     <div className={stickerIndex===13?styles.selecttab:styles.tabhead} onClick={()=>{setStickerIndex(13)}}>
-                        <img src='/stickercategory/nature4.png' onClick={selectSticker} alt="stickercategoryimg"></img>
+                        <img src='/stickercategory/nature4.png' alt="stickercategoryimg"></img>
                     </div>
                     <div className={stickerIndex===14?styles.selecttab:styles.tabhead} onClick={()=>{setStickerIndex(14)}}>
-                        <img src='/stickercategory/home.png' onClick={selectSticker} alt="stickercategoryimg"></img>
+                        <img src='/stickercategory/home.png' alt="stickercategoryimg"></img>
                     </div>
                     <div className={stickerIndex===15?styles.selecttab:styles.tabhead} onClick={()=>{setStickerIndex(15)}}>
-                        <img src='/stickercategory/study.png' onClick={selectSticker} alt="stickercategoryimg"></img>
+                        <img src='/stickercategory/study.png' alt="stickercategoryimg"></img>
                     </div>
                 </div>
             </div>
