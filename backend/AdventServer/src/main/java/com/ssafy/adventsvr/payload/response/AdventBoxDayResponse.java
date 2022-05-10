@@ -10,11 +10,13 @@ public class AdventBoxDayResponse {
 
     private String boxId;
     private String content;
+    private boolean isAnimation;
 
     @Builder
-    public AdventBoxDayResponse(String boxId, String content) {
+    public AdventBoxDayResponse(String boxId, String content, boolean isAnimation) {
         this.boxId = boxId;
         this.content = content;
+        this.isAnimation = isAnimation;
     }
 }
 

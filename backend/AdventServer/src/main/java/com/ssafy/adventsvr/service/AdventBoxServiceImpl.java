@@ -52,7 +52,6 @@ public class AdventBoxServiceImpl implements AdventBoxService {
         Advent advent = adventRepository.findById(adventBoxRequest.getAdventId())
                 .orElseThrow(() -> new NoSuchAdventException("요청한 게시글을 찾을 수 없습니다."));
 
-
         if (!adventBoxRequest.getUserId().equals(advent.getUserId())){
             throw new NotAuthenticationException("잘못된 유저입니다.");
         }
@@ -78,13 +77,14 @@ public class AdventBoxServiceImpl implements AdventBoxService {
                 adventBox = optionalAdventBox
                         .orElseThrow(() -> new NoSuchAdventException("요청한 게시글 박스를 찾을 수 없습니다."));
 
-                adventBox.setAdventBoxContentModify(imageUrl);
+                adventBox.setAdventBoxContentModify(imageUrl, adventBoxRequest.isAnimation());
                 boxId = adventBox.getId();
             }
 
             return AdventBoxDayResponse.builder()
                     .boxId(boxId)
                     .content(adventBox.getContent())
+                    .isAnimation(adventBox.isAnimation())
                     .build();
         }
 
@@ -102,7 +102,7 @@ public class AdventBoxServiceImpl implements AdventBoxService {
         String imageUrl;
         if(!file.isEmpty()) {
             imageUrl = awsFile(file);
-            adventBox.setAdventBoxContentModify(imageUrl);
+//            adventBox.setAdventBoxContentModify(imageUrl,isAnimation);
         }
 
     }
@@ -194,6 +194,7 @@ public class AdventBoxServiceImpl implements AdventBoxService {
                 .adventDay(adventBox.getAdventDay())
                 .dDay(advent.getDay()-adventBox.getAdventDay())
                 .content(adventBox.getContent())
+                .isAnimation(adventBox.isAnimation())
                 .build();
     }
 
@@ -209,6 +210,7 @@ public class AdventBoxServiceImpl implements AdventBoxService {
                 .adventDay(adventBox.getAdventDay())
                 .dDay(advent.getDay()-adventBox.getAdventDay())
                 .content(adventBox.getContent())
+                .isAnimation(adventBox.isAnimation())
                 .build();
     }
 
