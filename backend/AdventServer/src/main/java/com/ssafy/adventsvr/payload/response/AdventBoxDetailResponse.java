@@ -11,12 +11,14 @@ public class AdventBoxDetailResponse {
     private Integer adventDay;
     private Integer dDay;
     private String content;
+    private boolean isAnimation;
 
     @Builder
-    public AdventBoxDetailResponse(String boxId, Integer adventDay, Integer dDay, String content) {
+    public AdventBoxDetailResponse(String boxId, Integer adventDay, Integer dDay, String content, boolean isAnimation) {
         this.boxId = boxId;
         this.adventDay = adventDay;
         this.dDay = dDay;
         this.content = content;
+        this.isAnimation = isAnimation;
     }
 }

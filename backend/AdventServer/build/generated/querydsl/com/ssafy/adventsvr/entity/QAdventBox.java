@@ -41,6 +41,8 @@ public class QAdventBox extends EntityPathBase<AdventBox> {
 
     public final BooleanPath isActive = createBoolean("isActive");
 
+    public final BooleanPath isAnimation = createBoolean("isAnimation");
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modifiedAt = _super.modifiedAt;
 

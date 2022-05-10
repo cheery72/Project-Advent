@@ -21,4 +21,6 @@ public class AdventBoxRequest {
     @NotNull
     private Integer userId;
 
+    private boolean isAnimation;
+
 }

@@ -33,6 +33,9 @@ public class AdventBox extends BaseTimeEntity{
 
     private String wrapper;
 
+    @Column(nullable = false, columnDefinition = "tinyint default 0")
+    private boolean isAnimation;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "advent_id")
     private Advent advent;
@@ -43,6 +46,7 @@ public class AdventBox extends BaseTimeEntity{
                 .adventDay(adventBoxRequest.getAdventDay())
                 .advent(advent)
                 .content(imageUrl)
+                .isAnimation(adventBoxRequest.isAnimation())
                 .build();
     }
 
@@ -56,7 +60,7 @@ public class AdventBox extends BaseTimeEntity{
     }
 
     @Builder
-    public AdventBox(String id, String content, boolean isActive, LocalDate activeAt, Integer activeDay, Integer adventDay, String wrapper, Advent advent) {
+    public AdventBox(String id, String content, boolean isActive, LocalDate activeAt, Integer activeDay, Integer adventDay, String wrapper, boolean isAnimation, Advent advent) {
         this.id = id;
         this.content = content;
         this.isActive = isActive;
@@ -64,11 +68,13 @@ public class AdventBox extends BaseTimeEntity{
         this.activeDay = activeDay;
         this.adventDay = adventDay;
         this.wrapper = wrapper;
+        this.isAnimation = isAnimation;
         this.advent = advent;
     }
 
-    public void setAdventBoxContentModify(String imageUrl){
+    public void setAdventBoxContentModify(String imageUrl, boolean isAnimation){
         this.content = imageUrl;
+        this.isAnimation = isAnimation;
     }
 
     public void setAdventBoxActiveAtModify(LocalDate endAt,Integer day, AdventBox adventBox){
