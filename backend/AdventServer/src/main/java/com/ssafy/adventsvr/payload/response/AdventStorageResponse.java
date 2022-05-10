@@ -23,6 +23,7 @@ public class AdventStorageResponse {
     private List<Integer> unCreateBoxList;
     private Integer unContentBox;
     private List<Integer> unContentBoxList;
+    private String wrapper;
 
     public static List<AdventStorageResponse> storageBuilder(List<AdventCreatedResponse> advent){
         return advent.stream()
@@ -38,12 +39,13 @@ public class AdventStorageResponse {
                         .unCreateBoxList(advents.getUnCreateBoxList())
                         .unContentBox(advents.getUnContentBox())
                         .unContentBoxList(advents.getUnContentBoxList())
+                        .wrapper(advents.getWrapper())
                         .build())
                 .collect(Collectors.toList());
     }
 
     @Builder
-    public AdventStorageResponse(String adventId, String title, boolean isReceived, LocalDate endAt, LocalDateTime modifiedAt, Integer adventDay, String url, Integer unCreateBox, List<Integer> unCreateBoxList, Integer unContentBox, List<Integer> unContentBoxList) {
+    public AdventStorageResponse(String adventId, String title, boolean isReceived, LocalDate endAt, LocalDateTime modifiedAt, Integer adventDay, String url, Integer unCreateBox, List<Integer> unCreateBoxList, Integer unContentBox, List<Integer> unContentBoxList, String wrapper) {
         this.adventId = adventId;
         this.title = title;
         this.isReceived = isReceived;
@@ -55,5 +57,6 @@ public class AdventStorageResponse {
         this.unCreateBoxList = unCreateBoxList;
         this.unContentBox = unContentBox;
         this.unContentBoxList = unContentBoxList;
+        this.wrapper = wrapper;
     }
 }
