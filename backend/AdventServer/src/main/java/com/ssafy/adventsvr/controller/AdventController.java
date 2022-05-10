@@ -173,11 +173,4 @@ public class AdventController {
 
         return ResponseEntity.noContent().build();
     }
-
-    @PostMapping("/image")
-    public ResponseEntity imageInput() {
-        adventService.imageInput();
-        return ResponseEntity.ok().build();
-    }
-
 }

@@ -34,5 +34,4 @@ public interface AdventService {
 
     void modifyDaysAdventBox();
 
-    void imageInput();
 }
