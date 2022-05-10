@@ -237,9 +237,14 @@ public class AdventServiceImpl implements AdventService {
                 }
             }
 
+            String wrapper = null;
+            if(!adventBoxs.isEmpty()){
+                wrapper = adventBoxs.get(0).getWrapper();
+            }
+
             AdventCreatedResponse adventCreatedResponse = AdventCreatedResponse
                                                         .createdBuilder(advent,unCreateBox,unCreateBoxList,
-                                                        unContentBox,unContentBoxList);
+                                                        unContentBox,unContentBoxList,wrapper);
             createList.add(adventCreatedResponse);
         }
 
