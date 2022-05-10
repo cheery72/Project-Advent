@@ -239,7 +239,7 @@ public class AdventServiceImpl implements AdventService {
 
             AdventCreatedResponse adventCreatedResponse = AdventCreatedResponse
                                                         .createdBuilder(advent,unCreateBox,unCreateBoxList,
-                                                                        unContentBox,unContentBoxList);
+                                                        unContentBox,unContentBoxList);
             createList.add(adventCreatedResponse);
         }
 
@@ -289,8 +289,4 @@ public class AdventServiceImpl implements AdventService {
         }
     }
 
-    @Override
-    public void imageInput() {
-//        adventRepository.
-    }
 }
