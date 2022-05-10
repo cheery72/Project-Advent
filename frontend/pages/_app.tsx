@@ -23,7 +23,9 @@ function MyApp({ Component, pageProps }: AppProps) {
             offset: 50,
             duration: 1000
         });
+        Aos.refreshHard()
     }, [])
+    
     return(
         <>
             <div className="background">
