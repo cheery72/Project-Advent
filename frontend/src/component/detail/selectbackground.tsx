@@ -1,9 +1,8 @@
 import { Button, Header, Image, Input } from "semantic-ui-react";
 import { useRouter } from "next/router";
-import React, { SetStateAction, useEffect, useState } from "react";
+import React, { SetStateAction, useState } from "react";
 import styles from "../../../styles/detail/selectbackground.module.css"
 import { HexColorPicker } from "react-colorful";
-import unsplashAxios from "../../../src/lib/unsplashAxios";
 
 export default function Selectbackground ({setBackgroundColor, setBackImage, backgroundcolor}:any) {
     const router = useRouter();

@@ -1,12 +1,12 @@
 import { Grid, Button, Icon, Checkbox, Image } from "semantic-ui-react";
-import React, {useState, useEffect} from 'react'
+import React, {SetStateAction, useState, useEffect} from 'react'
 import { useRouter } from "next/router";
 
 import styles from "../../../styles/detail/detail.module.css"
 import Selectbackground from "../../../src/component/detail/selectbackground"
 import Text from "../../../src/component/detail/text"
 import Sticker from "../../../src/component/detail/sticker"
-import { HexColorPicker } from "react-colorful";
+import Snow from "../../../src/component/animation/snow"
 import allAxios from "../../../src/lib/allAxios";
 import userAxios from "../../../src/lib/userAxios";
 import IsLogin from "../../../src/lib/IsLogin";
@@ -17,6 +17,7 @@ export default function Detail(){
     const day = router.query.detailid
     const adventId = router.query.id
     const {Row, Column} = Grid
+
 
     //decorativeframe
     const[index, setIndex] = useState(0);
@@ -47,6 +48,26 @@ export default function Detail(){
     const [color, setColor] = useState("#000000");
     const [fontweight, setFontweight]:any = React.useState('normal')
     const [fontsize, setFontsize]:any = useState(30)
+
+    // 효과
+    const [effectpattern, setEffectPattern] = useState('noeffect')
+    
+    const cardeffect1 = async () => {
+        setEffectPattern('noeffect')
+    }
+
+    const cardeffect2 = async () => {
+        setEffectPattern('snow')
+    }
+    
+    const cardeffect3 = async () => {
+        setEffectPattern('flower')
+    }  
+
+    const cardeffect4 = async () => {
+        setEffectPattern('fruit')
+    }  
+
 
 
     // 유저 정보
@@ -108,6 +129,11 @@ export default function Detail(){
 return(
     <>
         <div className={styles.total}>
+            <div>
+                {effectpattern == 'snow'? <Snow effectImage={''}></Snow>:''}
+                {effectpattern == 'flower'? <Snow effectImage={'/effect/daisy.png'}></Snow>:''}
+                {effectpattern == 'fruit'? <Snow effectImage={'/effect/fruit.png'}></Snow>:''}
+            </div>
         <div className={styles.presentdetailhead}>
             D-7
         </div>
@@ -167,6 +193,9 @@ return(
                     <div className={index===3?styles.selecttab:styles.tabhead} onClick={()=>{setIndex(3)}}>
                         <Icon name='pencil alternate'/>텍스트 입력
                     </div>
+                    <div className={index===4?styles.selecttab:styles.tabhead} onClick={()=>{setIndex(4)}}>
+                        <Icon name='pencil alternate'/>효과
+                    </div>
                 </div>
             </div>
             <div className={styles.tabcontent} hidden={index != 0}>
@@ -195,7 +224,20 @@ return(
             <div className={styles.tabcontent} hidden={index != 3}>
                 <Text setText={setText} setColor={setColor} setFontsize={setFontsize} setFontweight={setFontweight} text={text} fontweight={fontweight} color={color} fontsize={fontsize}></Text>
             </div>
-        
+            <div className={styles.tabcontent} hidden={index != 4}>
+                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='noeffect'?"#FFFF8C":"" }} onClick={() => cardeffect1()}>
+                # 효과 없음
+                </div>
+                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='snow'?"#FFFF8C":"" }}  onClick={() => cardeffect2()}>
+                # 눈 내리는 효과
+                </div>
+                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='flower'?"#FFFF8C":"" }} onClick={() => cardeffect3()}>
+                # 꽃 내리는 효과
+                </div>
+                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='fruit'?"#FFFF8C":"" }}  onClick={() => cardeffect4()}>
+                # 과일 내리는 효과
+                </div>
+            </div>
         </div>
         </div>
     </>
