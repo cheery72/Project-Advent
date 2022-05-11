@@ -2,10 +2,7 @@ package com.ssafy.adventsvr.service;
 
 import com.ssafy.adventsvr.payload.request.AdventBoxRequest;
 import com.ssafy.adventsvr.payload.request.AdventBoxWrapperRequest;
-import com.ssafy.adventsvr.payload.response.AdventBoxDayResponse;
-import com.ssafy.adventsvr.payload.response.AdventBoxDetailResponse;
-import com.ssafy.adventsvr.payload.response.AdventBoxUrlDetailResponse;
-import com.ssafy.adventsvr.payload.response.AdventBoxWrapperResponse;
+import com.ssafy.adventsvr.payload.response.*;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface AdventBoxService {
