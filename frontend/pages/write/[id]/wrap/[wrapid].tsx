@@ -1,9 +1,10 @@
 import { useRouter } from "next/router";
 import { SetStateAction, useEffect, useState } from "react";
-import { Button, Grid, Header, Image, Input } from "semantic-ui-react";
+import { Button, Grid, Image } from "semantic-ui-react";
 import notify from "../../../../src/component/notify/notify";
+import ImageList from "../../../../src/component/write/wrap/imagelist";
+import UnsplashSearch from "../../../../src/component/write/wrap/unsplashsearch";
 import allAxios from "../../../../src/lib/allAxios";
-import unsplashAxios from "../../../../src/lib/unsplashAxios";
 import userAxios from "../../../../src/lib/userAxios";
 import styles from "../../../../styles/write/wrap.module.css"
 
@@ -17,23 +18,15 @@ export default function Wrap(){
 
     const [backgroundImage, setBackgroundImage]: any = useState('')
     const [imageType, setImageType] = useState(1)
-    const [pattern, setPattern] = useState(1)
-    const [searchWord, setSearchWord] = useState('')
-    const [unsplashImages, setUnsplashImages]: any = useState([])
     const [fileImage, setFileImage]: any = useState()
     const [userInfo, setUserInfo]: any = useState()
-
-    const selectImage = (e: { target: { currentSrc: SetStateAction<string>; }; }) => {
-        setBackgroundImage(e.target.currentSrc)
-        setFileImage()
-    }
 
     const deleteImage = () => {
         setBackgroundImage('')
         setFileImage()
     }
 
-    // 배경선택 
+    // 배경종류선택 
     const selectImageType = (num: SetStateAction<number>) => {
         setImageType(num)
     }
@@ -52,19 +45,11 @@ export default function Wrap(){
     }
 
     const writeWrap = () => {
-        saveImages()
+        imageToServer()
     }
 
     const closeWrap = () => {
         router.push({ pathname: `/write/${adventId}`})
-    }
-
-    const writeSearchWord = (e: { target: { value: SetStateAction<string>; }; }) => {
-        setSearchWord(e.target.value)
-    }
-
-    const searchImage = () => {
-        loadImages()
     }
 
     const getUserInfo = async () => {
@@ -78,20 +63,7 @@ export default function Wrap(){
             });
         };
 
-    const loadImages = async () => {
-        await unsplashAxios
-            .get(`/search/photos`, {
-                params: { query: searchWord, per_page: 15 }
-            })
-            .then(({ data }) => {
-                setUnsplashImages(data.results)
-            })
-            .catch((e) => {
-                console.log(e)
-            })
-    }
-
-    const saveImages = async () => {
+    const imageToServer = async () => {
         const body = new FormData();
         const adventBoxWrapperRequest: any = {
             advent_day: wrapId,
@@ -200,59 +172,12 @@ export default function Wrap(){
                         ''}
 
                         {imageType===2?
-                            <div>
-                                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==1?"#FFFF8C":"" }} onClick={() => {setPattern(1)}}>
-                                    # 전통무늬
-                                </div>
-                                <div className={styles.backgroundcontent} hidden={pattern != 1}>
-                                
-                                </div>
-                                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==2?"#FFFF8C":"" }}  onClick={() => {setPattern(2)}}>
-                                    # 선물상자
-                                </div>
-                                <div className={styles.backgroundcontent} hidden={pattern != 2}>
-
-                                </div>
-                                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==3?"#FFFF8C":"" }}  onClick={() => {setPattern(3)}}>
-                                    # 반복패턴 
-                                </div>
-                                <div className={styles.backgroundcontent} hidden={pattern != 3}>
-                                    <Image src='/backgroundsample/background.jpg' alt="" wrapped onClick={selectImage}/>
-                                    <Image src='/backgroundsample/background1.jpg' alt="" wrapped onClick={selectImage}/>
-                                    <Image src='/backgroundsample/background2.jpg' alt="" wrapped onClick={selectImage}/>
-                                    <Image src='/backgroundsample/background3.jpg' alt="" wrapped onClick={selectImage}/>
-                                </div>
-                                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==4?"#FFFF8C":"" }}  onClick={() => {setPattern(4)}}>
-                                    # 색상선택
-                                </div>
-                                <div className={styles.backgroundcontent} hidden={pattern != 4}>
-
-                                </div>
-                            </div>
+                            <ImageList setBackgroundImage={setBackgroundImage} setFileImage={setFileImage}/>
                         :
                         ''}
 
                         {imageType===3?
-                            <>
-                                <div>
-                                    <Header as="h5">검색할 영단어를 입력하세요!</Header>
-                                    <Input type="text" placeholder="ex) flower" maxLength={15} onChange={writeSearchWord}/>
-                                    <Button color="blue" inverted onClick={ searchImage }>검색</Button>
-                                </div>
-                                <div className={styles.backgroundcontent}>   
-                                    {unsplashImages?
-                                        unsplashImages.map((image: any) => {
-                                            return (
-                                                <>
-                                                    <span key={image.id}>
-                                                    <Image src={image.urls.small} alt="" wrapped width={100} onClick={selectImage}/>
-                                                    </span> 
-                                                </>
-                                            );           
-                                        })
-                                    :''}
-                                </div>       
-                            </>
+                            <UnsplashSearch setBackgroundImage={setBackgroundImage} setFileImage={setFileImage}/>
                         :
                         ''}
 
