@@ -20,15 +20,15 @@ public class ImageController {
     private final StickerService stickerService;
     private final BackgroundService backgroundService;
 
-    @PostMapping("/stickers")
-    public void stickerInput(@RequestPart List<MultipartFile> files) {
-        stickerService.inputImage(files);
-    }
-
-    @PostMapping("/backgrounds")
-    public void backgroundInput(@RequestPart List<MultipartFile> files) {
-        backgroundService.inputImage(files);
-    }
+//    @PostMapping("/stickers")
+//    public void stickerInput(@RequestPart List<MultipartFile> files) {
+//        stickerService.inputImage(files);
+//    }
+//
+//    @PostMapping("/backgrounds")
+//    public void backgroundInput(@RequestPart List<MultipartFile> files) {
+//        backgroundService.inputImage(files);
+//    }
 
     @GetMapping("/stickers")
     public ResponseEntity<Map<String,List<String>>> stickerFind(){
