@@ -163,6 +163,15 @@ public class AdventController {
         return ResponseEntity.noContent().build();
     }
 
+    @ApiOperation(value = "첫번째 박스 포장지, 제목", notes = "URL로 첫번째 박스 포장지 및 제목 조회")
+    @GetMapping("/{url}/title")
+    public ResponseEntity<AdventBoxTitleResponse> adventBoxTitleFind(@PathVariable(value = "url") String url){
+        log.info("adventBoxTitleFind");
+
+        return ResponseEntity
+                .ok(adventService.findTitleAdventBox(url));
+    }
+
     @ApiOperation(value = "박스 열리는 날짜 수정 배치", notes = "박스 열리는 날짜 수정 - 배치용, 사용 안해두 됨")
     @PatchMapping("/opens")
     public ResponseEntity<Object> adventBoxDaysModify() {

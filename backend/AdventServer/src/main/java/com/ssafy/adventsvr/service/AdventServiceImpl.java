@@ -22,6 +22,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -292,6 +293,23 @@ public class AdventServiceImpl implements AdventService {
                 }
             }
         }
+    }
+
+    @Override
+    public AdventBoxTitleResponse findTitleAdventBox(String url) {
+        Advent advent = adventRepository.findByUrl(url)
+                .orElseThrow(() -> new NoSuchAdventException("요청한 게시글을 찾을 수 없습니다."));
+        List<AdventBox> adventBox = adventBoxRepository.findAllByAdventIdOrderByAdventDayAsc(advent.getId());
+
+        String wrapper = null;
+        if(!adventBox.isEmpty()){
+            wrapper = adventBox.get(0).getWrapper();
+        }
+
+        return AdventBoxTitleResponse.builder()
+                .title(advent.getTitle())
+                .wrapper(wrapper)
+                .build();
     }
 
 }

@@ -34,4 +34,6 @@ public interface AdventService {
 
     void modifyDaysAdventBox();
 
+    AdventBoxTitleResponse findTitleAdventBox(String url);
+
 }
