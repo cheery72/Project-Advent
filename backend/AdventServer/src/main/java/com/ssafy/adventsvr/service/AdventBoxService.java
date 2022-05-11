@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface AdventBoxService {
 
-    AdventBoxDayResponse inputBoxAdventBox(AdventBoxRequest adventBoxRequest, MultipartFile file, MultipartFile animation);
+    AdventBoxDayResponse inputBoxAdventBox(AdventBoxRequest adventBoxRequest, MultipartFile file);
 
     void modifyBoxAdventBox(String boxId, MultipartFile file);
 
