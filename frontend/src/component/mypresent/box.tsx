@@ -14,11 +14,13 @@ export default function Box({day, boxInfo}:any){
     return(
         <>
 
-            <div className={styles.ribbonWrapper}>
+            <div 
+                className={styles.ribbonWrapper}
+                onClick={openPresent}
+            >
                 <h3 className={styles.ribbonOpen}>
                     <strong 
                         className={styles.ribbonInner} 
-                        onClick={openPresent}
                     ><Icon name="gift" size="small" />열기</strong>
                 </h3>
             </div>
