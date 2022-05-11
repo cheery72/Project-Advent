@@ -1,6 +1,6 @@
-import PresentComponent from "../../src/component/present/present"
+import PresentComponent from "../../../src/component/present/present"
 import Head from "next/head";
-import allAxios from "../../src/lib/allAxios";
+import allAxios from "../../../src/lib/allAxios";
 
 export default function Present({title, thumbnail}:any){
 
