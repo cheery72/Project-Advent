@@ -33,20 +33,19 @@ public class AdventBox extends BaseTimeEntity{
 
     private String wrapper;
 
-    @Column(nullable = false, columnDefinition = "tinyint default 0")
-    private boolean isAnimation;
+    private String animation;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "advent_id")
     private Advent advent;
 
-    public static AdventBox adventBoxBuilder(AdventBoxRequest adventBoxRequest, Advent advent, String imageUrl){
+    public static AdventBox adventBoxBuilder(AdventBoxRequest adventBoxRequest, Advent advent, String imageUrl, String animationUrl){
         return AdventBox.builder()
                 .id((UUID.randomUUID().toString()).replace("-",""))
                 .adventDay(adventBoxRequest.getAdventDay())
                 .advent(advent)
                 .content(imageUrl)
-                .isAnimation(adventBoxRequest.isAnimation())
+                .animation(animationUrl)
                 .build();
     }
 
@@ -60,7 +59,7 @@ public class AdventBox extends BaseTimeEntity{
     }
 
     @Builder
-    public AdventBox(String id, String content, boolean isActive, LocalDate activeAt, Integer activeDay, Integer adventDay, String wrapper, boolean isAnimation, Advent advent) {
+    public AdventBox(String id, String content, boolean isActive, LocalDate activeAt, Integer activeDay, Integer adventDay, String wrapper, String animation, Advent advent) {
         this.id = id;
         this.content = content;
         this.isActive = isActive;
@@ -68,13 +67,13 @@ public class AdventBox extends BaseTimeEntity{
         this.activeDay = activeDay;
         this.adventDay = adventDay;
         this.wrapper = wrapper;
-        this.isAnimation = isAnimation;
+        this.animation = animation;
         this.advent = advent;
     }
 
-    public void setAdventBoxContentModify(String imageUrl, boolean isAnimation){
+    public void setAdventBoxContentModify(String imageUrl, String animationUrl){
         this.content = imageUrl;
-        this.isAnimation = isAnimation;
+        this.animation = animationUrl;
     }
 
     public void setAdventBoxActiveAtModify(LocalDate endAt,Integer day, AdventBox adventBox){

@@ -32,6 +32,8 @@ public class QAdventBox extends EntityPathBase<AdventBox> {
 
     public final NumberPath<Integer> adventDay = createNumber("adventDay", Integer.class);
 
+    public final StringPath animation = createString("animation");
+
     public final StringPath content = createString("content");
 
     //inherited
@@ -40,8 +42,6 @@ public class QAdventBox extends EntityPathBase<AdventBox> {
     public final StringPath id = createString("id");
 
     public final BooleanPath isActive = createBoolean("isActive");
-
-    public final BooleanPath isAnimation = createBoolean("isAnimation");
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modifiedAt = _super.modifiedAt;
