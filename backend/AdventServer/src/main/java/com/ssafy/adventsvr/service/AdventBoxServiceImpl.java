@@ -45,8 +45,7 @@ public class AdventBoxServiceImpl implements AdventBoxService {
     // Todo: POST box 생성
     @Transactional
     @Override
-    public AdventBoxDayResponse inputBoxAdventBox(AdventBoxRequest adventBoxRequest, MultipartFile file,
-                                                  MultipartFile animation) {
+    public AdventBoxDayResponse inputBoxAdventBox(AdventBoxRequest adventBoxRequest, MultipartFile file) {
         Advent advent = adventRepository.findById(adventBoxRequest.getAdventId())
                 .orElseThrow(() -> new NoSuchAdventException("요청한 게시글을 찾을 수 없습니다."));
 
@@ -59,27 +58,22 @@ public class AdventBoxServiceImpl implements AdventBoxService {
                     .findByAdventIdAndAdventDay(adventBoxRequest.getAdventId(), adventBoxRequest.getAdventDay());
 
             String imageUrl = null;
-            String animationUrl = null;
             if (!file.isEmpty()) {
                 imageUrl = awsFile(file);
-            }
-
-            if(!animation.isEmpty()){
-                animationUrl = awsFile(animation);
             }
 
             AdventBox adventBox;
             String boxId;
             // 비어 있을 경우에 같은 박스가 생성되면 안됨
             if (optionalAdventBox.isEmpty()) {
-                adventBox = AdventBox.adventBoxBuilder(adventBoxRequest, advent, imageUrl, animationUrl);
+                adventBox = AdventBox.adventBoxBuilder(adventBoxRequest, advent, imageUrl, adventBoxRequest.getAnimation());
                 boxId = adventBoxRepository.save(adventBox).getId();
                 // 이미 생성된 박스가 있을 경우에
             } else {
                 adventBox = optionalAdventBox
                         .orElseThrow(() -> new NoSuchAdventException("요청한 게시글 박스를 찾을 수 없습니다."));
 
-                adventBox.setAdventBoxContentModify(imageUrl, animationUrl);
+                adventBox.setAdventBoxContentModify(imageUrl, adventBoxRequest.getAnimation());
                 boxId = adventBox.getId();
             }
 

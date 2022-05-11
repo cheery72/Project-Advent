@@ -26,8 +26,7 @@ public class AdventBoxController {
     @ApiOperation(value = "선물 박스 생성", notes = "박스 생성")
     @PostMapping
     public ResponseEntity<AdventBoxDayResponse> adventBoxDayInput(@RequestPart(value = "adventBoxRequest") @Valid AdventBoxRequest adventBoxRequest,
-                                                                  @RequestPart(required = false) MultipartFile file,
-                                                                  @RequestPart(required = false) MultipartFile animation) {
+                                                                  @RequestPart(required = false) MultipartFile file) {
         log.info("adventBoxDayInput");
 
         if (ObjectUtils.isEmpty(adventBoxRequest)) {
@@ -36,7 +35,7 @@ public class AdventBoxController {
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(adventBoxService.inputBoxAdventBox(adventBoxRequest, file,animation));
+                .body(adventBoxService.inputBoxAdventBox(adventBoxRequest, file));
     }
 
     @ApiOperation(value = "선물 박스 수정", notes = "박스 수정")

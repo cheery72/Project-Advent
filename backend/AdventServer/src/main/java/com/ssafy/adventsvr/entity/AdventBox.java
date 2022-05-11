@@ -39,13 +39,13 @@ public class AdventBox extends BaseTimeEntity{
     @JoinColumn(name = "advent_id")
     private Advent advent;
 
-    public static AdventBox adventBoxBuilder(AdventBoxRequest adventBoxRequest, Advent advent, String imageUrl, String animationUrl){
+    public static AdventBox adventBoxBuilder(AdventBoxRequest adventBoxRequest, Advent advent, String imageUrl, String animation){
         return AdventBox.builder()
                 .id((UUID.randomUUID().toString()).replace("-",""))
                 .adventDay(adventBoxRequest.getAdventDay())
                 .advent(advent)
                 .content(imageUrl)
-                .animation(animationUrl)
+                .animation(animation)
                 .build();
     }
 
@@ -71,9 +71,9 @@ public class AdventBox extends BaseTimeEntity{
         this.advent = advent;
     }
 
-    public void setAdventBoxContentModify(String imageUrl, String animationUrl){
+    public void setAdventBoxContentModify(String imageUrl, String animation){
         this.content = imageUrl;
-        this.animation = animationUrl;
+        this.animation = animation;
     }
 
     public void setAdventBoxActiveAtModify(LocalDate endAt,Integer day, AdventBox adventBox){

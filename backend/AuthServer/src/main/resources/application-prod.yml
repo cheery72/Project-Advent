@@ -29,7 +29,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://k6c2061.p.ssafy.io:8761/eureka
+      defaultZone: http://k6c206.p.ssafy.io:8761/eureka
 
 logging:
   level.org.springframework: info
