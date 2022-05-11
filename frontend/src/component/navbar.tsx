@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 import userAxios from '../lib/userAxios';
 
 export default function Navbar() {
-    const KAKAO_LOGIN_URL = 'http://k6c206.p.ssafy.io:8000/auth-server'
+    const KAKAO_LOGIN_URL = 'http://k6c2061.p.ssafy.io:8000/auth-server'
     const BASE_URL = 'http://localhost:3000'
     const router = useRouter()
 
