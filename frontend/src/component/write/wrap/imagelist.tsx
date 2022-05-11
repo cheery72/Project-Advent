@@ -17,7 +17,6 @@ export default function ImageList({ setBackgroundImage, setFileImage }: any){
         await allAxios
             .get(`/images/backgrounds`)
             .then(({ data }) => {
-                console.log(data)
                 setImageListInfo(data)
             })
             .catch((e) => {
@@ -32,9 +31,34 @@ export default function ImageList({ setBackgroundImage, setFileImage }: any){
     return(
         
             <div>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==1?"#FFFF8C":"" }} onClick={() => {setPattern(1)}}>
-                    # 동물
-                </div>
+                <span className={styles.backgroundtitle} style={{ backgroundColor: pattern==1?"#FFFF8C":"" }} onClick={() => {setPattern(1)}}>
+                    <img src='/wrapcategory/animal.png' alt="stickercategoryimg" width={30} height={30}/>
+                </span>
+                &nbsp;
+                <span className={styles.backgroundtitle} style={{ backgroundColor: pattern==2?"#FFFF8C":"" }}  onClick={() => {setPattern(2)}}>
+                    <img src='/wrapcategory/animal2.png' alt="stickercategoryimg" width={30} height={30}/>
+                </span>
+                &nbsp;
+                <span className={styles.backgroundtitle} style={{ backgroundColor: pattern==3?"#FFFF8C":"" }}  onClick={() => {setPattern(3)}}>
+                    <img src='/wrapcategory/birthday.png' alt="stickercategoryimg" width={30} height={30}/>
+                </span>
+                &nbsp;
+                <span className={styles.backgroundtitle} style={{ backgroundColor: pattern==4?"#FFFF8C":"" }}  onClick={() => {setPattern(4)}}>
+                    <img src='/wrapcategory/nature4.png' alt="stickercategoryimg" width={30} height={30}/>
+                </span>
+                &nbsp;
+                <span className={styles.backgroundtitle} style={{ backgroundColor: pattern==5?"#FFFF8C":"" }}  onClick={() => {setPattern(5)}}>
+                    <img src='/wrapcategory/brush.png' alt="stickercategoryimg" width={30} height={30}/>
+                </span>
+                &nbsp;
+                <span className={styles.backgroundtitle} style={{ backgroundColor: pattern==6?"#FFFF8C":"" }}  onClick={() => {setPattern(6)}}>
+                    <img src='/wrapcategory/love2.png' alt="stickercategoryimg" width={30} height={30}/>
+                </span>
+                &nbsp;
+                <span className={styles.backgroundtitle} style={{ backgroundColor: pattern==7?"#FFFF8C":"" }}  onClick={() => {setPattern(7)}}>
+                    <img src='/wrapcategory/luckybag.png' alt="stickercategoryimg" width={30} height={30}/>
+                </span>
+
                 <div className={styles.backgroundcontent} hidden={pattern != 1}>
                     {imageListInfo.animal?imageListInfo.animal.map((imageURL: string) => {
                         return(
@@ -42,9 +66,7 @@ export default function ImageList({ setBackgroundImage, setFileImage }: any){
                         );
                     }):""}
                 </div>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==2?"#FFFF8C":"" }}  onClick={() => {setPattern(2)}}>
-                    # 동물2
-                </div>
+
                 <div className={styles.backgroundcontent} hidden={pattern != 2}>
                     {imageListInfo.animalWrap?imageListInfo.animalWrap.map((imageURL: string) => {
                         return(
@@ -52,9 +74,7 @@ export default function ImageList({ setBackgroundImage, setFileImage }: any){
                         );
                     }):""}
                 </div>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==3?"#FFFF8C":"" }}  onClick={() => {setPattern(3)}}>
-                    # 생일
-                </div>
+                
                 <div className={styles.backgroundcontent} hidden={pattern != 3}>
                     {imageListInfo.birthday?imageListInfo.birthday.map((imageURL: string) => {
                         return(
@@ -62,9 +82,7 @@ export default function ImageList({ setBackgroundImage, setFileImage }: any){
                         );
                     }):""}
                 </div>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==4?"#FFFF8C":"" }}  onClick={() => {setPattern(4)}}>
-                    # 꽃
-                </div>
+                
                 <div className={styles.backgroundcontent} hidden={pattern != 4}>
                     {imageListInfo.flower?imageListInfo.flower.map((imageURL: string) => {
                         return(
@@ -72,9 +90,7 @@ export default function ImageList({ setBackgroundImage, setFileImage }: any){
                         );
                     }):""}
                 </div>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==5?"#FFFF8C":"" }}  onClick={() => {setPattern(5)}}>
-                    # 그라데이션
-                </div>
+                
                 <div className={styles.backgroundcontent} hidden={pattern != 5}>
                     {imageListInfo.gradation?imageListInfo.gradation.map((imageURL: string) => {
                         return(
@@ -82,9 +98,7 @@ export default function ImageList({ setBackgroundImage, setFileImage }: any){
                         );
                     }):""}
                 </div>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==6?"#FFFF8C":"" }}  onClick={() => {setPattern(6)}}>
-                    # 하트
-                </div>
+                
                 <div className={styles.backgroundcontent} hidden={pattern != 6}>
                     {imageListInfo.heart?imageListInfo.heart.map((imageURL: string) => {
                         return(
@@ -92,9 +106,7 @@ export default function ImageList({ setBackgroundImage, setFileImage }: any){
                         );
                     }):""}
                 </div>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==7?"#FFFF8C":"" }}  onClick={() => {setPattern(7)}}>
-                    # 전통무늬
-                </div>
+                
                 <div className={styles.backgroundcontent} hidden={pattern != 7}>
                     {imageListInfo.tradition?imageListInfo.tradition.map((imageURL: string) => {
                         return(

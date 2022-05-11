@@ -26,7 +26,7 @@ export default function Wrap(){
         setFileImage()
     }
 
-    // 배경선택 
+    // 배경종류선택 
     const selectImageType = (num: SetStateAction<number>) => {
         setImageType(num)
     }
