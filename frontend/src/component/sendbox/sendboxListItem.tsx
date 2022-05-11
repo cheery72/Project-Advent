@@ -238,6 +238,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                                 src={ `${item.wrapper}` }
                                 size='medium' 
                                 // wrapped
+                                alt='포장이미지'
                                 style={{ height:'150px', objectFit:'cover' }}
                             />
                             :<></>
@@ -247,6 +248,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                             size={`${item.wrapper ? 'tiny' : 'small' }`}
                             style={ item.wrapper ? {position:'absolute', bottom:'5%', right:'0'} : {position:'block'} }
                             wrapped
+                            alt='선물이미지'
                         />
                     </div>
                 </Column>
