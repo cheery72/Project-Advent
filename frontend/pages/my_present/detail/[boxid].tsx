@@ -6,6 +6,7 @@ import styles from "../../../styles/detail/detail.module.css"
 import allAxios from "../../../src/lib/allAxios";
 import userAxios from "../../../src/lib/userAxios";
 import Head from "next/head";
+import Snow from "../../../src/component/animation/snow";
 
 export default function Presentdetail(){
     const {Row, Column} = Grid
@@ -13,17 +14,15 @@ export default function Presentdetail(){
     const boxId = router.query.boxid
     
     const [userId, setUserId] = useState<number>(0)
-    const [content, setContent] = useState('') //loading spinner 연결을 고려
-    const [dday, setDday] = useState('') //loading spinner 연결을 고려
+    const [boxInfo, setBoxInfo] = useState<any>()
     
     const getBoxInfo = async () => {
         await allAxios
             .get(`/boxes/${boxId}/${userId}`)
             .then(({ data }) => {
-                // console.log(data)
-                setDday(data.dday)
-                if (data.content) {
-                    setContent(data.content)
+                if (data) {
+                    console.log(data)
+                    setBoxInfo(data)
                 }
             })
             .catch((e) => {
@@ -56,26 +55,38 @@ export default function Presentdetail(){
             <Head>
                 <title>보낸 선물 상세 | Make Our Special</title>
             </Head>
-            <div data-aos="zoom-out">
-                <div className={styles.presentdetailhead}>
-                    <span>✨&nbsp;D-{dday? `${dday}` : 'day'}&nbsp;✨</span> {/* BE에 api response 반영 요청해야함 */}
+            {
+                boxInfo ?
+                <div data-aos="zoom-out">
+                    {   
+                        (boxInfo.animation !== 'noeffect' && boxInfo.animation !== null) ?
+                        <Snow effectImage={ boxInfo.animation==='snow' ? '' : boxInfo.animation } />
+                        :
+                        <></>
+                    }
+                    <div className={ styles.presentdetailhead }>
+                        <span>✨&nbsp;D-{ boxInfo.dday? `${boxInfo.dday}` : 'day' }&nbsp;✨</span>
+                    </div>
+
+                    <Grid stackable>
+                        <Row>
+                            <Column width={4}></Column>
+                            <Column width={8}>
+                                <div className={styles.boxlocation}>
+                                    <Image src={boxInfo.content} alt="present_image" className={styles.box} />
+                                </div>
+                            </Column>
+                            <Column width={2}>
+                                <div className={styles.buttonbetween}>
+                                    <Button inverted color='blue' onClick={() => {router.back();}}>뒤로 가기</Button>
+                                </div>        
+                            </Column>
+                        </Row>
+                    </Grid>
                 </div>
-                <Grid stackable>
-                <Row>
-                    <Column width={4}></Column>
-                    <Column width={8}>
-                        <div className={styles.boxlocation}>
-                            <Image src={content} alt="present_image" className={styles.box} />
-                        </div>
-                    </Column>
-                    <Column width={2}>
-                        <div className={styles.buttonbetween}>
-                            <Button inverted color='blue' onClick={() => {router.back();}}>뒤로 가기</Button>
-                        </div>        
-                    </Column>
-                </Row>
-                </Grid>
-            </div>
+                :
+                <></>
+            }
         </>
     );
 }

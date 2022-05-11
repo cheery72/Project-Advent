@@ -5,23 +5,22 @@ import { useRouter } from "next/router";
 import styles from "../../../styles/detail/detail.module.css"
 import allAxios from "../../../src/lib/allAxios";
 import Head from "next/head";
+import Snow from "../../../src/component/animation/snow";
 
 export default function Presentdetail(){
     const router = useRouter();
     const {Row, Column} = Grid
     const boxId = router.query.boxid
+    const [boxInfo, setBoxInfo] = useState<any>()
     
-    const [content, setContent] = useState('/main/temp_main.png') // 기본이미지(임시)
-    const [dday, setDday] = useState('')
 
     const getBoxInfo = async () => {
         await allAxios
             .get(`/boxes/${boxId}`)
             .then(({ data }) => {
-                // console.log(data)
+                console.log(data)
                 if (data) {
-                    setDday(data.dday)
-                    setContent(data.content)
+                    setBoxInfo(data)
                 }
             })
             .catch((e) => {
@@ -41,21 +40,28 @@ export default function Presentdetail(){
                 <title>선물 상세 페이지 | Make Our Special</title>
             </Head>
             {
-                boxId ?
+                boxInfo ?
                 <div data-aos="zoom-in">
-                    <div className={styles.presentdetailhead}>
-                        <span>✨&nbsp;D-{dday? `${dday}` : 'day'}&nbsp;✨</span>
+                    {   
+                        (boxInfo.animation !== 'noeffect' && boxInfo.animation !== null) ?
+                        <Snow effectImage={ boxInfo.animation==='snow' ? '' : boxInfo.animation } />
+                        :
+                        <></>
+                    }
+                    <div className={ styles.presentdetailhead }>
+                        <span>✨&nbsp;D-{ boxInfo.dday? `${boxInfo.dday }` : 'day'}&nbsp;✨</span>
                     </div>
+
                     <Grid stackable>
                     <Row>
                         <Column width={4}></Column>
                         <Column width={8}>
-                            <div className={styles.boxlocation}>
-                                <Image src={content} alt="present_image" className={styles.box} />
+                            <div className={ styles.boxlocation }>
+                                <Image src={ boxInfo.content } alt="present_image" className={ styles.box } />
                             </div>
                         </Column>
                         <Column width={2}>
-                            <div className={styles.buttonbetween}>
+                            <div className={ styles.buttonbetween }>
                                 <Button inverted color='blue' onClick={() => {router.back();}}>뒤로 가기</Button>
                             </div>        
                         </Column>
