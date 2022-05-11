@@ -18,7 +18,7 @@ export default function Presentdetail(){
         await allAxios
             .get(`/boxes/${boxId}`)
             .then(({ data }) => {
-                console.log(data)
+                // console.log(data)
                 if (data) {
                     setBoxInfo(data)
                 }

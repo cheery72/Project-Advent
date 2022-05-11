@@ -19,8 +19,8 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                 notify('success', '선물이 삭제되었습니다.', 3000)
                 getAdventsStorage()
             })
-            .catch((error) => {
-                console.log(error)
+            .catch((e) => {
+                console.log(e)
             })
     }
     

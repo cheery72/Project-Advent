@@ -21,7 +21,7 @@ export default function Presentdetail(){
             .get(`/boxes/${boxId}/${userId}`)
             .then(({ data }) => {
                 if (data) {
-                    console.log(data)
+                    // console.log(data)
                     setBoxInfo(data)
                 }
             })
@@ -57,7 +57,7 @@ export default function Presentdetail(){
             </Head>
             {
                 boxInfo ?
-                <div data-aos="zoom-out">
+                <div data-aos="zoom-in">
                     {   
                         (boxInfo.animation !== 'noeffect' && boxInfo.animation !== null) ?
                         <Snow effectImage={ boxInfo.animation==='snow' ? '' : boxInfo.animation } />
