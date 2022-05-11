@@ -52,4 +52,4 @@ app:
     refreshTokenExpiry: 604800000
   oauth2:
     authorizedRedirectUris:
-      - https://makeourspecial.day//oauth/redirect
+      - https://makeourspecial.day/oauth/redirect
