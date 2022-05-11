@@ -40,12 +40,25 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
     }
 
     const copyLink = (msg:string) => {
-        navigator.clipboard.writeText(`${BASE_URL}/present/${item.url}`) // 임시
-        Swal.fire(
-            '클립보드에 선물 링크가 \n 복사되었습니다!',
-            `복사된 링크를 붙여넣기하여 \n ${msg}`,
-            'success'
-        )
+        navigator.clipboard
+            .writeText(`${BASE_URL}/present/${item.url}`)
+            // local or https chrome환경에서는 동작함
+            .then(() => {
+                Swal.fire(
+                    '클립보드에 선물 링크가 \n 복사되었습니다!',
+                    `복사된 링크를 붙여넣기하여 \n ${msg}`,
+                    'success'
+                )
+            })
+            //모바일 브라우저 복사 실패 대비
+            .catch(() => {
+                Swal.fire(
+                    `${BASE_URL}/present/${item.url}`,
+                    `위 선물 링크를 복사하여 ${msg}`,
+                    'info'
+                )
+            })
+            
     }
 
     const confirmDelete = () => {
