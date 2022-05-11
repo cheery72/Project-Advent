@@ -1,15 +1,14 @@
-import Head from "next/head";
 import { useRouter } from "next/router";
 import { SetStateAction, useEffect, useState } from "react";
 import { Grid, Header, Icon, Popup } from "semantic-ui-react";
-import notify from "../../src/component/notify/notify";
-import allAxios from "../../src/lib/allAxios";
-import styles from "../../styles/present/password.module.css"
+import notify from "../notify/notify";
+import allAxios from "../../lib/allAxios";
+import styles from "../../../styles/present/password.module.css"
 
-export default function Present(){
+export default function PresentComponent(){
 
     const router = useRouter()
-    const presentUrl = router.query.presentid
+    const presentUrl = router.query.presenturl
 
     const [hint, setHint] = useState('')
     const [password, setPassword] = useState('')
@@ -97,9 +96,6 @@ export default function Present(){
 
     return(
         <>
-            <Head>
-                <title>선물 확인하기 | Make Our Special</title>
-            </Head>
             {!openPresent?
             <div className={styles.marginTop} data-aos="zoom-in">
                 <Grid centered stackable>
