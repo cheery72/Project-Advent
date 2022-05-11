@@ -231,11 +231,26 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
         >
             <Row>
                 <Column width={5}>
-                    <Image 
-                        src={ `/sendbox/temp_sendbox_img-${item.received? 'after' : 'before'}.png` }
-                        size='medium' 
-                        wrapped 
-                    />
+                    <div style={{ position:'relative' }}>
+                        {
+                            item.wrapper ? 
+                            <Image 
+                                src={ `${item.wrapper}` }
+                                size='medium' 
+                                // wrapped
+                                alt='포장이미지'
+                                style={{ height:'150px', objectFit:'cover' }}
+                            />
+                            :<></>
+                        }
+                        <Image 
+                            src={ `/sendbox/temp_sendbox_img-${item.received? 'after' : 'before'}.png` }
+                            size={`${item.wrapper ? 'tiny' : 'small' }`}
+                            style={ item.wrapper ? {position:'absolute', bottom:'5%', right:'0'} : {position:'block'} }
+                            wrapped
+                            alt='선물이미지'
+                        />
+                    </div>
                 </Column>
                 <Column 
                     width={8} 
