@@ -96,3 +96,54 @@
     height: 300px;
     border: 1px solid;
 }
+
+
+.tabs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.tablist {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+.tabhead {
+    padding: 10px 8px 7px 8px;
+    cursor: pointer;
+    border-bottom: 2px solid rgb(219, 219, 219);
+}
+
+.selecttab {
+    padding:  10px 8px 7px 8px;
+    border-bottom: 2px solid black;
+    font-weight: bolder;
+}
+
+.tabhead img{
+    width: 30px;
+    height: 30px;
+}
+
+.selecttab img{
+    width: 30px;
+    height: 30px;
+}
+
+.tabcontent {
+    margin: 15px 30px 30px 30px;
+    padding: 30px;
+    text-align: center;
+}
+
+.tabcontent img{
+    max-width: 100px;
+    max-height: 100px;
+    cursor: pointer;
+}

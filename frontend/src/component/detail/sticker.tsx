@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import styles from "../../../styles/detail/sticker.module.css"
 import allAxios from "../..//lib/allAxios";
-import { Image } from "semantic-ui-react";
 
 export default function Sticker ({pattern, setPattern, setStickers}:any) {
     const[stickerIndex, setStickerIndex] = useState(0);
