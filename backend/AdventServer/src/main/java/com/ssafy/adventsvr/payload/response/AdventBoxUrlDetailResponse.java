@@ -10,13 +10,13 @@ public class AdventBoxUrlDetailResponse {
     private Integer adventDay;
     private Integer dDay;
     private String content;
-    private boolean isAnimation;
+    private String animation;
 
     @Builder
-    public AdventBoxUrlDetailResponse(Integer adventDay, Integer dDay, String content, boolean isAnimation) {
+    public AdventBoxUrlDetailResponse(Integer adventDay, Integer dDay, String content, String animation) {
         this.adventDay = adventDay;
         this.dDay = dDay;
         this.content = content;
-        this.isAnimation = isAnimation;
+        this.animation = animation;
     }
 }
