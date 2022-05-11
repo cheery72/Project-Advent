@@ -145,7 +145,8 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
             templateArgs: {
                 'title': `${item.title}`,
                 'description': `${username}님께서 보내신 어드벤트 스페셜 데이 선물이 도착했습니다.`,
-                'url': `${item.url}`
+                'url': `${item.url}`,
+                'thumbnail': `${item.wrapper ? item.wrapper : 'https://makeourspecial.day/sendbox/temp_sendbox_img-after.png'}`
             }
         });
         Kakao.Link.cleanup()
