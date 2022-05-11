@@ -38,6 +38,9 @@ export default function Selectbackground ({setBackgroundColor, setBackImage, bac
         setBackgroundColor(updatedcolor)
     }
 
+    // 기본 이미지
+
+
 
     return (
         <>
