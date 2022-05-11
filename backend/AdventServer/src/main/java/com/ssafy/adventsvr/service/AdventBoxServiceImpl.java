@@ -144,7 +144,7 @@ public class AdventBoxServiceImpl implements AdventBoxService {
 
         throw new NoSuchAdventException("요청하신 요일이 1미만이거나 설정한 요일을 초과했습니다.");
     }
-
+    // Todo: POST box 포장지 수정
     @Override
     public AdventBoxWrapperResponse modifyWrapperAdventBox(String boxId, AdventBoxWrapperRequest adventBoxWrapperRequest, MultipartFile file) {
         Advent advent = adventRepository.findById(adventBoxWrapperRequest.getAdventId())
@@ -194,6 +194,18 @@ public class AdventBoxServiceImpl implements AdventBoxService {
                 .build();
     }
 
+    // Todo: 받는 사람이 포장지 조회
+    @Override
+    public AdventBoxWrapperResponse findUrlWrapperDetailAdventBox(String boxId) {
+        AdventBox adventBox = adventBoxRepository.findById(boxId)
+                .orElseThrow(() -> new NoSuchAdventException("요청한 게시글 박스를 찾을 수 없습니다."));
+
+        return AdventBoxWrapperResponse.builder()
+                .boxId(boxId)
+                .wrapper(adventBox.getWrapper())
+                .build();
+    }
+
     // Todo: 받는 사람이 박스 조회,
     @Override
     public AdventBoxUrlDetailResponse findUrlDetailAdventBox(String boxId) {
@@ -210,17 +222,6 @@ public class AdventBoxServiceImpl implements AdventBoxService {
                 .build();
     }
 
-    // Todo: 받는 사람이 포장지 조회
-    @Override
-    public AdventBoxWrapperResponse findUrlWrapperDetailAdventBox(String boxId) {
-        AdventBox adventBox = adventBoxRepository.findById(boxId)
-                .orElseThrow(() -> new NoSuchAdventException("요청한 게시글 박스를 찾을 수 없습니다."));
-
-        return AdventBoxWrapperResponse.builder()
-                .boxId(boxId)
-                .wrapper(adventBox.getWrapper())
-                .build();
-    }
 
     // Todo: 포장지 조회
     @Override
@@ -241,6 +242,7 @@ public class AdventBoxServiceImpl implements AdventBoxService {
                 .build();
     }
 
+    // Todo: 파일 업로드
     private String awsFile(MultipartFile file) {
         String fileName = createFileName(file.getOriginalFilename());
         ObjectMetadata objectMetadata = new ObjectMetadata();
