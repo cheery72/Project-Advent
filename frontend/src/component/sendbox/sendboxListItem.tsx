@@ -159,7 +159,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                 'title': `${item.title}`,
                 'description': `${username}님께서 보내신 어드벤트 스페셜 데이 선물이 도착했습니다.`,
                 'url': `${item.url}`,
-                'thumbnail': `${item.wrapper ? item.wrapper : 'https://makeourspecial.day/sendbox/temp_sendbox_img-after.png'}`
+                'thumbnail': `${item.wrapper ? item.wrapper : 'https://makeourspecial.day/sendbox/sendbox_img-after.png'}`
             }
         });
         Kakao.Link.cleanup()
@@ -258,7 +258,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                             :<></>
                         }
                         <Image 
-                            src={ `/sendbox/temp_sendbox_img-${item.received? 'after' : 'before'}.png` }
+                            src={ `/sendbox/sendbox_img-${item.received? 'after' : 'before'}.png` }
                             size={`${item.wrapper ? 'tiny' : 'small' }`}
                             style={ item.wrapper ? {position:'absolute', bottom:'5%', right:'0'} : {position:'block'} }
                             wrapped
@@ -312,7 +312,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                         <Button 
                             animated='fade' 
                             color='blue' 
-                            style={{ margin:'5px 0', width:'100%'}}
+                            style={{  maxWidth:'150%' }}
                             onClick={() => goModify()}
                         >
                             <Button.Content hidden>수정</Button.Content>
@@ -323,7 +323,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                         <Button 
                             animated='fade' 
                             color='orange'
-                            style={{ margin:'5px 0', width:'100%'}}
+                            style={{ margin:'5px 0', maxWidth:'150%' }}
                             onClick={() => confirmDelete()}
                         >
                             <Button.Content hidden>삭제</Button.Content>
@@ -337,7 +337,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                         <Button 
                             animated='fade' 
                             color='teal' 
-                            style={{ margin:'5px 0', width:'100%'}}
+                            style={{  maxWidth:'150%' }}
                             onClick={() => copyLink('보낸 선물을 다시 전달할 수 있습니다!')}
                         >
                             <Button.Content hidden>링크확인</Button.Content>
@@ -349,7 +349,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                         <Button 
                             animated='fade' 
                             color='orange'
-                            style={{ margin:'5px 0', width:'100%'}}
+                            style={{ margin:'5px 0', maxWidth:'150%' }}
                             onClick={() => confirmDelete()}
                         >
                             <Button.Content hidden>삭제</Button.Content>
@@ -369,7 +369,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                         <Button 
                             onClick={() => readPassedPresent()}
                             color="twitter"
-                            style={{ height:'100%', width:'100%', lineHeight:'150%', fontSize: '0.9vw' }}
+                            style={{ height:'100%', width:'100%', lineHeight:'15px', fontSize: '0.9vw' }}
                         >
                             <Icon 
                                 name='gift' 
@@ -378,7 +378,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                         :
                         <Button 
                             onClick={() => adventPassing()}
-                            style={{ color:'black', background:'#F9E84F', height:'100%', width:'90%', fontSize: '0.9vw' }}
+                            style={{ color:'black', background:'#F9E84F', lineHeight:'15px', height:'100%', width:'90%', fontSize: '0.9vw' }}
                         >
                             <Icon 
                                 name='comment' 

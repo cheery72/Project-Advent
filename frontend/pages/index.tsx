@@ -52,7 +52,7 @@ const Home: NextPage = () => {
                         style={{ maxWidth: '80%' }}
                     >
                         <Image
-                            src='/main/temp_main.png'
+                            src='/main/main_img.png'
                             alt='어드벤트 스페셜 데이 main image'
                         />
                     </Column>
