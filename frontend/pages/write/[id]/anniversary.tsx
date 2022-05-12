@@ -196,6 +196,15 @@ export default function Anniversary(){
 
                 <Row>
                     <Column textAlign="center">
+                        <Popup 
+                            content="필수 항목입니다" 
+                            trigger={<Icon 
+                                name='asterisk' 
+                                color='red' 
+                                className={ styles.pointer }/>}
+                        />
+                        
+                        &nbsp;
                         <input 
                             type="date" 
                             onChange={writeAnniversary} 
@@ -264,7 +273,7 @@ export default function Anniversary(){
                         >
                             <Icon 
                                 name='lock' 
-                                className={password.length>7?styles.valid:password.length>3?styles.semivalid:styles.invalid}
+                                className={password.length>5?styles.valid:password.length>3?styles.semivalid:styles.invalid}
                             />&nbsp;비밀번호 입력
                         </Header>
                     </Column>  
@@ -276,7 +285,7 @@ export default function Anniversary(){
                                 type="password" 
                                 placeholder="비밀번호를 입력해주세요." 
                                 className={ styles.formInput } 
-                                pattern=".{8,}" 
+                                pattern=".{6,}" 
                                 required 
                                 maxLength={12}
                                 onChange={writePassword} 
