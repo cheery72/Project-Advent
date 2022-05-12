@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 import styles from '../../styles/sendbox/sendbox.module.css'
 import SendboxList from "../../src/component/sendbox/sendboxList";
 import userAxios from "../../src/lib/userAxios";
-import { useRouter } from 'next/router';
+import { NextRouter, useRouter } from 'next/router';
 import notify from "../../src/component/notify/notify";
 import IsLogin from "../../src/lib/IsLogin";
+import LogOut from "../../src/lib/LogOut";
 
 export default function Sendbox(){
     const router = useRouter()
@@ -14,7 +15,7 @@ export default function Sendbox(){
     const [userId, setUserId] = useState<number>(0)
 
     
-    const getUserInfo = async () => {
+    const getUserInfo = async (router: NextRouter | string[]) => {
         await userAxios.get(`/auth/users`)
             .then((data) => {
                 setUsername(data.data.body.user.name)
@@ -22,17 +23,19 @@ export default function Sendbox(){
             })
             .catch((e) => {
                 console.log(e)
-                localStorage.removeItem('token')
-                router.push('/')
-                notify('info', '로그인 시간이 만료되어 로그아웃합니다😥')
+                LogOut(router)
             });
     };
 
     useEffect(() => {
-        if (IsLogin()) {
-            getUserInfo()
+        if (IsLogin() && router){
+            getUserInfo(router)
+        }   
+        if (!IsLogin()){
+            router.push('/')
+            notify('error', `로그인해야 보낸 선물함을 확인할 수 있습니다❕`)
         }
-    }, [])
+    }, [router])
 
     return(
         <>
