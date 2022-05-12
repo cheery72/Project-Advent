@@ -5,6 +5,8 @@ import { Button, Grid, Header, Icon, Popup } from "semantic-ui-react";
 import notify from "../../src/component/notify/notify";
 import allAxios from "../../src/lib/allAxios";
 import IsLogin from "../../src/lib/IsLogin";
+import LogOut from "../../src/lib/LogOut";
+
 import userAxios from "../../src/lib/userAxios";
 import styles from "../../styles/write/period.module.css"
 
@@ -27,8 +29,7 @@ export default function Write(){
                 setUserInfo(data.body.user)
             })
             .catch((e) => {
-                notify('error', `로그인을 해야 작성할 수 있습니다.`)
-                router.push('/')
+                LogOut(router)
                 console.log(e)
             });
         };
@@ -52,9 +53,13 @@ export default function Write(){
     }
 
     useEffect(() => {
-        if (IsLogin()){
+        if (IsLogin() && router){
             getUserInfo(router)
         }   
+        if (!IsLogin()){
+            router.push('/')
+            notify('error', `로그인해야 작성할 수 있습니다❕`)
+        }
     }, [router])
     
     return(

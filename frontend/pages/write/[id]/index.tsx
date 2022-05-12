@@ -1,10 +1,13 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import notify from "../../../src/component/notify/notify";
 import DayOne from "../../../src/component/write/dayone";
 import DaySeven from "../../../src/component/write/dayseven";
 import DayThree from "../../../src/component/write/daythree";
 import allAxios from "../../../src/lib/allAxios";
+import IsLogin from "../../../src/lib/IsLogin";
+import LogOut from "../../../src/lib/LogOut";
 import userAxios from "../../../src/lib/userAxios";
 
 export default function WritePresent(){
@@ -14,13 +17,14 @@ export default function WritePresent(){
     const [userInfo, setUserInfo]: any = useState()
     const [adventDay, setAdventDay] = useState(0)
 
-    const getUserInfo = async () => {
+    const getUserInfo = async (router: any) => {
         await userAxios
             .get(`/auth/users`)
             .then(({ data }) => {
                 setUserInfo(data.body.user)
             })
             .catch((e) => {
+                LogOut(router)
                 console.log(e)
             });
         };
@@ -41,8 +45,14 @@ export default function WritePresent(){
     }
 
     useEffect(() => {
-        getUserInfo()
-    }, [])
+        if (IsLogin() && router){
+            getUserInfo(router)
+        }   
+        if (!IsLogin()){
+            router.push('/')
+            notify('error', `로그인해야 작성할 수 있습니다❕`)
+        }
+    }, [router])
 
     useEffect(() => {
         if (adventId) {
