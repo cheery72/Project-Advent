@@ -156,7 +156,7 @@ public class AdventServiceImpl implements AdventService {
                 .orElseThrow(() -> new NoSuchAdventException("요청한 게시글을 찾을 수 없습니다."));
 
         if (advent.getUserId().equals(userId)) {
-            List<AdventBox> adventBoxList = adventBoxRepository.findAllByAdventId(adventId);
+            List<AdventBox> adventBoxList = adventBoxRepository.findAllByAdventIdOrderByAdventDayAsc(adventId);
             List<AdventBoxListResponse> adventBoxListResponse = AdventBoxListResponse.adventBoxListBuilder(adventBoxList);
 
             return AdventReceiveResponse.builder()
