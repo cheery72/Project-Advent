@@ -29,14 +29,14 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
         router.push(`/write/${item.advent_id}`)
     }
 
-    const readPassedPresent = () => {
+    const goPreview = () => {
         notify('success', '전달한 선물 확인페이지로 이동되었습니다.')
         router.push(`/my_present/${item.advent_id}`)
     }
 
     const goAniversary = () => {
         router.push(`/write/${item.advent_id}/anniversary`)
-        notify('success', '기념일 수정 페이지로 이동되었습니다.')
+        notify('success', '기념일 설정 페이지로 이동되었습니다.')
     }
 
     const copyLink = (msg:string) => {
@@ -61,10 +61,10 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
             
     }
 
-    const confirmDelete = () => {
+    const confirmDelete = (content:string='') => {
         Swal.fire({
             title: '삭제하시겠습니까?',
-            text: "선물을 삭제하면 복구할 수 없습니다😥",
+            text: "선물을 삭제하면 복구할 수 없습니다😥" + content,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#F27117',
@@ -166,9 +166,9 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
     }
 
     // 전달하기 방법 선택
-    const choiceKakaoOrCopy = () => {
+    const choiceKakaoOrCopy = (title:string='선물 전달하기') => {
         Swal.fire({
-            title: '선물 전달하기',
+            title: title,
             text: '전달 방법을 선택해주세요!',
             icon: 'info',
             showDenyButton: true,
@@ -275,14 +275,19 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                         name='calendar check outline' 
                         size='large' 
                         inverted 
-                        color={ item.received ? 'pink' : 'teal' } 
+                        color={ item.received ? 'pink' : 'blue' } 
                         style={{ marginBottom: '10px' }}
                     />
                     { 
                         item.end_at
-                        &&
+                        ?
                         <span className={styles.dDay}>
                             &nbsp;&nbsp; { item.end_at.substring(0, 4) }년 { Number(item.end_at.substring(5, 7)) }월 { Number(item.end_at.substring(8, 10)) }일
+                        </span>
+                        :
+                        <span className={styles.writeDDay} onClick={() => goAniversary()}>
+                            &nbsp;&nbsp;기념일 설정하기
+                            <Icon name="arrow alternate circle right outline" color="blue" />
                         </span>
                     }
                     <br />
@@ -303,7 +308,18 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                             미작성 선물 : <span> { item.un_create_box + item.un_content_box}</span> DAY ({emptybox.map((x, index) => index+1 !== emptybox.length ? x+', ' : x)} 일차)
                         </p>
                         :
-                        <></>
+                        <p className={styles.adventDay3}>
+                            <Icon name="check circle" color="teal" />
+                            {item.received ? "전달 완료!" : "작성 완료!"}
+                            <span 
+                                className={ styles.goPreview }
+                                onClick={() => goPreview()}
+                            >
+                                &nbsp;
+                                {item.received ? "보낸선물 보기" : "선물 미리보기" }
+                                <Icon name="arrow alternate circle right outline" color="teal" />
+                            </span>
+                        </p>
                     }
                 </Column>
                 <Column width={3}>
@@ -336,21 +352,22 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                     <>
                         <Button 
                             animated='fade' 
-                            color='teal' 
+                            color='yellow' 
                             style={{  maxWidth:'150%' }}
-                            onClick={() => copyLink('보낸 선물을 다시 전달할 수 있습니다!')}
+                            // style={{ color:'black', lineHeight:'15px', height:'100%', width:'90%', fontSize: '0.9vw' }}
+                            onClick={() => choiceKakaoOrCopy('보낸 선물을 다시 \n 전달할 수 있습니다!')}
                         >
-                            <Button.Content hidden>링크확인</Button.Content>
+                            <Button.Content hidden>다시 전달</Button.Content>
                             <Button.Content visible>
-                                <Icon name='linkify' style={{ fontSize:'1vw'}} />
+                                <Icon name='chat' style={{ fontSize:'1vw'}} />
                             </Button.Content>
                         </Button>
-                        {/* 보낸선물 삭제는 임시!!! */}
+                        {/* 보낸선물 삭제는 고려 대상 */}
                         <Button 
                             animated='fade' 
                             color='orange'
                             style={{ margin:'5px 0', maxWidth:'150%' }}
-                            onClick={() => confirmDelete()}
+                            onClick={() => confirmDelete(' 전달이 완료된 선물의 삭제는 반드시 신중히 해주세요❗')}
                         >
                             <Button.Content hidden>삭제</Button.Content>
                             <Button.Content visible>
@@ -366,15 +383,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                 <Column width={5}>    
                 {
                     item.received ? 
-                        <Button 
-                            onClick={() => readPassedPresent()}
-                            color="twitter"
-                            style={{ height:'100%', width:'100%', lineHeight:'15px', fontSize: '0.9vw' }}
-                        >
-                            <Icon 
-                                name='gift' 
-                            />&nbsp;전달한 선물<br /> 확인하기
-                        </Button>
+                        ''
                         :
                         <Button 
                             onClick={() => adventPassing()}
@@ -389,7 +398,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                 <Column width={8}>
                     <Icon name="write square" />
                     <span className={styles.modifyTime}>
-                        작성(수정)일자 : { item.modified_at.substring(0, 4) }년 { Number(item.modified_at.substring(5, 7)) }월 { Number(item.modified_at.substring(8, 10)) }일 { item.modified_at.substring(11, 19) }
+                        작성(수정)일시: { item.modified_at.substring(0, 4) }년 { Number(item.modified_at.substring(5, 7)) }월 { Number(item.modified_at.substring(8, 10)) }일 { item.modified_at.substring(11, 19) }
                     </span>
                 </Column>
                 <Column

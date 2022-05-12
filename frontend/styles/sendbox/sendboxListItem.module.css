@@ -126,7 +126,27 @@
     color: grey;
 }
 
+.goPreview {
+    color: #009C95;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.adventDay3 {
+    margin-top: 10px;
+    margin-left: 10px;
+    font-weight: bold;
+    color: black;
+}
+
 /* mobile styles */
 @media only screen and (max-width: 767px) { 
 
+}
+
+.writeDDay {
+    font-weight: bold;
+    text-decoration: underline;
+    color: #1678C2;
+    cursor: pointer;
 }
