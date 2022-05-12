@@ -214,12 +214,16 @@ public class AdventBoxServiceImpl implements AdventBoxService {
         Advent advent = adventRepository.findById(adventBox.getAdvent().getId())
                 .orElseThrow(() -> new NoSuchAdventException("요청한 게시글을 찾을 수 없습니다."));
 
-        return AdventBoxUrlDetailResponse.builder()
-                .adventDay(adventBox.getAdventDay())
-                .dDay(advent.getDay()-adventBox.getAdventDay())
-                .content(adventBox.getContent())
-                .animation(adventBox.getAnimation())
-                .build();
+        if(adventBox.isActive()){
+            return AdventBoxUrlDetailResponse.builder()
+                    .adventDay(adventBox.getAdventDay())
+                    .dDay(advent.getDay()-adventBox.getAdventDay())
+                    .content(adventBox.getContent())
+                    .animation(adventBox.getAnimation())
+                    .build();
+        }
+
+        throw new NoSuchAdventException("요청한 게시글 박스를 찾을 수 없습니다.");
     }
 
 
