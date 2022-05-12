@@ -152,8 +152,8 @@ export default function Wrap(){
                 <Row>
                     <Column>
                         <div className={styles.imagetitle}>
-                            <div onClick={()=>{selectImageType(1)}} className={imageType===1?styles.selecttab:styles.tabhead }>내 이미지 찾기</div>
-                            <div onClick={()=>{selectImageType(2)}} className={imageType===2?styles.selecttab:styles.tabhead }>기본 이미지 선택</div>
+                            <div onClick={()=>{selectImageType(1)}} className={imageType===1?styles.selecttab:styles.tabhead }>기본 이미지 선택</div>
+                            <div onClick={()=>{selectImageType(2)}} className={imageType===2?styles.selecttab:styles.tabhead }>내 이미지 찾기</div>
                             <div onClick={()=>{selectImageType(3)}} className={imageType===3?styles.selecttab:styles.tabhead }>이미지 검색</div>
                         </div>
                     </Column>
@@ -162,6 +162,11 @@ export default function Wrap(){
                 <Row>
                     <Column textAlign="center" width={8}>
                         {imageType===1?
+                            <ImageList setBackgroundImage={setBackgroundImage} setFileImage={setFileImage}/>
+                        :
+                        ''}
+
+                        {imageType===2?
                             <div>
                                 <div className={styles.imageupload}>
                                     <label className={styles.filebutton} htmlFor="background">이미지 업로드</label>
@@ -177,11 +182,6 @@ export default function Wrap(){
                                     </button>
                                 </div>
                             </div>
-                        :
-                        ''}
-
-                        {imageType===2?
-                            <ImageList setBackgroundImage={setBackgroundImage} setFileImage={setFileImage}/>
                         :
                         ''}
 
