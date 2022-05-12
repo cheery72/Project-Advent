@@ -22,16 +22,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
+}
 
+.imagetitle div{
+    cursor: pointer;
 }
 
 .imageupload {
+    margin-top: 10px;
+    margin-bottom: 20px;
     align-items: center;
     justify-content: center;
 }
 
 .deletebutton {
+    width: 140px;
     padding: 10px 25px;
     background-color:#ff6161;
     border-radius: 4px;
@@ -42,7 +47,7 @@
 
 
 .filebutton {
-    margin-right: 10px;
+    width: 140px;
     padding: 10px 25px;
     background:#ADD7E4;
     border-radius: 4px;
@@ -137,8 +142,8 @@
 }
 
 .tabcontent {
-    margin: 15px 30px 30px 30px;
-    padding: 30px;
+    margin: 15px 0px 30px 0px;
+    padding: 30px 0px 30px 0px;
     text-align: center;
 }
 

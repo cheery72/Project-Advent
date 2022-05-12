@@ -76,6 +76,8 @@ export default function Selectbackground ({setBackgroundColor, setBackImage, bac
                         style={{ display: "none" }}
                         onChange={saveImage}
                     />
+                    </div>
+                    <div className={styles.imageupload}>
                     <button className={styles.deletebutton} onClick={() => deleteBackgroundImageupload()}>
                         삭제
                     </button>
