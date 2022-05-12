@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import styles from "../../../styles/detail/sticker.module.css"
 import allAxios from "../..//lib/allAxios";
 
-export default function Sticker ({pattern, setPattern, setStickers}:any) {
+export default function Sticker ({setStickers}:any) {
     const[stickerIndex, setStickerIndex] = useState(0);
     // 스티커
     const selectSticker = (e:any) => {
@@ -23,6 +23,9 @@ export default function Sticker ({pattern, setPattern, setStickers}:any) {
     useEffect(() => {
         getImageListInfo()
     }, [])
+
+    // 이동
+    
 
 
 

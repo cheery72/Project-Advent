@@ -52,7 +52,7 @@ export default function Detail(){
 
     // 효과
     const [effectpattern, setEffectPattern] = useState('noeffect')
-    const [effectimage, setEffectImage] = useState('')
+    const [effectimage, setEffectImage] = useState('noeffect')
     
     const cardeffect1 = async () => {
         setEffectPattern('noeffect')
@@ -89,7 +89,7 @@ export default function Detail(){
         setEffectImage('/effect/present.png')
     }  
 
-
+    console.log(effectimage)
 
 
     // 유저 정보
