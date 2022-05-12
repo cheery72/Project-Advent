@@ -11,6 +11,7 @@ import allAxios from "../../../src/lib/allAxios";
 import userAxios from "../../../src/lib/userAxios";
 import IsLogin from "../../../src/lib/IsLogin";
 import notify from "../../../src/component/notify/notify";
+import LogOut from "../../../src/lib/LogOut";
 
 export default function Detail(){
     const router = useRouter();
@@ -94,13 +95,14 @@ export default function Detail(){
     // 유저 정보
     const [userInfo, setUserInfo]: any = useState([])
 
-    const getUserInfo = async () => {
+    const getUserInfo = async (router: any) => {
         await userAxios
             .get(`/auth/users`)
             .then(({ data }) => {
                 setUserInfo(data.body.user)
             })
             .catch((e) => {
+                LogOut(router)
                 console.log(e)
             });
         };
@@ -143,10 +145,14 @@ export default function Detail(){
     }
 
     useEffect(() => {
-        if (IsLogin()){
-        getUserInfo()
-    }
-    }, [])
+        if (IsLogin() && router){
+            getUserInfo(router)
+        }   
+        if (!IsLogin()){
+            router.push('/')
+            notify('error', `로그인해야 작성할 수 있습니다❕`)
+        }
+    }, [router])
     
 
 return(

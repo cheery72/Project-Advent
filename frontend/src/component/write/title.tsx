@@ -26,8 +26,8 @@ export default function Title({ id, day }: any){
     }
 
     const writeTitle = () => {
-        if (tempTitle.length < 1  ||  tempTitle.length> 12){
-            notify('error', `제목은 1~12 글자수로 작성해야합니다.`)
+        if (tempTitle.length < 1  ||  tempTitle.length> 20){
+            notify('error', `제목은 1~20 글자수로 작성해야합니다.`)
             return
         }
         saveTitle()
@@ -98,7 +98,7 @@ export default function Title({ id, day }: any){
                 <>
                     <Row>
                         <Column textAlign="center">
-                            <Input type="text" maxLength={12} onChange={writeTempTitle}/>
+                            <Input type="text" maxLength={20} onChange={writeTempTitle}/>
                             <Button color="blue" onClick={writeTitle}>저장</Button>
                             <Button onClick={isOpen}>취소</Button>
                         </Column>

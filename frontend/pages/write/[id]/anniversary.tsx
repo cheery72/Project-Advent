@@ -4,6 +4,8 @@ import { SetStateAction, useEffect, useState } from "react";
 import { Button, Grid, Header, Icon, Popup } from "semantic-ui-react";
 import notify from "../../../src/component/notify/notify";
 import allAxios from "../../../src/lib/allAxios";
+import IsLogin from "../../../src/lib/IsLogin";
+import LogOut from "../../../src/lib/LogOut";
 import userAxios from "../../../src/lib/userAxios";
 import styles from "../../../styles/write/anniversary.module.css"
 
@@ -99,13 +101,14 @@ export default function Anniversary(){
         saveAnniversary()
     }
 
-    const getUserInfo = async () => {
+    const getUserInfo = async (router :any) => {
         await userAxios
             .get(`/auth/users`)
             .then(({ data }) => {
                 setUserInfo(data.body.user)
             })
             .catch((e) => {
+                LogOut(router)
                 console.log(e)
             });
         };
@@ -145,8 +148,14 @@ export default function Anniversary(){
     }
 
     useEffect(() => {
-        getUserInfo()
-    }, [])
+        if (IsLogin() && router){
+            getUserInfo(router)
+        }   
+        if (!IsLogin()){
+            router.push('/')
+            notify('error', `로그인해야 작성할 수 있습니다❕`)
+        }
+    }, [router])
 
     useEffect(() => {
         if (adventId) {
