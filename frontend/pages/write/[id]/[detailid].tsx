@@ -53,44 +53,11 @@ export default function Detail(){
     // 효과
     const [effectpattern, setEffectPattern] = useState('noeffect')
     const [effectimage, setEffectImage] = useState('noeffect')
-    
-    const cardeffect1 = async () => {
-        setEffectPattern('noeffect')
-        setEffectImage('noeffect')
+
+    const cardeffect = (name: string, image: string) => {
+        setEffectPattern(name)
+        setEffectImage(image)
     }
-
-    const cardeffect2 = async () => {
-        setEffectPattern('snow')
-        setEffectImage('snow')
-    }
-    
-    const cardeffect3 = async () => {
-        setEffectPattern('flower')
-        setEffectImage('/effect/daisy.png')
-    }  
-
-    const cardeffect4 = async () => {
-        setEffectPattern('pinkflower')
-        setEffectImage('/effect/pinkflower.png')
-    }  
-
-    const cardeffect5 = async () => {
-        setEffectPattern('star')
-        setEffectImage('/effect/star2.png')
-    }
-
-    const cardeffect6 = async () => {
-        setEffectPattern('heart')
-        setEffectImage('/stickercategory/love.png')
-    }  
-
-    const cardeffect7 = async () => {
-        setEffectPattern('present')
-        setEffectImage('/effect/present.png')
-    }  
-
-    console.log(effectimage)
-
 
     // 유저 정보
     const [userInfo, setUserInfo]: any = useState([])
@@ -144,6 +111,19 @@ export default function Detail(){
         })
     }
 
+    // 일 수 정보
+    const [dayInfo, setDayInfo] = useState(7)
+    const getDayInfo = async () => {
+        await allAxios
+            .get(`/advents/${adventId}/days`)
+            .then(({ data }) => {
+                setDayInfo(data.day)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    }
+
     useEffect(() => {
         if (IsLogin() && router){
             getUserInfo(router)
@@ -153,6 +133,10 @@ export default function Detail(){
             notify('error', `로그인해야 작성할 수 있습니다❕`)
         }
     }, [router])
+
+    useEffect(() => {
+        getDayInfo()
+    }, [])
     
 
 return(
@@ -167,7 +151,7 @@ return(
                 {effectpattern == 'present'? <Snow effectImage={'/effect/present.png'}></Snow>:''}
             </div>
         <div className={styles.presentdetailhead}>
-            D-7
+            <span>✨&nbsp;D-{dayInfo-Number(day)?dayInfo-Number(day):"day"}&nbsp;✨</span>
         </div>
         <Grid stackable>
         <Row>
@@ -259,25 +243,25 @@ return(
                 <Text setText={setText} setColor={setColor} setFontsize={setFontsize} setFontweight={setFontweight} text={text} fontweight={fontweight} color={color} fontsize={fontsize}></Text>
             </div>
             <div className={styles.tabcontent} hidden={index != 4}>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='noeffect'?"#FFFF8C":"" }} onClick={() => cardeffect1()}>
+                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='noeffect'?"#FFFF8C":"" }} onClick={() => cardeffect('noeffect', 'noeffect')}>
                 # 효과 없음
                 </div>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='snow'?"#FFFF8C":"" }}  onClick={() => cardeffect2()}>
+                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='snow'?"#FFFF8C":"" }}  onClick={() => cardeffect('snow', 'snow')}>
                 # 눈 내리는 효과
                 </div>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='flower'?"#FFFF8C":"" }} onClick={() => cardeffect3()}>
+                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='flower'?"#FFFF8C":"" }} onClick={() => cardeffect('flower', '/effect/daisy.png')}>
                 # 꽃 내리는 효과 - 데이지
                 </div>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='pinkflower'?"#FFFF8C":"" }}  onClick={() => cardeffect4()}>
+                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='pinkflower'?"#FFFF8C":"" }}  onClick={() => cardeffect('pinkflower', '/effect/pinkflower.png')}>
                 # 꽃 내리는 효과 - 장미
                 </div>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='star'?"#FFFF8C":"" }}  onClick={() => cardeffect5()}>
+                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='star'?"#FFFF8C":"" }}  onClick={() => cardeffect('star', '/effect/star2.png')}>
                 # 별 내리는 효과
                 </div>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='heart'?"#FFFF8C":"" }}  onClick={() => cardeffect6()}>
+                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='heart'?"#FFFF8C":"" }}  onClick={() => cardeffect('heart', '/stickercategory/love.png')}>
                 # 하트 내리는 효과
                 </div>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='present'?"#FFFF8C":"" }}  onClick={() => cardeffect7()}>
+                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='present'?"#FFFF8C":"" }}  onClick={() => cardeffect('present', '/effect/present.png')}>
                 # 선물 내리는 효과
                 </div>
             </div>
