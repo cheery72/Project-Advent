@@ -88,7 +88,7 @@ export default function Title({ id, day }: any){
                 <Row />
                 <Row>
                     <Column />
-                    <Column textAlign="center" width={6} onClick={isOpen} className={ styles.title }>
+                    <Column textAlign="center" computer={6} mobile={14} onClick={isOpen} className={ styles.title }>
                         <Header as="h1" className={ styles.inline }><span>&nbsp;{title}&nbsp;</span></Header>&nbsp;
                         <Popup content='클릭하여 선물 제목을 편집할 수 있습니다.' trigger={<Icon name="pencil alternate" color="teal"/>} />
                     </Column>

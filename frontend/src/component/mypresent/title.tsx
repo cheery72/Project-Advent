@@ -10,7 +10,8 @@ export default function Title({ title }:any){
             <Row>
                 <Column 
                     textAlign="center" 
-                    width={6} 
+                    computer={6}
+                    mobile={14} 
                     className={ styles.title }
                 >
                     <span className={ styles.titleNotice }>(<Icon name="asterisk" color="red" />발송자 확인용)</span>
