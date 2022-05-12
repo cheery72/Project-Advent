@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import PresentOne from "../../src/component/mypresent/presentone";
 import PresentSeven from "../../src/component/mypresent/presentseven";
@@ -6,6 +6,9 @@ import PresentThree from "../../src/component/mypresent/presentthree";
 import allAxios from "../../src/lib/allAxios";
 import userAxios from "../../src/lib/userAxios";
 import Head from "next/head";
+import notify from "../../src/component/notify/notify";
+import IsLogin from "../../src/lib/IsLogin";
+import LogOut from "../../src/lib/LogOut";
 
 export default function Present(){
 
@@ -30,7 +33,7 @@ export default function Present(){
             })
     }
 
-    const getUserInfo = async () => {
+    const getUserInfo = async (router: NextRouter | string[]) => {
         await userAxios.get(`/auth/users`)
             .then((data) => {
                 // console.log(data.data.body.user.id)
@@ -38,13 +41,20 @@ export default function Present(){
             })
             .catch((e) => {
                 console.log(e)
+                LogOut(router)
             });
     };
 
 
     useEffect(() => {
-        getUserInfo()
-    }, [])
+        if (IsLogin() && router){
+            getUserInfo(router)
+        }   
+        if (!IsLogin()){
+            router.push('/')
+            notify('error', `로그인해야 접근할 수 있는 메뉴입니다❕`)
+        }
+    }, [router])
 
     useEffect(() => {
         if (userId) {
