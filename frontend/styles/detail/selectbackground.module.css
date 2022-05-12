@@ -22,16 +22,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
+}
 
+.imagetitle div{
+    cursor: pointer;
 }
 
 .imageupload {
+    margin-top: 10px;
+    margin-bottom: 20px;
     align-items: center;
     justify-content: center;
 }
 
 .deletebutton {
+    width: 140px;
     padding: 10px 25px;
     background-color:#ff6161;
     border-radius: 4px;
@@ -42,7 +47,7 @@
 
 
 .filebutton {
-    margin-right: 10px;
+    width: 140px;
     padding: 10px 25px;
     background:#ADD7E4;
     border-radius: 4px;
@@ -95,4 +100,55 @@
     width: 300px;
     height: 300px;
     border: 1px solid;
+}
+
+
+.tabs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.tablist {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+.tabhead {
+    padding: 10px 8px 7px 8px;
+    cursor: pointer;
+    border-bottom: 2px solid rgb(219, 219, 219);
+}
+
+.selecttab {
+    padding:  10px 8px 7px 8px;
+    border-bottom: 2px solid black;
+    font-weight: bolder;
+}
+
+.tabhead img{
+    width: 30px;
+    height: 30px;
+}
+
+.selecttab img{
+    width: 30px;
+    height: 30px;
+}
+
+.tabcontent {
+    margin: 15px 0px 30px 0px;
+    padding: 30px 0px 30px 0px;
+    text-align: center;
+}
+
+.tabcontent img{
+    max-width: 100px;
+    max-height: 100px;
+    cursor: pointer;
 }

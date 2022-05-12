@@ -147,6 +147,7 @@ export default function Detail(){
         getUserInfo()
     }
     }, [])
+    
 
 return(
     <>
@@ -240,6 +241,8 @@ return(
                         style={{ display: "none" }}
                         onChange={saveImage}
                     />
+                    </div>
+                    <div className={styles.imageupload}>
                     <button className={styles.deletebutton} onClick={() => deleteImage()}>
                         삭제
                     </button>

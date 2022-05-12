@@ -64,8 +64,8 @@
 }
 
 .tabcontent {
-    margin: 15px 0px 30px 0px;
-    padding: 30px;
+    margin: 15px 22% 30px 22%;
+    padding-top: 30px;
     border-top: 2px solid rgb(219, 219, 219);
     border-bottom: 2px solid rgb(219, 219, 219);
     text-align: center;
@@ -76,11 +76,14 @@
 }
 
 .imageupload {
+    margin-top: 10px;
+    margin-bottom: 20px;
     align-items: center;
     justify-content: center;
 }
 
 .deletebutton {
+    width: 140px;
     padding: 10px 25px;
     background-color:#ff6161;
     border-radius: 4px;
@@ -91,7 +94,7 @@
 
 
 .filebutton {
-    margin-right: 10px;
+    width: 140px;
     padding: 10px 25px;
     background:#ADD7E4;
     border-radius: 4px;
@@ -152,11 +155,6 @@
     white-space: pre-wrap;
 }
 
-.value {
-    border-left: 24px solid #000;
-    padding-left: 10px;
-    margin-top: 20px;
-}
 
 .presentdetailhead span {
     background-image: linear-gradient(to right, rgb(255, 221, 188), rgb(243, 173, 255));
