@@ -5,6 +5,8 @@ import notify from "../../../../src/component/notify/notify";
 import ImageList from "../../../../src/component/write/wrap/imagelist";
 import UnsplashSearch from "../../../../src/component/write/wrap/unsplashsearch";
 import allAxios from "../../../../src/lib/allAxios";
+import IsLogin from "../../../../src/lib/IsLogin";
+import LogOut from "../../../../src/lib/LogOut";
 import userAxios from "../../../../src/lib/userAxios";
 import styles from "../../../../styles/write/wrap.module.css"
 
@@ -52,13 +54,14 @@ export default function Wrap(){
         router.push({ pathname: `/write/${adventId}`})
     }
 
-    const getUserInfo = async () => {
+    const getUserInfo = async (router: any) => {
         await userAxios
             .get(`/auth/users`)
             .then(({ data }) => {
                 setUserInfo(data.body.user)
             })
             .catch((e) => {
+                LogOut(router)
                 console.log(e)
             });
         };
@@ -109,8 +112,14 @@ export default function Wrap(){
     }
 
     useEffect(() => {
-        getUserInfo()
-    }, [])
+        if (IsLogin() && router){
+            getUserInfo(router)
+        }   
+        if (!IsLogin()){
+            router.push('/')
+            notify('error', `로그인해야 작성할 수 있습니다❕`)
+        }
+    }, [router])
 
     useEffect(() => {
         if (userInfo && adventId){
