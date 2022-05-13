@@ -138,13 +138,8 @@ public class AdventController {
 
     @ApiOperation(value = "보관함 페이지", notes = "해당 유저 보관함 페이지")
     @GetMapping("/{userId}/storages")
-    public ResponseEntity<Page<AdventStorageResponse>> adventMyStorageFind(@PageableDefault(size = 6)
-                                                                        @SortDefault.SortDefaults({
-                                                                        @SortDefault(sort = "isReceived"),
-                                                                        @SortDefault(sort = "endAt",direction = Sort.Direction.ASC),
-                                                                        @SortDefault(sort = "modifiedAt", direction = Sort.Direction.DESC)
-                                                                        })
-                                                                             Pageable pageable,
+    public ResponseEntity<Page<AdventStorageResponse>> adventMyStorageFind(@PageableDefault(size = 6, sort = "modifiedAt",
+                                                                        direction = Sort.Direction.DESC) Pageable pageable,
                                                                          @PathVariable("userId") Integer userId){
         log.debug("adventMyStorageFind");
 

@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { SetStateAction, useEffect, useState } from "react";
-import { Button, Grid, Image } from "semantic-ui-react";
+import { Button, Grid, Icon } from "semantic-ui-react";
 import notify from "../../../../src/component/notify/notify";
 import ImageList from "../../../../src/component/write/wrap/imagelist";
 import UnsplashSearch from "../../../../src/component/write/wrap/unsplashsearch";
@@ -23,16 +23,10 @@ export default function Wrap(){
     const [fileImage, setFileImage]: any = useState()
     const [userInfo, setUserInfo]: any = useState()
 
-    const deleteImage = () => {
-        setBackgroundImage('')
-        setFileImage()
-    }
-
     // 배경종류선택 
     const selectImageType = (num: SetStateAction<number>) => {
         setImageType(num)
     }
-
     // 배경 이미지 업로드
     const saveImage = (e:any) => {
         if(e.target.files.length !== 0){
@@ -138,8 +132,10 @@ export default function Wrap(){
 
                 <Row>
                     <Column width={3}/>
-                    <Column textAlign="center" width={10}>
-                        <Image src={backgroundImage} alt="" wrapped onClick={deleteImage} size="small" />
+                    <Column width={10}>
+                        <div className={styles.boxlocation}>
+                            <div className={styles.box} style={{ backgroundSize:'cover', backgroundImage:`url(${backgroundImage})`}}></div>
+                        </div>
                     </Column>
                     <Column width={2} textAlign="center">
                         <Button color="blue" inverted className={ styles.button } onClick={()=>{ writeWrap()}}>저장</Button>
@@ -152,9 +148,9 @@ export default function Wrap(){
                 <Row>
                     <Column>
                         <div className={styles.imagetitle}>
-                            <div onClick={()=>{selectImageType(1)}} className={imageType===1?styles.selecttab:styles.tabhead }>내 이미지 찾기</div>
-                            <div onClick={()=>{selectImageType(2)}} className={imageType===2?styles.selecttab:styles.tabhead }>기본 이미지 선택</div>
-                            <div onClick={()=>{selectImageType(3)}} className={imageType===3?styles.selecttab:styles.tabhead }>이미지 검색</div>
+                            <div onClick={()=>{selectImageType(1)}} className={imageType===1?styles.selecttab:styles.tabhead }><Icon name='images'/>기본 이미지 선택</div>
+                            <div onClick={()=>{selectImageType(2)}} className={imageType===2?styles.selecttab:styles.tabhead }><Icon name='upload'/>내 이미지 찾기</div>
+                            <div onClick={()=>{selectImageType(3)}} className={imageType===3?styles.selecttab:styles.tabhead }><Icon name='search'/>이미지 검색</div>
                         </div>
                     </Column>
                 </Row>
@@ -162,6 +158,11 @@ export default function Wrap(){
                 <Row>
                     <Column textAlign="center" width={8}>
                         {imageType===1?
+                            <ImageList setBackgroundImage={setBackgroundImage} setFileImage={setFileImage}/>
+                        :
+                        ''}
+
+                        {imageType===2?
                             <div>
                                 <div className={styles.imageupload}>
                                     <label className={styles.filebutton} htmlFor="background">이미지 업로드</label>
@@ -177,11 +178,6 @@ export default function Wrap(){
                                     </button>
                                 </div>
                             </div>
-                        :
-                        ''}
-
-                        {imageType===2?
-                            <ImageList setBackgroundImage={setBackgroundImage} setFileImage={setFileImage}/>
                         :
                         ''}
 

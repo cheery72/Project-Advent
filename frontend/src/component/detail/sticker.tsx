@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import styles from "../../../styles/detail/sticker.module.css"
-import allAxios from "../..//lib/allAxios";
+
 
 export default function Sticker ({setStickers}:any) {
     const[stickerIndex, setStickerIndex] = useState(0);
@@ -8,29 +8,32 @@ export default function Sticker ({setStickers}:any) {
     const selectSticker = (e:any) => {
         setStickers(e.target.currentSrc);
     }
-    const [imageListInfo, setImageListInfo]: any = useState([])
-    const getImageListInfo = async () => {
-        await allAxios
-            .get(`/images/stickers`)
-            .then(({ data }) => {
-                setImageListInfo(data)
-            })
-            .catch((e) => {
-                console.log(e)
-            })
+
+    // 스티커 카테고리
+    const stickerCategory:any = [
+        ['a_alphabet1', 28], ['a_alphabet2', 28], ['a_alphabet3', 28], ['a_alphabet4', 26], 
+        ['b_catchword', 40], ['c_number', 20], ['d_day', 35], ['e_birthday', 32], 
+        ['f_love', 40], ['f_love2', 24], ['g_food', 40], ['h_animal', 20],
+        ['h_animal2', 25], ['i_nature', 44], ['j_home', 20], ['k_study', 40]
+    ]
+
+    const StickerList:any = (category:any) => {
+        const result = []
+        for (let i = 1; i <= category[1]; i++) {
+            result.push(
+                <img 
+                    src={`/sticker/${category[0]}/${i}.png`} 
+                    alt='스티커' 
+                    onClick={selectSticker}
+                />
+            )
+        }
+        return result
     }
-
-    useEffect(() => {
-        getImageListInfo()
-    }, [])
-
-    // 이동
-    
 
 
 
     return(
-        <>
         <div>
             <div className={styles.tabs}>
                 <div className={styles.tablist}>
@@ -85,155 +88,19 @@ export default function Sticker ({setStickers}:any) {
                         <img src='/stickercategory/study.png' alt="stickercategoryimg"></img>
                     </div>
                 </div>
-            </div>
-            <div className={styles.tabcontent} hidden={stickerIndex != 0}>
-            {imageListInfo.alphabet?imageListInfo.alphabet.map((imageURL: string) => {
-                return(
-                    <img src={imageURL} key={imageURL} alt="" onClick={selectSticker}/>
-                );
-            }):""}
 
+            {
+                stickerCategory.map((category:any, index:number) => {
+                    return(
+                        <div className={styles.tabcontent} hidden={stickerIndex != index} key={`${category}-${index}`}>
+                        {    
+                            StickerList(category)
+                        }
+                        </div>
+                    )
+                })
+            }
             </div>
-            <div className={styles.tabcontent} hidden={stickerIndex != 1}>
-            {imageListInfo.alphabet2?imageListInfo.alphabet2.map((imageURL: string) => {
-                return(
-                    <img src={imageURL} key={imageURL} alt=""  onClick={selectSticker}/>
-                );
-                }):""}
-            </div>
-            <div className={styles.tabcontent} hidden={stickerIndex != 2}>
-            {imageListInfo.alphabet3?imageListInfo.alphabet3.map((imageURL: string) => {
-                return(
-                    <img src={imageURL} key={imageURL} alt=""  onClick={selectSticker}/>
-                );
-                }):""}
-            </div>
-            <div className={styles.tabcontent} hidden={stickerIndex != 3}>
-            {imageListInfo.alphabet4?imageListInfo.alphabet4.map((imageURL: string) => {
-                return(
-                    <img src={imageURL} key={imageURL} alt="" onClick={selectSticker}/>
-                );
-                }):""}
-            </div>
-            <div className={styles.tabcontent} hidden={stickerIndex != 4}>
-            {imageListInfo.catchword?imageListInfo.catchword.map((imageURL: string) => {
-                return(
-                    <img src={imageURL} key={imageURL} alt="" onClick={selectSticker}/>
-                );
-                }):""}
-            </div>
-            <div className={styles.tabcontent} hidden={stickerIndex != 5}>
-            {imageListInfo.number?imageListInfo.number.map((imageURL: string) => {
-                return(
-                    <img src={imageURL} key={imageURL} alt=""  onClick={selectSticker}/>
-                );
-                }):""}
-            </div>
-            <div className={styles.tabcontent} hidden={stickerIndex != 6}>
-            {imageListInfo.day?imageListInfo.day.map((imageURL: string) => {
-                return(
-                    <img src={imageURL} key={imageURL} alt="" onClick={selectSticker}/>
-                );
-                }):""}
-            </div>
-            <div className={styles.tabcontent} hidden={stickerIndex != 7}>
-            {imageListInfo.birthday?imageListInfo.birthday.map((imageURL: string) => {
-                return(
-                    <img src={imageURL} key={imageURL} alt="" onClick={selectSticker}/>
-                );
-                }):""}
-            </div>
-            <div className={styles.tabcontent} hidden={stickerIndex != 8}>
-            {imageListInfo.love?imageListInfo.love.map((imageURL: string) => {
-                return(
-                    <img src={imageURL} key={imageURL} alt="" onClick={selectSticker}/>
-                );
-                }):""}
-            </div>
-            <div className={styles.tabcontent} hidden={stickerIndex != 9}>
-            {imageListInfo.love2?imageListInfo.love2.map((imageURL: string) => {
-                return(
-                    <img src={imageURL} key={imageURL} alt="" onClick={selectSticker}/>
-                );
-                }):""}
-            </div>
-            <div className={styles.tabcontent} hidden={stickerIndex != 10}>
-            {imageListInfo.food?imageListInfo.food.map((imageURL: string) => {
-                return(
-                    <img src={imageURL} key={imageURL} alt="" onClick={selectSticker}/>
-                );
-                }):""}
-            </div>
-            <div className={styles.tabcontent} hidden={stickerIndex != 11}>
-            {imageListInfo.animal?imageListInfo.animal.map((imageURL: string) => {
-                return(
-                    <img src={imageURL} key={imageURL} alt="" onClick={selectSticker}/>
-                );
-                }):""}
-            </div>
-            <div className={styles.tabcontent} hidden={stickerIndex != 12}>
-            {imageListInfo.animal2?imageListInfo.animal2.map((imageURL: string) => {
-                return(
-                    <img src={imageURL} key={imageURL} alt="" onClick={selectSticker}/>
-                );
-                }):""}
-            </div>
-            <div className={styles.tabcontent} hidden={stickerIndex != 13}>
-            {imageListInfo.nature?imageListInfo.nature.map((imageURL: string) => {
-                return(
-                    <img src={imageURL} key={imageURL} alt="" onClick={selectSticker}/>
-                );
-                }):""}
-            </div>
-            <div className={styles.tabcontent} hidden={stickerIndex != 14}>
-            {imageListInfo.home?imageListInfo.home.map((imageURL: string) => {
-                return(
-                    <img src={imageURL} key={imageURL} alt="" onClick={selectSticker}/>
-                );
-                }):""}
-            </div>
-            <div className={styles.tabcontent} hidden={stickerIndex != 15}>
-            {imageListInfo.study?imageListInfo.study.map((imageURL: string) => {
-                return(
-                    <img src={imageURL} key={imageURL} alt="" onClick={selectSticker}/>
-                );
-                }):""}
-            </div>
-
-
-
-
-
-
-
-            {/* <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==1?"#FFFF8C":"" }} onClick={() => {setPattern(1)}}>
-            # 알파벳
-            </div>
-            <div className={styles.backgroundcontent} hidden={pattern != 1}>
-            
-            </div>
-            <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==2?"#FFFF8C":"" }}  onClick={() => {setPattern(2)}}>
-            # 축하
-            </div>
-            <div className={styles.backgroundcontent} hidden={pattern != 2}>
-
-            </div>
-            <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==3?"#FFFF8C":"" }}  onClick={() => {setPattern(3)}}>
-            # 하트 
-            </div>
-            <div className={styles.backgroundcontent} hidden={pattern != 3}>
-            <img src='/stickersample/sample1.png' onClick={selectSticker} alt="stickerimg"></img>
-            <img src='/stickersample/sample2.png' onClick={selectSticker} alt="stickerimg"></img>
-            <img src='/stickersample/sample3.png' onClick={selectSticker} alt="stickerimg"></img>
-            <img src='/stickersample/sample4.png' onClick={selectSticker} alt="stickerimg"></img>
-            </div>
-            <div className={styles.backgroundtitle} style={{ backgroundColor: pattern==4?"#FFFF8C":"" }}  onClick={() => {setPattern(4)}}>
-            # 숫자
-            </div>
-            <div className={styles.backgroundcontent} hidden={pattern != 4}>
-
-            </div> */}
         </div>
-        </>
     )
 }
