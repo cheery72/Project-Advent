@@ -1,15 +1,21 @@
 import { Grid, Button } from "semantic-ui-react";
 import React, { useEffect, useState } from 'react'
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 
 import styles from "../../../../styles/detail/detail.module.css"
 import allAxios from "../../../../src/lib/allAxios";
+import userAxios from "../../../../src/lib/userAxios";
+import LogOut from "../../../../src/lib/LogOut";
+import IsLogin from "../../../../src/lib/IsLogin";
+import notify from "../../../../src/component/notify/notify";
+import Head from "next/head";
 
 export default function Edit(){
 
     const router = useRouter();
     const adventId = router.query.id
     const boxId = router.query.detailid
+    const [userId, setUserId] = useState<number>(0)
 
     const {Row, Column} = Grid
 
@@ -22,7 +28,7 @@ export default function Edit(){
 
     const getBoxInfo = async (boxId: string | string[]) => {
         await allAxios
-            .get(`/boxes/${boxId}`)
+            .get(`/boxes/${boxId}/${userId}`)
             .then(({ data }) => {
                 setBoxInfo(data)
             })
@@ -31,16 +37,40 @@ export default function Edit(){
             })
     }
 
+    const getUserInfo = async (router: NextRouter | string[]) => {
+        await userAxios.get(`/auth/users`)
+            .then((data) => {
+                setUserId(data.data.body.user.id) // 유저의 userId를 받아옴
+            })
+            .catch((e) => {
+                console.log(e)
+                LogOut(router)
+            });
+    };
+
     useEffect(() => {
-        if (boxId){
+        if (boxId && userId){
             getBoxInfo(boxId)
         }
-    }, [boxId])
+    }, [userId])
+
+    useEffect(() => {
+        if (IsLogin() && router){
+            getUserInfo(router)
+        }   
+        if (!IsLogin()){
+            router.push('/')
+            notify('error', `로그인해야 보낸 선물함을 확인할 수 있습니다❕`)
+        }
+    }, [router])
 
 return(
     <>
+        <Head>
+            <title>작성한 선물 | Make Our Special</title>
+        </Head>
         <div className={styles.presentdetailhead}>
-            D-{boxInfo.dday}
+            <span>D-{boxInfo.dday ? boxInfo.dday: 'day'}</span>
         </div>
         <Grid stackable>
         <Row>

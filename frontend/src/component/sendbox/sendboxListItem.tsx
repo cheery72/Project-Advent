@@ -398,7 +398,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                 <Column width={8}>
                     <Icon name="write square" />
                     <span className={styles.modifyTime}>
-                        작성(수정)일시: { item.modified_at.substring(0, 4) }년 { Number(item.modified_at.substring(5, 7)) }월 { Number(item.modified_at.substring(8, 10)) }일 { item.modified_at.substring(11, 19) }
+                        수정일시: { item.modified_at.substring(0, 4) }년 { Number(item.modified_at.substring(5, 7)) }월 { Number(item.modified_at.substring(8, 10)) }일 { item.modified_at.substring(11, 19) }
                     </span>
                 </Column>
                 <Column
