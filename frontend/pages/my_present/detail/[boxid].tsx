@@ -19,12 +19,11 @@ export default function Presentdetail(){
     const [userId, setUserId] = useState<number>(0)
     const [boxInfo, setBoxInfo] = useState<any>()
     
-    const getBoxInfo = async () => {
+    const getBoxInfo = async (boxId: string | string[], userId: number) => {
         await allAxios
             .get(`/boxes/${boxId}/${userId}`)
             .then(({ data }) => {
                 if (data) {
-                    // console.log(data)
                     setBoxInfo(data)
                 }
             })
@@ -46,9 +45,9 @@ export default function Presentdetail(){
 
     useEffect(() => {
         if (boxId && userId){
-            getBoxInfo()
+            getBoxInfo(boxId, userId)
         }
-    }, [userId])
+    }, [userId, boxId])
 
     useEffect(() => {
         if (IsLogin() && router){

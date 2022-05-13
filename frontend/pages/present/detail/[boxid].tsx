@@ -14,11 +14,10 @@ export default function Presentdetail(){
     const [boxInfo, setBoxInfo] = useState<any>()
     
 
-    const getBoxInfo = async () => {
+    const getBoxInfo = async (boxId: string | string[]) => {
         await allAxios
             .get(`/boxes/${boxId}`)
             .then(({ data }) => {
-                // console.log(data)
                 if (data) {
                     setBoxInfo(data)
                 }
@@ -30,7 +29,7 @@ export default function Presentdetail(){
 
     useEffect(() => {
         if (boxId) {
-            getBoxInfo()
+            getBoxInfo(boxId)
         }
     }, [boxId])
 

@@ -140,7 +140,7 @@ export default function Detail(){
     const [go, setGo] = useState(false)
     const [target, setTarget] = useState('')
 
-    const addSticker = () => {
+    const addSticker = (stickers: string) => {
         let isIn = false
         {imageList.map((item: images) => {
             if (item.src === stickers){
@@ -218,7 +218,7 @@ export default function Detail(){
 
     useEffect(() => {
         if (stickers) {
-            addSticker()
+            addSticker(stickers)
         }
     }, [stickers])
 

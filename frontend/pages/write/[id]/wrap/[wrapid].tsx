@@ -90,7 +90,7 @@ export default function Wrap(){
             })
     }
 
-    const getAdventInfo = async (adventId: string | string[] | undefined, userInfo: any) => {
+    const getAdventInfo = async (adventId: string | string[] | undefined, userInfo: any, wrapId: string | string[]) => {
         await allAxios
             .get(`/advents/${adventId}/${userInfo.id}/advent`)
             .then(({ data }) => {
@@ -116,10 +116,10 @@ export default function Wrap(){
     }, [router])
 
     useEffect(() => {
-        if (userInfo && adventId){
-            getAdventInfo(adventId, userInfo)
+        if (userInfo && adventId && wrapId){
+            getAdventInfo(adventId, userInfo, wrapId)
         }
-    }, [userInfo, adventId])
+    }, [userInfo, adventId, wrapId])
 
     return(
         <>

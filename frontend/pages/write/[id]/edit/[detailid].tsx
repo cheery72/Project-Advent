@@ -24,7 +24,7 @@ export default function Edit(){
         router.push({ pathname: `/write/${adventId}/${boxInfo.advent_day}`})
     }
 
-    const getBoxInfo = async (boxId: string | string[]) => {
+    const getBoxInfo = async (boxId: string | string[], userId: number) => {
         await allAxios
             .get(`/boxes/${boxId}/${userId}`)
             .then(({ data }) => {
@@ -48,9 +48,9 @@ export default function Edit(){
 
     useEffect(() => {
         if (boxId && userId){
-            getBoxInfo(boxId)
+            getBoxInfo(boxId, userId)
         }
-    }, [userId])
+    }, [boxId, userId])
 
     useEffect(() => {
         if (IsLogin() && router){
