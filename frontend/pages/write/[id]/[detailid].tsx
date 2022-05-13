@@ -1,4 +1,4 @@
-import { Grid, Button, Icon, Image } from "semantic-ui-react";
+import { Grid, Button, Icon, Image, Popup } from "semantic-ui-react";
 import React, {useState, useEffect} from 'react'
 import { useRouter } from "next/router";
 
@@ -113,7 +113,7 @@ export default function Detail(){
 
     // 일 수 정보
     const [dayInfo, setDayInfo] = useState(7)
-    const getDayInfo = async () => {
+    const getDayInfo = async (adventId: string | string[]) => {
         await allAxios
             .get(`/advents/${adventId}/days`)
             .then(({ data }) => {
@@ -123,6 +123,104 @@ export default function Detail(){
                 console.log(e)
             })
     }
+
+    // 스티커 이동 구현
+    interface images {
+        src: string,
+        x: string,
+        y: string,
+        moved: boolean
+    }
+
+    const [imageList, setImageList]: any = useState([])
+    const [locationX, setLocationX] = useState('0')
+    const [locationY, setLocationY] = useState('0')
+    const [nowX, setNowX] = useState('0')
+    const [nowY, setNowY] = useState('0')
+    const [go, setGo] = useState(false)
+    const [target, setTarget] = useState('')
+
+    const addSticker = () => {
+        let isIn = false
+        {imageList.map((item: images) => {
+            if (item.src === stickers){
+                isIn = true
+            }
+        })}
+        if (isIn) {
+            notify("error", "스티커는 중복해서 사용할 수 없습니다.")
+        }
+        else if (imageList.length < 10 && !isIn) {
+            const body = {
+                src: stickers,
+                x: "0",
+                y: "0",
+                moved: false
+            }
+            setImageList([body, ...imageList])
+        }
+        else {
+            notify("error", "스티커는 10개 까지만 넣을 수 있습니다.")
+        }
+    }
+
+    const deleteSticker = async (e: { target: { src: string; }; }) => {
+        let tempList: any = []
+        await imageList.map((item: images) => {
+            if (item.src != e.target.src) {
+                tempList = [item, ...tempList]
+            }
+        })
+        
+        await setImageList(tempList)
+    }
+
+    const moving = (e: any) => {
+        if (go) {
+            setTarget('')
+        } else {
+            setTarget(e.target.src)
+        }
+
+        if (go) {
+            imageList.map((item: images) => {
+                if (item.src == e.target.src) {
+                    setLocationX(item.x)
+                    setLocationY(item.y)
+                }
+            })
+        }
+        setNowX(String(Number(e.pageX)-Number(locationX)))
+        setNowY(String(Number(e.pageY)-Number(locationY)))
+
+        if (go) {
+            imageList.map((item: images) => {
+                if (item.src == e.target.src && item.moved === false) {
+                    item.moved = true
+                    item.x = locationX
+                    item.y = locationY
+                }
+            })
+        }
+        setGo(!go)
+    }
+
+    const mouseMove = (event: any) => {
+        if (go) {
+            if (Number(event.pageX)-Number(nowX) > 0 && Number(event.pageX)-Number(nowX) < 230){
+                setLocationX(String(Number(event.pageX)-Number(nowX)))
+            }
+            if (Number(event.pageY)-Number(nowY) > 0 && Number(event.pageY)-Number(nowY) < 230){
+                setLocationY(String(Number(event.pageY)-Number(nowY)))
+            }
+        }
+    }
+
+    useEffect(() => {
+        if (stickers) {
+            addSticker()
+        }
+    }, [stickers])
 
     useEffect(() => {
         if (IsLogin() && router){
@@ -135,8 +233,10 @@ export default function Detail(){
     }, [router])
 
     useEffect(() => {
-        getDayInfo()
-    }, [])
+        if (adventId) {
+            getDayInfo(adventId)
+        }
+    }, [adventId])
     
 
 return(
@@ -158,15 +258,34 @@ return(
             <Column width={4}></Column>
             <Column width={8}>
             <div className={styles.boxlocation}>
-            <div id="canvas" className={styles.box} style={{ backgroundSize:'cover', backgroundColor:backgroundColor, backgroundImage:`url(${backImage})`}}>
+            <div 
+                id="canvas" 
+                onMouseMove={mouseMove}
+                onPointerDown={mouseMove}
+                onDoubleClick={() => {setStickers(''), setLocationX('0'), setLocationY('0') }}
+                className={styles.box} 
+                style={{ backgroundSize:'cover', backgroundColor:backgroundColor, backgroundImage:`url(${backImage})`}}>
                 <div style={{position:'absolute', cursor:'grab'}}>
-                    {stickers && (
-                            <Image
-                                alt="sticker"
-                                src={stickers}
-                                style={{height:80, maxWidth:80}}
+                    {imageList?imageList.map((item: images) => {
+                        return(
+                            <span key = {item.src}>
+                            <Popup
+                                content={item.moved?<>한번만 이동할 수 있습니다 <br />더블 클릭시 삭제</>:<>1번째 클릭시 이동 <br /> 2번째 클릭시 고정</>} 
+                                trigger={
+                                <Image
+                                    inline
+                                    alt="sticker"
+                                    src={item.src}
+                                    style={{height:80, maxWidth:80,  position: `absolute`, top: `${target===item.src?locationY:item.y}px`, left: `${target===item.src?locationX:item.x}px`}}
+                                    onClick={item.moved?()=>{}:moving}
+                                    onDoubleClick={deleteSticker}
+                                />
+                            }
                             />
-                    )}
+                            </span>
+                        );
+                        })
+                    :""}
                 </div>
                 <div className={styles.box_image}>
                 {image && (
