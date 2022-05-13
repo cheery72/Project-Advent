@@ -1,12 +1,15 @@
 import { Grid, Button, Image } from "semantic-ui-react";
 import React, { useEffect, useState } from 'react'
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 
 import styles from "../../../styles/detail/detail.module.css"
 import allAxios from "../../../src/lib/allAxios";
 import userAxios from "../../../src/lib/userAxios";
 import Head from "next/head";
 import Snow from "../../../src/component/animation/snow";
+import IsLogin from "../../../src/lib/IsLogin";
+import notify from "../../../src/component/notify/notify";
+import LogOut from "../../../src/lib/LogOut";
 
 export default function Presentdetail(){
     const {Row, Column} = Grid
@@ -30,25 +33,32 @@ export default function Presentdetail(){
             })
     }
 
-    const getUserInfo = async () => {
+    const getUserInfo = async (router: NextRouter | string[]) => {
         await userAxios.get(`/auth/users`)
             .then((data) => {
-                setUserId(data.data.body.user.id) // 유저의 userId를 받아옴)
+                setUserId(data.data.body.user.id) // 유저의 userId를 받아옴
             })
             .catch((e) => {
                 console.log(e)
+                LogOut(router)
             });
     };
 
     useEffect(() => {
-        getUserInfo()
-    }, [])
-
-    useEffect(() => {
-        if(userId) {
+        if (boxId && userId){
             getBoxInfo()
         }
     }, [userId])
+
+    useEffect(() => {
+        if (IsLogin() && router){
+            getUserInfo(router)
+        }   
+        if (!IsLogin()){
+            router.push('/')
+            notify('error', '로그인해야 접근 가능한 메뉴입니다❕')
+        }
+    }, [router])
 
     return(
         <>

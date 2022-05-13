@@ -9,18 +9,16 @@ import LogOut from "../../../../src/lib/LogOut";
 import IsLogin from "../../../../src/lib/IsLogin";
 import notify from "../../../../src/component/notify/notify";
 import Head from "next/head";
+import Snow from "../../../../src/component/animation/snow";
 
 export default function Edit(){
 
+    const {Row, Column} = Grid
     const router = useRouter();
     const adventId = router.query.id
     const boxId = router.query.detailid
     const [userId, setUserId] = useState<number>(0)
-
-    const {Row, Column} = Grid
-
-    const [boxInfo, setBoxInfo]: any = useState([])
-    
+    const [boxInfo, setBoxInfo]: any = useState()    
 
     const writeDetail = () => {
         router.push({ pathname: `/write/${adventId}/${boxInfo.advent_day}`})
@@ -60,7 +58,7 @@ export default function Edit(){
         }   
         if (!IsLogin()){
             router.push('/')
-            notify('error', `로그인해야 보낸 선물함을 확인할 수 있습니다❕`)
+            notify('error', '로그인해야 접근 가능한 메뉴입니다❕')
         }
     }, [router])
 
@@ -69,28 +67,41 @@ return(
         <Head>
             <title>작성한 선물 | Make Our Special</title>
         </Head>
-        <div className={styles.presentdetailhead}>
-            <span>D-{boxInfo.dday ? boxInfo.dday: 'day'}</span>
-        </div>
-        <Grid stackable>
-        <Row>
-            <Column width={4}></Column>
-            <Column width={8}>
-            <div className={styles.boxlocation}>
-            <div className={styles.box} style={{ backgroundSize: "cover", backgroundImage: `url(${ boxInfo.content })` }}>
-            </div>
-            </div>
-            </Column>
-            <Column width={4}>
-                <div className={styles.buttonbetween}>
-                    <Button inverted color='blue' onClick={()=>{ writeDetail()}}>새로 만들기</Button>
+        {
+            boxInfo ?
+            <div data-aos="zoom-in">
+                {   
+                    (boxInfo.animation !== 'noeffect' && boxInfo.animation !== null) ?
+                    <Snow effectImage={ boxInfo.animation==='snow' ? '' : boxInfo.animation } />
+                    :
+                    <></>
+                }
+                <div className={styles.presentdetailhead}>
+                    <span>D-{boxInfo.dday ? boxInfo.dday: 'day'}</span>
                 </div>
-                <div className={styles.cancelbutton}>    
-                    <Button inverted color='blue' onClick={() => {router.push({ pathname: `/write/${adventId}` });}}>&nbsp;&nbsp;&nbsp;&nbsp;취&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소&nbsp;&nbsp;&nbsp;&nbsp;</Button>  
-                </div>             
-            </Column>
-        </Row>
-        </Grid>
+                <Grid stackable>
+                    <Row>
+                        <Column width={4}></Column>
+                        <Column width={8}>
+                        <div className={styles.boxlocation}>
+                        <div className={styles.box} style={{ backgroundSize: "cover", backgroundImage: `url(${ boxInfo.content })` }}>
+                        </div>
+                        </div>
+                        </Column>
+                        <Column width={3}>
+                            <div className={styles.buttonbetween}>
+                                <Button inverted color='blue' onClick={()=>{ writeDetail()}}>새로 만들기</Button>
+                            </div>
+                            <div className={styles.cancelbutton}>    
+                                <Button inverted color='blue' onClick={() => {router.push({ pathname: `/write/${adventId}` });}}>&nbsp;&nbsp;&nbsp;&nbsp;취&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소&nbsp;&nbsp;&nbsp;&nbsp;</Button>  
+                            </div>             
+                        </Column>
+                    </Row>
+                </Grid>
+            </div>
+            :
+            <></>
+        }
     </>
 );
 }
