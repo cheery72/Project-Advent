@@ -19,12 +19,10 @@ export default function Present(){
     const [adventDay, setAdventDay] = useState(0)
     const [presentInfo, setPresentInfo] = useState({})
 
-    const getAdventInfo = async () => {
-        // console.log(userId)
+    const getAdventInfo = async (presentUrl: string | string[], userId: number) => {
         await allAxios
             .get(`/advents/${presentUrl}/${userId}/advent`)
             .then(({ data }) => {
-                // console.log(data)
                 setPresentInfo(data)
                 setAdventDay(data.day)
             })
@@ -57,10 +55,10 @@ export default function Present(){
     }, [router])
 
     useEffect(() => {
-        if (userId) {
-            getAdventInfo()
+        if (presentUrl && userId) {
+            getAdventInfo(presentUrl, userId)
         }
-    }, [userId])
+    }, [userId, presentUrl])
 
     return(
         <>
