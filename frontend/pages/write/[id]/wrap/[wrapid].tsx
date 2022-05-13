@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { SetStateAction, useEffect, useState } from "react";
 import { Button, Grid, Icon } from "semantic-ui-react";
@@ -123,10 +124,13 @@ export default function Wrap(){
 
     return(
         <>
-            <Grid centered stackable>
+            <Head>
+                <title>포장지 선택 | Make Our Special</title>
+            </Head>
+            <Grid centered stackable data-aos="fade-in" data-aos-duration='2000'>
                 <Row>
                     <Column textAlign="center" className={styles.selectimage}>
-                        <div className={styles.selecttitle}>내가 선택한 배경</div>
+                        <div className={styles.selecttitle}><Icon name="check circle" color="teal" /> 내가 선택한 배경 </div>
                     </Column>
                 </Row>
 

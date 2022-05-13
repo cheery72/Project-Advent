@@ -12,6 +12,7 @@ import userAxios from "../../../src/lib/userAxios";
 import IsLogin from "../../../src/lib/IsLogin";
 import notify from "../../../src/component/notify/notify";
 import LogOut from "../../../src/lib/LogOut";
+import Head from "next/head";
 
 export default function Detail(){
     const router = useRouter();
@@ -251,7 +252,10 @@ export default function Detail(){
 
 return(
     <>
-        <div className={styles.total}>
+        <Head>
+            <title>선물 꾸미기 | Make Our Special</title>
+        </Head>
+        <div className={styles.total} data-aos="fade-in" data-aos-duration="2000">
             <div>
                 {effectpattern == 'snow'? <Snow effectImage={''}></Snow>:''}
                 {effectpattern == 'flower'? <Snow effectImage={'/effect/daisy.png'}></Snow>:''}
@@ -261,7 +265,7 @@ return(
                 {effectpattern == 'present'? <Snow effectImage={'/effect/present.png'}></Snow>:''}
             </div>
         <div className={styles.presentdetailhead}>
-            <span>✨&nbsp;D-{dayInfo-Number(day)?dayInfo-Number(day):"day"}&nbsp;✨</span>
+            <span>✨&nbsp;D-{dayInfo && day? (dayInfo-Number(day)? dayInfo-Number(day) : "day") : ""}&nbsp;✨</span>
         </div>
         <Grid stackable>
         <Row>
