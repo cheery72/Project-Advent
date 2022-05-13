@@ -412,3 +412,11 @@
     background-position: center bottom;
     color: black;
 }
+
+.writeDDay {
+    font-weight: bold;
+    text-decoration: underline;
+    color: #1678C2;
+    cursor: pointer;
+    margin-top: 10px;
+}
