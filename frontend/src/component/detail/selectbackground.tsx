@@ -3,15 +3,16 @@ import React, { SetStateAction, useState, useEffect } from "react";
 import styles from "../../../styles/detail/selectbackground.module.css"
 import { HexColorPicker } from "react-colorful";
 import allAxios from "../../lib/allAxios";
+import { ImageGroup } from "semantic-ui-react";
 
 export default function Selectbackground ({setBackgroundColor, setBackImage, backgroundcolor}:any) {
     const router = useRouter();
     const [backgroundImage, setBackgroundImage] = useState('')
-    const [imageType, setImageType] = useState(1)
+    const [imageType, setImageType] = useState(0)
     const[index, setIndex] = useState(0);
 
     const selectImage = (e:any) => {
-        setBackImage(e.target.currentSrc)
+        setBackImage(e.target.currentSrc);
     }
 
     // tab
@@ -39,21 +40,25 @@ export default function Selectbackground ({setBackgroundColor, setBackImage, bac
     }
 
     // 기본 이미지
-    const [imageListInfo, setImageListInfo]: any = useState([])
-    const getImageListInfo = async () => {
-        await allAxios
-            .get(`/images/backgrounds`)
-            .then(({ data }) => {
-                setImageListInfo(data)
-            })
-            .catch((e) => {
-                console.log(e)
-            })
+    const backgroundCategory:any = [
+        ['animal', 24], ['birthday', 28], ['flower', 40], ['gradation',20], ['heart',24], ['tradition', 24]
+    ]
+
+    const backgroundList:any = (category:any) => {
+        const result = []
+        for (let i = 1; i <= category[1]; i++) {
+            result.push(
+                <img
+                    src={`/background/${category[0]}/${i}.png`}
+                    alt='배경'
+                    onClick={selectImage}
+                />
+            )
+        }
+        return result
     }
 
-    useEffect(() => {
-        getImageListInfo()
-    }, [])
+
 
 
 
@@ -61,9 +66,9 @@ export default function Selectbackground ({setBackgroundColor, setBackImage, bac
         <>
             <div>
             <div className={styles.imagetitle}>
+            <div onClick={()=>{selectImageType(0)}} className={imageType===0?styles.selecttab:styles.tabhead }>기존 이미지 선택</div>
                 <div onClick={()=>{selectImageType(1)}} className={imageType===1?styles.selecttab:styles.tabhead }>내 이미지 찾기</div>
-                <div onClick={()=>{selectImageType(2)}} className={imageType===2?styles.selecttab:styles.tabhead }>기존 이미지 선택</div>
-                <div onClick={()=>{selectImageType(3)}} className={imageType===3?styles.selecttab:styles.tabhead }>색상 선택</div>
+                <div onClick={()=>{selectImageType(2)}} className={imageType===2?styles.selecttab:styles.tabhead }>색상 선택</div>
             </div>
             {imageType===1?
                 <div>
@@ -86,7 +91,7 @@ export default function Selectbackground ({setBackgroundColor, setBackImage, bac
             :
             ''}
 
-            {imageType===2?
+            {imageType===0?
                     
             <div className={styles.tabs}> 
                 <div className={styles.tablist}>
@@ -109,52 +114,22 @@ export default function Selectbackground ({setBackgroundColor, setBackImage, bac
                         <img src='/wrapcategory/luckybag.png' alt="stickercategoryimg"></img>
                     </div>
                 </div>
-                <div className={styles.tabcontent} hidden={index != 0}>
-                    {imageListInfo.animal?imageListInfo.animal.map((imageURL: string) => {
-                    return(
-                    <img src={imageURL} key={imageURL} alt="" onClick={selectImage}/>
-                    );
-                }):""}
-                </div>
-                <div className={styles.tabcontent} hidden={index != 1}>
-                    {imageListInfo.birthday?imageListInfo.birthday.map((imageURL: string) => {
-                    return(
-                    <img src={imageURL} key={imageURL} alt="" onClick={selectImage}/>
-                    );
-                }):""}
-                </div>
-                <div className={styles.tabcontent} hidden={index != 2}>
-                    {imageListInfo.flower?imageListInfo.flower.map((imageURL: string) => {
-                    return(
-                    <img src={imageURL} key={imageURL} alt="" onClick={selectImage}/>
-                    );
-                }):""}
-                </div>
-                <div className={styles.tabcontent} hidden={index != 3}>
-                    {imageListInfo.gradation?imageListInfo.gradation.map((imageURL: string) => {
-                    return(
-                    <img src={imageURL} key={imageURL} alt="" onClick={selectImage}/>
-                    );
-                }):""}
-                </div>
-                <div className={styles.tabcontent} hidden={index != 4}>
-                    {imageListInfo.heart?imageListInfo.heart.map((imageURL: string) => {
-                    return(
-                    <img src={imageURL} key={imageURL} alt="" onClick={selectImage}/>
-                    );
-                }):""}
-                </div>
-                <div className={styles.tabcontent} hidden={index != 5}>
-                    {imageListInfo.tradition?imageListInfo.tradition.map((imageURL: string) => {
-                    return(
-                    <img src={imageURL} key={imageURL} alt="" onClick={selectImage}/>
-                    );
-                }):""}
-                </div>
+
+                {
+                    backgroundCategory.map((category:any, backgroundindex:number) => {
+                        return(
+                            <div className={styles.tabcontent} hidden={index != backgroundindex} key={`${category}-${backgroundindex}`}>
+                                {
+                                    backgroundList(category)
+                                }
+                            </div>
+                        )
+                    })
+                }
             </div>
         :
         ''}
-        {imageType===3?
+        {imageType===2?
             <>
             <div>
             <span className={styles.colorvalue} style={{ borderLeftColor: backgroundcolor }}>
