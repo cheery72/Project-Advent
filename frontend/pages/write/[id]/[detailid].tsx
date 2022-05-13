@@ -123,7 +123,7 @@ export default function Detail(){
     }
 
     // 일 수 정보
-    const [dayInfo, setDayInfo] = useState(7)
+    const [dayInfo, setDayInfo] = useState(0)
     const getDayInfo = async (adventId: string | string[]) => {
         await allAxios
             .get(`/advents/${adventId}/days`)
@@ -265,7 +265,7 @@ return(
                 {effectpattern == 'present'? <Snow effectImage={'/effect/present.png'}></Snow>:''}
             </div>
         <div className={styles.presentdetailhead}>
-            <span>✨&nbsp;D-{dayInfo && day? (dayInfo-Number(day)? dayInfo-Number(day) : "day") : ""}&nbsp;✨</span>
+            { dayInfo? <span>✨&nbsp;D-{dayInfo-Number(day)? dayInfo-Number(day) : "day" }&nbsp;✨</span> : "" }
         </div>
         <Grid stackable>
         <Row>
