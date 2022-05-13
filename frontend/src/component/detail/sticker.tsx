@@ -9,10 +9,6 @@ export default function Sticker ({setStickers}:any) {
         setStickers(e.target.currentSrc);
     }
 
-
-    useEffect(() => {
-    }, [])
-
     // 스티커 카테고리
     const stickerCategory:any = [
         ['a_alphabet1', 28], ['a_alphabet2', 28], ['a_alphabet3', 28], ['a_alphabet4', 26], 
