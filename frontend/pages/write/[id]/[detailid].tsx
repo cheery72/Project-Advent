@@ -210,7 +210,7 @@ return(
                         <Icon name='pencil alternate'/>텍스트 입력
                     </div>
                     <div className={index===4?styles.selecttab:styles.tabhead} onClick={()=>{setIndex(4)}}>
-                        <Icon name='pencil alternate'/>효과
+                        <Icon name='gift'/>효과
                     </div>
                 </div>
             </div>
