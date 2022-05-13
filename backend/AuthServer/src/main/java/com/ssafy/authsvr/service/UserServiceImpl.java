@@ -23,9 +23,9 @@ public class UserServiceImpl implements UserService{
     @Transactional
     @Override
     public Integer findAdventWriteCountUser(Integer userId) {
+        LocalDate localDate = LocalDate.now();
         Optional<User> optionalUser = userRepository.findById(userId);
         User user = optionalUser.orElseThrow(NoSuchElementException::new);
-        LocalDate localDate = LocalDate.now();
 
         if(user.getAdventWriteAt() == null || !localDate.equals(user.getAdventWriteAt())){
             user.setAdventCountModify(0, localDate);
