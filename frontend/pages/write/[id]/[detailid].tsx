@@ -76,6 +76,16 @@ export default function Detail(){
 
     // 이미지 생성 및 저장
     const makeFileImage = () => {
+        if (backImage==='https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/2048px-Solid_white.svg.png'
+            && !backgroundColor    
+            && imageList.length < 1
+            && !image 
+            && !text
+        ) {
+            notify("error", "❌내용을 입력해주세요❕")
+            return
+        }
+
         const canvas: any = document.getElementById('canvas');
 
         import('html2canvas').then(html2canvas => {
