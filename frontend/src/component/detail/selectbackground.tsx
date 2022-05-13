@@ -1,9 +1,7 @@
 import { useRouter } from "next/router";
-import React, { SetStateAction, useState, useEffect } from "react";
+import React, { SetStateAction, useState } from "react";
 import styles from "../../../styles/detail/selectbackground.module.css"
 import { HexColorPicker } from "react-colorful";
-import allAxios from "../../lib/allAxios";
-import { ImageGroup } from "semantic-ui-react";
 
 export default function Selectbackground ({setBackgroundColor, setBackImage, backgroundcolor}:any) {
     const router = useRouter();
