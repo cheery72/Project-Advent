@@ -21,6 +21,13 @@
 .selecttitle {
     font-weight: bold;
     margin-bottom: 10px;
+    font-size: 23px;
+    display: inline;
+    background-image: 
+      linear-gradient(to right, rgb(255, 250, 116), rgb(142, 234, 255));
+    background-size: 100% 50%;
+    background-repeat: no-repeat;
+    background-position: center bottom;
 }
 
 .selectimage img{
