@@ -22,6 +22,7 @@ export default function Sticker ({setStickers}:any) {
         for (let i = 1; i <= category[1]; i++) {
             result.push(
                 <img 
+                    key = {category[0]+i}
                     src={`/sticker/${category[0]}/${i}.png`} 
                     alt='스티커' 
                     onClick={selectSticker}

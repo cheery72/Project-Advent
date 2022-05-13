@@ -47,6 +47,7 @@ export default function Selectbackground ({setBackgroundColor, setBackImage, bac
         for (let i = 1; i <= category[1]; i++) {
             result.push(
                 <img
+                    key = {category[0]+i}
                     src={`/background/${category[0]}/${i}.png`}
                     alt='배경'
                     onClick={selectImage}

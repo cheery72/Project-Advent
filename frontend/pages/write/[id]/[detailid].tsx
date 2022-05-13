@@ -1,4 +1,4 @@
-import { Grid, Button, Icon, Image } from "semantic-ui-react";
+import { Grid, Button, Icon, Image, Popup } from "semantic-ui-react";
 import React, {useState, useEffect} from 'react'
 import { useRouter } from "next/router";
 
@@ -113,7 +113,7 @@ export default function Detail(){
 
     // 일 수 정보
     const [dayInfo, setDayInfo] = useState(7)
-    const getDayInfo = async () => {
+    const getDayInfo = async (adventId: string | string[]) => {
         await allAxios
             .get(`/advents/${adventId}/days`)
             .then(({ data }) => {
@@ -233,8 +233,10 @@ export default function Detail(){
     }, [router])
 
     useEffect(() => {
-        getDayInfo()
-    }, [])
+        if (adventId) {
+            getDayInfo(adventId)
+        }
+    }, [adventId])
     
 
 return(
@@ -266,15 +268,21 @@ return(
                 <div style={{position:'absolute', cursor:'grab'}}>
                     {imageList?imageList.map((item: images) => {
                         return(
-                            <Image
-                                key = {item.src}
-                                inline
-                                alt="sticker"
-                                src={item.src}
-                                style={{height:80, maxWidth:80,  position: `absolute`, top: `${target===item.src?locationY:item.y}px`, left: `${target===item.src?locationX:item.x}px`}}
-                                onClick={item.moved?()=>{notify("error", "한번만 이동할 수 있습니다  삭제후 다시 생성해주세요")}:moving}
-                                onDoubleClick={deleteSticker}
+                            <span key = {item.src}>
+                            <Popup
+                                content={item.moved?<>한번만 이동할 수 있습니다 <br />더블 클릭시 삭제</>:<>1번째 클릭시 이동 <br /> 2번째 클릭시 고정</>} 
+                                trigger={
+                                <Image
+                                    inline
+                                    alt="sticker"
+                                    src={item.src}
+                                    style={{height:80, maxWidth:80,  position: `absolute`, top: `${target===item.src?locationY:item.y}px`, left: `${target===item.src?locationX:item.x}px`}}
+                                    onClick={item.moved?()=>{}:moving}
+                                    onDoubleClick={deleteSticker}
+                                />
+                            }
                             />
+                            </span>
                         );
                         })
                     :""}
