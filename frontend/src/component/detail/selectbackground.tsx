@@ -126,25 +126,6 @@ export default function Selectbackground ({setBackgroundColor, setBackImage, bac
                         )
                     })
                 }
-
-                {/* <div className={styles.tabcontent} hidden={index != 0}>
-
-                </div>
-                <div className={styles.tabcontent} hidden={index != 1}>
-
-                </div>
-                <div className={styles.tabcontent} hidden={index != 2}>
-
-                </div>
-                <div className={styles.tabcontent} hidden={index != 3}>
-
-                </div>
-                <div className={styles.tabcontent} hidden={index != 4}>
-
-                </div>
-                <div className={styles.tabcontent} hidden={index != 5}>
-
-                </div> */}
             </div>
         :
         ''}
