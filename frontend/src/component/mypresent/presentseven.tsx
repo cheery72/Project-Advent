@@ -10,7 +10,7 @@ export default function PresentSeven({presentInfo}:any){
         <div data-aos="zoom-out">
             <Title title={presentInfo.title} />
             <div className={styles.dateStyle}>
-                <span>🗓️ D-DAY | { presentInfo.advent_box_list[6].is_active_at }</span>
+                <span>🗓️ D-DAY | { presentInfo.advent_box_list[2].is_active_at }</span>
             </div>
             <Grid textAlign="center" stackable>
                 <Row>

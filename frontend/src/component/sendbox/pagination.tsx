@@ -57,7 +57,7 @@ const createPagination = (params:any) => {
 const Pagination = ({ currentPage, setCurrentPage, totalPages }:any) => {
     const { pagination } = createPagination({
         numberOfPages: totalPages,
-        numberOfButtons: 3,
+        numberOfButtons: 4,
         currentPage
         }
     );
