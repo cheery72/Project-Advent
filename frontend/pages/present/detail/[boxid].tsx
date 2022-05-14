@@ -6,6 +6,7 @@ import styles from "../../../styles/detail/detail.module.css"
 import allAxios from "../../../src/lib/allAxios";
 import Head from "next/head";
 import Snow from "../../../src/component/animation/snow";
+import notify from "../../../src/component/notify/notify";
 
 export default function Presentdetail(){
     const router = useRouter();
@@ -24,6 +25,8 @@ export default function Presentdetail(){
             })
             .catch((e) => {
                 console.log(e)
+                notify('error', '선물 정보를 로딩하는데 에러가 발생했습니다.')
+                router.push('/404')
             })
     }
 

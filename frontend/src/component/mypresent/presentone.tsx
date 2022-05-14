@@ -19,6 +19,10 @@ export default function PresentOne({presentInfo}:any){
         <div data-aos="zoom-out">
             <Title title={presentInfo.title} />
             <div className={styles.dateStyle}>
+                <span>🗓️ D-DAY | {  presentInfo.advent_box_list[0].is_active_at ? presentInfo.advent_box_list[0].is_active_at : "" }</span>
+            </div>
+            {/* end-at확인이 필요함.... */}
+            {/* <div className={styles.dateStyle}>
                 <span>
                     🗓️ D-DAY | 
                     { presentInfo.advent_box_list[0].is_active_at ? 
@@ -33,7 +37,7 @@ export default function PresentOne({presentInfo}:any){
                         </>
                     }
                 </span>
-            </div>
+            </div> */}
             <Grid stackable centered>
 
                 <Row>
