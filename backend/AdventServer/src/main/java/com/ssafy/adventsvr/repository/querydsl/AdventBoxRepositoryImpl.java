@@ -29,7 +29,7 @@ public class AdventBoxRepositoryImpl implements AdventBoxRepositoryCustom{
                         qAdventBox.wrapper,
                         qAdvent.userId))
                 .from(qAdvent)
-                .join(qAdventBox)
+                .leftJoin(qAdventBox)
                 .on(qAdventBox.advent.id.eq(qAdvent.id))
                 .where(qAdventBox.id.eq(boxId).and(qAdvent.userId.eq(userId)))
                 .fetchOne();
@@ -46,7 +46,7 @@ public class AdventBoxRepositoryImpl implements AdventBoxRepositoryCustom{
                         qAdventBox.adventDay,
                         qAdventBox.animation))
                 .from(qAdventBox)
-                .join(qAdvent)
+                .leftJoin(qAdvent)
                 .on(qAdvent.id.eq(qAdventBox.advent.id))
                 .where(qAdventBox.id.eq(boxId))
                 .fetchOne();
@@ -63,7 +63,7 @@ public class AdventBoxRepositoryImpl implements AdventBoxRepositoryCustom{
                         qAdventBox.animation,
                         qAdvent.userId))
                 .from(qAdventBox)
-                .join(qAdvent)
+                .leftJoin(qAdvent)
                 .on(qAdventBox.advent.id.eq(qAdvent.id))
                 .where(qAdventBox.id.eq(boxId).and(qAdvent.userId.eq(userId)))
                 .fetchOne();
