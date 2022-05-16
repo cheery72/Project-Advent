@@ -90,10 +90,10 @@ return(
                         </Column>
                         <Column width={3}>
                             <div className={styles.buttonbetween}>
-                                <Button inverted color='blue' onClick={()=>{ writeDetail()}}>새로 만들기</Button>
+                                <Button inverted color='blue' onClick={()=>{ writeDetail()}} style={{width:"140px"}}>새로 만들기</Button>
                             </div>
                             <div className={styles.cancelbutton}>    
-                                <Button inverted color='blue' onClick={() => {router.push({ pathname: `/write/${adventId}` });}}>&nbsp;&nbsp;&nbsp;&nbsp;취&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소&nbsp;&nbsp;&nbsp;&nbsp;</Button>  
+                                <Button inverted color='blue' style={{width:"140px"}} onClick={() => {router.push({ pathname: `/write/${adventId}` });}}>&nbsp;&nbsp;&nbsp;&nbsp;취&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소&nbsp;&nbsp;&nbsp;&nbsp;</Button>  
                             </div>             
                         </Column>
                     </Row>

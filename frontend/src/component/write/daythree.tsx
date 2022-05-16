@@ -52,7 +52,7 @@ export default function DayThree({ userInfo }: any){
                 <Row>
                     <Column width={10} />
                     <Column width={6}>
-                        <Button color="blue" inverted size="large" onClick={writeAniversary}>기념일 설정</Button>
+                        <Button color="blue" inverted size="large" onClick={writeAniversary} style={{width:"140px"}}>기념일 설정</Button>
                     </Column>
                 </Row>
                 

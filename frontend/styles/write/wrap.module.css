@@ -24,7 +24,7 @@
     font-size: 23px;
     display: inline;
     background-image: 
-      linear-gradient(to right, rgb(255, 250, 116), rgb(142, 234, 255));
+    linear-gradient(to right, rgb(255, 250, 116), rgb(142, 234, 255));
     background-size: 100% 50%;
     background-repeat: no-repeat;
     background-position: center bottom;
@@ -50,11 +50,14 @@
 }
 
 .imageupload {
+    margin-top: 10px;
+    margin-bottom: 20px;
     align-items: center;
     justify-content: center;
 }
 
 .deletebutton {
+    width: 140px;
     padding: 10px 25px;
     background-color:#ff6161;
     border-radius: 4px;
@@ -65,7 +68,7 @@
 
 
 .filebutton {
-    margin-right: 10px;
+    width: 140px;
     padding: 10px 25px;
     background:#ADD7E4;
     border-radius: 4px;

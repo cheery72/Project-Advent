@@ -142,9 +142,9 @@ export default function Wrap(){
                         </div>
                     </Column>
                     <Column width={2} textAlign="center">
-                        <Button color="blue" inverted className={ styles.button } onClick={()=>{ writeWrap()}}>저장</Button>
+                        <Button color="blue" inverted className={ styles.button } style={{width:"140px"}} onClick={()=>{ writeWrap()}}>저장</Button>
                         <br /><br />
-                        <Button  color="blue" inverted className={ styles.button } onClick={()=>{ closeWrap()}}>취소</Button>
+                        <Button  color="blue" inverted className={ styles.button } style={{width:"140px"}} onClick={()=>{ closeWrap()}}>취소</Button>
                     </Column>
                     <Column width={1}/>
                 </Row>
@@ -177,6 +177,8 @@ export default function Wrap(){
                                         style={{ display: "none" }}
                                         onChange={saveImage}
                                     />
+                                </div>
+                                <div className={styles.imageupload}>
                                     <button className={styles.deletebutton} onClick={() => deleteBackgroundImageupload()}>
                                         삭제
                                     </button>
