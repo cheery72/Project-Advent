@@ -255,7 +255,7 @@ return(
         <Head>
             <title>선물 꾸미기 | Make Our Special</title>
         </Head>
-        <div className={styles.total} data-aos="fade-in" data-aos-duration="2000">
+        <div className={styles.total}>
             <div>
                 {effectpattern == 'snow'? <Snow effectImage={''}></Snow>:''}
                 {effectpattern == 'flower'? <Snow effectImage={'/effect/daisy.png'}></Snow>:''}

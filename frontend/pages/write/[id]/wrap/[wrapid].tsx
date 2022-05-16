@@ -127,7 +127,7 @@ export default function Wrap(){
             <Head>
                 <title>포장지 선택 | Make Our Special</title>
             </Head>
-            <Grid centered stackable data-aos="fade-in" data-aos-duration='2000'>
+            <Grid centered stackable>
                 <Row>
                     <Column textAlign="center" className={styles.selectimage}>
                         <div className={styles.selecttitle}><Icon name="check circle" color="teal" /> 내가 선택한 배경 </div>

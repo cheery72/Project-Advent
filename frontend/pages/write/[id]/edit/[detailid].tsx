@@ -69,7 +69,7 @@ return(
         </Head>
         {
             boxInfo ?
-            <div data-aos="zoom-in">
+            <div>
                 {   
                     (boxInfo.animation !== 'noeffect' && boxInfo.animation !== null) ?
                     <Snow effectImage={ boxInfo.animation==='snow' ? '' : boxInfo.animation } />

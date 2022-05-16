@@ -6,14 +6,14 @@ import Title from "./title";
 export default function PresentThree({presentInfo}:any){
 
     const { Row, Column } = Grid
-    // console.log(presentInfo)
 
     return(
         <div data-aos="zoom-out">
-            <Title title={presentInfo.title} /> 
-            <div className={styles.dateStyle}>
-                <span>🗓️ D-DAY | { presentInfo.advent_box_list[2].is_active_at }</span>
-            </div>
+            <Title 
+                title={presentInfo.title} 
+                adventId={presentInfo.advent_id} 
+                dday={presentInfo.advent_box_list[2].is_active_at} 
+            />
             <Grid textAlign="center" stackable>
 
                 <Row>
