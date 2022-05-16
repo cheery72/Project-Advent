@@ -17,6 +17,12 @@ export default function UnsplashSearch({ setBackgroundImage, setFileImage } :any
         setSearchWord(e.target.value)
     }
 
+    const enterSearchWord = (e: { key: string; }) => {
+        if (e.key === "Enter") {
+            loadImages()
+        }
+    }
+
     const loadImages = async () => {
         await unsplashAxios
             .get(`/search/photos`, {
@@ -24,6 +30,9 @@ export default function UnsplashSearch({ setBackgroundImage, setFileImage } :any
             })
             .then(({ data }) => {
                 setUnsplashImages(data.results)
+                setSearchWord('')
+                const searchValue: any = document.getElementById("searchInput")
+                searchValue.value = ''
             })
             .catch((e) => {
                 console.log(e)
@@ -41,8 +50,8 @@ export default function UnsplashSearch({ setBackgroundImage, setFileImage } :any
     return(
         <>
             <div>
-                <Header as="h5">검색할 영단어를 입력하세요!</Header>
-                <Input type="text" placeholder="ex) flower" maxLength={15} onChange={writeSearchWord}/>
+                <Header as="h5">검색할 키워드를 입력하세요!</Header>
+                <Input id="searchInput" type="text" placeholder="ex) flower, cake, birthday" maxLength={15} onChange={writeSearchWord} onKeyUp={enterSearchWord}/>
                 <Button color="blue" inverted onClick={ searchImage }>검색</Button>
             </div>
             <div className={styles.backgroundcontent}>   

@@ -13,6 +13,7 @@ import IsLogin from "../../../src/lib/IsLogin";
 import notify from "../../../src/component/notify/notify";
 import LogOut from "../../../src/lib/LogOut";
 import Head from "next/head";
+import LoadingSpinner from "../../../src/component/loadingSpinner"
 
 export default function Detail(){
     const router = useRouter();
@@ -118,6 +119,7 @@ export default function Detail(){
             router.push({ pathname: `/write/${adventId}`})
         })
         .catch((e) => {
+            setIsSpinner(false)
             console.log(e)
         })
     }
@@ -227,6 +229,9 @@ export default function Detail(){
         }
     }
 
+    // 스피너 적용
+    const [isSpinner, setIsSpinner] = useState(false)
+
     useEffect(() => {
         if (stickers) {
             addSticker(stickers)
@@ -255,6 +260,11 @@ return(
         <Head>
             <title>선물 꾸미기 | Make Our Special</title>
         </Head>
+        {isSpinner?
+            <span style={{ position: "absolute", margin: "auto", width: "100%", zIndex: "1" }}>
+                < LoadingSpinner />
+            </span>
+        :""}
         <div className={styles.total}>
             <div>
                 {effectpattern == 'snow'? <Snow effectImage={''}></Snow>:''}
@@ -319,7 +329,7 @@ return(
             </Column>
             <Column width={4}>
                 <div className={styles.buttonbetween}>
-                    <Button inverted color='blue' onClick={() => { makeFileImage() }}>&nbsp;&nbsp;&nbsp;&nbsp;저&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;장&nbsp;&nbsp;&nbsp;&nbsp;</Button>
+                    <Button inverted color='blue' onClick={() => { makeFileImage(), setIsSpinner(true) }}>&nbsp;&nbsp;&nbsp;&nbsp;저&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;장&nbsp;&nbsp;&nbsp;&nbsp;</Button>
                 </div>
                 <div className={styles.cancelbutton}>    
                     <Button inverted color='blue' onClick={() => {router.push({ pathname: `/write/${adventId}` });}}>&nbsp;&nbsp;&nbsp;&nbsp;취&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소&nbsp;&nbsp;&nbsp;&nbsp;</Button>  

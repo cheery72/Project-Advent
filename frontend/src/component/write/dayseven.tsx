@@ -82,25 +82,25 @@ export default function DaySeven({ userInfo }: any){
                     </Column>
                     <Column largeScreen={2} tablet={16}/>
                 </Row>
-                
+
                 <Row>
-                    <Column largeScreen={1} tablet={3}/>
+                    <Column width={1}/>
                     <Column width={2} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", marginBottom: "30px", backgroundImage: `url(${ box4.wrapper })` }} className={ styles.boxdayseven3 }>
                         <WriteSeven num={4} userInfo={userInfo} boxId={box4.box_id} />
                     </Column>
-                    <Column largeScreen={1} tablet={2}/>
+                    <Column width={1}/>
                     <Column width={2} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", marginBottom: "30px", backgroundImage: `url(${ box5.wrapper })` }} className={ styles.boxdayseven2 }>
                         <WriteSeven num={5} userInfo={userInfo} boxId={box5.box_id} />
                     </Column>
-                    <Column largeScreen={1} tablet={3}/>
+                    <Column width={1}/>
                     <Column width={2} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", marginBottom: "30px", backgroundImage: `url(${ box6.wrapper })` }} className={ styles.boxdayseven1 }>
                         <WriteSeven num={6} userInfo={userInfo} boxId={box6.box_id} />
                     </Column>
-                    <Column largeScreen={1} tablet={2}/>
+                    <Column width={1}/>
                     <Column width={2} style={{ minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", marginBottom: "30px", backgroundImage: `url(${ box7.wrapper })` }} className={ styles.boxdayseven0 }>
                         <WriteSeven num={7} userInfo={userInfo} boxId={box7.box_id} />
                     </Column>
-                    <Column largeScreen={1} tablet={16}/>
+                    <Column width={1}/>
                 </Row>
             </Grid>
         </>

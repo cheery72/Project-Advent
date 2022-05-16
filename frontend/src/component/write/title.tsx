@@ -33,6 +33,12 @@ export default function Title({ id, day }: any){
         saveTitle()
     }
 
+    const enterTitle = (e: { key: string; }) => {
+        if (e.key === "Enter") {
+            saveTitle()
+        }
+    }
+
     const getUserInfo = async () => {
         await userAxios
             .get(`/auth/users`)
@@ -98,7 +104,7 @@ export default function Title({ id, day }: any){
                 <>
                     <Row>
                         <Column textAlign="center">
-                            <Input type="text" maxLength={20} onChange={writeTempTitle}/>
+                            <Input type="text" maxLength={20} onChange={writeTempTitle} onKeyUp={enterTitle}/>
                             <Button color="blue" onClick={writeTitle}>저장</Button>
                             <Button onClick={isOpen}>취소</Button>
                         </Column>
