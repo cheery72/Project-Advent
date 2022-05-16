@@ -5,7 +5,7 @@ const LoadingSpinner = () => {
     return (
         <div className={ styles.alignment }>
             <Icon 
-                loading size='huge' 
+                loading size='massive' 
                 color='teal' 
                 name='spinner'
             />
