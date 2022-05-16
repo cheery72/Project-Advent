@@ -6,7 +6,6 @@ import com.ssafy.adventsvr.entity.QAdvent;
 import com.ssafy.adventsvr.entity.QAdventBox;
 import com.ssafy.adventsvr.payload.dto.AdventBoxListModifyDto;
 import com.ssafy.adventsvr.payload.dto.AdventBoxListTitleDto;
-
 import javax.persistence.EntityManager;
 import java.util.List;
 
@@ -26,8 +25,8 @@ public class AdventRepositoryImpl implements AdventRepositoryCustom {
                 .select(Projections.constructor(AdventBoxListTitleDto.class,
                         qAdvent.title,
                         qAdventBox.wrapper))
-                .from(qAdventBox)
-                .join(qAdvent)
+                .from(qAdvent)
+                .leftJoin(qAdventBox)
                 .on(qAdvent.id.eq(qAdventBox.advent.id))
                 .where(qAdvent.url.eq(url))
                 .orderBy(qAdventBox.adventDay.asc())
@@ -49,12 +48,11 @@ public class AdventRepositoryImpl implements AdventRepositoryCustom {
                         qAdventBox.adventDay,
                         qAdventBox.activeDay,
                         qAdventBox.wrapper))
-                .from(qAdventBox)
-                .join(qAdvent)
-                .on(qAdvent.id.eq(qAdventBox.advent.id))
+                .from(qAdvent)
+                .leftJoin(qAdventBox)
+                .on(qAdventBox.advent.id.eq(qAdvent.id))
                 .where(qAdvent.id.eq(adventId).and(qAdvent.userId.eq(userId)))
                 .orderBy(qAdventBox.adventDay.asc())
                 .fetch();
     }
-
 }

@@ -10,7 +10,6 @@ import java.util.UUID;
 
 @Table(name = "advent_box")
 @Getter
-@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class AdventBox extends BaseTimeEntity{
