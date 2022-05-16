@@ -1,9 +1,12 @@
 package com.ssafy.adventsvr.service;
 
+import com.ssafy.adventsvr.client.UserServiceClient;
 import com.ssafy.adventsvr.entity.Advent;
 import com.ssafy.adventsvr.entity.AdventBox;
 import com.ssafy.adventsvr.exception.NoSuchAdventException;
 import com.ssafy.adventsvr.exception.NotAuthenticationException;
+import com.ssafy.adventsvr.payload.dto.AdventBoxListModifyDto;
+import com.ssafy.adventsvr.payload.dto.AdventBoxListTitleDto;
 import com.ssafy.adventsvr.payload.request.AdventCertifyRequest;
 import com.ssafy.adventsvr.payload.request.AdventDayRequest;
 import com.ssafy.adventsvr.payload.request.AdventPrivateRequest;
@@ -31,28 +34,24 @@ public class AdventServiceImpl implements AdventService {
 
     private final AdventRepository adventRepository;
     private final AdventBoxRepository adventBoxRepository;
-//    private final UserServiceClient userServiceClient;
+    private final UserServiceClient userServiceClient;
 
     @Transactional
     @Override
     public AdventDayResponse inputDayAdvent(AdventDayRequest adventDayRequest) {
         Advent advent = Advent.adventBuilder(adventDayRequest);
 
-//        Integer userAdventCount = userServiceClient.userAdventCountFind(adventDayRequest.getUserId());
+        Integer userAdventCount = userServiceClient.userAdventCountFind(adventDayRequest.getUserId());
 
-//        if (10 >= userAdventCount) {
-//            return AdventDayResponse.builder()
-//                    .adventId(adventRepository.save(advent).getId())
-//                    .build();
-//        }
-        return AdventDayResponse.builder()
-                .adventId(adventRepository.save(advent).getId())
-                .build();
+        if (10 >= userAdventCount) {
+            return AdventDayResponse.builder()
+                    .adventId(adventRepository.save(advent).getId())
+                    .build();
+        }
 
-//        throw new NoSuchAdventException("오늘 게시글 작성 수가 초과되었습니다.");
+        throw new NoSuchAdventException("오늘 게시글 작성 수가 초과되었습니다.");
     }
 
-    // Todo: POST 비밀번호, 힌트, 기념일 설정 페이지 작성, join query 리스트 박스
     @Transactional
     @Override
     public void modifyPrivateInfoAdvent(String adventId, AdventPrivateRequest adventPrivateRequest) {
@@ -61,23 +60,21 @@ public class AdventServiceImpl implements AdventService {
 
         userValidation(advent.getUserId(),adventPrivateRequest.getUserId());
 
-        // 시간 포맷팅
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.parse(adventPrivateRequest.getEndAt(), formatter);
 
-        // 설정한 기간이랑 현재 시간이랑 데이의 차이가 설정한 박스 데이 이상이어야함
-        // 현재 날짜
-        LocalDate presentDate = LocalDate.now();
-        // 설정한 날짜 - 어드벤트 데이
-        // 오늘날짜는 포함 안함 포함하려면 minusDays(advent.getDay-1)
+        LocalDate today = LocalDate.now();
+
         LocalDate minusDays = localDate.minusDays(advent.getDay());
-        if (minusDays.isAfter(presentDate) || minusDays.equals(presentDate)) {
+
+        if (minusDays.isAfter(today) || minusDays.equals(today)) {
             String url = (UUID.randomUUID().toString()).replace("-", "");
             advent.setAdventPrivateInfoModify(adventPrivateRequest, url, localDate);
 
             List<AdventBox> adventBoxList = adventBoxRepository.findAllByAdventId(advent.getId());
             adventBoxList.forEach(
                     adventbox -> adventbox.setAdventBoxActiveAtModify(localDate, advent.getDay(), adventbox));
+            advent.setModify();
         } else {
             throw new NoSuchAdventException("내일 기준으로 요일을 +day 해주세요.");
         }
@@ -85,7 +82,6 @@ public class AdventServiceImpl implements AdventService {
 
     }
 
-    // Todo: POST 비밀번호 인증시 게시글 조회 join query 적용 - 리스트 박스 day ASC
     @Transactional
     @Override
     public AdventUrlReceiveResponse findReceiveUrlAdvent(AdventCertifyRequest adventCertifyRequest) {
@@ -97,28 +93,30 @@ public class AdventServiceImpl implements AdventService {
         if (encoder.matches(adventCertifyRequest.getPassword(), advent.getPassword())) {
             List<AdventBox> adventBoxList = adventBoxRepository.findAllByAdventIdOrderByAdventDayAsc(advent.getId());
 
-            advent.setAdventIsReceivedModify();
+            LocalDate today = LocalDate.now();
 
-                // 날짜됐을시 활성화
-            adventBoxList.forEach(adventbox -> {
-                LocalDate localDate = LocalDate.now();
-                if (adventbox.getActiveAt() != null) {
-                    // 현재날짜 이전이거나 같은 경우에는 활성화 시켜야함
-                    adventbox.setAdventActiveDayModify(localDate, adventbox.getActiveAt());
-                }
-            });
+            if(advent.getReceivedAt() == null) {
+                advent.setAdventIsReceivedModify();
+            }
 
+            if(advent.getRenewalAt() == null || !today.equals(advent.getRenewalAt())) {
+                adventBoxList.stream()
+                        .filter(adventbox -> adventbox.getActiveAt() != null)
+                        .forEachOrdered(adventbox -> {
+                    advent.setAdventRenewalAtModify(today);
+                    adventbox.setAdventActiveDayModify(today, adventbox.getActiveAt());
+                });
+            }
             return AdventUrlReceiveResponse.builder()
                     .title(advent.getTitle())
                     .day(advent.getDay())
-                    .adventBoxList(AdventBoxListResponse.adventBoxListBuilder(adventBoxList))
+                    .adventBoxList(AdventBoxListResponse.adventBoxAuthListBuilder(adventBoxList))
                     .build();
         }
 
         throw new NotAuthenticationException("설정하신 패스워드와 다릅니다.");
     }
 
-    // Todo: 패스워드 설정 안돼있을시에 join query 적용 - 리스트 박스 day ASC
     @Transactional
     @Override
     public AdventUrlReceiveResponse findReceiveNotPasswordUrlAdvent(String url) {
@@ -137,39 +135,35 @@ public class AdventServiceImpl implements AdventService {
         }
 
         if(advent.getRenewalAt() == null || !today.equals(advent.getRenewalAt())) {
-            // 날짜됐을시 활성화
-            adventBoxList.forEach(adventbox -> {
-            if (adventbox.getActiveAt() != null) {
+            adventBoxList.stream()
+                    .filter(adventbox -> adventbox.getActiveAt() != null)
+                    .forEachOrdered(adventbox -> {
                 advent.setAdventRenewalAtModify(today);
                 adventbox.setAdventActiveDayModify(today, adventbox.getActiveAt());
-            }
             });
         }
 
         return AdventUrlReceiveResponse.builder()
                 .title(advent.getTitle())
                 .day(advent.getDay())
-                .adventBoxList(AdventBoxListResponse.adventBoxListBuilder(adventBoxList))
+                .adventBoxList(AdventBoxListResponse.adventBoxAuthListBuilder(adventBoxList))
                 .build();
 
     }
 
-    // Todo: 보관함 페이지에서 수정 눌렀을때 조회 - ok  join query 적용 - 리스트 박스 day ASC
     @Override
     public AdventReceiveResponse findAdvent(String adventId, Integer userId) {
-        Advent advent = adventRepository.findById(adventId)
-                .orElseThrow(() -> new NoSuchAdventException("요청한 게시글을 찾을 수 없습니다."));
+        List<AdventBoxListModifyDto> adventBoxList = adventRepository.findAllByAdventIdAndUserId(adventId, userId);
 
-        userValidation(advent.getUserId(),userId);
+        userValidation(adventBoxList.get(0).getUserId(),userId);
 
-        List<AdventBox> adventBoxList = adventBoxRepository.findAllByAdventIdOrderByAdventDayAsc(adventId);
         List<AdventBoxListResponse> adventBoxListResponse = AdventBoxListResponse.adventBoxListBuilder(adventBoxList);
 
         return AdventReceiveResponse.builder()
                 .adventId(adventId)
-                .title(advent.getTitle())
-                .day(advent.getDay())
-                .endAt(advent.getEndAt())
+                .title(adventBoxList.get(0).getTitle())
+                .day(adventBoxList.get(0).getDay())
+                .endAt(adventBoxList.get(0).getEndAt())
                 .adventBoxList(adventBoxListResponse)
                 .build();
 
@@ -208,7 +202,6 @@ public class AdventServiceImpl implements AdventService {
                 .build();
     }
 
-    // Todo: GET 보관함 페이지 - ok , join query 적용 - 리스트 박스 day ASC
     @Override
     public Page<AdventStorageResponse> findMyStorageAdvent(Pageable pageable, Integer userId) {
         List<Advent> advents = adventRepository.findAllByUserId(userId);
@@ -216,20 +209,18 @@ public class AdventServiceImpl implements AdventService {
         List<Advent> pageAdvent = adventRepository.findPageAllByUserId(pageable, userId);
         List<AdventCreatedResponse> createList = new ArrayList<>();
 
-        for (Advent advent: pageAdvent) {
+        for (Advent advent : pageAdvent) {
             List<AdventBox> adventBoxs = adventBoxRepository.findAllByAdventIdOrderByAdventDayAsc(advent.getId());
             Integer unCreateBox = 0, unContentBox = 0;
             List<Integer> unCreateBoxList = new ArrayList<>();
             List<Integer> unContentBoxList = new ArrayList<>();
-            boolean[] isCreate = new boolean[advent.getDay()+1];
+            boolean[] isCreate = new boolean[advent.getDay() + 1];
 
             if (adventBoxs.size() != advent.getDay()) {
-                for (AdventBox adventBox : adventBoxs) {
-                    isCreate[adventBox.getAdventDay()] = true;
-                }
+                adventBoxs.forEach(adventBox -> isCreate[adventBox.getAdventDay()] = true);
 
-                for (int i=1; i< isCreate.length; i++) {
-                    if(!isCreate[i]){
+                for (int i = 1; i < isCreate.length; i++) {
+                    if (!isCreate[i]) {
                         unCreateBoxList.add(i);
                         unCreateBox++;
                     }
@@ -237,20 +228,20 @@ public class AdventServiceImpl implements AdventService {
             }
 
             for (AdventBox adventBox : adventBoxs) {
-                if(adventBox.getContent() == null) {
+                if (adventBox.getContent() == null) {
                     unContentBoxList.add(adventBox.getAdventDay());
                     unContentBox++;
                 }
             }
 
             String wrapper = null;
-            if(!adventBoxs.isEmpty()){
+            if (!adventBoxs.isEmpty()) {
                 wrapper = adventBoxs.get(0).getWrapper();
             }
 
             AdventCreatedResponse adventCreatedResponse = AdventCreatedResponse
-                                                        .createdBuilder(advent,unCreateBox,unCreateBoxList,
-                                                        unContentBox,unContentBoxList,wrapper);
+                    .createdBuilder(advent, unCreateBox, unCreateBoxList,
+                            unContentBox, unContentBoxList, wrapper);
             createList.add(adventCreatedResponse);
         }
 
@@ -259,20 +250,17 @@ public class AdventServiceImpl implements AdventService {
         return new PageImpl<>(adventList, pageable, advents.size());
     }
 
-    // Todo: join query 적용 - 리스트 박스 day ASC ok
     @Override
     public AdventBoxTitleResponse findTitleAdventBox(String url) {
-        Advent advent = adventRepository.findByUrl(url)
-                .orElseThrow(() -> new NoSuchAdventException("요청한 게시글을 찾을 수 없습니다."));
-        List<AdventBox> adventBox = adventBoxRepository.findAllByAdventIdOrderByAdventDayAsc(advent.getId());
+        List<AdventBoxListTitleDto> adventBoxListTitleDtos = adventRepository.findAllByUrlOrderByAdventDayAsc(url);
 
         String wrapper = null;
-        if(!adventBox.isEmpty()){
-            wrapper = adventBox.get(0).getWrapper();
+        if(!adventBoxListTitleDtos.isEmpty()){
+            wrapper = adventBoxListTitleDtos.get(0).getWrapper();
         }
 
         return AdventBoxTitleResponse.builder()
-                .title(advent.getTitle())
+                .title(adventBoxListTitleDtos.get(0).getTitle())
                 .wrapper(wrapper)
                 .build();
     }
@@ -282,7 +270,7 @@ public class AdventServiceImpl implements AdventService {
     public void modifyTitleAdvent(String adventId,AdventRecipientModify adventRecipientModify) {
         Advent advent = adventRepository.findById(adventId)
                 .orElseThrow(() -> new NoSuchAdventException("요청한 게시글을 찾을 수 없습니다."));
-
+        advent.setModify();
         advent.setAdventTitleModify(adventRecipientModify.getTitle());
     }
 

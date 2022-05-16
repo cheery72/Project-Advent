@@ -2,10 +2,7 @@ package com.ssafy.adventsvr.entity;
 
 import com.ssafy.adventsvr.payload.request.AdventDayRequest;
 import com.ssafy.adventsvr.payload.request.AdventPrivateRequest;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -16,6 +13,7 @@ import java.util.UUID;
 
 @Table(name = "advent")
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Advent extends BaseTimeEntity{
@@ -47,6 +45,8 @@ public class Advent extends BaseTimeEntity{
 
     private Integer userId;
 
+    private LocalDate renewalAt;
+
     @OneToMany(mappedBy = "advent", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AdventBox> adventBoxes = new ArrayList<>();
 
@@ -60,7 +60,7 @@ public class Advent extends BaseTimeEntity{
     }
 
     @Builder
-    private Advent(String id, String url, Integer day, String title, boolean isReceived, LocalDateTime receivedAt, String password, String passwordHint, LocalDate endAt, Integer userId, List<AdventBox> adventBoxes) {
+    private Advent(String id, String url, Integer day, String title, boolean isReceived, LocalDateTime receivedAt, String password, String passwordHint, LocalDate endAt, Integer userId, List<AdventBox> adventBoxes, LocalDate renewalAt) {
         this.id = id;
         this.url = url;
         this.day = day;
@@ -72,6 +72,7 @@ public class Advent extends BaseTimeEntity{
         this.endAt = endAt;
         this.userId = userId;
         this.adventBoxes = adventBoxes;
+        this.renewalAt = renewalAt;
     }
 
     public void setAdventPrivateInfoModify(AdventPrivateRequest adventPrivateRequest, String url, LocalDate localDate){
@@ -97,5 +98,9 @@ public class Advent extends BaseTimeEntity{
 
     public void setAdventTitleModify(String title) {
         this.title = title;
+    }
+
+    public void setAdventRenewalAtModify(LocalDate today){
+        this.renewalAt = today;
     }
 }

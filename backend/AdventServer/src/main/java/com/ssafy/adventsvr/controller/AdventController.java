@@ -35,10 +35,6 @@ public class AdventController {
     public ResponseEntity<AdventDayResponse> adventDayInput(@RequestBody @Valid AdventDayRequest adventDayRequest){
         log.debug("adventInput");
 
-        if(ObjectUtils.isEmpty(adventDayRequest)){
-            throw new NotRequestException("요청한 데이터가 비어있습니다.");
-        }
-
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(adventService.inputDayAdvent(adventDayRequest));
@@ -54,9 +50,6 @@ public class AdventController {
             throw new NotAuthenticationException("패스워드와 패스워드 확인이 다릅니다.");
         }
 
-        if (ObjectUtils.isEmpty(adventPrivateRequest)) {
-            throw new NotRequestException("요청한 데이터가 비어있습니다.");
-        }
         adventService.modifyPrivateInfoAdvent(adventId,adventPrivateRequest);
 
         return ResponseEntity.noContent().build();
@@ -68,11 +61,8 @@ public class AdventController {
                                                     ,@RequestBody AdventRecipientModify adventRecipientModify){
         log.debug("adventRecipientModify");
 
-        if (ObjectUtils.isEmpty(adventRecipientModify)) {
-            throw new NotRequestException("요청한 데이터가 비어있습니다.");
-        }
-
         adventService.modifyTitleAdvent(adventId,adventRecipientModify);
+
         return ResponseEntity.noContent().build();
     }
 
@@ -80,10 +70,6 @@ public class AdventController {
     @PostMapping("/auths")
     public ResponseEntity<AdventUrlReceiveResponse> adventReceiveUrlFind(@RequestBody @Valid AdventCertifyRequest adventCertifyRequest){
         log.debug("adventUrlFind");
-
-        if (ObjectUtils.isEmpty(adventCertifyRequest)) {
-            throw new NotRequestException("요청한 데이터가 비어있습니다.");
-        }
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -165,15 +151,5 @@ public class AdventController {
 
         return ResponseEntity
                 .ok(adventService.findTitleAdventBox(url));
-    }
-
-    @ApiOperation(value = "박스 열리는 날짜 수정 배치", notes = "박스 열리는 날짜 수정 - 배치용, 사용 안해두 됨")
-    @PatchMapping("/opens")
-    public ResponseEntity<Object> adventBoxDaysModify() {
-        log.info("adventBoxDaysModify");
-
-        adventService.modifyDaysAdventBox();
-
-        return ResponseEntity.noContent().build();
     }
 }

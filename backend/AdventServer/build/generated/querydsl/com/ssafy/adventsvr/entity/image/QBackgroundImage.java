@@ -19,7 +19,7 @@ public class QBackgroundImage extends EntityPathBase<BackgroundImage> {
 
     public static final QBackgroundImage backgroundImage = new QBackgroundImage("backgroundImage");
 
-    public final NumberPath<Integer> category = createNumber("category", Integer.class);
+    public final StringPath category = createString("category");
 
     public final NumberPath<Integer> id = createNumber("id", Integer.class);
 

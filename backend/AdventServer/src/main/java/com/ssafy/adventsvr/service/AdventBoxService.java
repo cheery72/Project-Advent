@@ -7,13 +7,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface AdventBoxService {
 
-    AdventBoxDayResponse inputBoxAdventBox(AdventBoxRequest adventBoxRequest, MultipartFile file);
+    void inputBoxAdventBox(AdventBoxRequest adventBoxRequest, MultipartFile file);
 
-    void modifyBoxAdventBox(String boxId, MultipartFile file);
+    void modifyBoxAdventBox(String boxId, MultipartFile file,String animation);
 
-    AdventBoxWrapperResponse inputWrapperAdventBox(AdventBoxWrapperRequest adventBoxWrapperRequest, MultipartFile file);
+    void inputWrapperAdventBox(AdventBoxWrapperRequest adventBoxWrapperRequest, MultipartFile file);
 
-    AdventBoxWrapperResponse modifyWrapperAdventBox(String boxId,AdventBoxWrapperRequest adventBoxWrapperRequest, MultipartFile file);
+    void modifyWrapperAdventBox(String boxId,AdventBoxWrapperRequest adventBoxWrapperRequest, MultipartFile file);
 
     AdventBoxDetailResponse findDetailAdventBox(String boxId, Integer userId);
 

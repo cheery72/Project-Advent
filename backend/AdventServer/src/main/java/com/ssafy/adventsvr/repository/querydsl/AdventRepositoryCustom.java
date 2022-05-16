@@ -1,9 +1,11 @@
 package com.ssafy.adventsvr.repository.querydsl;
 
-import com.ssafy.adventsvr.entity.AdventBox;
+import com.ssafy.adventsvr.payload.dto.AdventBoxListModifyDto;
+import com.ssafy.adventsvr.payload.dto.AdventBoxListTitleDto;
 
 import java.util.List;
 
 public interface AdventRepositoryCustom {
-//    List<AdventBox> findAllByAdventId(String adventId);
+    List<AdventBoxListTitleDto> findAllByUrlOrderByAdventDayAsc(String url);
+    List<AdventBoxListModifyDto> findAllByAdventIdAndUserId(String adventId, Integer userId);
 }

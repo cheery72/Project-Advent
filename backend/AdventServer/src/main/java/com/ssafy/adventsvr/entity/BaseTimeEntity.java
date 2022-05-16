@@ -1,6 +1,8 @@
 package com.ssafy.adventsvr.entity;
 
 import lombok.Getter;
+import lombok.Setter;
+import org.apache.tomcat.jni.Local;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -20,4 +22,8 @@ public abstract class BaseTimeEntity {
 
     @LastModifiedDate
     private LocalDateTime modifiedAt;
+
+    public void setModify(){
+        this.modifiedAt = LocalDateTime.now();
+    }
 }

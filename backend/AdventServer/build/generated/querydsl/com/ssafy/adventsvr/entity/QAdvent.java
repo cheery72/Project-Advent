@@ -46,6 +46,8 @@ public class QAdvent extends EntityPathBase<Advent> {
 
     public final DateTimePath<java.time.LocalDateTime> receivedAt = createDateTime("receivedAt", java.time.LocalDateTime.class);
 
+    public final DatePath<java.time.LocalDate> renewalAt = createDate("renewalAt", java.time.LocalDate.class);
+
     public final StringPath title = createString("title");
 
     public final StringPath url = createString("url");

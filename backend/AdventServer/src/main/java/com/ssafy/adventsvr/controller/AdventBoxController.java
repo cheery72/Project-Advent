@@ -25,59 +25,62 @@ public class AdventBoxController {
 
     @ApiOperation(value = "선물 박스 생성", notes = "박스 생성")
     @PostMapping
-    public ResponseEntity<AdventBoxDayResponse> adventBoxDayInput(@RequestPart(value = "adventBoxRequest") @Valid AdventBoxRequest adventBoxRequest,
+    public ResponseEntity<Object> adventBoxDayInput(@RequestPart(value = "adventBoxRequest") @Valid AdventBoxRequest adventBoxRequest,
                                                                   @RequestPart(required = false) MultipartFile file) {
         log.info("adventBoxDayInput");
 
-        if (ObjectUtils.isEmpty(adventBoxRequest)) {
-            throw new NotRequestException("요청 데이터가 비었습니다.");
-        }
+        adventBoxService.inputBoxAdventBox(adventBoxRequest, file);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(adventBoxService.inputBoxAdventBox(adventBoxRequest, file));
+                .build();
     }
 
+    @Deprecated
     @ApiOperation(value = "선물 박스 수정", notes = "박스 수정")
-    @PatchMapping("/{boxId}")
+    @PatchMapping("/{boxId}/{animation}")
     public ResponseEntity<Object> adventBoxContentModify(@PathVariable("boxId") String boxId,
+                                                         @PathVariable("animation") String animation,
                                                          @RequestPart(required = false) MultipartFile file) {
         log.info("adventBoxContentModify");
 
-        adventBoxService.modifyBoxAdventBox(boxId,file);
+        adventBoxService.modifyBoxAdventBox(boxId,file,animation);
 
         return ResponseEntity.noContent().build();
     }
 
     @ApiOperation(value = "선물 포장지 생성", notes = "선물 포장지 생성")
     @PostMapping("/wrappers")
-    public ResponseEntity<AdventBoxWrapperResponse> adventBoxWrapperInput(@RequestPart(value = "adventBoxWrapperRequest") AdventBoxWrapperRequest adventBoxWrapperRequest
+    public ResponseEntity<Object> adventBoxWrapperInput(@RequestPart(value = "adventBoxWrapperRequest") AdventBoxWrapperRequest adventBoxWrapperRequest
                                                                          , @RequestPart(required = false) MultipartFile file) {
         log.info("adventBoxWrapperModify");
 
         if (ObjectUtils.isEmpty(adventBoxWrapperRequest)) {
             throw new NotRequestException("요청 데이터가 비었습니다.");
         }
+        adventBoxService.inputWrapperAdventBox(adventBoxWrapperRequest, file);
 
         return ResponseEntity
-                .status(HttpStatus.NO_CONTENT)
-                .body(adventBoxService.inputWrapperAdventBox(adventBoxWrapperRequest, file));
+                .status(HttpStatus.CREATED)
+                .build();
     }
 
     @ApiOperation(value = "선물 포장지 수정", notes = "선물 포장지 수정")
     @PatchMapping("/{boxId}/wrappers")
-    public ResponseEntity<AdventBoxWrapperResponse> adventBoxWrapperModify(String boxId,
-                                                                           @RequestPart(value = "adventBoxWrapperRequest") AdventBoxWrapperRequest adventBoxWrapperRequest
-                                                                            , @RequestPart(required = false) MultipartFile file) {
+    public ResponseEntity<Object> adventBoxWrapperModify(String boxId,
+                                                         @RequestPart(value = "adventBoxWrapperRequest") AdventBoxWrapperRequest adventBoxWrapperRequest
+                                                        , @RequestPart(required = false) MultipartFile file) {
         log.info("adventBoxWrapperModify");
 
         if (ObjectUtils.isEmpty(adventBoxWrapperRequest)) {
             throw new NotRequestException("요청 데이터가 비었습니다.");
         }
 
+        adventBoxService.modifyWrapperAdventBox(boxId,adventBoxWrapperRequest, file);
+
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(adventBoxService.modifyWrapperAdventBox(boxId,adventBoxWrapperRequest, file));
+                .build();
     }
 
     @ApiOperation(value = "선물 박스 디테일 정보", notes = "선물 박스 상세 정보 조회")

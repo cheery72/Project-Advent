@@ -1,6 +1,7 @@
 package com.ssafy.adventsvr.payload.response;
 
 import com.ssafy.adventsvr.entity.AdventBox;
+import com.ssafy.adventsvr.payload.dto.AdventBoxListModifyDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +26,20 @@ public class AdventBoxListResponse {
     // 포장지 이미지
     private String wrapper;
 
-    public static List<AdventBoxListResponse> adventBoxListBuilder(List<AdventBox> adventBoxs){
+    public static List<AdventBoxListResponse> adventBoxListBuilder(List<AdventBoxListModifyDto> adventBoxs){
+        return adventBoxs.stream()
+                .map(adventBox -> AdventBoxListResponse.builder()
+                        .boxId(adventBox.getId())
+                        .isActive(adventBox.isActive())
+                        .activeDay(adventBox.getActiveDay())
+                        .adventDay(adventBox.getAdventDay())
+                        .isActiveAt(adventBox.getActiveAt())
+                        .wrapper(adventBox.getWrapper())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
+    public static List<AdventBoxListResponse> adventBoxAuthListBuilder(List<AdventBox> adventBoxs){
         return adventBoxs.stream()
                 .map(adventBox -> AdventBoxListResponse.builder()
                         .boxId(adventBox.getId())
