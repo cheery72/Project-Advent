@@ -28,12 +28,10 @@ public interface AdventService {
 
     Page<AdventStorageResponse> findMyStorageAdvent(Pageable pageable, Integer userId);
 
+    AdventBoxTitleResponse findTitleAdventBox(String url);
+
     void modifyTitleAdvent(String adventId,AdventRecipientModify adventRecipientModify);
 
     void deleteAdvent(Integer userId, String adventId);
-
-    void modifyDaysAdventBox();
-
-    AdventBoxTitleResponse findTitleAdventBox(String url);
 
 }

@@ -16,9 +16,9 @@ public class BackgroundImage {
     @Column(name = "background_id")
     private Integer id;
     private String image;
-    private Integer category;
+    private String category;
 
-    public static BackgroundImage backgroundBuilder(String image, Integer category){
+    public static BackgroundImage backgroundBuilder(String image, String category){
         return BackgroundImage.builder()
                 .image(image)
                 .category(category)
@@ -26,7 +26,7 @@ public class BackgroundImage {
     }
 
     @Builder
-    public BackgroundImage(String image, Integer category) {
+    public BackgroundImage(String image, String category) {
         this.image = image;
         this.category = category;
     }
