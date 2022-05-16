@@ -162,6 +162,7 @@ public class AdventServiceImpl implements AdventService {
             return AdventReceiveResponse.builder()
                     .adventId(adventId)
                     .title(advent.getTitle())
+                    .endAt(advent.getEndAt())
                     .day(advent.getDay())
                     .adventBoxList(adventBoxListResponse)
                     .build();
