@@ -28,9 +28,9 @@ public class AdventBoxRepositoryImpl implements AdventBoxRepositoryCustom{
                         qAdventBox.id,
                         qAdventBox.wrapper,
                         qAdvent.userId))
-                .from(qAdventBox)
-                .join(qAdvent)
-                .on(qAdvent.id.eq(qAdventBox.advent.id))
+                .from(qAdvent)
+                .join(qAdventBox)
+                .on(qAdventBox.advent.id.eq(qAdvent.id))
                 .where(qAdventBox.id.eq(boxId).and(qAdvent.userId.eq(userId)))
                 .fetchOne();
     }
@@ -64,7 +64,7 @@ public class AdventBoxRepositoryImpl implements AdventBoxRepositoryCustom{
                         qAdvent.userId))
                 .from(qAdventBox)
                 .join(qAdvent)
-                .on(qAdvent.id.eq(qAdventBox.advent.id))
+                .on(qAdventBox.advent.id.eq(qAdvent.id))
                 .where(qAdventBox.id.eq(boxId).and(qAdvent.userId.eq(userId)))
                 .fetchOne();
     }
