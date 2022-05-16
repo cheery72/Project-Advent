@@ -59,7 +59,6 @@ export default function PresentComponent(){
         await allAxios
             .get(`/advents/${presentUrl}/hints`)
             .then(({ data }) => {
-                // console.log(data)
                 if (data.password === false){
                     getAdventInfo()
 
@@ -71,6 +70,8 @@ export default function PresentComponent(){
             })
             .catch((e) => {
                 console.log(e)
+                notify('error', '선물 정보를 로딩하는데 에러가 발생했습니다.')
+                router.push('/404')
             })
     }
 

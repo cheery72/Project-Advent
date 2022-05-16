@@ -1,9 +1,19 @@
 import styles from "../../../styles/present/present.module.css"
 import { Grid, Header, Icon } from "semantic-ui-react";
+import notify from "../notify/notify";
+import { useRouter } from "next/router";
 
-export default function Title({ title }:any){
+export default function Title({ title, dday, adventId }:any){
 
     const { Row, Column } = Grid   
+
+    const router = useRouter()
+    
+    const goAniversary = () => {
+        router.push(`/write/${adventId}/anniversary`)
+        notify('success', '기념일 설정 페이지로 이동되었습니다.')
+    }
+
     return(
         <Grid centered>
             <Row />
@@ -19,6 +29,24 @@ export default function Title({ title }:any){
                         <span className={ styles.titleText }>{ title }</span>
                     </Header>
                 </Column>
+            </Row>
+            <Row>
+                <div className={styles.dateStyle}>
+                    <span>
+                        🗓️ D-DAY | 
+                        { dday ? 
+                            <>&nbsp;{dday}</>
+                            : 
+                            <>
+                                <span> 기념일 미설정</span>
+                                <div onClick={() => goAniversary()} className={styles.writeDDay}>
+                                    &nbsp;&nbsp;기념일 설정하기
+                                    <Icon name="arrow alternate circle right outline" color="blue" />
+                                </div>
+                            </>
+                        }
+                    </span>
+                </div>
             </Row>
             <Row />
         </Grid>

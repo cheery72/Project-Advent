@@ -32,7 +32,13 @@ export default function Box({day, boxInfo}:any){
                     <div className={styles.ribbonVertical}></div>
                     <div className={styles.ribbonHorizontal}>
                         <Icon name="lock" />
-                        {boxInfo.active_day}일 뒤 열어보실 수 있습니다.
+                        {
+                            boxInfo.active_day > 1 ?
+                            <>{boxInfo.active_day}일 뒤 </> 
+                            : 
+                            <>내일 </>
+                        }
+                        열어보실 수 있습니다.
                     </div>
                 </>
             }

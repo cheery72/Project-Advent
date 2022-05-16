@@ -27,5 +27,8 @@ Present.getInitialProps = async ({query}:any) => {
             title = data.title
             thumbnail = data.wrapper
         })
+        .catch((e) => {
+            console.log(e)
+        })
     return { title: title, thumbnail: thumbnail };
 };

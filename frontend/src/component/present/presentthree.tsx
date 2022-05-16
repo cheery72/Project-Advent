@@ -6,7 +6,6 @@ import Title from "./title";
 export default function PresentThree({presentInfo}:any){
 
     const { Row, Column } = Grid
-    // console.log(presentInfo)
 
     return(
         <div data-aos="zoom-in">
