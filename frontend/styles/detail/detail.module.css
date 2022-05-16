@@ -1,5 +1,4 @@
 .buttonbetween {
-    margin-bottom: 10px;
     text-align: center;
 }
 
@@ -8,6 +7,7 @@
     }
 
 .cancelbutton {
+    padding-top: 10px;
     text-align: center;
 }
 

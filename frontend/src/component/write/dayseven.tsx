@@ -63,7 +63,7 @@ export default function DaySeven({ userInfo }: any){
                 <Row>
                     <Column width={10} />
                     <Column width={6} textAlign="center">
-                        <Button color="blue" inverted size="large" onClick={writeAniversary}>기념일 설정</Button>
+                        <Button color="blue" inverted size="large" onClick={writeAniversary} style={{width:"140px"}}>기념일 설정</Button>
                     </Column>
                 </Row>
 
