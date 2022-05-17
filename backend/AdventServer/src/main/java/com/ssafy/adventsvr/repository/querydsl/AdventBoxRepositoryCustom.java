@@ -7,7 +7,7 @@ import com.ssafy.adventsvr.payload.dto.AdventBoxWrapperDetailDto;
 
 public interface AdventBoxRepositoryCustom {
     AdventBoxWrapperDetailDto findWrapperAndTitleByUserId(String boxId, Integer userId);
-    AdventBoxUrlDto findUrlByBoxId(String boxId);
     AdventBoxDetailDto findDetailByBoxIdAndUserId(String boxId, Integer userId);
+    AdventBoxUrlDto findUrlByBoxId(String boxId);
 
 }

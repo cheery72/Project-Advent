@@ -19,8 +19,8 @@ public interface AdventBoxService {
 
     AdventBoxWrapperResponse findUrlWrapperDetailAdventBox(String boxId);
 
-    AdventBoxUrlDetailResponse findUrlDetailAdventBox(String boxId);
-
     AdventBoxWrapperResponse findWrapperDetailAdventBox(String boxId, Integer userId);
+
+    AdventBoxUrlDetailResponse findUrlDetailAdventBox(String boxId);
 
 }

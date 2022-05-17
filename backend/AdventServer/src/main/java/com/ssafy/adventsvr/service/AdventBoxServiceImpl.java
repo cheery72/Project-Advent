@@ -152,6 +152,19 @@ public class AdventBoxServiceImpl implements AdventBoxService {
     }
 
     @Override
+    public AdventBoxWrapperResponse findWrapperDetailAdventBox(String boxId, Integer userId){
+
+        AdventBoxWrapperDetailDto adventBoxWrapperDetailDto = adventBoxRepository.findWrapperAndTitleByUserId(boxId,userId);
+
+        userValidation(adventBoxWrapperDetailDto.getUserId(),userId);
+
+        return AdventBoxWrapperResponse.builder()
+                .boxId(boxId)
+                .wrapper(adventBoxWrapperDetailDto.getWrapper())
+                .build();
+    }
+
+    @Override
     public AdventBoxUrlDetailResponse findUrlDetailAdventBox(String boxId) {
 
         AdventBoxUrlDto adventBoxUrlDto = adventBoxRepository.findUrlByBoxId(boxId);
@@ -170,19 +183,6 @@ public class AdventBoxServiceImpl implements AdventBoxService {
     }
 
 
-    @Override
-    public AdventBoxWrapperResponse findWrapperDetailAdventBox(String boxId, Integer userId){
-
-        AdventBoxWrapperDetailDto adventBoxWrapperDetailDto = adventBoxRepository.findWrapperAndTitleByUserId(boxId,userId);
-
-        userValidation(adventBoxWrapperDetailDto.getUserId(),userId);
-
-        return AdventBoxWrapperResponse.builder()
-                .boxId(boxId)
-                .wrapper(adventBoxWrapperDetailDto.getWrapper())
-                .build();
-    }
-
     private String inputAwsS3File(MultipartFile file){
         String imageUrl = null;
 
@@ -193,16 +193,18 @@ public class AdventBoxServiceImpl implements AdventBoxService {
         return imageUrl;
     }
 
+    private void adventDayValidation(Integer adventDay, Integer isAdventDay){
+        if(isAdventDay < 1 || adventDay < isAdventDay){
+            throw new NoSuchAdventException("요청하신 요일이 1미만이거나 설정한 요일을 초과했습니다.");
+        }
+    }
+
     private void userValidation(Integer userId, Integer isUserId){
         if(!userId.equals(isUserId)) {
             throw new NotAuthenticationException("해당 게시글을 작성한 유저가 아닙니다.");
         }
     }
 
-    private void adventDayValidation(Integer adventDay, Integer isAdventDay){
-        if(isAdventDay < 1 || adventDay < isAdventDay){
-            throw new NoSuchAdventException("요청하신 요일이 1미만이거나 설정한 요일을 초과했습니다.");
-        }
-    }
+
 
 }
