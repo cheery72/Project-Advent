@@ -5,7 +5,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.adventsvr.entity.QAdvent;
 import com.ssafy.adventsvr.entity.QAdventBox;
 import com.ssafy.adventsvr.payload.dto.AdventBoxDetailDto;
-import com.ssafy.adventsvr.payload.dto.AdventBoxModifyDetailDto;
 import com.ssafy.adventsvr.payload.dto.AdventBoxUrlDto;
 import com.ssafy.adventsvr.payload.dto.AdventBoxWrapperDetailDto;
 
@@ -62,7 +61,7 @@ public class AdventBoxRepositoryImpl implements AdventBoxRepositoryCustom{
                         qAdventBox.content,
                         qAdventBox.animation,
                         qAdvent.userId))
-                .from(qAdventBox)
+                .from(qAdvent)
                 .leftJoin(qAdvent)
                 .on(qAdventBox.advent.id.eq(qAdvent.id))
                 .where(qAdventBox.id.eq(boxId).and(qAdvent.userId.eq(userId)))
