@@ -78,6 +78,7 @@ export default function Detail(){
     // 효과
     const [effectpattern, setEffectPattern] = useState('noeffect')
     const [effectimage, setEffectImage] = useState('noeffect')
+    const[effectIndex, setEffectIndex] = useState(0);
 
     const cardeffect = (name: string, image: string) => {
         setEffectPattern(name)
@@ -367,11 +368,13 @@ return(
                         <Icon name='archive'/>빠른 작성
                     </div>
                     <div className={index===0?styles.selecttab:styles.tabhead} onClick={()=>{setIndex(0)}}>
-                        <Icon name='file outline'/>배경선택
+                        <Icon name='file outline'/>배경 선택
                     </div>
                     <div className={index===1?styles.selecttab:styles.tabhead} onClick={()=>{setIndex(1)}}>
                         <Icon name='smile outline'/>스티커
                     </div>
+                    </div>
+                    <div className={styles.tablist}>
                     <div className={index===2?styles.selecttab:styles.tabhead} onClick={()=>{setIndex(2)}}>
                         <Icon name='upload'/>이미지업로드
                     </div>
@@ -433,29 +436,33 @@ return(
                 </div>
             </div>
             <div className={styles.tabcontent} hidden={index != 3}>
+                <div className={styles.textline}>
                 <Text setText={setText} setColor={setColor} setFontsize={setFontsize} setFontweight={setFontweight} text={text} fontweight={fontweight} color={color} fontsize={fontsize}></Text>
+                </div>
             </div>
-            <div className={styles.tabcontent} hidden={index != 4}>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='noeffect'?"#FFFF8C":"" }} onClick={() => cardeffect('noeffect', 'noeffect')}>
-                # 효과 없음
-                </div>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='snow'?"#FFFF8C":"" }}  onClick={() => cardeffect('snow', 'snow')}>
-                # 눈 내리는 효과
-                </div>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='flower'?"#FFFF8C":"" }} onClick={() => cardeffect('flower', '/effect/daisy.png')}>
-                # 꽃 내리는 효과 - 데이지
-                </div>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='pinkflower'?"#FFFF8C":"" }}  onClick={() => cardeffect('pinkflower', '/effect/pinkflower.png')}>
-                # 꽃 내리는 효과 - 장미
-                </div>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='star'?"#FFFF8C":"" }}  onClick={() => cardeffect('star', '/effect/star2.png')}>
-                # 별 내리는 효과
-                </div>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='heart'?"#FFFF8C":"" }}  onClick={() => cardeffect('heart', '/stickercategory/love.png')}>
-                # 하트 내리는 효과
-                </div>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='present'?"#FFFF8C":"" }}  onClick={() => cardeffect('present', '/effect/present.png')}>
-                # 선물 내리는 효과
+            <div className={styles.tabcontentEffect} hidden={index != 4}>
+                <div className={styles.tablisteffect}>
+                    <div className={effectIndex===0?styles.selecttab:styles.tabhead} style={{ backgroundColor: effectpattern=='noeffect'?"#FFFF8C":"" }} onClick={() => {cardeffect('noeffect', 'noeffect'); setEffectIndex(0)}}>
+                        <img src='/effect/rejected.png' alt="effectimg"></img>
+                    </div>
+                    <div className={effectIndex===1?styles.selecttab:styles.tabhead} style={{ backgroundColor: effectpattern=='snow'?"#FFFF8C":"" }}  onClick={() => {cardeffect('snow', 'snow'); setEffectIndex(1)}}>
+                        <img src='/effect/snow.png' alt="effectimg"></img>
+                    </div>
+                    <div className={effectIndex===2?styles.selecttab:styles.tabhead} style={{ backgroundColor: effectpattern=='flower'?"#FFFF8C":"" }} onClick={() => {cardeffect('flower', '/effect/daisy.png'); setEffectIndex(2)}}>
+                        <img src='/effect/daisy.png' alt="effectimg"></img>
+                    </div>
+                    <div className={effectIndex===3?styles.selecttab:styles.tabhead} style={{ backgroundColor: effectpattern=='pinkflower'?"#FFFF8C":"" }}  onClick={() => {cardeffect('pinkflower', '/effect/pinkflower.png'); setEffectIndex(3)}}>
+                        <img src='/effect/pinkflower.png' alt="effectimg"></img>
+                    </div>
+                    <div className={effectIndex===4?styles.selecttab:styles.tabhead} style={{ backgroundColor: effectpattern=='star'?"#FFFF8C":"" }}  onClick={() => {cardeffect('star', '/effect/star2.png'); setEffectIndex(4)}}>
+                        <img src='/effect/star2.png' alt="effectimg"></img>
+                    </div>
+                    <div className={effectIndex===5?styles.selecttab:styles.tabhead} style={{ backgroundColor: effectpattern=='heart'?"#FFFF8C":"" }}  onClick={() => {cardeffect('heart', '/stickercategory/love.png'); setEffectIndex(5)}}>
+                        <img src='/stickercategory/love.png' alt="effectimg"></img>
+                    </div>
+                    <div className={effectIndex===6?styles.selecttab:styles.tabhead} style={{ backgroundColor: effectpattern=='present'?"#FFFF8C":"" }}  onClick={() => {cardeffect('present', '/effect/present.png'); setEffectIndex(6)}}>
+                        <img src='/effect/present.png' alt="effectimg"></img>
+                    </div>
                 </div>
             </div>
         </div>

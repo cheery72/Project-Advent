@@ -50,6 +50,13 @@
 
 }
 
+.tablisteffect {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
 .tabhead {
     padding: 10px 10px 7px 10px;
     cursor: pointer;
@@ -62,7 +69,25 @@
     font-weight: bolder;
 }
 
+.tabhead img{
+    width: 30px;
+    height: 30px;
+}
+
+.selecttab img{
+    width: 30px;
+    height: 30px;
+}
+
 .tabcontent {
+    margin: 15px 22% 30px 22%;
+    padding-top: 30px;
+    border-top: 2px solid rgb(219, 219, 219);
+    border-bottom: 2px solid rgb(219, 219, 219);
+    text-align: center;
+}
+
+.tabcontentEffect {
     margin: 15px 22% 30px 22%;
     padding-top: 30px;
     border-top: 2px solid rgb(219, 219, 219);
@@ -188,4 +213,8 @@
     width: 250px;
     margin: 15px auto;
     cursor: pointer;
+}
+
+.textline {
+    margin-bottom: 20px;
 }
