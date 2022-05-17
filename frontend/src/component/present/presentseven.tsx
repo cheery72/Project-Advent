@@ -61,7 +61,7 @@ export default function PresentSeven({presentInfo}:any){
                 </Row>
 
                 <Row>
-                    <Column largeScreen={1} tablet={3}/>
+                    <Column width={1}/>
                     <Column 
                         width={2} 
                         style={{ marginBottom:"20px", minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", backgroundImage: `url(${ presentInfo.advent_box_list[3] ? presentInfo.advent_box_list[3].wrapper : '' })` }} 
@@ -72,7 +72,7 @@ export default function PresentSeven({presentInfo}:any){
                         :""}
                         <Box day={3} boxInfo={ presentInfo.advent_box_list[3] ? presentInfo.advent_box_list[3] : { active:false, active_day:'?' } } />
                     </Column>
-                    <Column largeScreen={1} tablet={2}/>
+                    <Column width={1}/>
                     <Column 
                         width={2} 
                         style={{ marginBottom:"20px", minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", backgroundImage: `url(${ presentInfo.advent_box_list[4] ? presentInfo.advent_box_list[4].wrapper : '' })` }} 
@@ -83,7 +83,7 @@ export default function PresentSeven({presentInfo}:any){
                         :""}
                         <Box day={2} boxInfo={ presentInfo.advent_box_list[4] ? presentInfo.advent_box_list[4] : { active:false, active_day:'?' } } />
                     </Column>
-                    <Column largeScreen={1} tablet={3}/>
+                    <Column width={1}/>
                     <Column 
                         width={2} 
                         style={{ marginBottom:"20px", minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", backgroundImage: `url(${ presentInfo.advent_box_list[5] ? presentInfo.advent_box_list[5].wrapper : '' })` }} 
@@ -94,7 +94,7 @@ export default function PresentSeven({presentInfo}:any){
                         :""}
                         <Box day={1} boxInfo={ presentInfo.advent_box_list[5] ? presentInfo.advent_box_list[5] : { active:false, active_day:'?' } } />
                     </Column>
-                    <Column largeScreen={1} tablet={2}/>
+                    <Column width={1}/>
                     <Column 
                         width={2} 
                         style={{ marginBottom:"20px", minWidth: "200px", minHeight: "200px", maxWidth: "250px", maxHeight: "250px", backgroundImage: `url(${ presentInfo.advent_box_list[6] ? presentInfo.advent_box_list[6].wrapper : '' })` }} 
@@ -105,7 +105,7 @@ export default function PresentSeven({presentInfo}:any){
                         :""}
                         <Box day={0} boxInfo={ presentInfo.advent_box_list[6] ? presentInfo.advent_box_list[6] : { active:false, active_day:'?' } }/>
                     </Column>
-                    <Column largeScreen={1} tablet={16}/>
+                    <Column width={1}/>
                 </Row>
             </Grid>
         </div>
