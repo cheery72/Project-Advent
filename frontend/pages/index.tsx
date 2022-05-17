@@ -5,6 +5,9 @@ import Link from 'next/link'
 import IsLogin from '../src/lib/IsLogin'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import userAxios from '../src/lib/userAxios'
+import { useEffect } from 'react'
+import notify from '../src/component/notify/notify'
 
 const { Row, Column } = Grid
 
@@ -18,6 +21,29 @@ const Home: NextPage = () => {
     const goWritePage = () => {
         router.push('/write')
     }
+
+    const getUserInfo = async () => {
+        await userAxios
+            .get(`/auth/users`)
+            .then(() => {
+            
+            })
+            .catch((e) => {
+                if (typeof window !== "undefined") {
+                    localStorage.removeItem("token")
+                    const msg = '🕛로그인 시간이 만료되었습니다.'
+                    setTimeout(() => location.reload(), 1000) // 1초 후 새로고침(새로고침:로그아웃 후 버튼 상태 toggle + 1초 delay:tostify 표시)
+                    notify('success', msg)
+                }
+                console.log(e)
+            })
+        };
+
+    useEffect(() => {
+        if (IsLogin()){
+            getUserInfo()
+        }   
+    }, [])
 
     return (
         <>
