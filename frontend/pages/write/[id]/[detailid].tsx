@@ -27,6 +27,29 @@ export default function Detail(){
     const [image, setImage] = useState('')
     const [pattern, setPattern] = useState(1)
 
+    //write_template
+    const[templateIndex, setTemplateIndex] = useState(0);
+    const templateCategory:any = [
+        ['birthday', 8], ['cheers', 8], ['thanks', 8]
+    ]
+    const TemplateList:any = (templatecategory:any) => {
+        const result = []
+        for (let i = 1; i <= templatecategory[1]; i++) {
+            result.push(
+                <img 
+                    key = {templatecategory[0]+i}
+                    src={`/write_template/${templatecategory[0]}/${i}.png`} 
+                    alt='빠른작성' 
+                    onClick={selectImage}
+                />
+            )
+        }
+        return result
+    }
+    const selectImage = (e:any) => {
+        setBackImage(e.target.currentSrc);
+    }
+
     // 배경선택
     const [backgroundColor, setBackgroundColor] = useState('');
     const [backImage, setBackImage] = useState('https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/2048px-Solid_white.svg.png');
@@ -55,6 +78,7 @@ export default function Detail(){
     // 효과
     const [effectpattern, setEffectPattern] = useState('noeffect')
     const [effectimage, setEffectImage] = useState('noeffect')
+    const[effectIndex, setEffectIndex] = useState(0);
 
     const cardeffect = (name: string, image: string) => {
         setEffectPattern(name)
@@ -329,10 +353,10 @@ return(
             </Column>
             <Column width={4}>
                 <div className={styles.buttonbetween}>
-                    <Button inverted color='blue' onClick={() => { makeFileImage(), setIsSpinner(true) }}>&nbsp;&nbsp;&nbsp;&nbsp;저&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;장&nbsp;&nbsp;&nbsp;&nbsp;</Button>
+                    <Button inverted color='blue' style={{width:"140px"}} onClick={() => { makeFileImage(), setIsSpinner(true) }}>저장</Button>
                 </div>
                 <div className={styles.cancelbutton}>    
-                    <Button inverted color='blue' onClick={() => {router.push({ pathname: `/write/${adventId}` });}}>&nbsp;&nbsp;&nbsp;&nbsp;취&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소&nbsp;&nbsp;&nbsp;&nbsp;</Button>  
+                    <Button inverted color='blue' style={{width:"140px"}} onClick={() => {router.push({ pathname: `/write/${adventId}` });}}>취소</Button>  
                 </div>             
             </Column>
         </Row>
@@ -340,12 +364,17 @@ return(
         <div className={styles.listbetween}>
             <div className={styles.tabs}>
                 <div className={styles.tablist}>
+                    <div className={index===5?styles.selecttab:styles.tabhead} onClick={()=>{setIndex(5)}}>
+                        <Icon name='archive'/>빠른 작성
+                    </div>
                     <div className={index===0?styles.selecttab:styles.tabhead} onClick={()=>{setIndex(0)}}>
-                        <Icon name='file outline'/>배경선택
+                        <Icon name='file outline'/>배경 선택
                     </div>
                     <div className={index===1?styles.selecttab:styles.tabhead} onClick={()=>{setIndex(1)}}>
                         <Icon name='smile outline'/>스티커
                     </div>
+                    </div>
+                    <div className={styles.tablist}>
                     <div className={index===2?styles.selecttab:styles.tabhead} onClick={()=>{setIndex(2)}}>
                         <Icon name='upload'/>이미지업로드
                     </div>
@@ -356,6 +385,30 @@ return(
                         <Icon name='gift'/>효과
                     </div>
                 </div>
+            </div>
+            <div className={styles.tabcontent} hidden={index != 5}>
+                <div className={styles.tablist}>
+                    <div className={templateIndex===0?styles.selecttab:styles.tabhead} onClick={()=>{setTemplateIndex(0)}}>
+                        <Icon name='birthday cake'/>생일
+                    </div>
+                    <div className={templateIndex===1?styles.selecttab:styles.tabhead} onClick={()=>{setTemplateIndex(1)}}>
+                        <Icon name='heart'/>응원
+                    </div>
+                    <div className={templateIndex===2?styles.selecttab:styles.tabhead} onClick={()=>{setTemplateIndex(2)}}>
+                        <Icon name='heart outline'/>감사
+                    </div>
+                </div>
+                {
+                templateCategory.map((templatecategory:any, templateindex:number) => {
+                    return(
+                        <div className={styles.tabcontentTemplate} hidden={templateIndex != templateindex} key={`${templatecategory}-${templateindex}`}>
+                        {    
+                            TemplateList(templatecategory)
+                        }
+                        </div>
+                    )
+                })
+            }
             </div>
             <div className={styles.tabcontent} hidden={index != 0}>
             <Selectbackground setBackgroundColor={setBackgroundColor} setBackImage={setBackImage} backgroundcolor={backgroundColor}></Selectbackground>
@@ -383,29 +436,33 @@ return(
                 </div>
             </div>
             <div className={styles.tabcontent} hidden={index != 3}>
+                <div className={styles.textline}>
                 <Text setText={setText} setColor={setColor} setFontsize={setFontsize} setFontweight={setFontweight} text={text} fontweight={fontweight} color={color} fontsize={fontsize}></Text>
+                </div>
             </div>
-            <div className={styles.tabcontent} hidden={index != 4}>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='noeffect'?"#FFFF8C":"" }} onClick={() => cardeffect('noeffect', 'noeffect')}>
-                # 효과 없음
-                </div>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='snow'?"#FFFF8C":"" }}  onClick={() => cardeffect('snow', 'snow')}>
-                # 눈 내리는 효과
-                </div>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='flower'?"#FFFF8C":"" }} onClick={() => cardeffect('flower', '/effect/daisy.png')}>
-                # 꽃 내리는 효과 - 데이지
-                </div>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='pinkflower'?"#FFFF8C":"" }}  onClick={() => cardeffect('pinkflower', '/effect/pinkflower.png')}>
-                # 꽃 내리는 효과 - 장미
-                </div>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='star'?"#FFFF8C":"" }}  onClick={() => cardeffect('star', '/effect/star2.png')}>
-                # 별 내리는 효과
-                </div>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='heart'?"#FFFF8C":"" }}  onClick={() => cardeffect('heart', '/stickercategory/love.png')}>
-                # 하트 내리는 효과
-                </div>
-                <div className={styles.backgroundtitle} style={{ backgroundColor: effectpattern=='present'?"#FFFF8C":"" }}  onClick={() => cardeffect('present', '/effect/present.png')}>
-                # 선물 내리는 효과
+            <div className={styles.tabcontentEffect} hidden={index != 4}>
+                <div className={styles.tablisteffect}>
+                    <div className={effectIndex===0?styles.selecttab:styles.tabhead} style={{ backgroundColor: effectpattern=='noeffect'?"#FFFF8C":"" }} onClick={() => {cardeffect('noeffect', 'noeffect'); setEffectIndex(0)}}>
+                        <img src='/effect/rejected.png' alt="effectimg"></img>
+                    </div>
+                    <div className={effectIndex===1?styles.selecttab:styles.tabhead} style={{ backgroundColor: effectpattern=='snow'?"#FFFF8C":"" }}  onClick={() => {cardeffect('snow', 'snow'); setEffectIndex(1)}}>
+                        <img src='/effect/snow.png' alt="effectimg"></img>
+                    </div>
+                    <div className={effectIndex===2?styles.selecttab:styles.tabhead} style={{ backgroundColor: effectpattern=='flower'?"#FFFF8C":"" }} onClick={() => {cardeffect('flower', '/effect/daisy.png'); setEffectIndex(2)}}>
+                        <img src='/effect/daisy.png' alt="effectimg"></img>
+                    </div>
+                    <div className={effectIndex===3?styles.selecttab:styles.tabhead} style={{ backgroundColor: effectpattern=='pinkflower'?"#FFFF8C":"" }}  onClick={() => {cardeffect('pinkflower', '/effect/pinkflower.png'); setEffectIndex(3)}}>
+                        <img src='/effect/pinkflower.png' alt="effectimg"></img>
+                    </div>
+                    <div className={effectIndex===4?styles.selecttab:styles.tabhead} style={{ backgroundColor: effectpattern=='star'?"#FFFF8C":"" }}  onClick={() => {cardeffect('star', '/effect/star2.png'); setEffectIndex(4)}}>
+                        <img src='/effect/star2.png' alt="effectimg"></img>
+                    </div>
+                    <div className={effectIndex===5?styles.selecttab:styles.tabhead} style={{ backgroundColor: effectpattern=='heart'?"#FFFF8C":"" }}  onClick={() => {cardeffect('heart', '/stickercategory/love.png'); setEffectIndex(5)}}>
+                        <img src='/stickercategory/love.png' alt="effectimg"></img>
+                    </div>
+                    <div className={effectIndex===6?styles.selecttab:styles.tabhead} style={{ backgroundColor: effectpattern=='present'?"#FFFF8C":"" }}  onClick={() => {cardeffect('present', '/effect/present.png'); setEffectIndex(6)}}>
+                        <img src='/effect/present.png' alt="effectimg"></img>
+                    </div>
                 </div>
             </div>
         </div>
