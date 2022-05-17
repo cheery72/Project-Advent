@@ -61,9 +61,9 @@ public class AdventBoxRepositoryImpl implements AdventBoxRepositoryCustom{
                         qAdventBox.content,
                         qAdventBox.animation,
                         qAdvent.userId))
-                .from(qAdvent)
+                .from(qAdventBox)
                 .leftJoin(qAdvent)
-                .on(qAdventBox.advent.id.eq(qAdvent.id))
+                .on(qAdvent.id.eq(qAdventBox.advent.id))
                 .where(qAdventBox.id.eq(boxId).and(qAdvent.userId.eq(userId)))
                 .fetchOne();
     }
