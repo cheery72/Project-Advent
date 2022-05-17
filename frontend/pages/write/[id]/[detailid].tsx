@@ -251,6 +251,28 @@ export default function Detail(){
                 setLocationY(String(Number(event.pageY)-Number(nowY)))
             }
         }
+
+        if (textGo) {
+            setTextLocationX(String(Number(event.pageX)-Number(textNowX)))
+            if (Number(event.pageY)-Number(textNowY) > -200){
+                setTextLocationY(String(Number(event.pageY)-Number(textNowY)))
+            }
+        }
+    }
+
+    // 텍스트 이동
+    const [textLocationX, setTextLocationX] = useState('0')
+    const [textLocationY, setTextLocationY] = useState('0')
+    const [textNowX, setTextNowX] = useState('0')
+    const [textNowY, setTextNowY] = useState('0')
+    const [textGo, setTextGo] = useState(false)
+
+    const textMoving = (e: any) => {
+        if (!go) {
+            setTextGo(!textGo)
+            setTextNowX(String(Number(e.pageX)-Number(textLocationX)))
+            setTextNowY(String(Number(e.pageY)-Number(textLocationY)))
+        }
     }
 
     // 스피너 적용
@@ -312,7 +334,7 @@ return(
                 onPointerDown={mouseMove}
                 onDoubleClick={() => {setStickers(''), setLocationX('0'), setLocationY('0') }}
                 className={styles.box} 
-                style={{ backgroundSize:'cover', backgroundColor:backgroundColor, backgroundImage:`url(${backImage})`}}>
+                style={{ backgroundSize:'cover', backgroundColor:backgroundColor, backgroundImage:`url(${backImage})`, textAlign: "center"}}>
                 <div style={{position:'absolute', cursor:'grab'}}>
                     {imageList?imageList.map((item: images) => {
                         return(
@@ -344,9 +366,9 @@ return(
                     />
                     )}
                 </div>
-                <div className={styles.box_text} style={{color:color, fontWeight:fontweight, fontSize:`${fontsize}px`, lineHeight:'100%'}}>
+                <span className={styles.box_text} onClick={textMoving} style={{color:color, fontWeight:fontweight, fontSize:`${fontsize}px`, lineHeight:'100%', cursor: "pointer", position: "relative", top: `${textLocationY}px`, left:`${textLocationX}px`}}>
                     {text}
-                </div>
+                </span>
                 
             </div>
             </div>
