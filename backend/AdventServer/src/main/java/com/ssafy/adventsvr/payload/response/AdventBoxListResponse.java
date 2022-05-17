@@ -29,7 +29,7 @@ public class AdventBoxListResponse {
     public static List<AdventBoxListResponse> adventBoxListBuilder(List<AdventBoxListModifyDto> adventBoxs){
         return adventBoxs.stream()
                 .map(adventBox -> AdventBoxListResponse.builder()
-                        .boxId(adventBox.getId())
+                        .boxId(adventBox.getBoxId())
                         .isActive(adventBox.isActive())
                         .activeDay(adventBox.getActiveDay())
                         .adventDay(adventBox.getAdventDay())

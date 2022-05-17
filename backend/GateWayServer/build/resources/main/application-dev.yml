@@ -55,3 +55,8 @@ spring:
                 baseMessage: Spring Cloud Gateway Logging filter
                 preLogger: true
                 postLogger: true
+#            - name: AuthorizationHeaderFilter
+#              args:
+#                baseMessage: Spring Cloud Gateway Logging filter
+#                preLogger: true
+#                postLogger: true
