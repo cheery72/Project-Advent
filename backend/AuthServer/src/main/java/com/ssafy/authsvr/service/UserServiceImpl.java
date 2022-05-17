@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService{
         if(user.getAdventWriteAt() == null || !localDate.equals(user.getAdventWriteAt())){
             user.setAdventCountModify(0, localDate);
         }else{
-            if(10 >= user.getAdventCount()){
+            if(30 >= user.getAdventCount()){
                 user.setAdventCountModify(user.getAdventCount(), localDate);
             }
         }

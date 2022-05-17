@@ -43,7 +43,7 @@ public class AdventServiceImpl implements AdventService {
 
         Integer userAdventCount = userServiceClient.userAdventCountFind(adventDayRequest.getUserId());
 
-        if (10 >= userAdventCount) {
+        if (30 >= userAdventCount) {
             return AdventDayResponse.builder()
                     .adventId(adventRepository.save(advent).getId())
                     .build();

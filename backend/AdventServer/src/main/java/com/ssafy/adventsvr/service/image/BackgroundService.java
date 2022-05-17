@@ -9,6 +9,8 @@ import com.ssafy.adventsvr.entity.image.BackgroundImage;
 import com.ssafy.adventsvr.repository.image.BackgroundImageRepository;
 import com.ssafy.adventsvr.service.AwsS3Service;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.Cache;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,6 +39,7 @@ public class BackgroundService {
     }
 
 
+    @Cacheable
     public Map<String, List<String>> findImage() {
         return backgroundImageRepository.findAllBy().stream()
                 .collect(Collectors.groupingByConcurrent(
