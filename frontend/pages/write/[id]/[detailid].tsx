@@ -27,6 +27,29 @@ export default function Detail(){
     const [image, setImage] = useState('')
     const [pattern, setPattern] = useState(1)
 
+    //write_template
+    const[templateIndex, setTemplateIndex] = useState(0);
+    const templateCategory:any = [
+        ['birthday', 8], ['cheers', 8], ['thanks', 8]
+    ]
+    const TemplateList:any = (templatecategory:any) => {
+        const result = []
+        for (let i = 1; i <= templatecategory[1]; i++) {
+            result.push(
+                <img 
+                    key = {templatecategory[0]+i}
+                    src={`/write_template/${templatecategory[0]}/${i}.png`} 
+                    alt='빠른작성' 
+                    onClick={selectImage}
+                />
+            )
+        }
+        return result
+    }
+    const selectImage = (e:any) => {
+        setBackImage(e.target.currentSrc);
+    }
+
     // 배경선택
     const [backgroundColor, setBackgroundColor] = useState('');
     const [backImage, setBackImage] = useState('https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/2048px-Solid_white.svg.png');
@@ -329,10 +352,10 @@ return(
             </Column>
             <Column width={4}>
                 <div className={styles.buttonbetween}>
-                    <Button inverted color='blue' onClick={() => { makeFileImage(), setIsSpinner(true) }}>&nbsp;&nbsp;&nbsp;&nbsp;저&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;장&nbsp;&nbsp;&nbsp;&nbsp;</Button>
+                    <Button inverted color='blue' style={{width:"140px"}} onClick={() => { makeFileImage(), setIsSpinner(true) }}>저장</Button>
                 </div>
                 <div className={styles.cancelbutton}>    
-                    <Button inverted color='blue' onClick={() => {router.push({ pathname: `/write/${adventId}` });}}>&nbsp;&nbsp;&nbsp;&nbsp;취&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소&nbsp;&nbsp;&nbsp;&nbsp;</Button>  
+                    <Button inverted color='blue' style={{width:"140px"}} onClick={() => {router.push({ pathname: `/write/${adventId}` });}}>취소</Button>  
                 </div>             
             </Column>
         </Row>
@@ -340,6 +363,9 @@ return(
         <div className={styles.listbetween}>
             <div className={styles.tabs}>
                 <div className={styles.tablist}>
+                    <div className={index===5?styles.selecttab:styles.tabhead} onClick={()=>{setIndex(5)}}>
+                        <Icon name='archive'/>빠른 작성
+                    </div>
                     <div className={index===0?styles.selecttab:styles.tabhead} onClick={()=>{setIndex(0)}}>
                         <Icon name='file outline'/>배경선택
                     </div>
@@ -356,6 +382,30 @@ return(
                         <Icon name='gift'/>효과
                     </div>
                 </div>
+            </div>
+            <div className={styles.tabcontent} hidden={index != 5}>
+                <div className={styles.tablist}>
+                    <div className={templateIndex===0?styles.selecttab:styles.tabhead} onClick={()=>{setTemplateIndex(0)}}>
+                        <Icon name='birthday cake'/>생일
+                    </div>
+                    <div className={templateIndex===1?styles.selecttab:styles.tabhead} onClick={()=>{setTemplateIndex(1)}}>
+                        <Icon name='heart'/>응원
+                    </div>
+                    <div className={templateIndex===2?styles.selecttab:styles.tabhead} onClick={()=>{setTemplateIndex(2)}}>
+                        <Icon name='heart outline'/>감사
+                    </div>
+                </div>
+                {
+                templateCategory.map((templatecategory:any, templateindex:number) => {
+                    return(
+                        <div className={styles.tabcontentTemplate} hidden={templateIndex != templateindex} key={`${templatecategory}-${templateindex}`}>
+                        {    
+                            TemplateList(templatecategory)
+                        }
+                        </div>
+                    )
+                })
+            }
             </div>
             <div className={styles.tabcontent} hidden={index != 0}>
             <Selectbackground setBackgroundColor={setBackgroundColor} setBackImage={setBackImage} backgroundcolor={backgroundColor}></Selectbackground>
