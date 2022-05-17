@@ -17,7 +17,7 @@ export default function Footer () {
 
 				<div 
 					className={styles.footerIcons}
-					onClick = {() => window.open('https://butter-innocent-113.notion.site/Make-our-special-233191af396f4354a629fe7b39bae698', '_blank')}
+					onClick = {() => window.open('https://slime-capricorn-03e.notion.site/Make-our-special-7f0f4caec7f3447aaee2aaac52e88811', '_blank')}
 				>
 					<svg 
 						height="20" 
