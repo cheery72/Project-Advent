@@ -36,7 +36,8 @@ export default function Detail(){
         const result = []
         for (let i = 1; i <= templatecategory[1]; i++) {
             result.push(
-                <img 
+                <Image
+                    inline
                     key = {templatecategory[0]+i}
                     src={`/write_template/${templatecategory[0]}/${i}.png`} 
                     alt='빠른작성' 
@@ -465,25 +466,25 @@ return(
             <div className={styles.tabcontentEffect} hidden={index != 4}>
                 <div className={styles.tablisteffect}>
                     <div className={effectIndex===0?styles.selecttab:styles.tabhead} style={{ backgroundColor: effectpattern=='noeffect'?"#FFFF8C":"" }} onClick={() => {cardeffect('noeffect', 'noeffect'); setEffectIndex(0)}}>
-                        <img src='/effect/rejected.png' alt="effectimg"></img>
+                        <Image src='/effect/rejected.png' alt="effectimg" style={{ minWidth: "30px" }}/>
                     </div>
                     <div className={effectIndex===1?styles.selecttab:styles.tabhead} style={{ backgroundColor: effectpattern=='snow'?"#FFFF8C":"" }}  onClick={() => {cardeffect('snow', 'snow'); setEffectIndex(1)}}>
-                        <img src='/effect/snow.png' alt="effectimg"></img>
+                        <Image src='/effect/snow.png' alt="effectimg" style={{ minWidth: "30px" }}/>
                     </div>
                     <div className={effectIndex===2?styles.selecttab:styles.tabhead} style={{ backgroundColor: effectpattern=='flower'?"#FFFF8C":"" }} onClick={() => {cardeffect('flower', '/effect/daisy.png'); setEffectIndex(2)}}>
-                        <img src='/effect/daisy.png' alt="effectimg"></img>
+                        <Image src='/effect/daisy.png' alt="effectimg" style={{ minWidth: "30px" }}/>
                     </div>
                     <div className={effectIndex===3?styles.selecttab:styles.tabhead} style={{ backgroundColor: effectpattern=='pinkflower'?"#FFFF8C":"" }}  onClick={() => {cardeffect('pinkflower', '/effect/pinkflower.png'); setEffectIndex(3)}}>
-                        <img src='/effect/pinkflower.png' alt="effectimg"></img>
+                        <Image src='/effect/pinkflower.png' alt="effectimg" style={{ minWidth: "30px" }}/>
                     </div>
                     <div className={effectIndex===4?styles.selecttab:styles.tabhead} style={{ backgroundColor: effectpattern=='star'?"#FFFF8C":"" }}  onClick={() => {cardeffect('star', '/effect/star2.png'); setEffectIndex(4)}}>
-                        <img src='/effect/star2.png' alt="effectimg"></img>
+                        <Image src='/effect/star2.png' alt="effectimg" style={{ minWidth: "30px" }}/>
                     </div>
                     <div className={effectIndex===5?styles.selecttab:styles.tabhead} style={{ backgroundColor: effectpattern=='heart'?"#FFFF8C":"" }}  onClick={() => {cardeffect('heart', '/stickercategory/love.png'); setEffectIndex(5)}}>
-                        <img src='/stickercategory/love.png' alt="effectimg"></img>
+                        <Image src='/stickercategory/love.png' alt="effectimg" style={{ minWidth: "30px" }}/>
                     </div>
                     <div className={effectIndex===6?styles.selecttab:styles.tabhead} style={{ backgroundColor: effectpattern=='present'?"#FFFF8C":"" }}  onClick={() => {cardeffect('present', '/effect/present.png'); setEffectIndex(6)}}>
-                        <img src='/effect/present.png' alt="effectimg"></img>
+                        <Image src='/effect/present.png' alt="effectimg" style={{ minWidth: "30px" }}/>
                     </div>
                 </div>
             </div>
