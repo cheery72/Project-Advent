@@ -40,9 +40,9 @@ export default function WriteOne({ userInfo, boxId }: any){
             <div>
                 <div className={styles.ribbon}>D-day</div>
                 <br /><br /><br /><br />
-                <Button className={ styles.oneopen } style={{ backgroundColor: "aliceblue", color: "DarkSlateGray" }} onClick={()=>{ writeDetail(1) }}>열기</Button>
+                <Button className={ styles.oneopen } style={{ backgroundColor: "aliceblue", color: "DarkSlateGray" }} onClick={()=>{ writeDetail(1) }}>선물 꾸미기</Button>
                 <br /><br /><br />
-                <Button className={ styles.onewrap } style={{ backgroundColor: "aliceblue", color: "DarkSlateGray" }} onClick={()=>{writeWrap(1)}}>포장지 선택</Button>
+                <Button className={ styles.onewrap } style={{ backgroundColor: "aliceblue", color: "DarkSlateGray" }} onClick={()=>{writeWrap(1)}}>포장지 선택하기</Button>
                 <br /><br />
                 <br /><br />
             </div>

@@ -40,9 +40,9 @@ export default function WriteThree({ num, userInfo, boxId }: any){
             <div>
                 <div className={styles.ribbon}>D-{3-num?3-num:"day"}</div>
                 <br /><br /><br />
-                <Button className={styles.threeopen} style={{ backgroundColor: "aliceblue", color: "DarkSlateGray" }} onClick={()=>{ writeDetail(num) }}>열기</Button>
+                <Button className={styles.threeopen} style={{ backgroundColor: "aliceblue", color: "DarkSlateGray" }} onClick={()=>{ writeDetail(num) }}>선물 꾸미기</Button>
                 <br /><br />
-                <Button className={styles.threewrap} style={{ backgroundColor: "aliceblue", color: "DarkSlateGray" }} onClick={()=>{ writeWrap(num) }}>포장지 선택</Button>
+                <Button className={styles.threewrap} style={{ backgroundColor: "aliceblue", color: "DarkSlateGray" }} onClick={()=>{ writeWrap(num) }}>포장지 선택하기</Button>
                 <br /><br />
             </div>
         </>
