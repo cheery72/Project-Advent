@@ -81,6 +81,17 @@ export default function Navbar() {
                     </ul>
                     <ul>
                         <li>
+                            <div className={styles.menuservice} onClick = {() => window.open('https://slime-capricorn-03e.notion.site/Make-our-special-7f0f4caec7f3447aaee2aaac52e88811', '_blank')}>  
+                                서비스 사용법
+                                <svg 
+                                    height="20" 
+                                    width="20" 
+                                    xmlns="http://www.w3.org/2000/svg" 
+                                    viewBox="12 0.18999999999999906 487.619 510.941"
+                                ></svg>
+                            </div>
+                        </li>
+                        <li>
                             {
                                 IsLogin() ? 
                                 <Button 
