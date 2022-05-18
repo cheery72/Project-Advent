@@ -7,8 +7,8 @@ import IsLogin from '../../src/lib/IsLogin'
 import { ToastContainer } from 'react-toastify';
 
 export default function Navbar() {
-    const KAKAO_LOGIN_URL = 'http://k6c206.p.ssafy.io:8000/auth-server'
-    const BASE_URL = 'http://localhost:3000'
+    const KAKAO_LOGIN_URL = 'http://k6c206.p.ssafy.io:8081'
+    const BASE_URL = 'https://makeourspecial.day'
     const router = useRouter()
 
     const logout = () => {
