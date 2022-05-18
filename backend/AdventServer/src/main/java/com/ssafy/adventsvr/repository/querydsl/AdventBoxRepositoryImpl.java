@@ -21,7 +21,7 @@ public class AdventBoxRepositoryImpl implements AdventBoxRepositoryCustom{
     }
 
     @Override
-    public AdventBoxWrapperDetailDto findWrapperAndTitleByUserId(String boxId, Integer userId) {
+    public AdventBoxWrapperDetailDto findWrapperAndTitleById(String boxId) {
         return queryFactory
                 .select(Projections.constructor(AdventBoxWrapperDetailDto.class,
                         qAdventBox.id,
@@ -30,12 +30,12 @@ public class AdventBoxRepositoryImpl implements AdventBoxRepositoryCustom{
                 .from(qAdvent)
                 .leftJoin(qAdventBox)
                 .on(qAdventBox.advent.id.eq(qAdvent.id))
-                .where(qAdventBox.id.eq(boxId).and(qAdvent.userId.eq(userId)))
+                .where(qAdventBox.id.eq(boxId))
                 .fetchOne();
     }
 
     @Override
-    public AdventBoxUrlDto findUrlByBoxId(String boxId) {
+    public AdventBoxUrlDto findUrlById(String boxId) {
         return  queryFactory
                 .select(Projections.constructor(AdventBoxUrlDto.class,
                         qAdventBox.id,
@@ -52,7 +52,7 @@ public class AdventBoxRepositoryImpl implements AdventBoxRepositoryCustom{
     }
 
     @Override
-    public AdventBoxDetailDto findDetailByBoxIdAndUserId(String boxId, Integer userId) {
+    public AdventBoxDetailDto findDetailById(String boxId) {
         return queryFactory
                 .select(Projections.constructor(AdventBoxDetailDto.class,
                         qAdventBox.id,
@@ -64,7 +64,7 @@ public class AdventBoxRepositoryImpl implements AdventBoxRepositoryCustom{
                 .from(qAdventBox)
                 .leftJoin(qAdvent)
                 .on(qAdvent.id.eq(qAdventBox.advent.id))
-                .where(qAdventBox.id.eq(boxId).and(qAdvent.userId.eq(userId)))
+                .where(qAdventBox.id.eq(boxId))
                 .fetchOne();
     }
 

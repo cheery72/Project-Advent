@@ -1,6 +1,5 @@
 package com.ssafy.adventsvr.service;
 
-import com.ssafy.adventsvr.client.UserServiceClient;
 import com.ssafy.adventsvr.entity.Advent;
 import com.ssafy.adventsvr.entity.AdventBox;
 import com.ssafy.adventsvr.exception.NoSuchAdventException;
@@ -34,16 +33,18 @@ public class AdventServiceImpl implements AdventService {
 
     private final AdventRepository adventRepository;
     private final AdventBoxRepository adventBoxRepository;
-    private final UserServiceClient userServiceClient;
 
     @Transactional
     @Override
     public AdventDayResponse inputDayAdvent(AdventDayRequest adventDayRequest) {
         Advent advent = Advent.adventBuilder(adventDayRequest);
 
-        Integer userAdventCount = userServiceClient.userAdventCountFind(adventDayRequest.getUserId());
+        Long todayCount = adventRepository
+                .findByUserIdAndCreateAtBetween(adventDayRequest.getUserId(),
+                LocalDate.now().atTime(0, 0,0),
+                LocalDate.now().atTime(23, 59,59));
 
-        if (30 >= userAdventCount) {
+        if (30 >= todayCount) {
             return AdventDayResponse.builder()
                     .adventId(adventRepository.save(advent).getId())
                     .build();
@@ -61,24 +62,25 @@ public class AdventServiceImpl implements AdventService {
         userValidation(advent.getUserId(),adventPrivateRequest.getUserId());
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate localDate = LocalDate.parse(adventPrivateRequest.getEndAt(), formatter);
+        LocalDate endAt = LocalDate.parse(adventPrivateRequest.getEndAt(), formatter);
 
         LocalDate today = LocalDate.now();
 
-        LocalDate minusDays = localDate.minusDays(advent.getDay());
+        LocalDate minusDays = endAt.minusDays(advent.getDay());
 
         if (minusDays.isAfter(today) || minusDays.equals(today)) {
             String url = (UUID.randomUUID().toString()).replace("-", "");
-            advent.setAdventPrivateInfoModify(adventPrivateRequest, url, localDate);
+            advent.setAdventPrivateInfoModify(adventPrivateRequest, url, endAt);
 
             List<AdventBox> adventBoxList = adventBoxRepository.findAllByAdventId(advent.getId());
+
             adventBoxList.forEach(
-                    adventbox -> adventbox.setAdventBoxActiveAtModify(localDate, advent.getDay(), adventbox));
+                    adventbox -> adventbox.setAdventBoxActiveAtModify(endAt, advent.getDay(), adventbox));
+
             advent.setModify();
         } else {
             throw new NoSuchAdventException("내일 기준으로 요일을 +day 해주세요.");
         }
-
 
     }
 
@@ -100,13 +102,13 @@ public class AdventServiceImpl implements AdventService {
             }
 
             if(advent.getRenewalAt() == null || !today.equals(advent.getRenewalAt())) {
+                advent.setAdventRenewalAtModify(today);
                 adventBoxList.stream()
                         .filter(adventbox -> adventbox.getActiveAt() != null)
-                        .forEachOrdered(adventbox -> {
-                    advent.setAdventRenewalAtModify(today);
-                    adventbox.setAdventActiveDayModify(today, adventbox.getActiveAt());
-                });
+                        .forEachOrdered(adventbox ->
+                    adventbox.setAdventActiveDayModify(today, adventbox.getActiveAt()));
             }
+
             return AdventUrlReceiveResponse.builder()
                     .title(advent.getTitle())
                     .day(advent.getDay())
@@ -135,12 +137,11 @@ public class AdventServiceImpl implements AdventService {
         }
 
         if(advent.getRenewalAt() == null || !today.equals(advent.getRenewalAt())) {
+            advent.setAdventRenewalAtModify(today);
             adventBoxList.stream()
                     .filter(adventbox -> adventbox.getActiveAt() != null)
-                    .forEachOrdered(adventbox -> {
-                advent.setAdventRenewalAtModify(today);
-                adventbox.setAdventActiveDayModify(today, adventbox.getActiveAt());
-            });
+                    .forEachOrdered(adventbox ->
+                adventbox.setAdventActiveDayModify(today, adventbox.getActiveAt()));
         }
 
         return AdventUrlReceiveResponse.builder()
@@ -153,14 +154,14 @@ public class AdventServiceImpl implements AdventService {
 
     @Override
     public AdventReceiveResponse findAdvent(String adventId, Integer userId) {
-        List<AdventBoxListModifyDto> adventBoxList = adventRepository.findAllByAdventIdAndUserId(adventId, userId);
+        List<AdventBoxListModifyDto> adventBoxList = adventRepository.findAdventIdAllBy(adventId);
 
         userValidation(adventBoxList.get(0).getUserId(),userId);
 
         List<AdventBoxListResponse> adventBoxListResponse = AdventBoxListResponse.adventBoxListBuilder(adventBoxList);
 
         return AdventReceiveResponse.builder()
-                .adventId(adventId)
+                .adventId(adventBoxList.get(0).getId())
                 .title(adventBoxList.get(0).getTitle())
                 .day(adventBoxList.get(0).getDay())
                 .endAt(adventBoxList.get(0).getEndAt())
@@ -202,22 +203,72 @@ public class AdventServiceImpl implements AdventService {
                 .build();
     }
 
+//    @Override
+//    public Page<AdventStorageResponse> findMyStorageAdvent(Pageable pageable, Integer userId) {
+//        List<Advent> advents = adventRepository.findAllByUserId(userId);
+//
+//        List<Advent> pageAdvent = adventRepository.findPageAllByUserId(pageable, userId);
+//        List<AdventCreatedResponse> createList = new ArrayList<>();
+//
+//        for (Advent advent : pageAdvent) {
+//            List<AdventBox> adventBoxs = adventBoxRepository.findAllByAdventIdOrderByAdventDayAsc(advent.getId());
+//            Integer unCreateBox = 0, unContentBox = 0;
+//            List<Integer> unCreateBoxList = new ArrayList<>();
+//            List<Integer> unContentBoxList = new ArrayList<>();
+//            boolean[] isCreate = new boolean[advent.getDay() + 1];
+//
+//            if (adventBoxs.size() != advent.getDay()) {
+//                adventBoxs.forEach(adventBox -> isCreate[adventBox.getAdventDay()] = true);
+//
+//                for (int i = 1; i < isCreate.length; i++) {
+//                    if (!isCreate[i]) {
+//                        unCreateBoxList.add(i);
+//                        unCreateBox++;
+//                    }
+//                }
+//            }
+//
+//            for (AdventBox adventBox : adventBoxs) {
+//                if (adventBox.getContent() == null) {
+//                    unContentBoxList.add(adventBox.getAdventDay());
+//                    unContentBox++;
+//                }
+//            }
+//
+//            String wrapper = null;
+//            if (!adventBoxs.isEmpty()) {
+//                wrapper = adventBoxs.get(0).getWrapper();
+//            }
+//
+//            AdventCreatedResponse adventCreatedResponse = AdventCreatedResponse
+//                    .createdBuilder(advent, unCreateBox, unCreateBoxList,
+//                            unContentBox, unContentBoxList, wrapper);
+//            createList.add(adventCreatedResponse);
+//        }
+//
+//        List<AdventStorageResponse> adventList = AdventStorageResponse.storageBuilder(createList);
+//
+//        return new PageImpl<>(adventList, pageable, advents.size());
+//    }
+
+
     @Override
     public Page<AdventStorageResponse> findMyStorageAdvent(Pageable pageable, Integer userId) {
-        List<Advent> advents = adventRepository.findAllByUserId(userId);
-
-        List<Advent> pageAdvent = adventRepository.findPageAllByUserId(pageable, userId);
+        List<Advent> advents = adventRepository.findStorageAdvent(userId, pageable);
+        Long adventCount = adventRepository.findSendBoxAdventCount(userId);
         List<AdventCreatedResponse> createList = new ArrayList<>();
 
-        for (Advent advent : pageAdvent) {
-            List<AdventBox> adventBoxs = adventBoxRepository.findAllByAdventIdOrderByAdventDayAsc(advent.getId());
+        for (Advent advent : advents) {
             Integer unCreateBox = 0, unContentBox = 0;
+
             List<Integer> unCreateBoxList = new ArrayList<>();
             List<Integer> unContentBoxList = new ArrayList<>();
             boolean[] isCreate = new boolean[advent.getDay() + 1];
 
-            if (adventBoxs.size() != advent.getDay()) {
-                adventBoxs.forEach(adventBox -> isCreate[adventBox.getAdventDay()] = true);
+            if (advent.getAdventBoxes().size() != advent.getDay()) {
+                for (AdventBox adventBox : advent.getAdventBoxes()) {
+                    isCreate[adventBox.getAdventDay()] = true;
+                }
 
                 for (int i = 1; i < isCreate.length; i++) {
                     if (!isCreate[i]) {
@@ -227,7 +278,7 @@ public class AdventServiceImpl implements AdventService {
                 }
             }
 
-            for (AdventBox adventBox : adventBoxs) {
+            for (AdventBox adventBox : advent.getAdventBoxes()) {
                 if (adventBox.getContent() == null) {
                     unContentBoxList.add(adventBox.getAdventDay());
                     unContentBox++;
@@ -235,8 +286,8 @@ public class AdventServiceImpl implements AdventService {
             }
 
             String wrapper = null;
-            if (!adventBoxs.isEmpty()) {
-                wrapper = adventBoxs.get(0).getWrapper();
+            if (!advent.getAdventBoxes().isEmpty()) {
+                wrapper = advent.getAdventBoxes().get(0).getWrapper();
             }
 
             AdventCreatedResponse adventCreatedResponse = AdventCreatedResponse
@@ -247,7 +298,7 @@ public class AdventServiceImpl implements AdventService {
 
         List<AdventStorageResponse> adventList = AdventStorageResponse.storageBuilder(createList);
 
-        return new PageImpl<>(adventList, pageable, advents.size());
+        return new PageImpl<>(adventList, pageable, adventCount);
     }
 
     @Override
@@ -270,6 +321,7 @@ public class AdventServiceImpl implements AdventService {
     public void modifyTitleAdvent(String adventId,AdventRecipientModify adventRecipientModify) {
         Advent advent = adventRepository.findById(adventId)
                 .orElseThrow(() -> new NoSuchAdventException("요청한 게시글을 찾을 수 없습니다."));
+
         advent.setModify();
         advent.setAdventTitleModify(adventRecipientModify.getTitle());
     }

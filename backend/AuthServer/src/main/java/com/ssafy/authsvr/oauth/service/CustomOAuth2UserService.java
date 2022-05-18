@@ -58,8 +58,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 Integer.valueOf(RandomStringUtils.randomNumeric(8)),
                 RoleType.USER,
                 userInfo.getId(),
-                userInfo.getName(),
-                0
+                userInfo.getName()
         );
 
         return userRepository.saveAndFlush(user);

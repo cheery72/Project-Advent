@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class AdventBoxDetailResponse {
+
     private String boxId;
     private Integer adventDay;
     private Integer dDay;

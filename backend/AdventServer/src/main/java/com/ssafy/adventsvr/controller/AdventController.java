@@ -1,7 +1,6 @@
 package com.ssafy.adventsvr.controller;
 
 import com.ssafy.adventsvr.exception.NotAuthenticationException;
-import com.ssafy.adventsvr.exception.NotRequestException;
 import com.ssafy.adventsvr.payload.request.AdventCertifyRequest;
 import com.ssafy.adventsvr.payload.request.AdventDayRequest;
 import com.ssafy.adventsvr.payload.request.AdventPrivateRequest;
@@ -15,10 +14,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
@@ -42,8 +39,8 @@ public class AdventController {
 
     @ApiOperation(value = "password 및 기간 설정", notes = "패스워드, 힌트, 기간 설정")
     @PatchMapping("/{adventId}/days")
-    public ResponseEntity<Object> adventPrivateInfoModify(@PathVariable String adventId
-                                                        ,@RequestBody @Valid AdventPrivateRequest adventPrivateRequest) {
+    public ResponseEntity<Object> adventPrivateInfoModify(@PathVariable("adventId") String adventId,
+                                                          @RequestBody @Valid AdventPrivateRequest adventPrivateRequest) {
         log.debug("adventPrivateInfoModify");
 
         if (!adventPrivateRequest.getPasswordVal().equals(adventPrivateRequest.getPassword())) {
@@ -57,8 +54,8 @@ public class AdventController {
 
     @ApiOperation(value = "타이틀 제목 설정", notes = "타이틀 제목 설정")
     @PatchMapping("/{adventId}/recipients")
-    public ResponseEntity<Object> adventTitleModify(@PathVariable String adventId
-                                                    ,@RequestBody AdventRecipientModify adventRecipientModify){
+    public ResponseEntity<Object> adventTitleModify(@PathVariable("adventId") String adventId,
+                                                    @RequestBody AdventRecipientModify adventRecipientModify){
         log.debug("adventRecipientModify");
 
         adventService.modifyTitleAdvent(adventId,adventRecipientModify);
@@ -78,7 +75,7 @@ public class AdventController {
 
     @ApiOperation(value = "password 없이 url 조회", notes = "패스워드 없이 조회")
     @GetMapping("/{url}")
-    public ResponseEntity<AdventUrlReceiveResponse> adventNotPasswordFind(@PathVariable(value = "url") String url){
+    public ResponseEntity<AdventUrlReceiveResponse> adventNotPasswordFind(@PathVariable("url") String url){
         log.debug("adventNotPasswordFind");
 
         return ResponseEntity
@@ -87,7 +84,7 @@ public class AdventController {
 
     @ApiOperation(value = "adventId로 어드벤트 day 조회", notes = "어드벤트 day 조회")
     @GetMapping("/{adventId}/days")
-    public ResponseEntity<AdventDaysResponse> adventDayFind(@PathVariable String adventId){
+    public ResponseEntity<AdventDaysResponse> adventDayFind(@PathVariable("adventId") String adventId){
         log.debug("adventDayFind");
 
         return ResponseEntity
@@ -96,7 +93,7 @@ public class AdventController {
 
     @ApiOperation(value = "url로 어드벤트 day 조회", notes = "어드벤트 day url조회")
     @GetMapping("/{url}/url-days")
-    public ResponseEntity<AdventDaysResponse> adventDayUrlFind(@PathVariable String url){
+    public ResponseEntity<AdventDaysResponse> adventDayUrlFind(@PathVariable("url") String url){
         log.debug("adventDayUrlFind");
 
         return ResponseEntity
@@ -105,7 +102,7 @@ public class AdventController {
 
     @ApiOperation(value = "패스워드 힌트 및 패스워드 설정 유무 조회", notes = "패스워드 힌트 및 패스워드 설정 유무 조회")
     @GetMapping("/{url}/hints")
-    public ResponseEntity<AdventIsPasswordResponse> adventIsPasswordFind(@PathVariable String url){
+    public ResponseEntity<AdventIsPasswordResponse> adventIsPasswordFind(@PathVariable("url") String url){
         log.debug("adventIsPasswordFind");
 
         return ResponseEntity
@@ -114,8 +111,8 @@ public class AdventController {
 
     @ApiOperation(value = "어드벤트 조회", notes = "보관함 페이지에서 수정 눌렀을시에 조회")
     @GetMapping("/{adventId}/{userId}/advent")
-    public ResponseEntity<AdventReceiveResponse> adventFind(@PathVariable(value = "adventId") String adventId,
-                                                            @PathVariable(value = "userId") Integer userId){
+    public ResponseEntity<AdventReceiveResponse> adventFind(@PathVariable("adventId") String adventId,
+                                                            @PathVariable("userId") Integer userId){
         log.debug("adventFind");
 
         return ResponseEntity
@@ -135,8 +132,8 @@ public class AdventController {
 
     @ApiOperation(value = "선물 삭제", notes = "해당 유저 선물 삭제")
     @DeleteMapping("/{adventId}/{userId}")
-    public ResponseEntity<Object> adventDelete(@PathVariable(value = "adventId") String adventId,
-                                               @PathVariable(value = "userId") Integer userId){
+    public ResponseEntity<Object> adventDelete(@PathVariable("adventId") String adventId,
+                                               @PathVariable("userId") Integer userId){
         log.debug("adventDelete");
 
         adventService.deleteAdvent(userId, adventId);
@@ -146,8 +143,8 @@ public class AdventController {
 
     @ApiOperation(value = "첫번째 박스 포장지, 제목", notes = "URL로 첫번째 박스 포장지 및 제목 조회")
     @GetMapping("/{url}/title")
-    public ResponseEntity<AdventBoxTitleResponse> adventBoxTitleFind(@PathVariable(value = "url") String url){
-        log.info("adventBoxTitleFind");
+    public ResponseEntity<AdventBoxTitleResponse> adventBoxTitleFind(@PathVariable("url") String url){
+        log.debug("adventBoxTitleFind");
 
         return ResponseEntity
                 .ok(adventService.findTitleAdventBox(url));

@@ -3,7 +3,6 @@ package com.ssafy.adventsvr.entity;
 import com.ssafy.adventsvr.payload.request.AdventBoxRequest;
 import com.ssafy.adventsvr.payload.request.AdventBoxWrapperRequest;
 import lombok.*;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;

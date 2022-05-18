@@ -3,7 +3,6 @@ package com.ssafy.adventsvr.payload.response;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDate;
 import java.util.List;
 

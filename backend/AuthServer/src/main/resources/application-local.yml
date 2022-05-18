@@ -11,9 +11,6 @@ spring:
     username: ssafy
     password: ssafy
     driver-class-name: com.mysql.cj.jdbc.Driver
-  redis:
-    host: localhost
-    port: 6379
   jpa:
     hibernate:
       ddl-auto: none

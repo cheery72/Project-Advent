@@ -74,7 +74,7 @@ public class Advent extends BaseTimeEntity{
         this.renewalAt = renewalAt;
     }
 
-    public void setAdventPrivateInfoModify(AdventPrivateRequest adventPrivateRequest, String url, LocalDate localDate){
+    public void setAdventPrivateInfoModify(AdventPrivateRequest adventPrivateRequest, String url, LocalDate endAt){
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
         if ("".equals(adventPrivateRequest.getPassword())) {
@@ -86,7 +86,7 @@ public class Advent extends BaseTimeEntity{
             this.isPassword = true;
         }
 
-        this.endAt = localDate;
+        this.endAt = endAt;
         this.url = url;
     }
 
