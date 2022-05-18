@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import {Checkbox } from "semantic-ui-react";
 import { HexColorPicker } from "react-colorful";
 import styles from "../../../styles/detail/text.module.css"
@@ -27,7 +27,6 @@ export default function Text ({setText, setColor, setFontsize, setFontweight, fo
         <>
             <div className={styles.inputtextbox}>
                 <textarea  id="textarea" style={{color:color}} value={text} placeholder="내용을 입력해 주세요" onChange={createText} className={styles.contentbox}></textarea>
-                {/* onKeyUp={onChange} , height: textareaheight*/}
             </div>
             <div className={styles.fontweight}>                    
                 글자 굵기 : &nbsp;&nbsp;

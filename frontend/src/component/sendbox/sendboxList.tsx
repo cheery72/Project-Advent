@@ -17,8 +17,6 @@ export default function sendboxList({ userId, username }:any){
         if (userId) {
             allAxios.get(`/advents/${userId}/storages?page=${currentPage-1}`)
                 .then((response) =>{
-                    // console.log(response.data.content)
-                    // console.log(userId)
                     setSendbox(response.data.content)
                     setTotalPages(response.data.total_pages)
                 })
