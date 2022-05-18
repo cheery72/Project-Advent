@@ -30,8 +30,8 @@ public interface AdventService {
 
     AdventBoxTitleResponse findTitleAdventBox(String url);
 
-    void modifyTitleAdvent(String adventId,AdventRecipientModify adventRecipientModify);
-
     void deleteAdvent(Integer userId, String adventId);
+
+    void modifyTitleAdvent(String adventId,AdventRecipientModify adventRecipientModify);
 
 }
