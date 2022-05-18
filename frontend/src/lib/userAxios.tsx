@@ -1,6 +1,6 @@
 import Axios from "axios";
 
-const API_URL = "http://k6c206.p.ssafy.io:8000/auth-server";
+const API_URL = "https://makeourspecial.day/api/auth-server";
 let TOKEN_VALUE: any = null;
 
 if (typeof window !== "undefined") TOKEN_VALUE = localStorage.getItem("token");

@@ -16,7 +16,11 @@ spring:
       globalcors:
         corsConfigurations:
           '[/**]':
-            allowedOrigins: "https://k6c206.p.ssafy.io"
+            allowedOrigins:
+              - "https://k6c206.p.ssafy.io"
+              - "http://k6c206.p.ssafy.io"
+              - "https://makeourspecial.day"
+              - "http://makeourspecial.day"
             allow-credentials: true   #추가
             allowedHeaders:
               - x-requested-with
