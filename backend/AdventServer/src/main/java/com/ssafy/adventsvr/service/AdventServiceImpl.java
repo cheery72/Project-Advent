@@ -203,72 +203,22 @@ public class AdventServiceImpl implements AdventService {
                 .build();
     }
 
-//    @Override
-//    public Page<AdventStorageResponse> findMyStorageAdvent(Pageable pageable, Integer userId) {
-//        List<Advent> advents = adventRepository.findAllByUserId(userId);
-//
-//        List<Advent> pageAdvent = adventRepository.findPageAllByUserId(pageable, userId);
-//        List<AdventCreatedResponse> createList = new ArrayList<>();
-//
-//        for (Advent advent : pageAdvent) {
-//            List<AdventBox> adventBoxs = adventBoxRepository.findAllByAdventIdOrderByAdventDayAsc(advent.getId());
-//            Integer unCreateBox = 0, unContentBox = 0;
-//            List<Integer> unCreateBoxList = new ArrayList<>();
-//            List<Integer> unContentBoxList = new ArrayList<>();
-//            boolean[] isCreate = new boolean[advent.getDay() + 1];
-//
-//            if (adventBoxs.size() != advent.getDay()) {
-//                adventBoxs.forEach(adventBox -> isCreate[adventBox.getAdventDay()] = true);
-//
-//                for (int i = 1; i < isCreate.length; i++) {
-//                    if (!isCreate[i]) {
-//                        unCreateBoxList.add(i);
-//                        unCreateBox++;
-//                    }
-//                }
-//            }
-//
-//            for (AdventBox adventBox : adventBoxs) {
-//                if (adventBox.getContent() == null) {
-//                    unContentBoxList.add(adventBox.getAdventDay());
-//                    unContentBox++;
-//                }
-//            }
-//
-//            String wrapper = null;
-//            if (!adventBoxs.isEmpty()) {
-//                wrapper = adventBoxs.get(0).getWrapper();
-//            }
-//
-//            AdventCreatedResponse adventCreatedResponse = AdventCreatedResponse
-//                    .createdBuilder(advent, unCreateBox, unCreateBoxList,
-//                            unContentBox, unContentBoxList, wrapper);
-//            createList.add(adventCreatedResponse);
-//        }
-//
-//        List<AdventStorageResponse> adventList = AdventStorageResponse.storageBuilder(createList);
-//
-//        return new PageImpl<>(adventList, pageable, advents.size());
-//    }
-
-
     @Override
     public Page<AdventStorageResponse> findMyStorageAdvent(Pageable pageable, Integer userId) {
-        List<Advent> advents = adventRepository.findStorageAdvent(userId, pageable);
-        Long adventCount = adventRepository.findSendBoxAdventCount(userId);
+        List<Advent> advents = adventRepository.findAllByUserId(userId);
+
+        List<Advent> pageAdvent = adventRepository.findPageAllByUserId(pageable, userId);
         List<AdventCreatedResponse> createList = new ArrayList<>();
 
-        for (Advent advent : advents) {
+        for (Advent advent : pageAdvent) {
+            List<AdventBox> adventBoxs = adventBoxRepository.findAllByAdventIdOrderByAdventDayAsc(advent.getId());
             Integer unCreateBox = 0, unContentBox = 0;
-
             List<Integer> unCreateBoxList = new ArrayList<>();
             List<Integer> unContentBoxList = new ArrayList<>();
             boolean[] isCreate = new boolean[advent.getDay() + 1];
 
-            if (advent.getAdventBoxes().size() != advent.getDay()) {
-                for (AdventBox adventBox : advent.getAdventBoxes()) {
-                    isCreate[adventBox.getAdventDay()] = true;
-                }
+            if (adventBoxs.size() != advent.getDay()) {
+                adventBoxs.forEach(adventBox -> isCreate[adventBox.getAdventDay()] = true);
 
                 for (int i = 1; i < isCreate.length; i++) {
                     if (!isCreate[i]) {
@@ -278,7 +228,7 @@ public class AdventServiceImpl implements AdventService {
                 }
             }
 
-            for (AdventBox adventBox : advent.getAdventBoxes()) {
+            for (AdventBox adventBox : adventBoxs) {
                 if (adventBox.getContent() == null) {
                     unContentBoxList.add(adventBox.getAdventDay());
                     unContentBox++;
@@ -286,8 +236,8 @@ public class AdventServiceImpl implements AdventService {
             }
 
             String wrapper = null;
-            if (!advent.getAdventBoxes().isEmpty()) {
-                wrapper = advent.getAdventBoxes().get(0).getWrapper();
+            if (!adventBoxs.isEmpty()) {
+                wrapper = adventBoxs.get(0).getWrapper();
             }
 
             AdventCreatedResponse adventCreatedResponse = AdventCreatedResponse
@@ -298,7 +248,7 @@ public class AdventServiceImpl implements AdventService {
 
         List<AdventStorageResponse> adventList = AdventStorageResponse.storageBuilder(createList);
 
-        return new PageImpl<>(adventList, pageable, adventCount);
+        return new PageImpl<>(adventList, pageable, advents.size());
     }
 
     @Override

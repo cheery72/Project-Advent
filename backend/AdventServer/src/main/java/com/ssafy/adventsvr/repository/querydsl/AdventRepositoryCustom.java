@@ -12,6 +12,4 @@ public interface AdventRepositoryCustom {
     List<AdventBoxListTitleDto> findAllByUrlOrderByAdventDayAsc(String url);
     List<AdventBoxListModifyDto> findAdventIdAllBy(String adventId);
     Long findByUserIdAndCreateAtBetween(Integer userId, LocalDateTime startDate, LocalDateTime endDate);
-    List<Advent> findStorageAdvent(Integer userId, Pageable pageable);
-    Long findSendBoxAdventCount(Integer userId);
 }
