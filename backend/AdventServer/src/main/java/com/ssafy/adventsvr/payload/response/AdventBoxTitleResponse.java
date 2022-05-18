@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class AdventBoxTitleResponse {
+
     private String wrapper;
     private String title;
 

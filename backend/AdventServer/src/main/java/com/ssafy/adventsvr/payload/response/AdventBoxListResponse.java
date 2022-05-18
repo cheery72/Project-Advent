@@ -13,17 +13,11 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class AdventBoxListResponse {
 
-    // 박스 PK
     private String boxId;
-    // 활성화 날짜
     private LocalDate isActiveAt;
-    // 활성화 유무
     private boolean isActive;
-    // 몇번째 박스인지
     private Integer adventDay;
-    // 활성화까지 며칠 남은지
     private Integer activeDay;
-    // 포장지 이미지
     private String wrapper;
 
     public static List<AdventBoxListResponse> adventBoxListBuilder(List<AdventBoxListModifyDto> adventBoxs){

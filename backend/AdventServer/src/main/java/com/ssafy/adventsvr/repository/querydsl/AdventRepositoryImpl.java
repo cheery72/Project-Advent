@@ -2,12 +2,18 @@ package com.ssafy.adventsvr.repository.querydsl;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.ssafy.adventsvr.entity.Advent;
 import com.ssafy.adventsvr.entity.QAdvent;
 import com.ssafy.adventsvr.entity.QAdventBox;
 import com.ssafy.adventsvr.payload.dto.AdventBoxListModifyDto;
 import com.ssafy.adventsvr.payload.dto.AdventBoxListTitleDto;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+
 import javax.persistence.EntityManager;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AdventRepositoryImpl implements AdventRepositoryCustom {
     private static final QAdventBox qAdventBox = QAdventBox.adventBox;
@@ -34,7 +40,7 @@ public class AdventRepositoryImpl implements AdventRepositoryCustom {
     }
 
     @Override
-    public List<AdventBoxListModifyDto> findAllByAdventIdAndUserId(String adventId, Integer userId) {
+    public List<AdventBoxListModifyDto> findAdventIdAllBy(String adventId) {
         return queryFactory
                 .select(Projections.constructor(AdventBoxListModifyDto.class,
                         qAdvent.userId,
@@ -51,8 +57,39 @@ public class AdventRepositoryImpl implements AdventRepositoryCustom {
                 .from(qAdvent)
                 .leftJoin(qAdventBox)
                 .on(qAdventBox.advent.id.eq(qAdvent.id))
-                .where(qAdvent.id.eq(adventId).and(qAdvent.userId.eq(userId)))
+                .where(qAdvent.id.eq(adventId))
                 .orderBy(qAdventBox.adventDay.asc())
                 .fetch();
     }
+
+    @Override
+    public Long findByUserIdAndCreateAtBetween(Integer userId, LocalDateTime startDate, LocalDateTime endDate) {
+        return queryFactory
+                .select(qAdvent.count())
+                .from(qAdvent)
+                .where(qAdvent.userId.eq(userId).and(qAdvent.createAt.between(startDate,endDate)))
+                .fetchOne();
+    }
+
+    @Override
+    public List<Advent> findStorageAdvent(Integer userId, Pageable pageable) {
+        return queryFactory
+                .selectFrom(qAdvent)
+//                .join(qAdventBox)
+//                .on(qAdvent.id.eq(qAdventBox.advent.id))
+                .where(qAdvent.userId.eq(userId))
+                .limit(pageable.getPageSize())
+                .orderBy(qAdvent.modifiedAt.desc())
+                .fetch().stream().distinct().collect(Collectors.toList());
+    }
+
+    @Override
+    public Long findSendBoxAdventCount(Integer userId) {
+        return queryFactory
+                .select(qAdvent.count())
+                .from(qAdvent)
+                .where(qAdvent.userId.eq(userId))
+                .fetchOne();
+    }
+
 }

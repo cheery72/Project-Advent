@@ -10,9 +10,6 @@ import springfox.documentation.spring.web.plugins.Docket;
 
 public class SwaggerConfig {
 
-    /*
-     * Swagger 정보
-     * */
     private ApiInfo swaggerInfo() {
         return new ApiInfoBuilder()
                 .title("Make our special : 어드벤트 스페셜데이")
@@ -23,20 +20,14 @@ public class SwaggerConfig {
                 .build();
     }
 
-    /*
-     * Swagger API 문서
-     * */
     @Bean
     public Docket swaggerAPI() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(this.swaggerInfo())    // 스웨거 정보 등록
+                .apiInfo(this.swaggerInfo())
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build()
-                .useDefaultResponseMessages(true);  // 기본 세팅되는 200, 401, 403, 404 표시
+                .useDefaultResponseMessages(true);
     }
-
-
-
 }

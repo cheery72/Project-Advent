@@ -7,6 +7,7 @@ import com.ssafy.adventsvr.exception.NotAuthenticationException;
 import com.ssafy.adventsvr.payload.dto.AdventBoxDetailDto;
 import com.ssafy.adventsvr.payload.dto.AdventBoxUrlDto;
 import com.ssafy.adventsvr.payload.dto.AdventBoxWrapperDetailDto;
+import com.ssafy.adventsvr.payload.request.AdventBoxModifyRequest;
 import com.ssafy.adventsvr.payload.request.AdventBoxRequest;
 import com.ssafy.adventsvr.payload.request.AdventBoxWrapperRequest;
 import com.ssafy.adventsvr.payload.response.*;
@@ -16,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -54,20 +54,23 @@ public class AdventBoxServiceImpl implements AdventBoxService {
             adventBox = AdventBox.adventBoxBuilder(adventBoxRequest, advent, imageUrl, adventBoxRequest.getAnimation());
             adventBoxRepository.save(adventBox);
         }
-        advent.setModify();
 
+        advent.setModify();
     }
 
-    @Deprecated
     @Transactional
     @Override
-    public void modifyBoxAdventBox(String boxId, MultipartFile file,String animation) {
-        Optional<AdventBox> optionalAdventBox = adventBoxRepository.findById(boxId);
-        AdventBox adventBox = optionalAdventBox.orElseThrow(NoSuchElementException::new);
+    public void modifyBoxAdventBox(String boxId, MultipartFile file, AdventBoxModifyRequest adventBoxModifyRequest) {
+        AdventBox adventBox  = adventBoxRepository.findById(boxId)
+                .orElseThrow(() -> new NoSuchAdventException("요청한 게시글 박스를 찾을 수 없습니다."));
+
+        Advent advent = adventRepository.findById(adventBox.getAdvent().getId())
+                .orElseThrow(() -> new NoSuchAdventException("요청한 게시글이 없습니다."));
+
+        userValidation(advent.getUserId(), adventBoxModifyRequest.getUserId());
 
         String imageUrl = inputAwsS3File(file);
-        adventBox.setAdventBoxContentModify(imageUrl,animation);
-
+        adventBox.setAdventBoxContentModify(imageUrl,adventBoxModifyRequest.getAnimation());
     }
 
     @Transactional
@@ -91,14 +94,13 @@ public class AdventBoxServiceImpl implements AdventBoxService {
 
         AdventBox adventBox;
         if (optionalAdventBox.isPresent()) {
-            adventBox = optionalAdventBox
-                    .orElseThrow(() -> new NoSuchAdventException("요청한 게시글 박스를 찾을 수 없습니다."));
-
+            adventBox = optionalAdventBox.get();
             adventBox.setAdventBoxWrapperModify(imageUrl);
         } else {
             adventBox = AdventBox.adventBoxWrapperBuilder(adventBoxWrapperRequest, advent, imageUrl);
             adventBoxRepository.save(adventBox);
         }
+
         advent.setModify();
     }
 
@@ -120,6 +122,7 @@ public class AdventBoxServiceImpl implements AdventBoxService {
         if (imageUrl == null){
             imageUrl = adventBoxWrapperRequest.getImage();
         }
+
         advent.setModify();
         adventBox.setAdventBoxWrapperModify(imageUrl);
     }
@@ -127,7 +130,7 @@ public class AdventBoxServiceImpl implements AdventBoxService {
     @Override
     public AdventBoxDetailResponse findDetailAdventBox(String boxId, Integer userId) {
 
-        AdventBoxDetailDto adventBoxDetailDto = adventBoxRepository.findDetailByBoxIdAndUserId(boxId,userId);
+        AdventBoxDetailDto adventBoxDetailDto = adventBoxRepository.findDetailById(boxId);
 
         userValidation(adventBoxDetailDto.getUserId(),userId);
 
@@ -152,22 +155,9 @@ public class AdventBoxServiceImpl implements AdventBoxService {
     }
 
     @Override
-    public AdventBoxWrapperResponse findWrapperDetailAdventBox(String boxId, Integer userId){
-
-        AdventBoxWrapperDetailDto adventBoxWrapperDetailDto = adventBoxRepository.findWrapperAndTitleByUserId(boxId,userId);
-
-        userValidation(adventBoxWrapperDetailDto.getUserId(),userId);
-
-        return AdventBoxWrapperResponse.builder()
-                .boxId(boxId)
-                .wrapper(adventBoxWrapperDetailDto.getWrapper())
-                .build();
-    }
-
-    @Override
     public AdventBoxUrlDetailResponse findUrlDetailAdventBox(String boxId) {
 
-        AdventBoxUrlDto adventBoxUrlDto = adventBoxRepository.findUrlByBoxId(boxId);
+        AdventBoxUrlDto adventBoxUrlDto = adventBoxRepository.findUrlById(boxId);
 
         if(!adventBoxUrlDto.isActive()){
             throw new NoSuchAdventException("요청한 게시글 박스를 찾을 수 없습니다.");
@@ -182,6 +172,18 @@ public class AdventBoxServiceImpl implements AdventBoxService {
 
     }
 
+    @Override
+    public AdventBoxWrapperResponse findWrapperDetailAdventBox(String boxId, Integer userId){
+
+        AdventBoxWrapperDetailDto adventBoxWrapperDetailDto = adventBoxRepository.findWrapperAndTitleById(boxId);
+
+        userValidation(adventBoxWrapperDetailDto.getUserId(),userId);
+
+        return AdventBoxWrapperResponse.builder()
+                .boxId(boxId)
+                .wrapper(adventBoxWrapperDetailDto.getWrapper())
+                .build();
+    }
 
     private String inputAwsS3File(MultipartFile file){
         String imageUrl = null;
@@ -193,18 +195,16 @@ public class AdventBoxServiceImpl implements AdventBoxService {
         return imageUrl;
     }
 
-    private void adventDayValidation(Integer adventDay, Integer isAdventDay){
-        if(isAdventDay < 1 || adventDay < isAdventDay){
-            throw new NoSuchAdventException("요청하신 요일이 1미만이거나 설정한 요일을 초과했습니다.");
-        }
-    }
-
     private void userValidation(Integer userId, Integer isUserId){
         if(!userId.equals(isUserId)) {
             throw new NotAuthenticationException("해당 게시글을 작성한 유저가 아닙니다.");
         }
     }
 
-
+    private void adventDayValidation(Integer adventDay, Integer isAdventDay){
+        if(isAdventDay < 1 || adventDay < isAdventDay){
+            throw new NoSuchAdventException("요청하신 요일이 1미만이거나 설정한 요일을 초과했습니다.");
+        }
+    }
 
 }

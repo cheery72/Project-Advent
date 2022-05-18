@@ -1,5 +1,6 @@
 package com.ssafy.adventsvr.service;
 
+import com.ssafy.adventsvr.payload.request.AdventBoxModifyRequest;
 import com.ssafy.adventsvr.payload.request.AdventBoxRequest;
 import com.ssafy.adventsvr.payload.request.AdventBoxWrapperRequest;
 import com.ssafy.adventsvr.payload.response.*;
@@ -9,7 +10,7 @@ public interface AdventBoxService {
 
     void inputBoxAdventBox(AdventBoxRequest adventBoxRequest, MultipartFile file);
 
-    void modifyBoxAdventBox(String boxId, MultipartFile file,String animation);
+    void modifyBoxAdventBox(String boxId, MultipartFile file, AdventBoxModifyRequest adventBoxModifyRequest);
 
     void inputWrapperAdventBox(AdventBoxWrapperRequest adventBoxWrapperRequest, MultipartFile file);
 
