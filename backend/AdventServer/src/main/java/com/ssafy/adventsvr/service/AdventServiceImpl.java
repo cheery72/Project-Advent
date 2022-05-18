@@ -268,16 +268,6 @@ public class AdventServiceImpl implements AdventService {
 
     @Transactional
     @Override
-    public void modifyTitleAdvent(String adventId,AdventRecipientModify adventRecipientModify) {
-        Advent advent = adventRepository.findById(adventId)
-                .orElseThrow(() -> new NoSuchAdventException("요청한 게시글을 찾을 수 없습니다."));
-
-        advent.setModify();
-        advent.setAdventTitleModify(adventRecipientModify.getTitle());
-    }
-
-    @Transactional
-    @Override
     public void deleteAdvent(Integer userId, String adventId) {
         Advent advent = adventRepository.findById(adventId)
                 .orElseThrow(() -> new NoSuchAdventException("요청한 게시글을 찾을 수 없습니다."));
@@ -286,6 +276,16 @@ public class AdventServiceImpl implements AdventService {
 
         adventRepository.deleteById(advent.getId());
 
+    }
+
+    @Transactional
+    @Override
+    public void modifyTitleAdvent(String adventId,AdventRecipientModify adventRecipientModify) {
+        Advent advent = adventRepository.findById(adventId)
+                .orElseThrow(() -> new NoSuchAdventException("요청한 게시글을 찾을 수 없습니다."));
+
+        advent.setModify();
+        advent.setAdventTitleModify(adventRecipientModify.getTitle());
     }
 
     private void userValidation(Integer userId, Integer isUserId){
