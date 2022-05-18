@@ -40,7 +40,7 @@ spring:
         - id: auth-server
           uri: http://k6c206.p.ssafy.io:8081/
           predicates:
-            - Path=/auth-server/**
+            - Path=/api/auth-server/**
           filters:
             - RewritePath=/auth-server/(?<path>.*),/$\{path}
             - name: LoggingFilter
@@ -51,7 +51,7 @@ spring:
         - id: advent-server
           uri: http://k6c206.p.ssafy.io:8082/
           predicates:
-            - Path=/advent-server/**
+            - Path=/api/advent-server/**
           filters:
             - RewritePath=/advent-server/(?<path>.*),/$\{path}
             - name: LoggingFilter
