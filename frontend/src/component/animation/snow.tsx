@@ -53,16 +53,12 @@ export default function Snow({ effectImage }: effect) {
 
         const draw = () => {
             ctx.clearRect(0, 0, W, H);
-
-            // const image = new Image()
-            // image.src = "/cherry-blossom2.png"
             
             ctx.fillStyle = "rgba(255, 255, 255, 0.8)"; //눈 입자 색깔
             ctx.beginPath();
             for(let i = 0; i < mp; i++)
             {
                 const p = particles[i];
-                // ctx.drawImage(image, p.x, p.y, 20, 20)
                 ctx.moveTo(p.x, p.y);
                 ctx.arc(p.x, p.y, p.r, 0, Math.PI*2, true);
             }

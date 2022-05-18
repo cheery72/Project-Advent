@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { Button, Grid, Icon, Image } from "semantic-ui-react";
 import styles from '../../../styles/sendbox/sendboxListItem.module.css'
@@ -8,7 +7,6 @@ import Swal from 'sweetalert2'
 
 const { Row, Column } = Grid
 
-// const BASE_URL = 'http://localhost:3000'
 const BASE_URL = 'https://makeourspecial.day'
 
 export default function SendboxListItem({ item, userId, username, getAdventsStorage }:any){
@@ -252,7 +250,6 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                             <Image 
                                 src={ `${item.wrapper}` }
                                 size='medium' 
-                                // wrapped
                                 alt='포장이미지'
                                 style={{ height:'150px', objectFit:'cover' }}
                             />
@@ -355,7 +352,6 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                             animated='fade' 
                             color='yellow' 
                             style={{  maxWidth:'150%' }}
-                            // style={{ color:'black', lineHeight:'15px', height:'100%', width:'90%', fontSize: '0.9vw' }}
                             onClick={() => choiceKakaoOrCopy('보낸 선물을 다시 \n 전달할 수 있습니다!')}
                         >
                             <Button.Content hidden>다시 전달</Button.Content>
