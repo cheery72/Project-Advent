@@ -42,7 +42,7 @@ spring:
           predicates:
             - Path=/api/auth-server/**
           filters:
-            - RewritePath=/auth-server/(?<path>.*),/$\{path}
+            - RewritePath=/api/auth-server/(?<path>.*),/$\{path}
             - name: LoggingFilter
               args:
                 baseMessage: Spring Cloud Gateway Logging filter
@@ -53,7 +53,7 @@ spring:
           predicates:
             - Path=/api/advent-server/**
           filters:
-            - RewritePath=/advent-server/(?<path>.*),/$\{path}
+            - RewritePath=/api/advent-server/(?<path>.*),/$\{path}
             - name: LoggingFilter
               args:
                 baseMessage: Spring Cloud Gateway Logging filter
