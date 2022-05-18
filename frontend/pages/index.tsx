@@ -52,8 +52,6 @@ const Home: NextPage = () => {
             </Head>
             <div 
                 className={ `${styles.titleWrapper} ${styles.fadeUp}` }
-                // data-aos='fade-up' 
-                // data-aos-duration='3000'
             >
                 <h2 className={ `${styles.titleStyle}` } style={{ fontFamily: 'helvetica'}}>
                     <span className={ `${styles.titleWord} ${styles.titleWord1}` }>Make&nbsp;</span>
@@ -67,14 +65,11 @@ const Home: NextPage = () => {
                 container 
                 centered
                 stackable
-                // reversed='computer'
             >
                 <Row>
                     <Column 
                         mobile={14} tablet={8} computer={7}
                         className={ styles.zoomInRight }
-                        // data-aos='zoom-in-right' 
-                        // data-aos-duration='3000'
                         style={{ maxWidth: '80%' }}
                     >
                         <Image
@@ -86,8 +81,6 @@ const Home: NextPage = () => {
                         mobile={14} tablet={8} computer={7}
                         textAlign='center'
                         className={ `${styles.mainCard} ${styles.flipLeft}`}
-                        // data-aos='flip-left'
-                        // data-aos-duration="3000"
                         style={{maxWidth: '80%'}}
                     >
                         <h2 className={ styles.mainText }>소중한 사람에게 <br />특별한 선물을 해보세요 <br />

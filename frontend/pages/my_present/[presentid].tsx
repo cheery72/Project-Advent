@@ -36,7 +36,6 @@ export default function Present(){
     const getUserInfo = async (router: NextRouter | string[]) => {
         await userAxios.get(`/auth/users`)
             .then((data) => {
-                // console.log(data.data.body.user.id)
                 setUserId(data.data.body.user.id) // 유저의 userId를 받아옴
             })
             .catch((e) => {

@@ -11,9 +11,9 @@ import 'aos/dist/aos.css';
 
 declare global {
     interface Window {
-      Kakao: any;
+        Kakao: any;
     }
-  }
+}
 
 function MyApp({ Component, pageProps }: AppProps) {
     useEffect(() => {

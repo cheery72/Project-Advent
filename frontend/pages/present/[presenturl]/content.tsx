@@ -31,7 +31,7 @@ export default function Present(){
                     <Header as='h2' icon textAlign='center'>
                         <Icon name='warning sign' circular />
                         <Header.Content>선물 정보를 불러오는데 문제가 발생했습니다. <br /> 전달받은 link 주소를 확인해 주세요.</Header.Content>
-                      </Header>
+                    </Header>
                     )
                 }
             </>

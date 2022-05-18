@@ -1,4 +1,3 @@
-import { NextRouter } from "next/router"
 import notify from "../component/notify/notify"
 import IsLogin from "./IsLogin"
 

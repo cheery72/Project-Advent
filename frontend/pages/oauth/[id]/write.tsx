@@ -4,18 +4,18 @@ import { useEffect } from "react";
 import notify from "../../../src/component/notify/notify";
 
 export default function Authentication() {
-  const router = useRouter();
+    const router = useRouter();
 
-  if (typeof window !== "undefined") {
-      localStorage.setItem("token", String(router.query.token));
-  }
+    if (typeof window !== "undefined") {
+        localStorage.setItem("token", String(router.query.token));
+    }
 
-  useEffect(() => {
-      if (localStorage.token !== "undefined") {
-          router.push('/write')
-          notify('success', '카카오계정으로 로그인되었습니다!🖐 선물을 작성해보세요!📝')
-      }
-  });
+    useEffect(() => {
+        if (localStorage.token !== "undefined") {
+            router.push('/write')
+            notify('success', '카카오계정으로 로그인되었습니다!🖐 선물을 작성해보세요!📝')
+        }
+    });
 
-  return <></>;
+    return <></>;
 }

@@ -103,6 +103,7 @@ export default function Detail(){
 
     // 이미지 생성 및 저장
     const makeFileImage = () => {
+        setIsSpinner(true)
         if (backImage==='https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/2048px-Solid_white.svg.png'
             && !backgroundColor    
             && imageList.length < 1
@@ -110,6 +111,7 @@ export default function Detail(){
             && !text
         ) {
             notify("error", "❌내용을 입력해주세요❕")
+            setIsSpinner(false)
             return
         }
 
@@ -376,7 +378,7 @@ return(
             </Column>
             <Column width={4}>
                 <div className={styles.buttonbetween}>
-                    <Button inverted color='blue' style={{width:"140px"}} onClick={() => { makeFileImage(), setIsSpinner(true) }}>저장</Button>
+                    <Button inverted color='blue' style={{width:"140px"}} onClick={() => { makeFileImage() }}>저장</Button>
                 </div>
                 <div className={styles.cancelbutton}>    
                     <Button inverted color='blue' style={{width:"140px"}} onClick={() => {router.push({ pathname: `/write/${adventId}` });}}>취소</Button>  
