@@ -19,8 +19,6 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
         super(Config.class);
     }
 
-    public static final String BEARER_PREFIX = "[Bearer ";
-
     @Override
     public GatewayFilter apply(Config config) {
 

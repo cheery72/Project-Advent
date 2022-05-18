@@ -70,26 +70,4 @@ public class AdventRepositoryImpl implements AdventRepositoryCustom {
                 .where(qAdvent.userId.eq(userId).and(qAdvent.createAt.between(startDate,endDate)))
                 .fetchOne();
     }
-
-    @Override
-    public List<Advent> findStorageAdvent(Integer userId, Pageable pageable) {
-        return queryFactory
-                .selectFrom(qAdvent)
-//                .join(qAdventBox)
-//                .on(qAdvent.id.eq(qAdventBox.advent.id))
-                .where(qAdvent.userId.eq(userId))
-                .limit(pageable.getPageSize())
-                .orderBy(qAdvent.modifiedAt.desc())
-                .fetch().stream().distinct().collect(Collectors.toList());
-    }
-
-    @Override
-    public Long findSendBoxAdventCount(Integer userId) {
-        return queryFactory
-                .select(qAdvent.count())
-                .from(qAdvent)
-                .where(qAdvent.userId.eq(userId))
-                .fetchOne();
-    }
-
 }
