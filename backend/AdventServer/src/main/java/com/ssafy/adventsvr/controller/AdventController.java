@@ -10,6 +10,7 @@ import com.ssafy.adventsvr.service.AdventService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -24,6 +25,12 @@ import javax.validation.Valid;
 @Slf4j
 @RequestMapping("/advents")
 public class AdventController {
+
+    //load Balancing Test
+    @GetMapping("/info")
+    public String info(@Value("${server.port}") String port) {
+        return "Advent 서비스의 기본 동작 Port: {" + port + "}";
+    }
 
     private final AdventService adventService;
 

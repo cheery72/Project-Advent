@@ -16,6 +16,7 @@ import com.ssafy.authsvr.service.UserService;
 import io.jsonwebtoken.Claims;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -31,6 +32,12 @@ import java.util.Date;
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
+
+    //load Balancing Test
+    @GetMapping("/info")
+    public String info(@Value("${server.port}") String port) {
+        return "Advent 서비스의 기본 동작 Port: {" + port + "}";
+    }
 
     private final AppProperties appProperties;
     private final AuthTokenProvider tokenProvider;

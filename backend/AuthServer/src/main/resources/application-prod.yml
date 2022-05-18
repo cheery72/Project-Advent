@@ -1,5 +1,17 @@
 server:
   port: 8081
+
+eureka:
+  #  instance:
+  #    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://k6c206.p.ssafy.io:8761/eureka
+  instance:
+    prefer-ip-address: true
+
 spring:
   application:
     name: auth-server
@@ -21,15 +33,9 @@ spring:
       - oauth-prod
   jackson:
     property-naming-strategy: SNAKE_CASE
-
-eureka:
-  #  instance:
-  #    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://k6c206.p.ssafy.io:8761/eureka
+  cloud:
+    discovery:
+      enabled: true
 
 logging:
   level.org.springframework: info

@@ -7,6 +7,8 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://k6c206.p.ssafy.io:8761/eureka
+  instance:
+    prefer-ip-address: true
 
 spring:
   application:
@@ -18,9 +20,7 @@ spring:
           '[/**]':
             allowedOrigins:
               - "https://k6c206.p.ssafy.io"
-              - "http://k6c206.p.ssafy.io"
               - "https://makeourspecial.day"
-              - "http://makeourspecial.day"
             allow-credentials: true   #추가
             allowedHeaders:
               - x-requested-with
@@ -38,7 +38,7 @@ spring:
               - DELETE
       routes:
         - id: auth-server
-          uri: http://k6c206.p.ssafy.io:8081/
+          uri: lb://auth-server
           predicates:
             - Path=/api/auth-server/**
           filters:
@@ -49,7 +49,7 @@ spring:
                 preLogger: true
                 postLogger: true
         - id: advent-server
-          uri: http://k6c206.p.ssafy.io:8082/
+          uri: lb://advent-server
           predicates:
             - Path=/api/advent-server/**
           filters:
@@ -59,3 +59,5 @@ spring:
                 baseMessage: Spring Cloud Gateway Logging filter
                 preLogger: true
                 postLogger: true
+    discovery:
+      enabled: true

@@ -4,10 +4,14 @@ server:
 spring:
   application:
     name: eureka-server
+  cloud:
+    discovery:
+      enabled: true
 
 eureka:
   instance:
     hostname: k6c206.p.ssafy.io
+    prefer-ip-address: true
   client:
     register-with-eureka: false
     fetch-registry: false
