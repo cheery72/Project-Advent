@@ -10,8 +10,6 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://k6c206.p.ssafy.io:8761/eureka
-  instance:
-    prefer-ip-address: true
 
 spring:
   application:
