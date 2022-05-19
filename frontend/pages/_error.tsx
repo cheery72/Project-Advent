@@ -3,27 +3,27 @@ import { useRouter } from "next/router";
 import { Button, Header, Icon, Image } from "semantic-ui-react";
 import styles from '../styles/error/error.module.css'
 
-export default function Custom404() {
+export default function Custom500() {
   const router = useRouter()
   return (
     <>
         <Head>
-            <title>404: Page Not Found | Make Our Special</title>
+            <title>500: Internal Server Error | Make Our Special</title>
         </Head>
         <Header 
             as='h1'
             textAlign="center" 
             style={{marginBottom:'30px'}}
         >
-          <span className={ styles.title }>404 &nbsp;|&nbsp; Page Not Found</span>
+          <span className={ styles.title }>500 &nbsp;|&nbsp; Internal Server Error</span>
         </Header>
         <Image 
-            src="/error/box-empty.png" 
-            alt="404_page_image" 
+            src="/error/open-box-empty.png" 
+            alt="500_page_image" 
             size="medium"
             centered
         />
-        <Button 
+        <Button
           color="teal" 
           style={{ margin:'30px auto', display:'block' }}
           onClick={() => router.push('/')}>
