@@ -35,7 +35,7 @@ export default function UnsplashSearch({ setBackgroundImage, setFileImage } :any
                 searchValue.value = ''
             })
             .catch((e) => {
-                console.log(e)
+                // console.log(e)
             })
     }
 

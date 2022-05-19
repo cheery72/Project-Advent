@@ -57,7 +57,7 @@ export default function Wrap(){
             })
             .catch((e) => {
                 LogOut(router)
-                console.log(e)
+                // console.log(e)
             });
         };
 
@@ -87,7 +87,7 @@ export default function Wrap(){
                 router.push({ pathname: `/write/${adventId}`})
             })
             .catch((e) => {
-                console.log(e)
+                // console.log(e)
             })
     }
 
@@ -102,7 +102,7 @@ export default function Wrap(){
                 })
             })
             .catch((e) => {
-                console.log(e)
+                // console.log(e)
             })
     }
 

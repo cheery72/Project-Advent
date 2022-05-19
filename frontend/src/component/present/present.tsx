@@ -49,7 +49,7 @@ export default function PresentComponent(){
                 
             })
             .catch((e) => {
-                console.log(e)
+                // console.log(e)
                 notify('error', '선물 정보를 로딩하는데 에러가 발생했습니다.')
                 router.push('/404')
             })
@@ -69,7 +69,7 @@ export default function PresentComponent(){
                 }
             })
             .catch((e) => {
-                console.log(e)
+                // console.log(e)
                 notify('error', '선물 정보를 로딩하는데 에러가 발생했습니다.')
                 router.push('/404')
             })

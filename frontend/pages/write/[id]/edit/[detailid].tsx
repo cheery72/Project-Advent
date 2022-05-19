@@ -31,7 +31,7 @@ export default function Edit(){
                 setBoxInfo(data)
             })
             .catch((e) => {
-                console.log(e)
+                // console.log(e)
             })
     }
 
@@ -41,7 +41,7 @@ export default function Edit(){
                 setUserId(data.data.body.user.id) // 유저의 userId를 받아옴
             })
             .catch((e) => {
-                console.log(e)
+                // console.log(e)
                 LogOut(router)
             });
     };

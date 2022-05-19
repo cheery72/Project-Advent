@@ -29,7 +29,7 @@ export default function DayOne({ userInfo }: any){
                 })
             })
             .catch((e) => {
-                console.log(e)
+                // console.log(e)
             })
     }
 

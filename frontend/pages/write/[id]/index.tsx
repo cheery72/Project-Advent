@@ -25,7 +25,7 @@ export default function WritePresent(){
             })
             .catch((e) => {
                 LogOut(router)
-                console.log(e)
+                // console.log(e)
             });
         };
 
@@ -40,7 +40,7 @@ export default function WritePresent(){
                 setAdventDay(data.day)
             })
             .catch((e) => {
-                console.log(e)
+                // console.log(e)
             })
     }
 

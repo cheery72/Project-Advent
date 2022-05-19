@@ -31,7 +31,7 @@ export default function WriteThree({ num, userInfo, boxId }: any){
                 }
             })
             .catch((e) => {
-                console.log(e)
+                // console.log(e)
             })
     }
 

@@ -22,7 +22,7 @@ export default function Sendbox(){
                 setUserId(data.data.body.user.id) // 유저의 userId를 받아옴
             })
             .catch((e) => {
-                console.log(e)
+                // console.log(e)
                 LogOut(router)
             });
     };

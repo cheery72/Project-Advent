@@ -46,7 +46,7 @@ export default function DaySeven({ userInfo }: any){
                 })
             })
             .catch((e) => {
-                console.log(e)
+                // console.log(e)
             })
     }
 

@@ -28,7 +28,7 @@ export default function Presentdetail(){
                 }
             })
             .catch((e) => {
-                console.log(e)
+                // console.log(e)
                 notify('error', '선물 정보를 로딩하는데 에러가 발생했습니다.')
                 router.push('/404')
             })
@@ -40,7 +40,7 @@ export default function Presentdetail(){
                 setUserId(data.data.body.user.id) // 유저의 userId를 받아옴
             })
             .catch((e) => {
-                console.log(e)
+                // console.log(e)
                 LogOut(router)
             });
     };

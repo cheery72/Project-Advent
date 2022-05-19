@@ -109,7 +109,7 @@ export default function Anniversary(){
             })
             .catch((e) => {
                 LogOut(router)
-                console.log(e)
+                // console.log(e)
             });
         };
 
@@ -128,7 +128,7 @@ export default function Anniversary(){
                 router.push(`/sendbox`)
             })
             .catch((e) => {
-                console.log(e)
+                // console.log(e)
             })
     }
 
@@ -143,7 +143,7 @@ export default function Anniversary(){
                 setAdventDay(data.day)
             })
             .catch((e) => {
-                console.log(e)
+                // console.log(e)
             })
     }
 

@@ -31,7 +31,7 @@ export default function WriteOne({ userInfo, boxId }: any){
                 }
             })
             .catch((e) => {
-                console.log(e)
+                // console.log(e)
             })
     }
 

@@ -35,7 +35,7 @@ const Home: NextPage = () => {
                     setTimeout(() => location.reload(), 1000) // 1초 후 새로고침(새로고침:로그아웃 후 버튼 상태 toggle + 1초 delay:tostify 표시)
                     notify('success', msg)
                 }
-                console.log(e)
+                // console.log(e)
             })
         };
 
