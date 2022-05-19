@@ -15,4 +15,5 @@ public class UserServiceImpl implements UserService{
     public User findDetailsUser(String tokenId) {
         return userRepository.findByTokenId(tokenId);
     }
+
 }

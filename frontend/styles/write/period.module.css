@@ -1,0 +1,31 @@
+.button{
+    width: 250px;
+    height: 50px;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.inline {
+    display: inline;
+    margin: auto;
+}
+
+.title1 {
+    display: inline;
+    background-image: 
+      linear-gradient(to right, rgb(255, 153, 29), rgb(246, 202, 254));
+    background-size: 100% 30%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+.title2 {
+    display: inline;
+    background-image: 
+      linear-gradient(to right, rgb(181, 218, 248), rgb(207, 213, 255));
+    background-size: 100% 30%;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}

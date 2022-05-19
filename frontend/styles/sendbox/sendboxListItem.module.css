@@ -1,0 +1,152 @@
+.title {
+    background-image: 
+      linear-gradient(to right, rgb(198, 255, 255), rgb(246, 202, 254));
+    background-size: 100% 60%;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    font-weight: bold;
+    color: black;
+    font-size: 20px;
+    text-decoration: underline;
+    line-height: 150%;
+}
+
+.hrefDisabled {
+    pointer-events: none;
+    text-decoration: none;
+}
+
+.sendboxListCard {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%; 
+    border-radius: 10px;
+    box-shadow:rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.cardBeforeColor {
+    background-color: AliceBlue;
+}
+
+.cardAfterColor {
+    background-color: #ffdbd6;
+}
+
+.shareBtn {
+    color: black;
+    background: #F9E84F;
+}
+
+.statusCircle {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding: 10px 5px; 
+    border-radius: 100%;
+    background-color: white;
+    font-weight: bold;
+    font-size: 0.8vw;
+    line-height: 130%;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.statusCircleSubmitted {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding: 10px 5px; 
+    border-radius: 100%;
+    background-color: #F9E84F;
+    font-weight: bold;
+    font-size: 0.9vw;
+    line-height: 150%;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.dDay {
+    font-weight: bold;
+    color: rgb(97, 97, 97);
+}
+
+.dDayPast {
+    color: rgb(200, 123, 248);
+}
+
+.dDayNotSet {
+    color: rgb(248, 135, 69);
+}
+
+.dDayCnt {
+    color: #4c5df7;
+    text-shadow: 3px 8px 6px rgb(157, 157, 157);
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.dDayCntBefore {
+    color: rgb(0, 15, 53);
+    text-shadow: 3px 8px 6px rgb(157, 157, 157);
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.dDayDate {
+    color: rgb(5, 173, 199);
+    text-shadow: 3px 8px 6px rgb(157, 157, 157);
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.adventDay {
+    margin-top: 10px;
+    margin-left: 10px;
+    font-weight: bold;
+    color: grey;
+}
+
+.adventDay span {
+    color: #4c5df7;
+}
+
+.adventDay2 {
+    margin-top: 10px;
+    margin-left: 10px;
+    font-weight: bold;
+    color: grey;
+}
+
+.adventDay2 span {
+    color: #f2631c;
+}
+
+.modifyTime {
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 13px;
+    color: grey;
+}
+
+.goPreview {
+    color: #009C95;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.adventDay3 {
+    margin-top: 10px;
+    margin-left: 10px;
+    font-weight: bold;
+    color: black;
+}
+
+/* mobile styles */
+@media only screen and (max-width: 767px) { 
+
+}
+
+.writeDDay {
+    font-weight: bold;
+    text-decoration: underline;
+    color: #1678C2;
+    cursor: pointer;
+}

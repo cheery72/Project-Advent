@@ -1,0 +1,207 @@
+.footerDistributed{
+	background:linear-gradient(0deg, rgb(241, 238, 255) 10%, rgb(255, 232, 234) 30%, rgb(255, 227, 198) 60%, rgb(255, 232, 207) 75%, rgb(255, 242, 233) 99%); /* 하단 배경색은 footer 상단 색상과 일치하게 */
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+	box-sizing: border-box;
+	width: 100%;
+	font: bold 16px sans-serif;
+	text-align: left;
+	padding: 20px 10% 10px;
+	overflow: hidden;
+	min-height: 15vh;
+}
+
+/* Footer left */
+
+.footerDistributed .footerLeft{
+	float: left;
+}
+
+/* The company logo */
+
+.footerDistributed h3{
+	color:  #ffadad;
+	font-size: 20px;
+	font-family: 'Roboto';
+	letter-spacing: 1.5px;
+	margin: 0 0 10px;
+}
+
+.footerDistributed h3 span{
+	color:  #8194ff;
+}
+
+/* Footer links */
+
+.footerDistributed .footerLinks{
+	color:  #00B6B0;
+	margin: 0 0 10px;
+	padding: 0;
+}
+
+.footerDistributed .footerLinks a{
+	display:inline-block;
+	line-height: 1.8;
+	text-decoration: none;
+	color:  inherit;
+}
+
+.footerDistributed .footerCompanyName{
+	color:  #8f9296;
+	font-size: 14px;
+	font-weight: normal;
+	margin: 0;
+}
+
+/* Footer social icons */
+
+.footerDistributed .footerIcons{
+	margin-top: 10px;
+	cursor: pointer;
+}
+
+/* Footer Right */
+
+.footerDistributed .footerRight{
+	float: right;
+}
+
+.footerDistributed .footerRight p:nth-child(1){
+	display: inline-block;
+	vertical-align: top;
+	margin: 15px 42px 0 0;
+	color: #618ad2;
+}
+
+.footerDistributed .footerRight p:nth-child(2){
+	display: inline-block;
+	vertical-align: top;
+	margin: 15px 42px 0 0;
+	color: #8ab3b1;
+	cursor: pointer;
+}
+
+.footerDistributed .footerRight p:nth-child(2):hover{
+	transform: scale(1.1);
+}
+
+.footerDistributed .footerRight p:nth-child(4) {
+	display: inline-block;
+	margin: 0 20%;
+	/* float: right; */
+	color: #919191;
+	cursor: pointer;
+}
+
+/* The contact form */
+
+.footerDistributed form{
+	display: inline-block;
+}
+
+.footerDistributed form input,
+.footerDistributed form textarea{
+	display: block;
+	border-radius: 5px;
+	box-sizing: border-box;
+	background-color:  #feffff;
+	box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.1);
+	border: none;
+	resize: none;
+
+	font: inherit;
+	font-size: 14px;
+	font-weight: normal;
+	color:  #5c666b;
+
+	width: 300px;
+	padding: 18px;
+}
+
+.footerDistributed ::-webkit-input-placeholder {
+	color:  #a7a7a7;
+}
+
+.footerDistributed ::-moz-placeholder {
+	color:  #5c666b;
+	opacity: 1;
+}
+
+.footerDistributed :-ms-input-placeholder{
+	color:  #5c666b;
+}
+
+
+.footerDistributed form input{
+	height: 55px;
+	margin-bottom: 15px;
+}
+
+.footerDistributed form textarea{
+	height: 100px;
+	margin-bottom: 15px;
+}
+
+.footerDistributed form button{
+	border-radius: 3px;
+	background-color:  #ffacac;
+	color: #ffffff;
+	border: 0;
+	padding: 10px 50px;
+	font-weight: bold;
+	/* float: right; */
+	cursor: pointer;
+	/* display: inline-block; */
+}
+
+/* If you don't want the footer to be responsive, remove these media queries */
+
+@media (max-width: 1000px) {
+
+	.footerDistributed {
+		font: bold 14px sans-serif;
+	}
+
+	.footerDistributed .footerCompanyName{
+		font-size: 12px;
+	}
+
+	.footerDistributed form input,
+	.footerDistributed form textarea{
+		width: 250px;
+	}
+
+	.footerDistributed form button{
+		padding: 10px 35px;
+	}
+
+}
+
+@media (max-width: 800px) {
+
+	.footerDistributed{
+		padding: 30px;
+	}
+
+	.footerDistributed .footerLeft,
+	.footerDistributed .footerRight{
+		float: none;
+		max-width: 300px;
+		margin: 0 auto;
+	}
+
+	.footerDistributed .footerLeft{
+		margin-bottom: 10px;
+	}
+
+	.footerDistributed form{
+		margin-top: 30px;
+	}
+
+	.footerDistributed form{
+		display: block;
+	}
+
+	.footerDistributed form button{
+		float: none;
+	}
+}

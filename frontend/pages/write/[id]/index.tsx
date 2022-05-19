@@ -1,102 +1,79 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
-import { useState } from "react";
-import { Grid, Button, Image } from "semantic-ui-react";
+import { useEffect, useState } from "react";
+import notify from "../../../src/component/notify/notify";
+import DayOne from "../../../src/component/write/dayone";
+import DaySeven from "../../../src/component/write/dayseven";
+import DayThree from "../../../src/component/write/daythree";
+import allAxios from "../../../src/lib/allAxios";
+import IsLogin from "../../../src/lib/IsLogin";
+import LogOut from "../../../src/lib/LogOut";
+import userAxios from "../../../src/lib/userAxios";
 
 export default function WritePresent(){
 
     const router = useRouter()
+    const adventId = router.query.id
+    const [userInfo, setUserInfo]: any = useState()
+    const [adventDay, setAdventDay] = useState(0)
 
-    function edit(number: Number) {
-        router.push(`/write/testid/${number}`)
+    const getUserInfo = async (router: any) => {
+        await userAxios
+            .get(`/auth/users`)
+            .then(({ data }) => {
+                setUserInfo(data.body.user)
+            })
+            .catch((e) => {
+                LogOut(router)
+                // console.log(e)
+            });
+        };
+
+    const getDay = async (adventId: string | string[]) => {
+        await allAxios
+            .get(`/advents/${adventId}/days`, {
+                params: {
+                    adventId: adventId
+                }
+            })
+            .then(({ data }) => {
+                setAdventDay(data.day)
+            })
+            .catch((e) => {
+                // console.log(e)
+            })
     }
 
-    function editwrap(number: Number) {
-        router.push(`/write/testid/wrap/${number}`)
-    }
+    useEffect(() => {
+        if (IsLogin() && router){
+            getUserInfo(router)
+        }   
+        if (!IsLogin()){
+            router.push('/')
+            notify('error', `로그인해야 작성할 수 있습니다❕`)
+        }
+    }, [router])
 
-    function editAniversary(){
-        router.push(`/write/testid/anniversary`)
-    }
+    useEffect(() => {
+        if (adventId) {
+            getDay(adventId)
+        }
+    }, [adventId])
 
     return(
-        <>
-            <Grid textAlign="center" stackable>
-                <Grid.Row />
-                <Grid.Row />
-                <Grid.Row>
-                    <Grid.Column width={2}/>
-                    <Grid.Column width={2}>
-                        <div >
-                            <br /><br />
-                            <Button color="pink" onClick={()=>{edit(1)}}>열기</Button>
-                            <br /><br />
-                            <Button color="pink" onClick={()=>{editwrap(1)}}>포장지 선택</Button>
-                            <br /><br />
-                        </div>
-                    </Grid.Column>
-                    <Grid.Column width={2}>
-                        <div>
-                            <br /><br />
-                            <Button color="pink">열기</Button>
-                            <br /><br />
-                            <Button color="pink">포장지 선택</Button>
-                            <br /><br />
-                        </div>
-                    </Grid.Column>
-                    <Grid.Column width={2}>
-                        <div>
-                            <br /><br />
-                            <Button color="pink">열기</Button>
-                            <br /><br />
-                            <Button color="pink">포장지 선택</Button>
-                            <br /><br />
-                        </div>
-                    </Grid.Column>
-                    <Grid.Column width={2}>
-                        <Button color="blue" onClick={editAniversary}>개봉일 설정</Button>
-                    </Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                    <Grid.Column width={2}/>
-                    <Grid.Column width={2}>
-                        <div>
-                            <br /><br />
-                            <Button color="pink">열기</Button>
-                            <br /><br />
-                            <Button color="pink">포장지 선택</Button>
-                            <br /><br />
-                        </div>
-                    </Grid.Column>
-                    <Grid.Column width={2}>
-                        <div>
-                            <br /><br />
-                            <Button color="pink">열기</Button>
-                            <br /><br />
-                            <Button color="pink">포장지 선택</Button>
-                            <br /><br />
-                        </div>
-                    </Grid.Column>
-                    <Grid.Column width={2}>
-                        <div>
-                            <br /><br />
-                            <Button color="pink">열기</Button>
-                            <br /><br />
-                            <Button color="pink">포장지 선택</Button>
-                            <br /><br />
-                        </div>
-                    </Grid.Column>
-                    <Grid.Column width={2}>
-                        <div>
-                            <br /><br />
-                            <Button color="pink">열기</Button>
-                            <br /><br />
-                            <Button color="pink">포장지 선택</Button>
-                            <br /><br />
-                        </div>
-                    </Grid.Column>
-                    <Grid.Column width={2}/>
-                </Grid.Row>
-            </Grid>
-        </>
+        <div data-aos="zoom-in" data-aos-duration="2000">
+            <Head>
+                <title>선물 작성하기 | Make Our Special</title>
+            </Head>
+            {adventDay===1?
+            <DayOne userInfo={userInfo} />
+            :''}
+            {adventDay===3?
+            <DayThree userInfo={userInfo} />
+            :''}
+            {adventDay===7?
+            <DaySeven userInfo={userInfo} />
+            :''}
+        </div>
     );
 }

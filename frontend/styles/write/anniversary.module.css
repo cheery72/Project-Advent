@@ -1,0 +1,157 @@
+
+.title1 {
+    display: inline;
+    background-image: 
+      linear-gradient(to right, rgb(255, 182, 86), rgb(255, 224, 224));
+    background-size: 100% 40%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+.title2 {
+    display: inline;
+    background-image: 
+      linear-gradient(to right, rgb(181, 218, 248), rgb(207, 213, 255));
+    background-size: 100% 40%;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+
+.title3 {
+    display: inline;
+    background-image: 
+      linear-gradient(to right, rgb(226, 169, 253), rgb(233, 227, 253));
+    background-size: 100% 40%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.title4 {
+    display: inline;
+    background-image: 
+      linear-gradient(to right, rgba(255, 211, 253, 0.729), rgba(159, 191, 255, 0.504));
+    background-size: 100% 40%;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+
+.hint {
+    color: rgb(130, 145, 255);
+}
+
+.hintNone {
+    color: rgb(120, 120, 120);
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.inline {
+    display: inline;
+}
+
+.valid {
+    color: rgb(29, 203, 183);
+}
+
+.semivalid {
+    color: rgb(255, 208, 0)
+}
+
+.invalid {
+    color: rgb(252, 76, 76);
+}
+
+
+/* datepicker 관련 */
+.datepicker {
+    border-radius: 1.5em;
+    padding: 0.5em 3.5em 0.5em 3.5em;
+    font-size: 1.2rem;
+    border-color: rgb(240, 138, 138);
+    outline: 0;
+}
+
+/* hint 관련 */
+.textarea {
+    /* min-height: 50px;
+    max-height: 100px; */
+    border-radius: 1.5em;
+    padding: 0.5em 2em 0.5em 2em;
+    outline: 0;
+    border-width: 2px;
+    font-size: 1.2rem;
+    border-color: rgb(240, 138, 138);
+}
+
+
+/* datepicker, hint valid 관련 */
+.formValid {
+    border-color: #1DCBB7;
+}
+
+/* password 설정 관련 */
+.formField {
+    position: relative;
+}
+  
+.formField .icon {
+    position: absolute;
+    right: 1em;
+    top: 50%;
+    transform: translateY(-50%)
+}
+  
+.formInput {
+    border-radius: 1.5em;
+    border-style: solid;
+    border-width: 2px;
+    font-size: 1.2rem;
+    padding: 0.6em 4em 0.6em 2em;
+    outline: 0;
+}
+  
+.formInput:valid {
+    border-color: #1DCBB7;
+}
+  
+.formInput:valid + .icon::after {
+    content: '😃';
+}
+  
+.formInput:invalid {
+    border-color: rgb(240, 138, 138);
+}
+  
+.formInput:invalid + .icon::after {
+    content: '😳';
+}
+
+/* password check 관련 */
+.formInputPassCheck {
+    border-radius: 1.5em;
+    border-style: solid;
+    border-width: 2px;
+    font-size: 1.2rem;
+    padding: 0.6em 4em 0.6em 2em;
+    outline: 0;
+    border-color: rgb(240, 138, 138);
+}
+
+.formInputPassCheckValid {
+    border-radius: 1.5em;
+    border-style: solid;
+    border-width: 2px;
+    font-size: 1.2rem;
+    padding: 0.6em 4em 0.6em 2em;
+    outline: 0;
+    border-color: #1DCBB7;
+}
+
+.formField .icon {
+    position: absolute;
+    right: 1em;
+    top: 50%;
+    transform: translateY(-50%)
+}

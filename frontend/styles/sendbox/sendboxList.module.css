@@ -1,0 +1,19 @@
+.sendboxListWrapper {
+  margin: 30px 10%;
+}
+
+.empty {
+  text-align: center;
+  margin: 0 auto;
+  /* background-color: rgb(212, 234, 255);
+  width: 300px;
+  height: 300px; */
+}
+
+/* mobile styles */
+@media only screen and (max-width: 767px) { 
+  .sendboxListWrapper {
+    margin: 30px 5%;
+  }
+}  
+  

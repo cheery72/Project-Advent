@@ -1,0 +1,63 @@
+server:
+  port: 8000
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://k6c206.p.ssafy.io:8761/eureka
+  instance:
+    prefer-ip-address: true
+
+spring:
+  application:
+    name: gateway-server
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "https://k6c206.p.ssafy.io"
+              - "https://makeourspecial.day"
+            allow-credentials: true   #추가
+            allowedHeaders:
+              - x-requested-with
+              - authorization
+              - content-type
+              - credential
+              - X-AUTH-TOKEN
+              - X-CSRF-TOKEN
+            allowedMethods:
+              - POST
+              - GET
+              - PUT
+              - PATCH
+              - OPTIONS
+              - DELETE
+      routes:
+        - id: auth-server
+          uri: lb://auth-server
+          predicates:
+            - Path=/api/auth-server/**
+          filters:
+            - RewritePath=/api/auth-server/(?<path>.*),/$\{path}
+            - name: LoggingFilter
+              args:
+                baseMessage: Spring Cloud Gateway Logging filter
+                preLogger: true
+                postLogger: true
+        - id: advent-server
+          uri: lb://advent-server
+          predicates:
+            - Path=/api/advent-server/**
+          filters:
+            - RewritePath=/api/advent-server/(?<path>.*),/$\{path}
+#            - name: LoggingFilter
+#              args:
+#                baseMessage: Spring Cloud Gateway Logging filter
+#                preLogger: true
+#                postLogger: true
+    discovery:
+      enabled: true

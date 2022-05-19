@@ -1,0 +1,17 @@
+.title {
+    cursor: pointer;
+    border-bottom: 1.5px solid rgb(198, 198, 198);
+}
+
+.title span {
+    background-image: linear-gradient(to right, rgb(181, 229, 255), rgb(245, 187, 255));
+    background-size: 100% 50%;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    font-weight: bold;
+    color: black;
+}
+
+.inline {
+    display: inline;
+}

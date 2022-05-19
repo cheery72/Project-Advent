@@ -1,0 +1,42 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+}
+.pagination ul {
+    list-style: none;
+    padding: 0px;
+    display: flex;
+}
+.pagination ul li {
+    background: #98a2ff;
+    padding: 10px 15px;
+    margin-right: 4px;
+    border-radius: 30px;
+    font-family: sans-serif;
+    color: #fff;
+    font-size: 1.1rem;
+    min-width: 20px;
+    text-align: center;
+    user-select: none;
+    /* border: 2px solid rgb(255, 195, 195); */
+}
+.pagination ul li:last-child {
+    margin-right: 0px;
+}
+.pagination ul li:not(.active):not(.disabled) {
+    cursor: pointer;
+}
+.pagination ul li:not(.active):not(.disabled):hover {
+    background: #e17bc3;
+}
+.pagination ul li:not(.active):not(.disabled):active {
+    background: #a38bd4;
+}
+.pagination ul li.active {
+    background: #ff94ad;
+}
+.pagination ul li.disabled {
+    background: #b6aeb8;
+    pointer-events: none;
+}

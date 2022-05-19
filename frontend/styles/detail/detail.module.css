@@ -1,0 +1,220 @@
+.buttonbetween {
+    text-align: center;
+}
+
+.listbetween {
+    margin-top: 30px;
+    }
+
+.cancelbutton {
+    padding-top: 10px;
+    text-align: center;
+}
+
+.presentdetailhead {
+    margin: 30px;
+    text-align: center;
+    font-size: 30px;
+}
+
+.box {
+    /* border: 1px solid rgb(167, 167, 167); */
+    width: 300px;
+    height: 300px;
+    background-color: white;
+    overflow: hidden;
+}
+
+.boxlocation {
+    display: flex;
+    justify-content: center;
+}
+
+.total {
+    padding-bottom: 10px;
+}
+
+/* decorativeframe */
+.tabs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.tablist {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.tablisteffect {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.tabhead {
+    padding: 10px 10px 7px 10px;
+    cursor: pointer;
+    border-bottom: 2px solid rgb(219, 219, 219);
+}
+
+.selecttab {
+    padding:  10px 10px 7px 10px;
+    border-bottom: 2px solid black;
+    font-weight: bolder;
+}
+
+.tabhead img{
+    width: 30px;
+    height: 30px;
+}
+
+.selecttab img{
+    width: 30px;
+    height: 30px;
+}
+
+.tabcontent {
+    margin: 15px 22% 30px 22%;
+    padding-top: 30px;
+    border-top: 2px solid rgb(219, 219, 219);
+    border-bottom: 2px solid rgb(219, 219, 219);
+    text-align: center;
+}
+
+.tabcontentEffect {
+    margin: 15px 22% 30px 22%;
+    padding-top: 30px;
+    border-top: 2px solid rgb(219, 219, 219);
+    border-bottom: 2px solid rgb(219, 219, 219);
+    text-align: center;
+}
+
+.tabcontent img{
+    max-width: 100px;
+    max-height: 100px;
+    cursor: pointer;
+}
+
+.tabcontentTemplate {
+    margin: 15px 0px 30px 0px;
+    padding: 30px 0px 30px 0px;
+    text-align: center;
+}
+
+.test {
+    min-height: 500px;
+}
+
+.imageupload {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.deletebutton {
+    width: 140px;
+    padding: 10px 25px;
+    background-color:#ff6161;
+    border-radius: 4px;
+    border: 0px;
+    color: white;
+    cursor: pointer;
+}
+
+
+.filebutton {
+    width: 140px;
+    padding: 10px 25px;
+    background:#ADD7E4;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    border: 0px;
+}
+
+.deletebutton:hover {
+    border: 1px solid; 
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.2); 
+    outline-color: rgba(255, 255, 255, 0); 
+    outline-offset: 15px; 
+    text-shadow: 1px 1px 2px #427388;  
+}
+
+.filebutton:hover {
+    border: 1px solid; 
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.2); 
+    outline-color: rgba(255, 255, 255, 0); 
+    outline-offset: 15px; 
+    text-shadow: 1px 1px 2px #427388;  
+}
+
+.backgroundtitle {
+    font-size: 20px;
+    font-weight: bold;
+    width: 150px;
+    margin: auto;
+    cursor: pointer;
+}
+
+.backgroundcontent {
+    margin: 20px;
+}
+
+.backgroundcontent img{
+    margin: 0px 5px;
+    max-width: 100px;
+    max-height: 100px;
+    border: 1px solid rgb(219, 219, 219);
+    cursor: pointer;
+}
+
+/* box 속 내용들 */
+.box_image {
+    width: 300px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.box_text {
+    width: 300px;
+    height: 100px;
+    text-align: center;
+    white-space: pre-wrap;
+}
+
+
+.presentdetailhead span {
+    background-image: linear-gradient(to right, rgb(255, 221, 188), rgb(243, 173, 255));
+    background-size: 100% 60%;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    font-weight: bold;
+    color: black;
+}
+
+.errormessage {
+    text-align: center;
+    font-weight: bold;
+    margin-top:100px;
+}
+
+.backgroundtitle {
+    font-size: 20px;
+    font-weight: bold;
+    width: 250px;
+    margin: 15px auto;
+    cursor: pointer;
+}
+
+.textline {
+    margin-bottom: 20px;
+}

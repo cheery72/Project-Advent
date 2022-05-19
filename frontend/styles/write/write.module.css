@@ -1,0 +1,134 @@
+.box {
+    background-color: #71fff17c;
+    border-radius: 5%;
+    box-shadow:rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    background-size: cover;
+}
+
+.boxdaythree2 {
+    /* background-color: blanchedalmond; */
+    background-color: #aafaf37c;
+    border-radius: 5%;
+    box-shadow:rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    background-size: cover;
+}
+
+.boxdaythree1 {
+    background-color: #74ffe17c;
+    border-radius: 5%;
+    box-shadow:rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    background-size: cover;
+}
+
+.boxdaythree0 {
+    background-color: rgba(0, 241, 221, 0.486);
+    border-radius: 5%;
+    box-shadow:rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    background-size: cover;
+}
+
+.boxdayseven6 {
+    background-color: #a4ddd97c;
+    border-radius: 5%;
+    box-shadow:rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    background-size: cover;
+}
+
+.boxdayseven5 {
+    background-color: #93efe67c;
+    border-radius: 5%;
+    box-shadow:rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    background-size: cover;
+}
+
+.boxdayseven4 {
+    background-color: #6feee47c;
+    border-radius: 5%;
+    box-shadow:rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    background-size: cover;
+}
+
+.boxdayseven3 {
+    background-color: #60e0d67c;
+    border-radius: 5%;
+    box-shadow:rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    background-size: cover;
+}
+
+.boxdayseven2 {
+    background-color: rgba(94, 244, 219, 0.486);
+    border-radius: 5%;
+    box-shadow:rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    background-size: cover;
+}
+
+.boxdayseven1 {
+    background-color: rgba(43, 255, 227, 0.486);
+    border-radius: 5%;
+    box-shadow:rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    background-size: cover;
+}
+
+.boxdayseven0 {
+    background-color: rgba(0, 255, 234, 0.486);
+    border-radius: 5%;
+    box-shadow:rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    background-size: cover;
+}
+
+.oneopen {
+    width: 70%;
+    height: 50px;
+}
+
+.onewrap {
+    width: 100%;
+    height: 50px;
+}
+
+.threeopen {
+    width: 70%;
+    height: 50px;
+}
+
+.threewrap {
+    width: 100%;
+    height: 50px;
+}
+
+.sevenopen {
+    padding: 100px;
+    width: 70%;
+    height: 50px;
+}
+
+.sevenwrap {
+    width: 100%;
+    height: 50px;
+}
+
+
+/* ribbon style */
+
+.ribbon {
+    --f: 10px; /* control the folded part*/
+    --r: 15px; /* control the ribbon shape */
+    --t: 10px; /* the top offset */
+    
+    position: absolute;
+    inset: var(--t) calc(-1*var(--f)) auto auto;
+    padding: 3% 10% var(--f) calc(10px + var(--r));
+    clip-path: 
+      polygon(0 0,100% 0,100% calc(100% - var(--f)),calc(100% - var(--f)) 100%,
+        calc(100% - var(--f)) calc(100% - var(--f)),0 calc(100% - var(--f)),
+        var(--r) calc(50% - var(--f)/2));
+    background: #ffb2bf;
+    box-shadow: 0 calc(-1*var(--f)) 0 inset #0005;
+    text-shadow: 2px 3px 2px rgb(128, 123, 123);
+    color: rgb(244, 244, 244);
+    line-height: 1.5em;
+    font-family: sans-serif;
+    font-size: 25px;
+    font-weight: 600;
+}
+  

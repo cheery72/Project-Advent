@@ -1,0 +1,22 @@
+.titleWrapper{
+    text-align: center;
+    padding: 50px 0;
+}
+
+h1.title span:first-child {
+    display: inline;
+    background-image: 
+      linear-gradient(to right, rgb(255, 194, 40), rgb(252, 229, 211));
+    background-size: 100% 30%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+h1.title span:nth-child(2) {
+    display: inline;
+    background-image: 
+      linear-gradient(to right, rgb(255, 200, 230), rgb(142, 234, 255));
+    background-size: 100% 30%;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}

@@ -30,14 +30,11 @@ public class LoggingFilter extends AbstractGatewayFilterFactory<LoggingFilter.Co
                 log.info("Logging PRE filter: request id -> {}", request.getId());
             }
 
-            // chain에다가 postfilter: exchange 추가
-            // 비동기방식으로 단일값 추가히기 위해서 Mono: 웹 플럭스 타입으로 추가
             return chain.filter(exchange).then(Mono.fromRunnable(() -> {
                 if (config.isPostLogger()) {
                     log.info("Logging POST filter: response code -> {}", response.getStatusCode());
                 }
             }));
-            // 우선순위 젤 높게 잡음
         }, Ordered.HIGHEST_PRECEDENCE);
         return filter;
     }

@@ -1,0 +1,16 @@
+cloud:
+  aws:
+    s3:
+      bucket: makeourspecial
+      url: https://makeourspecial.s3.ap-northeast-2.amazonaws.com
+
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 150MB
+      max-request-size: 150MB

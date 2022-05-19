@@ -1,0 +1,20 @@
+.customShapeDividerBottom1650727664 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.customShapeDividerBottom1650727664 svg {
+    position: relative;
+    display: block;
+    width: calc(145% + 1.3px);
+    height: 120px;
+}
+
+.customShapeDividerBottom1650727664 .shapeFill {
+    fill: rgb(255, 242, 233); /* 하단 배경색은 footer 상단 색상과 일치하게 */
+}
