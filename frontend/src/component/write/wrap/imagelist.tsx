@@ -19,7 +19,7 @@ export default function ImageList({ setBackgroundImage, setFileImage }: any){
                 setImageListInfo(data)
             })
             .catch((e) => {
-                console.log(e)
+                // console.log(e)
             })
     }
 

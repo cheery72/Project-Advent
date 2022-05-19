@@ -19,7 +19,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                 getAdventsStorage()
             })
             .catch((e) => {
-                console.log(e)
+                // console.log(e)
             })
     }
     
@@ -150,7 +150,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                 Kakao.init(process.env.NEXT_PUBLIC_API_KAKAO_LINK)
             };
         } catch(e) {
-            console.log(e)
+            // console.log(e)
         };
         Kakao.Link.sendCustom({
             templateId: 75804,

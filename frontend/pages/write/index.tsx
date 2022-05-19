@@ -30,7 +30,7 @@ export default function Write(){
             })
             .catch((e) => {
                 LogOut(router)
-                console.log(e)
+                // console.log(e)
             });
         };
 
@@ -48,9 +48,9 @@ export default function Write(){
                 
             })
             .catch((e) => {
-                console.log(e)
+                // console.log(e)
                 if (e.response.data.message === "오늘 게시글 작성 수가 초과되었습니다."){
-                    notify("error", "게시글 작성 수가 초과되었습니다. (일 10개 제한)")
+                    notify("error", "게시글 작성 수가 초과되었습니다. (일 30개 제한)")
                 }
             })
     }

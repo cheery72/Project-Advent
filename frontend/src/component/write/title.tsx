@@ -46,7 +46,7 @@ export default function Title({ id, day }: any){
                 setUserInfo(data.body.user)
             })
             .catch((e) => {
-                console.log(e)
+                // console.log(e)
             });
         };
 
@@ -63,7 +63,7 @@ export default function Title({ id, day }: any){
                 setTempTitle('')
             })
             .catch((e) => {
-                console.log(e)
+                // console.log(e)
             })
     }
 
@@ -74,7 +74,7 @@ export default function Title({ id, day }: any){
                 setTitle(data.title)
             })
             .catch((e) => {
-                console.log(e)
+                // console.log(e)
             })
     }
 

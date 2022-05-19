@@ -97,7 +97,7 @@ export default function Detail(){
             })
             .catch((e) => {
                 LogOut(router)
-                console.log(e)
+                // console.log(e)
             });
         };
 
@@ -147,7 +147,7 @@ export default function Detail(){
         })
         .catch((e) => {
             setIsSpinner(false)
-            console.log(e)
+            // console.log(e)
         })
     }
 
@@ -160,7 +160,7 @@ export default function Detail(){
                 setDayInfo(data.day)
             })
             .catch((e) => {
-                console.log(e)
+                // console.log(e)
             })
     }
 
