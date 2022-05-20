@@ -18,7 +18,6 @@ public abstract class BaseTimeEntity {
     @Column(updatable = false)
     private LocalDateTime createAt;
 
-    @LastModifiedDate
     private LocalDateTime modifiedAt;
 
     public void setModify(){

@@ -45,6 +45,7 @@ public class AdventServiceImpl implements AdventService {
                 LocalDate.now().atTime(23, 59,59));
 
         if (30 >= todayCount) {
+            advent.setModify();
             return AdventDayResponse.builder()
                     .adventId(adventRepository.save(advent).getId())
                     .build();
@@ -74,8 +75,10 @@ public class AdventServiceImpl implements AdventService {
 
             List<AdventBox> adventBoxList = adventBoxRepository.findAllByAdventId(advent.getId());
 
-            adventBoxList.forEach(
-                    adventbox -> adventbox.setAdventBoxActiveAtModify(endAt, advent.getDay(), adventbox));
+            for (AdventBox adventbox : adventBoxList) {
+                adventbox.setAdventBoxActiveAtModify(endAt, advent.getDay(), adventbox);
+                adventbox.setModify();
+            }
 
             advent.setModify();
         } else {
@@ -284,8 +287,8 @@ public class AdventServiceImpl implements AdventService {
         Advent advent = adventRepository.findById(adventId)
                 .orElseThrow(() -> new NoSuchAdventException("요청한 게시글을 찾을 수 없습니다."));
 
-        advent.setModify();
         advent.setAdventTitleModify(adventRecipientModify.getTitle());
+        advent.setModify();
     }
 
     private void userValidation(Integer userId, Integer isUserId){
