@@ -2,7 +2,7 @@
 FROM adoptopenjdk/openjdk11
 
 # Dockerfile 빌드로 생성된 이미지에서 열어줄 포트
-EXPOSE 8082
+EXPOSE 8084
 
 # 가상의 디렉토리
 # tmp 밑에 컨테이너가 필요한 여러가지 데이터를 저장
