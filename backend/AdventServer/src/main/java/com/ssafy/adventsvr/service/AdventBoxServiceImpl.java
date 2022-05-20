@@ -50,9 +50,11 @@ public class AdventBoxServiceImpl implements AdventBoxService {
                     .orElseThrow(() -> new NoSuchAdventException("요청한 게시글 박스를 찾을 수 없습니다."));
 
             adventBox.setAdventBoxContentModify(imageUrl, adventBoxRequest.getAnimation());
+            adventBox.setModify();
         } else {
             adventBox = AdventBox.adventBoxBuilder(adventBoxRequest, advent, imageUrl, adventBoxRequest.getAnimation());
             adventBoxRepository.save(adventBox);
+            adventBox.setModify();
         }
 
         advent.setModify();
@@ -71,6 +73,7 @@ public class AdventBoxServiceImpl implements AdventBoxService {
 
         String imageUrl = inputAwsS3File(file);
         adventBox.setAdventBoxContentModify(imageUrl,adventBoxModifyRequest.getAnimation());
+        adventBox.setModify();
     }
 
     @Transactional
@@ -96,9 +99,11 @@ public class AdventBoxServiceImpl implements AdventBoxService {
         if (optionalAdventBox.isPresent()) {
             adventBox = optionalAdventBox.get();
             adventBox.setAdventBoxWrapperModify(imageUrl);
+            adventBox.setModify();
         } else {
             adventBox = AdventBox.adventBoxWrapperBuilder(adventBoxWrapperRequest, advent, imageUrl);
             adventBoxRepository.save(adventBox);
+            adventBox.setModify();
         }
 
         advent.setModify();
@@ -125,6 +130,7 @@ public class AdventBoxServiceImpl implements AdventBoxService {
 
         advent.setModify();
         adventBox.setAdventBoxWrapperModify(imageUrl);
+        adventBox.setModify();
     }
 
     @Override
