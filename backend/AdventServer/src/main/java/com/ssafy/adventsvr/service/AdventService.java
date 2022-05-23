@@ -34,4 +34,5 @@ public interface AdventService {
 
     void modifyTitleAdvent(String adventId,AdventRecipientModify adventRecipientModify);
 
+    AdventCreationResponse findCreationAdvent(String adventId);
 }
