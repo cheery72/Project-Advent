@@ -6,8 +6,7 @@ import notify from "../notify/notify";
 import Swal from 'sweetalert2'
 
 const { Row, Column } = Grid
-
-const BASE_URL = 'https://makeourspecial.day'
+const BASE_URL = 'http://localhost:3000'
 
 export default function SendboxListItem({ item, userId, username, getAdventsStorage }:any){
     const router = useRouter()

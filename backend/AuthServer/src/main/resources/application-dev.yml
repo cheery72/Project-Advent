@@ -18,18 +18,18 @@ spring:
     show-sql: true
   profiles:
     include:
-      - oauth-prod
+      - oauth-dev
   jackson:
     property-naming-strategy: SNAKE_CASE
 
-eureka:
-  #  instance:
-  #    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://k6c206.p.ssafy.io:8761/eureka
+#eureka:
+#  #  instance:
+#  #    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+#  client:
+#    register-with-eureka: true
+#    fetch-registry: true
+#    service-url:
+#      defaultZone: http://k6c206.p.ssafy.io:8761/eureka
 
 logging:
   level.org.springframework: info
