@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Button, Grid } from "semantic-ui-react";
+import Swal from "sweetalert2";
 import styles from "../../../styles/write/write.module.css"
 import allAxios from "../../lib/allAxios";
 import Title from "./title";
@@ -31,8 +32,36 @@ export default function DayThree({ userInfo }: any){
                     } else if (box.advent_day === 3){
                         setBox3(box)
                     }
-                    
                 })
+            })
+            .catch((e) => {
+                // console.log(e)
+            })
+    }
+
+    const boxValidationCheck = (data:any) => {
+        const emptybox = [...data.un_create_box_list, ...data.un_content_box_list]
+        emptybox.sort() // 정렬
+
+        Swal.fire({
+            title: `❝ ${data.un_create_box + data.un_content_box} ❞개의 선물 내용이 비어있어 \n 기념일을 설정할 수 없습니다.`,
+            text: `❝ ${emptybox} ❞일차 선물에 추가 작성이 필요합니다.`,
+            icon: 'warning',
+            showCancelButton: false,
+            confirmButtonColor: '#07bcb3',
+            confirmButtonText: '확인',
+        })
+    }
+
+    const getBoxValidationInfo = async () => {
+        await allAxios
+            .get(`/advents/${adventId}/creation`)
+            .then(({ data }) => {
+                if (data.un_create_box + data.un_content_box) {
+                    boxValidationCheck(data)
+                } else {
+                    writeAniversary()
+                }
             })
             .catch((e) => {
                 // console.log(e)
@@ -52,7 +81,7 @@ export default function DayThree({ userInfo }: any){
                 <Row>
                     <Column width={10} />
                     <Column width={6}>
-                        <Button color="blue" inverted size="large" onClick={writeAniversary} style={{width:"140px"}}>기념일 설정</Button>
+                        <Button color="blue" inverted size="large" onClick={getBoxValidationInfo} style={{width:"140px"}}>기념일 설정</Button>
                     </Column>
                 </Row>
                 
