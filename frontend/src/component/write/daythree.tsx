@@ -45,7 +45,7 @@ export default function DayThree({ userInfo }: any){
 
         Swal.fire({
             title: `❝ ${data.un_create_box + data.un_content_box} ❞개의 선물 내용이 비어있어 \n 기념일을 설정할 수 없습니다.`,
-            text: `❝ ${emptybox} ❞일차 선물에 추가 작성이 필요합니다.`,
+            text: `❝ ${emptybox} ❞번째 선물에 추가 작성이 필요합니다.`,
             icon: 'warning',
             showCancelButton: false,
             confirmButtonColor: '#07bcb3',

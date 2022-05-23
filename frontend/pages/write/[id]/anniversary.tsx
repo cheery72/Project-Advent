@@ -65,7 +65,7 @@ export default function Anniversary(){
 
         Swal.fire({
             title: `❝ ${data.un_create_box + data.un_content_box} ❞개의 선물 내용이 비어있어 \n 기념일을 설정할 수 없습니다.`,
-            text: `❝ ${emptybox} ❞일차 선물에 추가 작성이 필요합니다. \n 선물 수정페이지로 이동하시겠습니까?`,
+            text: `❝ ${emptybox} ❞번째 선물에 추가 작성이 필요합니다. \n 선물 수정페이지로 이동하시겠습니까?`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#07bcb3',
