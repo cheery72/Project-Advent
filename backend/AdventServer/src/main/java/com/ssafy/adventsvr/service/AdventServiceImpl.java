@@ -288,6 +288,40 @@ public class AdventServiceImpl implements AdventService {
         advent.setAdventTitleModify(adventRecipientModify.getTitle());
     }
 
+    @Override
+    public AdventCreationResponse findCreationAdvent(String adventId) {
+        Advent advent = adventRepository.findById(adventId)
+                .orElseThrow(() -> new NoSuchAdventException("요청한 게시글을 찾을 수 없습니다."));
+
+        List<AdventBox> adventBoxs = adventBoxRepository.findAllByAdventIdOrderByAdventDayAsc(advent.getId());
+
+        Integer unCreateBox = 0, unContentBox = 0;
+        List<Integer> unCreateBoxList = new ArrayList<>();
+        List<Integer> unContentBoxList = new ArrayList<>();
+        boolean[] isCreate = new boolean[advent.getDay() + 1];
+
+        if (adventBoxs.size() != advent.getDay()) {
+            adventBoxs.forEach(adventBox -> isCreate[adventBox.getAdventDay()] = true);
+
+            for (int i = 1; i < isCreate.length; i++) {
+                if (!isCreate[i]) {
+                    unCreateBoxList.add(i);
+                    unCreateBox++;
+                }
+            }
+        }
+
+        for (AdventBox adventBox : adventBoxs) {
+            if (adventBox.getContent() == null) {
+                unContentBoxList.add(adventBox.getAdventDay());
+                unContentBox++;
+            }
+        }
+
+        return AdventCreationResponse
+                .creationBuilder(unCreateBox, unCreateBoxList, unContentBox, unContentBoxList);
+    }
+
     private void userValidation(Integer userId, Integer isUserId){
         if(!userId.equals(isUserId)) {
             throw new NotAuthenticationException("해당 게시글을 작성한 유저가 아닙니다.");
