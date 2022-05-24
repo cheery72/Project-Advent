@@ -64,7 +64,7 @@ export default function Present(){
     return(
         <>
             <Head>
-                <title>보낸 선물 확인하기 | Make Our Special</title>
+                <title>선물 미리보기 | Make Our Special</title>
             </Head>
             {
                 adventDay === 1?
