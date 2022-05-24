@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { SetStateAction, useEffect, useState } from "react";
 import { Button, Grid, Header, Icon, Popup } from "semantic-ui-react";
+import Swal from "sweetalert2";
 import notify from "../../../src/component/notify/notify";
 import allAxios from "../../../src/lib/allAxios";
 import IsLogin from "../../../src/lib/IsLogin";
@@ -51,6 +52,46 @@ export default function Anniversary(){
             return
         } 
         setAnniversary(e.target.value)
+    }
+
+    const goModify = () => {
+        notify('success', '선물 수정페이지로 이동되었습니다.')
+        router.push(`/write/${adventId}`)
+    }
+
+    const boxValidationCheck = (data:any) => {
+        const emptybox = [...data.un_create_box_list, ...data.un_content_box_list]
+        emptybox.sort() // 정렬
+
+        Swal.fire({
+            title: `❝ ${data.un_create_box + data.un_content_box} ❞개의 선물 내용이 비어있어 \n 기념일을 설정할 수 없습니다.`,
+            text: `❝ ${emptybox} ❞번째 선물에 추가 작성이 필요합니다. \n 선물 수정페이지로 이동하시겠습니까?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#07bcb3',
+            cancelButtonColor: '#F26202',
+            confirmButtonText: '선물 수정하기',
+            cancelButtonText: '취소'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    goModify()
+                }
+            })
+    }
+
+    const getBoxValidationInfo = async () => {
+        await allAxios
+            .get(`/advents/${adventId}/creation`)
+            .then(({ data }) => {
+                if (data.un_create_box + data.un_content_box) {
+                    boxValidationCheck(data)
+                } else {
+                    goProfile()
+                }
+            })
+            .catch((e) => {
+                // console.log(e)
+            })
     }
 
     const isHints = () => {
@@ -329,7 +370,7 @@ export default function Anniversary(){
                         <Button 
                             animated 
                             color="blue" 
-                            onClick={goProfile} 
+                            onClick={getBoxValidationInfo} 
                             size="large"
                         >
                             <Button.Content visible>작성 완료</Button.Content>

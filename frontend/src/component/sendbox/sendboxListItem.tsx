@@ -126,7 +126,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
     const boxValidationCheck = () => {
         Swal.fire({
             title: `❝ ${item.un_create_box+item.un_content_box} ❞개의 선물 내용이 비어있어 \n 전달할 수 없습니다.`,
-            text: `❝ ${emptybox} ❞일차 선물에 추가 작성이 필요합니다. \n 선물 수정페이지로 이동하시겠습니까?`,
+            text: `❝ ${emptybox} ❞번째 선물에 추가 작성이 필요합니다. \n 선물 수정페이지로 이동하시겠습니까?`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#07bcb3',
@@ -135,9 +135,24 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
             cancelButtonText: '전달 취소'
             }).then((result) => {
                 if (result.isConfirmed) {
-                goModify()
-                } else if (result.isDenied) {
-                choiceKakaoOrCopy()
+                    goModify()
+                }
+            })
+    }
+
+    const boxValidationCheckBeforeDay = () => {
+        Swal.fire({
+            title: `❝ ${item.un_create_box+item.un_content_box} ❞개의 선물 내용이 비어있어 \n 기념일을 설정할 수 없습니다.`,
+            text: `❝ ${emptybox} ❞번째 선물에 추가 작성이 필요합니다. \n 선물 수정페이지로 이동하시겠습니까?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#07bcb3',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: '선물 수정하기',
+            cancelButtonText: '취소'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    goModify()
                 }
             })
     }
@@ -283,7 +298,7 @@ export default function SendboxListItem({ item, userId, username, getAdventsStor
                             &nbsp;&nbsp; { item.end_at.substring(0, 4) }년 { Number(item.end_at.substring(5, 7)) }월 { Number(item.end_at.substring(8, 10)) }일
                         </span>
                         :
-                        <span className={styles.writeDDay} onClick={() => goAniversary()}>
+                        <span className={styles.writeDDay} onClick={() => (item.un_create_box + item.un_content_box) ? boxValidationCheckBeforeDay() : goAniversary()}>
                             &nbsp;&nbsp;기념일 설정하기
                             <Icon name="arrow alternate circle right outline" color="blue" />
                         </span>

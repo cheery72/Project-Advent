@@ -39,10 +39,6 @@ export default function Title({ title, dday, adventId }:any){
                             : 
                             <>
                                 <span> 기념일 미설정</span>
-                                <div onClick={() => goAniversary()} className={styles.writeDDay}>
-                                    &nbsp;&nbsp;기념일 설정하기
-                                    <Icon name="arrow alternate circle right outline" color="blue" />
-                                </div>
                             </>
                         }
                     </span>
