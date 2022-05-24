@@ -156,4 +156,14 @@ public class AdventController {
         return ResponseEntity
                 .ok(adventService.findTitleAdventBox(url));
     }
+
+    @ApiOperation(value = "adventId로 기간 설정 체크", notes = "기념일 설정 체크")
+    @GetMapping("/{adventId}/creation")
+    public ResponseEntity<AdventCreationResponse> adventCreationFind(@PathVariable("adventId") String adventId){
+        log.debug("adventCreationFind");
+
+        return ResponseEntity
+                .ok(adventService.findCreationAdvent(adventId));
+    }
+
 }
