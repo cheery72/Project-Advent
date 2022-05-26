@@ -9,7 +9,7 @@
 
 
 
-- ##### 프로젝트명 :  Make our special:어드벤트 스페셜데이
+- ##### 프로젝트명 :  Make our special: 어드벤트 스페셜데이
 
 - ##### 진행 기간: 2022.04.11 ~ 2022.05.20
 
@@ -76,7 +76,7 @@
     
   - ##### 사용설명서
     
-    - ##### [Make Our Special:어드벤트 스페셜 데이 사용설명서
+    - ##### https://slime-capricorn-03e.notion.site/Make-our-special-7f0f4caec7f3447aaee2aaac52e88811
     
       
   
