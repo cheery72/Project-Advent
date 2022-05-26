@@ -101,7 +101,7 @@
 
 ### Frontend
 
-<img alt="HTML5" src="https://img.shields.io/badge/html5%20-%23E34F26.svg?&style=for-the-badge&logo=html5&logoColor=white"/><img alt="CSS3" src="md-images/css3%20-%25231572B6-16535238240812.svg"/><img alt="JavaScript" src="md-images/JavaScript%20-F7DF1E-16535238822015.svg"/><img alt="TypeScript" src="https://img.shields.io/badge/TypeScript%20-#3178C6.svg?&style=for-the-badge&logo=TypeScript&logoColor=white"/><br />
+<img alt="HTML5" src="https://img.shields.io/badge/html5%20-%23E34F26.svg?&style=for-the-badge&logo=html5&logoColor=white"/><img alt="CSS3" src="md-images/css3%20-%25231572B6-16535238240812.svg"/><img alt="JavaScript" src="md-images/JavaScript%20-F7DF1E-16535238822015.svg"/><img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178C6.svg?&style=for-the-badge&logo=TypeScript&logoColor=white"/><br />
 
 <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"><img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=Next.js&logoColor=white">
 
