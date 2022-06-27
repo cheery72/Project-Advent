@@ -4,11 +4,11 @@ spring:
       client:
         registration:
           kakao:
-            clientId: a17d69d97f5fed847460e793e23ea66d
-            clientSecret: l10gR10KtO0ysDarPqMGDait5JC8SLgT
+            clientId:
+            clientSecret:
             clientAuthenticationMethod: post
             authorizationGrantType: authorization_code
-            redirectUri: http://k6c206.p.ssafy.io:8081/login/oauth2/code/kakao
+            redirectUri:
             scope:
               - profile_nickname
             clientName: Kakao

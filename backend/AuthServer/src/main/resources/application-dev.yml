@@ -7,9 +7,9 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
   datasource:
-    url: jdbc:mysql://k6c206.p.ssafy.io:3306/advent?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
-    username: advent
-    password: make123@@
+    url:
+    username:
+    password:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
@@ -29,7 +29,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://k6c206.p.ssafy.io:8761/eureka
+      defaultZone:
 
 logging:
   level.org.springframework: info
